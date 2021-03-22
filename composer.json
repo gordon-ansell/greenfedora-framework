@@ -1,0 +1,16 @@
+{
+    "name": "gordon-ansell/greenfedora-framework",
+    "description": "GreenFedora PHP Framework",
+    "type": "metapackage",
+    "keywords": [
+        "framework",
+        "php",
+        "greenfedora"
+    ],
+    "homepage": "http://gordonansell.com/greenfedora/framework",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": "^7.0",
+        "gordon-ansell/greenfedora-mvc": "*"
+    }
+}

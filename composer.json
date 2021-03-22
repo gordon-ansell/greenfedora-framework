@@ -12,7 +12,8 @@
     "require": {
         "php": "^7.0",
         "gordon-ansell/greenfedora-http": "*",
-        "gordon-ansell/greenfedora-mvc": "*"
+        "gordon-ansell/greenfedora-mvc": "*",
+        "gordon-ansell/greenfedora-stdlib": "*"
     },
     "minimum-stability": "dev",
 	"repositories": [
@@ -23,6 +24,10 @@
 		{
 			"type": "vcs",
 			"url": "git@github.com:gordon-ansell/greenfedora-mvc.git"
+		},
+		{
+			"type": "vcs",
+			"url": "git@github.com:gordon-ansell/greenfedora-stdlib.git"
 		}
 	]
 }

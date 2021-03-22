@@ -11,10 +11,15 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": "^7.0",
+        "gordon-ansell/greenfedora-http": "*",
         "gordon-ansell/greenfedora-mvc": "*"
     },
     "minimum-stability": "dev",
 	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:gordon-ansell/greenfedora-http.git"
+		},
 		{
 			"type": "vcs",
 			"url": "git@github.com:gordon-ansell/greenfedora-mvc.git"

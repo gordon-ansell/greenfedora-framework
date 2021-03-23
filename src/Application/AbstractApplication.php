@@ -47,7 +47,8 @@ use GreenFedora\Inflector\InflectorAwareTrait;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwareInterface, LocaleAwareInterface, LangAwareInterface, InflectorAwareInterface
+abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwareInterface, 
+	LocaleAwareInterface, LangAwareInterface, InflectorAwareInterface
 {
 	use ContainerAwareTrait;
 	use LoggerAwareTrait;

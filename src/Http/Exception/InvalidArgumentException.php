@@ -10,14 +10,17 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Application\Output;
+namespace GreenFedora\Http\Exception;
+
+use GreenFedora\Http\Exception\ExceptionInterface;
+
 
 /**
- * Interface for application output.
+ * Invalid argument passed to Application.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ApplicationOutputInterface
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
 }

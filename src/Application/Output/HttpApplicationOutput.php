@@ -12,12 +12,16 @@
 declare(strict_types=1);
 namespace GreenFedora\Application\Output;
 
+use GreenFedora\Http\Response;
+
+use GreenFedora\Application\Output\ApplicationOutputInterface;
+
 /**
- * Interface for application output.
+ * Http output.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ApplicationOutputInterface
+class HttpApplicationOutput extends Response implements ApplicationOutputInterface
 {
 }

@@ -20,10 +20,4 @@ namespace GreenFedora\Application\Input;
 
 interface ApplicationInputInterface
 {
-	/**
-	 * Get the input.
-	 *
-	 * @return 	mixed
-	 */
-	public function getInput();
 }

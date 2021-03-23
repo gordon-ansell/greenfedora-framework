@@ -10,14 +10,15 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Application\Output;
+namespace GreenFedora\Http\Exception;
+
 
 /**
- * Interface for application output.
+ * Interface for exceptions on this component.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ApplicationOutputInterface
+interface ExceptionInterface extends \Throwable
 {
 }

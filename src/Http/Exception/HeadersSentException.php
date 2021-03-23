@@ -10,14 +10,17 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Application\Output;
+namespace GreenFedora\Http\Exception;
+
+use GreenFedora\Http\Exception\ExceptionInterface;
+
 
 /**
- * Interface for application output.
+ * Headers already sent in response.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ApplicationOutputInterface
+class InvalidArgumentException extends \LogicException implements ExceptionInterface
 {
 }

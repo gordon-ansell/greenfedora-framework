@@ -10,14 +10,17 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Application\Output;
+namespace GreenFedora\Application\Input;
+
+use GreenFedora\Http\Request;
+use GreenFedora\Application\Input\ApplicationInputInterface;
 
 /**
- * Interface for application output.
+ * HTTP input.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ApplicationOutputInterface
+class HttpApplicationInput extends Request implements ApplicationInputInterface
 {
 }

@@ -1,0 +1,204 @@
+<?php
+
+/**
+ * This file is part of the GordyAnsell GreenFedora PHP framework.
+ *
+ * (c) Gordon Ansell <contact@gordonansell.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+namespace GreenFedora\Http;
+
+use GreenFedora\Arr\ArrInterface;
+use GreenFedora\Uri\UriInterface;
+
+use GreenFedora\Http\Exception\InvalidArgumentException;
+
+/**
+ * HTTP request interface.
+ *
+ * @author Gordon Ansell <contact@gordonansell.com>
+ */
+
+interface RequestInterface
+{
+	
+	/**
+	 * Get the command line arguments.
+	 *
+	 * @return	ArrInterface
+	 */
+	public function getCommandLineArgs(): ArrInterface;
+
+	/**
+	 * Get the command line switches.
+	 *
+	 * @return	ArrInterface
+	 */
+	public function getCommandLineSwitches(): ArrInterface;
+
+    /**
+     * Get the request URI.
+     *
+     * @return  UriInterface
+     */
+    public function getRequestUri() : UriInterface;
+
+    /**
+     * Get the route info.
+     *
+     * @return  string
+     */
+    public function getRoute() : string;
+
+    /**
+     * Get the base URI.
+     *
+     * @return  string
+     */
+    public function getBaseUri() : string;
+
+    /**
+     * Get the request method.
+     *
+     * @return  string
+     */
+    public function getMethod() : string;
+
+    /**
+     * See if this is a POST request.
+     *
+     * @return  bool
+     */
+    public function isPost() : bool;
+
+    /**
+     * Get a variable (or whole set).
+     *
+     * @param   string          $type       Set to get.
+     * @param   string|null     $key        Key to get or null for all.
+     * @param   mixed           $default    Default to return uf not found.
+     * @return  mixed
+     * @throws  InvalidArgumentException
+     */
+    public function getVar(string $type, ?string $key = null, $default = null);
+
+    /**
+     * See if we have a variable (or whole set).
+     *
+     * @param   string          $type       Set to get.
+     * @param   string          $key        Key to get.
+     * @return  bool
+     * @throws  InvalidArgumentException
+     */
+    public function hasVar(string $type, string $key) : bool;
+
+    /**
+     * Set the request as dispatched.
+     *
+     * @param   bool            $flag       Flag to set.
+     * @return  self
+     */
+    public function setDispatched(bool $flag = true) : self;
+
+    /**
+     * Have we been dispatched?
+     *
+     * @return  bool
+     */
+    public function isDispatched() : bool;
+
+    /**
+     * Get get variable(s).
+     *
+     * @param   string          $key        Key to get.
+     * @param   mixed           $default    Default if not found.
+     * @return  mixed
+     */
+    public function get(?string $key = null, $default = null);
+
+    /**
+     * Get post variable(s).
+     *
+     * @param   string          $key        Key to get.
+     * @param   mixed           $default    Default if not found.
+     * @return  mixed
+     */
+    public function post(?string $key = null, $default = null);
+
+    /**
+     * See if we have a post variable.
+     *
+     * @param   string          $key        Key to get.
+     * @return  bool
+     */
+    public function hasPost(string $key) : bool;
+
+    /**
+     * Get request variable(s).
+     *
+     * @param   string          $key        Key to get.
+     * @param   mixed           $default    Default if not found.
+     * @return  mixed
+     */
+    public function request(?string $key = null, $default = null);
+
+    /**
+     * Get env variable(s).
+     *
+     * @param   string          $key        Key to get.
+     * @param   mixed           $default    Default if not found.
+     * @return  mixed
+     */
+    public function env(?string $key = null, $default = null);
+
+    /**
+     * Get server variable(s).
+     *
+     * @param   string          $key        Key to get.
+     * @param   mixed           $default    Default if not found.
+     * @return  mixed
+     */
+    public function server(?string $key = null, $default = null);
+
+    /**
+     * Get cookie variable(s).
+     *
+     * @param   string          $key        Key to get.
+     * @param   mixed           $default    Default if not found.
+     * @return  mixed
+     */
+    public function cookie(?string $key = null, $default = null);
+
+    /**
+     * Get session variable(s).
+     *
+     * @param   string          $key        Key to get.
+     * @param   mixed           $default    Default if not found.
+     * @return  mixed
+     */
+    public function session(?string $key = null, $default = null);
+
+    /**
+     * Get files variable(s).
+     *
+     * @param   string          $key        Key to get.
+     * @param   mixed           $default    Default if not found.
+     * @return  mixed
+     */
+    public function files(?string $key = null, $default = null);
+
+    /**
+     * Get header variable(s).
+     *
+     * @param   string          $key        Key to get.
+     * @param   mixed           $default    Default if not found.
+     * @return  mixed
+     */
+    public function header(?string $key = null, $default = null);
+
+}
+

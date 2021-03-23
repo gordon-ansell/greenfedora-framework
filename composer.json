@@ -1,7 +1,6 @@
 {
     "name": "gordon-ansell/greenfedora-framework",
     "description": "GreenFedora PHP Framework",
-    "type": "metapackage",
     "keywords": [
         "framework",
         "php",
@@ -11,23 +10,17 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": "^7.0",
-        "gordon-ansell/greenfedora-http": "*",
-        "gordon-ansell/greenfedora-mvc": "*",
-        "gordon-ansell/greenfedora-stdlib": "*"
+        "psr/container": "^1.0",
+        "psr/link": "^1.0",
+        "psr/log": "~1.0"
     },
     "minimum-stability": "dev",
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "git@github.com:gordon-ansell/greenfedora-http.git"
+	"autoload": {
+		"psr-4": {
+			"GreenFedora\\": "src/GreenFedora" 
 		},
-		{
-			"type": "vcs",
-			"url": "git@github.com:gordon-ansell/greenfedora-mvc.git"
-		},
-		{
-			"type": "vcs",
-			"url": "git@github.com:gordon-ansell/greenfedora-stdlib.git"
-		}
-	]
+        "exclude-from-classmap": [
+            "**/Test/"
+        ]
+	}
 }

@@ -30,25 +30,25 @@ class ConsoleLogWriter extends AbstractLogWriter implements LogWriterInterface
 	 * @var array
 	 */	
 	const LOGLEVELCOLS = array(
-		LogLevel::EMERGENCY	=>	"\033[1;31m",
-		LogLevel::ALERT		=>	"\033[1;31m",
-		LogLevel::CRITICAL	=>	"\033[1;31m",
-		LogLevel::ERROR 	=>	"\033[0;31m",
-		LogLevel::WARNING	=>	"\033[0;35m",
+		LogLevel::EMERGENCY	=>	"\033[1;31m]",
+		LogLevel::ALERT		=>	"\033[1;31m]",
+		LogLevel::CRITICAL	=>	"\033[1;31m]",
+		LogLevel::ERROR 	=>	"\033[0;31m]",
+		LogLevel::WARNING	=>	"\033[0;35m]",
 		LogLevel::NOTICE	=>	"",
-		LogLevel::INFO		=>	"\033[0;32m",
-		LogLevel::DEBUG 	=>	"\033[0;33m",			
-		LogLevel::TRACE 	=>	"\033[0;36m",			
-		LogLevel::TRACE2 	=>	"\033[0;36m",			
-		LogLevel::TRACE3 	=>	"\033[0;37m",			
-		LogLevel::TRACE4 	=>	"\033[0;37m",			
+		LogLevel::INFO		=>	"\033[0;32m]",
+		LogLevel::DEBUG 	=>	"\033[0;33m]",			
+		LogLevel::TRACE 	=>	"\033[0;36m]",			
+		LogLevel::TRACE2 	=>	"\033[0;36m]",			
+		LogLevel::TRACE3 	=>	"\033[0;37m]",			
+		LogLevel::TRACE4 	=>	"\033[0;37m]",			
 	);
 
 	/**
 	 * Set console colour back to normal.
 	 * @var string
 	 */	
-    const ENDCOL = "\033[0m";
+    const ENDCOL = "\033[0m]";
 
 	/**
 	 * Write a log message.

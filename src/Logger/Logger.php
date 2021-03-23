@@ -72,7 +72,8 @@ class Logger implements LoggerInterface
 	 */
 	protected $allowedLevels = array(
 		LogLevel::EMERGENCY, LogLevel::ALERT, LogLevel::CRITICAL, LogLevel::ERROR, LogLevel::WARNING,
-		LogLevel::NOTICE, LogLevel::INFO, LogLevel::DEBUG, LogLevel::TRACE, LogLevel::TRACE2, LogLevel::TRACE3, LogLevel::TRACE4	
+		LogLevel::NOTICE, LogLevel::INFO, LogLevel::DEBUG, LogLevel::TRACE, LogLevel::TRACE2, 
+        LogLevel::TRACE3, LogLevel::TRACE4	
 	);	
 	
 	/**

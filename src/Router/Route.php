@@ -13,36 +13,35 @@ declare(strict_types=1);
 namespace GreenFedora\Router;
 
 /**
- * HTTP router.
+ * Single route.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class HttpRouter
+class Route
 {
     /**
-     * Match constants.
+     * Route pattern.
+     * @var string|null
      */
-	const MATCH_ANY = '.+';
-	const MATCH_NUM = '[[:digit:]]+';
-	const MATCH_ALNUM = '[[:alnum:]]+';
-	const MATCH_ALPHA = '[[:alpha:]]+';
-	const MATCH_SEGMENT = '[^/]*';
+    protected $pattern = null;
 
     /**
-     * Route specifications.
-     * @var array
+     * Route target.
+     * @var string|null
      */
-    protected $routeSpec = [];
+    protected $target = null;
 
     /**
      * Constructor.
      * 
-     * @param   array   $routeSpec      Route specifications.
+     * @param   string   $pattern      Route pattern.
+     * @param   string   $target       Route target.
      * @return  void
      */
-    public function __construct(array $routeSpec = [])
+    public function __construct(string $pattern, string $target)
     {
-        $this->routeSpec = $routeSpec;
+        $this->pattern = $pattern;
+        $this->target = $target;
     }
 }

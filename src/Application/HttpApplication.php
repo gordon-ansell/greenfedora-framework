@@ -64,7 +64,8 @@ class HttpApplication extends AbstractApplication implements ApplicationInterfac
 	{
 		$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
 		return array(
-			$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter)
+			$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter),
+			$this->createInstance(ConsoleLogWriter::class, $this->getConfig('logger'), $formatter)
 		);		
 	}	
 

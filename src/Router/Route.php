@@ -44,4 +44,15 @@ class Route
         $this->pattern = $pattern;
         $this->target = $target;
     }
+
+    /**
+     * See if the route matches.
+     * 
+     * @param   string  $pattern    Pattern to match.
+     * @return
+     */
+    public function match(string $pattern) 
+    {
+
+    }
 }

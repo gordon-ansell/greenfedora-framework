@@ -66,8 +66,24 @@ class Router
     {
         foreach($routes as $pattern => $target) {
             $this->routes[] = new Route($pattern, $target);
-            echo $pattern . " => " . $target . PHP_EOL;
         }
-        echo '>>' . print_r($this->routes) . '<<';
+    }
+
+    /**
+     * Match a route.
+     * 
+     * @param   string  $pattern    Route pattern to match.
+     * @return 
+     */
+    public function match(string $pattern)
+    {
+        // Try to match real routes.
+        $matched = null;
+        foreach ($this->routes as $key => $route) {
+            if ($route->match($pattern)) {
+                $matched = $route;
+                break;
+            }
+        }
     }
 }

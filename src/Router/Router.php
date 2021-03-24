@@ -118,6 +118,6 @@ class Router implements RouterInterface, ContainerAwareInterface
 
         $prefix = $this->routeSpec->has('prefixNamespace') ? $this->routeSpec->prefixNamespace : null;
 
-        return $matched->getNamespaced($prefix);
+        return $matched->getNamespacedClass($prefix);
     }
 }

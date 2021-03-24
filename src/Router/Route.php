@@ -12,13 +12,15 @@
 declare(strict_types=1);
 namespace GreenFedora\Router;
 
+use GreenFedora\Router\RouteInterface;
+
 /**
  * Single route.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Route
+class Route implements RouteInterface
 {
     /**
      * Route pattern.
@@ -49,10 +51,13 @@ class Route
      * See if the route matches.
      * 
      * @param   string  $pattern    Pattern to match.
-     * @return
+     * @return  bool                True if it matches, else false.           
      */
     public function match(string $pattern) 
     {
-
+        if ($pattern = $this->pattern) {
+            return true;
+        }
+        return false;
     }
 }

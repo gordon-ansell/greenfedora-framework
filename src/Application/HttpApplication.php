@@ -18,6 +18,7 @@ use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\Logger\Formatter\StdLogFormatter;
 use GreenFedora\Logger\Writer\FileLogWriter;
+use GreenFedora\Router\Router;
 
 /**
  * An HTTP application.
@@ -38,8 +39,21 @@ class HttpApplication extends AbstractApplication implements ApplicationInterfac
 	public function __construct(string $mode = 'prod')
 	{
 		parent::__construct($mode);
+
+		$this->processRouter();
 	}
 	
+	/**
+	 * Process the router.
+	 *
+	 * @return	void
+     */
+	protected function processRouter()
+	{
+		$this->createInstance(Router::class, $this->getConfig('routing'));
+		$this->aliasInstance('router', Router::class);
+	}
+
 	/**
 	 * Get the log writers.
 	 *

@@ -12,6 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Router;
 
+use GreenFedora\Router\RouterInterface;
 use GreenFedora\Router\Route;
 use GreenFedora\Arr\Arr;
 
@@ -21,7 +22,7 @@ use GreenFedora\Arr\Arr;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Router
+class Router implements RouterInterface
 {
     /**
      * Match constants.

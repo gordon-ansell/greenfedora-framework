@@ -27,7 +27,7 @@ use GreenFedora\Logger\Writer\ConsoleLogWriter;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class ConsoleApplication extends AbstractApplication implements ApplicationInterface
+class ConsoleApplication extends AbstractApplication
 {
 	/**
 	 * Options.

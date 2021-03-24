@@ -28,7 +28,7 @@ use GreenFedora\Router\RouterInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class HttpApplication extends AbstractApplication implements HttpApplicationInterface
+abstract class HttpApplication extends AbstractApplication implements HttpApplicationInterface
 {
 		
 	/**

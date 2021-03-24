@@ -80,4 +80,26 @@ class Route implements RouteInterface
     {
         return $this->target;
     }
+
+    /**
+     * Created namespaced class.
+     * 
+     * @param   string    $rawRoute     Raw route.
+     * @param   string    $prefix       Class prefix.
+     * @return  array                   Namespaced class and any parameters.
+     */
+    public function getNamespacedClass(string $prefix = null)
+    {
+        $class = '';
+
+        if ('\\' != $this->target[1]) {
+			if ($prefix) {
+				$class = $prefix;
+			}
+		}
+
+		$class = '\\' . trim($class, '\\') . '\\' . trim($this->target, '\\');
+
+        return $class;
+    }
 }

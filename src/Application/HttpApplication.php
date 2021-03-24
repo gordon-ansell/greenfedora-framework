@@ -34,13 +34,15 @@ class HttpApplication extends AbstractApplication implements ApplicationInterfac
 	/**
 	 * Constructor.
 	 *
-	 * @param	string	$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
+	 * @param	ApplicationInputInterface	$input 		Input.
+	 * @param	ApplicationOutputInterface	$output 	Output.
+	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
 	 *
 	 * @return	void
 	 */
-	public function __construct(string $mode = 'prod')
+	public function __construct(ApplicationInputInterface $input, ApplicationOutputInterface $output, string $mode = 'prod')
 	{
-		parent::__construct($mode);
+		parent::__construct($input, $output, $mode);
 
 		$this->processRouter();
 	}
@@ -84,12 +86,9 @@ class HttpApplication extends AbstractApplication implements ApplicationInterfac
 	/**
 	 * Run.
 	 *
-	 * @param	ApplicationInputInterface	$input 		Input.
-	 * @param	ApplicationOutputInterface	$output 	Output.
-	 *
 	 * @return 	void
 	 */
-	protected function run(ApplicationInputInterface $input, ApplicationOutputInterface $output)
+	protected function run()
 	{
 	}
 

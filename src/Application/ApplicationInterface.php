@@ -15,6 +15,7 @@ namespace GreenFedora\Application;
 use GreenFedora\Logger\LoggerInterface;
 use GreenFedora\Locale\LocaleInterface;
 use GreenFedora\Lang\LangInterface;
+use GreenFedora\Inflector\InflectorInterface;
 
 /**
  * Application interface.
@@ -65,4 +66,11 @@ interface ApplicationInterface
 	 * @return	LangInterface
 	 */
 	public function getLang() : LangInterface;
+
+	/**
+	 * Get the inflector.
+	 *
+	 * @return	InflectorInterface
+	 */
+	public function getInflector() : InflectorInterface;
 }

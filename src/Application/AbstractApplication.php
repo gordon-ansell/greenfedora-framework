@@ -57,6 +57,18 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	use InflectorAwareTrait;
 	
 	/**
+	 * Input.
+	 * @var ApplicationInputInterface
+	 */
+	protected $input = null;
+
+	/**
+	 * Output.
+	 * @var ApplicationOutputInterface
+	 */
+	protected $output = null;
+
+	/**
 	 * The mode we're running in.
 	 * @var string
 	 */	
@@ -73,13 +85,18 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	/**
 	 * Constructor.
 	 *
-	 * @param	string	$mode 	The mode we're running in: 'dev', 'test' or 'prod'.
+	 * @param	ApplicationInputInterface	$input 		Input.
+	 * @param	ApplicationOutputInterface	$output 	Output.
+	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
 	 *
 	 * @return	void
 	 */
-	public function __construct(string $mode = 'prod')
+	public function __construct(ApplicationInputInterface $input, ApplicationOutputInterface $output, string $mode = 'prod')
 	{
+		$this->input = $input;
+		$this->output = $output;
 		$this->mode = $mode;
+
 		$this->processContainer();
 		$this->processConfig();	
 		$this->processLocale();
@@ -252,7 +269,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 *
 	 * @return 	bool
 	 */
-	protected function preRun(ApplicationInputInterface $input, ApplicationOutputInterface $output) : bool
+	protected function preRun() : bool
 	{
 		return true;
 	}
@@ -260,37 +277,28 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	/**
 	 * Abstract run.
 	 *
-	 * @param	ApplicationInputInterface	$input 		Input.
-	 * @param	ApplicationOutputInterface	$output 	Output.
-	 *
 	 * @return 	void
 	 */
-	abstract protected function run(ApplicationInputInterface $input, ApplicationOutputInterface $output);
+	abstract protected function run();
 	
 	/**
 	 * Post-run.
 	 *
-	 * @param	ApplicationInputInterface	$input 		Input.
-	 * @param	ApplicationOutputInterface	$output 	Output.
-	 *
 	 * @return 	void
 	 */
-	protected function postRun(ApplicationInputInterface $input, ApplicationOutputInterface $output) {}
+	protected function postRun() {}
 
 	/**
 	 * The main run call.
 	 *
-	 * @param	ApplicationInputInterface	$input 		Input.
-	 * @param	ApplicationOutputInterface	$output 	Output.
-	 *
 	 * @return 	void
 	 */
-	public function main(ApplicationInputInterface $input, ApplicationOutputInterface $output)
+	public function main()
 	{
 		$this->trace4('Main started.');
-		if ($this->preRun($input, $output)) {
-			$this->run($input, $output);
-			$this->postRun($input, $output);
+		if ($this->preRun()) {
+			$this->run();
+			$this->postRun();
 		}
 		$this->trace4('Main ended.');
 	}				

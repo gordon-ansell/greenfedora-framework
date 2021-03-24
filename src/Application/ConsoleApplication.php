@@ -50,15 +50,17 @@ class ConsoleApplication extends AbstractApplication implements ApplicationInter
 	/**
 	 * Constructor.
 	 *
-	 * @param	string	$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
+	 * @param	ApplicationInputInterface	$input 		Input.
+	 * @param	ApplicationOutputInterface	$output 	Output.
+	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
 	 *
 	 * @return	void
 	 */
-	public function __construct(string $mode = 'prod')
+	public function __construct(ApplicationInputInterface $input, ApplicationOutputInterface $output, string $mode = 'prod')
 	{
 		$this->args = getopt($this->opts, $this->longOpts);
 		$mode = $this->processArgs($mode);
-		parent::__construct($mode);
+		parent::__construct($input, $output, $mode);
 	}
 	
 	/**
@@ -126,14 +128,11 @@ class ConsoleApplication extends AbstractApplication implements ApplicationInter
 	/**
 	 * Run.
 	 *
-	 * @param	ApplicationInputInterface	$input 		Input.
-	 * @param	ApplicationOutputInterface	$output 	Output.
-	 *
 	 * @return 	void
 	 */
-	protected function run(ApplicationInputInterface $input, ApplicationOutputInterface $output)
+	protected function run()
 	{
-		$output->setOutput(0);
+		$this->output->setOutput(0);
 	}
 
 }

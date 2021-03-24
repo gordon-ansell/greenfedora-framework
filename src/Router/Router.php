@@ -19,6 +19,8 @@ use GreenFedora\Arr\ArrInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
+use GreenFedora\Logger\LoggerAwareTrait;
+use GreenFedora\Logger\LoggerAwareInterface;
 
 /**
  * Router.
@@ -29,6 +31,7 @@ use GreenFedora\DependencyInjection\ContainerInterface;
 class Router implements RouterInterface, ContainerAwareInterface
 {
     use ContainerAwareTrait;
+    use LoggerAwareTrait;
 
     /**
      * Match constants.

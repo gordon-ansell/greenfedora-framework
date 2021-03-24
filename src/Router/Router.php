@@ -21,6 +21,7 @@ use GreenFedora\DependencyInjection\ContainerAwareInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
 use GreenFedora\Logger\LoggerAwareTrait;
 use GreenFedora\Logger\LoggerAwareInterface;
+use GreenFedora\Logger\LoggerInterface;
 
 /**
  * Router.

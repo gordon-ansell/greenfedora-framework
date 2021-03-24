@@ -97,9 +97,9 @@ class Router implements RouterInterface, ContainerAwareInterface
      * Match a route.
      * 
      * @param   string  $pattern    Route pattern to match.
-     * @return  RouteInterface      The route match or null if there isn't one.
+     * @return  string              Namespaced class name.
      */
-    public function match(string $pattern): ?RouteInterface
+    public function match(string $pattern): ?string
     {
         $matched = null;
 

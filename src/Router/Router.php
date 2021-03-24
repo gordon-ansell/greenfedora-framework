@@ -89,6 +89,7 @@ class Router implements RouterInterface, ContainerAwareInterface
         foreach($routes as $pattern => $target) {
             $this->routes[] = new Route($pattern, $target);
         }
+        echo 'here.' . PHP_EOL + '<br />';
         $this->trace4(sprintf('Loaded %n routes.', count($this->routes)));
     }
 

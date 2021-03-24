@@ -65,7 +65,9 @@ class Router
     protected function loadRoutes($routes)
     {
         foreach($routes as $pattern => $target) {
+            $this->routes[] = new Route($pattern, $target);
             echo $pattern . " => " . $target . PHP_EOL;
         }
+        print_r($this->routes);
     }
 }

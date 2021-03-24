@@ -18,6 +18,7 @@ use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\Logger\Formatter\StdLogFormatter;
 use GreenFedora\Logger\Writer\FileLogWriter;
+use GreenFedora\Logger\Writer\ConsoleLogWriter;
 use GreenFedora\Router\Router;
 use GreenFedora\Router\RouterInterface;
 

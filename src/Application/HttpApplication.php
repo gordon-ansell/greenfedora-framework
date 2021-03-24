@@ -54,6 +54,7 @@ class HttpApplication extends AbstractApplication implements ApplicationInterfac
 	{
 		$this->createInstance(Router::class, $this->getConfig('routing'), $this->container);
 		$this->aliasInstance('router', Router::class);
+		$this->trace4('Router initialised.');
 	}
 
 	/**

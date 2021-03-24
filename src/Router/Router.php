@@ -14,6 +14,7 @@ namespace GreenFedora\Router;
 
 use GreenFedora\Router\RouterInterface;
 use GreenFedora\Router\Route;
+use GreenFedora\Router\RouteInterface;
 use GreenFedora\Arr\Arr;
 use GreenFedora\Arr\ArrInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
@@ -96,12 +97,13 @@ class Router implements RouterInterface, ContainerAwareInterface
      * Match a route.
      * 
      * @param   string  $pattern    Route pattern to match.
-     * @return 
+     * @return  RouteInterface      The route match or null if there isn't one.
      */
-    public function match(string $pattern)
+    public function match(string $pattern): ?RouteInterface
     {
-        // Try to match real routes.
         $matched = null;
+
+        // Try to match real routes.
         foreach ($this->routes as $key => $route) {
             if ($route->match($pattern)) {
                 $this->trace4(sprintf("Matched pattern '%s' against route pattern '%s', target is '%s'.", 
@@ -113,5 +115,7 @@ class Router implements RouterInterface, ContainerAwareInterface
                     $pattern, $route->getPattern()));
             }
         }
+
+        return $matched;
     }
 }

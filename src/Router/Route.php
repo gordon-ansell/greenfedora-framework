@@ -55,7 +55,7 @@ class Route implements RouteInterface
      */
     public function match(string $pattern) : bool
     {
-        if ($pattern = $this->pattern) {
+        if ($pattern == $this->pattern) {
             return true;
         }
         return false;

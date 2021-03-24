@@ -52,7 +52,7 @@ class HttpApplication extends AbstractApplication implements ApplicationInterfac
      */
 	protected function processRouter()
 	{
-		$this->createInstance(Router::class, $this->getConfig('routing'));
+		$this->createInstance(Router::class, $this->getConfig('routing'), $this->container);
 		$this->aliasInstance('router', Router::class);
 	}
 

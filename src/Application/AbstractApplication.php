@@ -294,7 +294,6 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	{
 		$this->trace4('Main started.');
 		if ($this->preRun()) {
-			echo "YEP";
 			$this->run();
 			$this->postRun();
 		}

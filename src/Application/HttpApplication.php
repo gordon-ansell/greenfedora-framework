@@ -28,7 +28,7 @@ use GreenFedora\Router\RouterInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class HttpApplication extends AbstractApplication implements ApplicationInterface
+class HttpApplication extends AbstractApplication implements ApplicationInterface, HttpApplicationInterface
 {
 		
 	/**
@@ -83,12 +83,24 @@ class HttpApplication extends AbstractApplication implements ApplicationInterfac
 	}			
 
 	/**
-	 * Run.
+	 * Dispatch.
 	 *
 	 * @return 	void
 	 */
-	protected function run()
+	protected function dispatch()
 	{
+		// Find a match for the route.
+		$matched = $this->getRouter()->match($this->input->getRoute());
+
+		// Just some debugging.
+		$this->trace4(sprintf("Matched namespaced class is: %s", $matched->getNamespacedClass()));
+
+		// Create the class.
+		$class = $matched->getNamespacedClass();
+		$dispatchable = new $class();
+
+		// Dispatch the class.
+		$dispatchable->dispatch();
 	}
 
 }

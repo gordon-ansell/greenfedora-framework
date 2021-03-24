@@ -19,6 +19,7 @@ use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\Logger\Formatter\StdLogFormatter;
 use GreenFedora\Logger\Writer\FileLogWriter;
 use GreenFedora\Router\Router;
+use GreenFedora\Router\RouterInterface;
 
 /**
  * An HTTP application.
@@ -66,6 +67,16 @@ class HttpApplication extends AbstractApplication implements ApplicationInterfac
 			$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter)
 		);		
 	}	
+
+	/**
+	 * Get the router.
+	 *
+	 * @return	RouterInterface
+	 */
+	public function getRouter() : RouterInterface
+	{
+		return $this->getInstance('router');
+	}			
 
 	/**
 	 * Run.

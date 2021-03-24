@@ -53,7 +53,7 @@ class Route implements RouteInterface
      * @param   string  $pattern    Pattern to match.
      * @return  bool                True if it matches, else false.           
      */
-    public function match(string $pattern) : boolean 
+    public function match(string $pattern) : bool
     {
         if ($pattern = $this->pattern) {
             return true;

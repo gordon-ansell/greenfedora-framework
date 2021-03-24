@@ -106,6 +106,8 @@ class Router implements RouterInterface, ContainerAwareInterface
             if ($route->match($pattern)) {
                 $matched = $route;
                 break;
+            } else {
+                $this->trace4(sprintf("No match for pattern '%s' against route pattern '%s'.", $pattern, $route->getPattern()));
             }
         }
     }

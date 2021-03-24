@@ -18,6 +18,7 @@ use GreenFedora\Arr\Arr;
 use GreenFedora\Arr\ArrInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;
+use GreenFedora\DependencyInjection\ContainerInterface;
 
 /**
  * Router.

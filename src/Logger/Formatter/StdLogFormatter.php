@@ -67,7 +67,7 @@ class StdLogFormatter implements LogFormatterInterface
 		$dt = new \DateTime();
 		$ret =	sprintf("%s %s %s", 
 			$dt->format($this->cfg->dtFormat),
-			ucwords(str_pad($level, 10)),
+			strtoupper(str_pad($level, 10)),
 			$msg
 		);
 		return $ret;		

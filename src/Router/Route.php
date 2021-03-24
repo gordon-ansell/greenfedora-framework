@@ -88,6 +88,16 @@ class Route implements RouteInterface
     }
 
     /**
+     * Is this a special pattern?
+     * 
+     * @return  bool
+     */
+    public function isSpecial(): bool
+    {
+        return '_' == $this->pattern[0] and '_' == $this->pattern[-1];
+    }
+
+    /**
      * Get the namespaced class.
      * 
      * @return  string      Full class name.

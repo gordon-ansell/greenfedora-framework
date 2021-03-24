@@ -105,6 +105,11 @@ class Router implements RouterInterface, ContainerAwareInterface
 
         // Try to match real routes.
         foreach ($this->routes as $key => $route) {
+
+            if ($route->isSpecial()) {
+                continue;
+            }
+
             if ($route->match($pattern)) {
                 $this->trace4(sprintf("Matched pattern '%s' against route pattern '%s', target is '%s'.", 
                     $pattern, $route->getPattern(), $route->getTarget()));

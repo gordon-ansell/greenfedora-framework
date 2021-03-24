@@ -12,6 +12,8 @@
 declare(strict_types=1);
 namespace GreenFedora\Adr\Action;
 
+use GreenFedora\Arr\Arr;
+
 
 /**
  * The base for all actions.
@@ -22,12 +24,25 @@ namespace GreenFedora\Adr\Action;
 abstract class AbstractAction 
 {
 	/**
+	 * Parameters.
+	 * @var Arr
+	 */
+	protected $params = null;
+
+	/**
 	 * Constructor.
 	 *
+	 * @param 	array	$params 	Parameters.
 	 * @return	void
 	 */
-	public function __construct()
+	public function __construct(array $params = [])
 	{
+		$this->params = new Arr($params);
 	}
+
+	/**
+	 * Dispatcher.
+	 */
+	abstract public function dispatch();
 	
 }

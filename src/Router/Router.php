@@ -15,6 +15,9 @@ namespace GreenFedora\Router;
 use GreenFedora\Router\RouterInterface;
 use GreenFedora\Router\Route;
 use GreenFedora\Arr\Arr;
+use GreenFedora\Arr\ArrInterface;
+use GreeFedora\DependencyInjection\ContainerAwareTrait;
+use GreeFedora\DependencyInjection\ContainerInterface;
 
 /**
  * Router.
@@ -24,6 +27,8 @@ use GreenFedora\Arr\Arr;
 
 class Router implements RouterInterface
 {
+    use ContainerAwaraeTrait;
+
     /**
      * Match constants.
      */
@@ -48,13 +53,24 @@ class Router implements RouterInterface
     /**
      * Constructor.
      * 
-     * @param   Arr     $routeSpec      Route specifications.
+     * @param   ArrInterface     $routeSpec      Route specifications.
      * @return  void
      */
-    public function __construct($routeSpec)
+    public function __construct(ArrInterface $routeSpec, ContainerInterface $container)
     {
+        $this->container = $container;
         $this->routeSpec = $routeSpec;
         $this->loadRoutes($this->routeSpec->routes);
+    }
+
+	/**
+	 * Get the logger.
+	 *
+	 * @return 	LoggerInterface
+	 */
+	public function getLogger() : LoggerInterface
+    {
+		return $this->getInstance('logger');
     }
 
     /**
@@ -68,6 +84,7 @@ class Router implements RouterInterface
         foreach($routes as $pattern => $target) {
             $this->routes[] = new Route($pattern, $target);
         }
+        $this->trace4(sprintf('Loaded %n routes.', count($this.routes)));
     }
 
     /**

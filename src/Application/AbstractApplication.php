@@ -264,9 +264,6 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	/**
 	 * Pre-run.
 	 *
-	 * @param	ApplicationInputInterface	$input 		Input.
-	 * @param	ApplicationOutputInterface	$output 	Output.
-	 *
 	 * @return 	bool
 	 */
 	protected function preRun() : bool

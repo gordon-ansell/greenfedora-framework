@@ -43,7 +43,6 @@ class HttpApplication extends AbstractApplication implements ApplicationInterfac
 	public function __construct(ApplicationInputInterface $input, ApplicationOutputInterface $output, string $mode = 'prod')
 	{
 		parent::__construct($input, $output, $mode);
-
 		$this->processRouter();
 	}
 	

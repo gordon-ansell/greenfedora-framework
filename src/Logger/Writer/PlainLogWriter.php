@@ -38,6 +38,6 @@ class PlainLogWriter extends AbstractLogWriter implements LogWriterInterface
 	 */
 	public function write(string $msg, string $level, array $context = array())
 	{
-		echo $this->formatter->format($msg, $level, $context) . PHP_EOL;
+		echo $this->formatter->format($msg, $level, $context) . PHP_EOL . '<br />';
 	}	
 }

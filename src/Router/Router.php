@@ -25,9 +25,9 @@ use GreeFedora\DependencyInjection\ContainerInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Router implements RouterInterface
+class Router implements RouterInterface, ContainerAwareInterface
 {
-    use ContainerAwaraeTrait;
+    use ContainerAwareTrait;
 
     /**
      * Match constants.

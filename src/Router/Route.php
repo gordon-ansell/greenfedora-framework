@@ -70,4 +70,14 @@ class Route implements RouteInterface
     {
         return $this->pattern;
     }
+
+    /**
+     * Return the target.
+     * 
+     * @return  string      Target.
+     */
+    public function getTarget(): string
+    {
+        return $this->target;
+    }
 }

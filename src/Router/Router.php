@@ -104,10 +104,13 @@ class Router implements RouterInterface, ContainerAwareInterface
         $matched = null;
         foreach ($this->routes as $key => $route) {
             if ($route->match($pattern)) {
+                $this->trace4(sprintf("Matched pattern '%s' against route pattern '%s', target is '%s'.", 
+                    $pattern, $route->getPattern(), $route->getTarget()));
                 $matched = $route;
                 break;
             } else {
-                $this->trace4(sprintf("No match for pattern '%s' against route pattern '%s'.", $pattern, $route->getPattern()));
+                $this->trace4(sprintf("No match for pattern '%s' against route pattern '%s'.", 
+                    $pattern, $route->getPattern()));
             }
         }
     }

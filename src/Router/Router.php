@@ -97,9 +97,9 @@ class Router implements RouterInterface, ContainerAwareInterface
      * Match a route.
      * 
      * @param   string  $pattern    Route pattern to match.
-     * @return  string              Namespaced class name.
+     * @return  RouteInterface      Matched route object.
      */
-    public function match(string $pattern): ?string
+    public function match(string $pattern): ?RouteInterface
     {
         $matched = null;
 
@@ -118,6 +118,8 @@ class Router implements RouterInterface, ContainerAwareInterface
 
         $prefix = $this->routeSpec->has('prefixNamespace') ? $this->routeSpec->prefixNamespace : null;
 
-        return $matched->getNamespacedClass($prefix);
+        $matched->setNamespacedClass($prefix);
+
+        return $matched;
     }
 }

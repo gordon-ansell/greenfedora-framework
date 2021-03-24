@@ -35,6 +35,12 @@ class Route implements RouteInterface
     protected $target = null;
 
     /**
+     * Namespaced class.
+     * @var string|null
+     */
+    protected $namespacedClass = null;
+
+    /**
      * Constructor.
      * 
      * @param   string   $pattern      Route pattern.
@@ -82,13 +88,23 @@ class Route implements RouteInterface
     }
 
     /**
-     * Created namespaced class.
+     * Get the namespaced class.
+     * 
+     * @return  string      Full class name.
+     */
+    public function getNamespacedClass(): string
+    {
+        return $this->namespacedClass;
+    }
+
+    /**
+     * Set namespaced class.
      * 
      * @param   string    $rawRoute     Raw route.
      * @param   string    $prefix       Class prefix.
-     * @return  array                   Namespaced class and any parameters.
+     * @return  void.
      */
-    public function getNamespacedClass(string $prefix = null)
+    public function setNamespacedClass(string $prefix = null)
     {
         $class = '';
 
@@ -100,6 +116,6 @@ class Route implements RouteInterface
 
 		$class = '\\' . trim($class, '\\') . '\\' . trim($this->target, '\\');
 
-        return $class;
+        $this->namespacedClass = $class;
     }
 }

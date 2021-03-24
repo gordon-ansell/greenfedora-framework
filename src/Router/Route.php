@@ -56,6 +56,7 @@ class Route implements RouteInterface
     public function match(string $pattern) 
     {
         if ($pattern = $this->pattern) {
+            sprintf("Input pattern '%s' matches '%s'.", $pattern, $this->pattern);
             return true;
         }
         return false;

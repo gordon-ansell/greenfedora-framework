@@ -33,6 +33,12 @@ class Router
 	const MATCH_SEGMENT = '[^/]*';
 
     /**
+     * Route specifications.
+     * @var Arr|null
+     */
+    protected $routeSpec = null;
+
+    /**
      * Routes.
      * @var Route[]
      */
@@ -46,18 +52,19 @@ class Router
      */
     public function __construct($routeSpec)
     {
-        $this->loadRoutes($routeSpec);
+        $this->routeSpec = $routeSpec;
+        $this->loadRoutes($this->routeSpec->routes);
     }
 
     /**
      * Load the routes.
      * 
-     * @param   Arr     $routeSpec      Route specifications.
+     * @param   Arr     $routes         Routes to load.
      * @return  void
      */
-    protected function loadRoutes($routeSpec)
+    protected function loadRoutes($routes)
     {
-        foreach($routeSpec as $pattern => $target) {
+        foreach($routes as $pattern => $target) {
             echo $pattern . " => " . $target . PHP_EOL;
         }
     }

@@ -68,6 +68,6 @@ class Router
             $this->routes[] = new Route($pattern, $target);
             echo $pattern . " => " . $target . PHP_EOL;
         }
-        print_r($this->routes);
+        echo '>>' . print_r($this->routes) . '<<';
     }
 }

@@ -36,5 +36,9 @@ abstract class AbstractResponder
 	public function __construct(ContainerInterface $container, ApplicationOutputInterface $output)
 	{
 	}
-	
+
+	/**
+	 * Dispatcher.
+	 */
+	abstract public function dispatch();
 }

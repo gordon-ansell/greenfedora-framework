@@ -66,10 +66,16 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	protected function getLogWriters() : array
 	{
 		$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
-		return array(
-			$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter),
-			$this->createInstance(ForcedConsoleLogWriter::class, $this->getConfig('logger'), $formatter)
-		);		
+		if ('dev' == $this->mode) {
+			return array(
+				$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter),
+				$this->createInstance(ForcedConsoleLogWriter::class, $this->getConfig('logger'), $formatter)
+			);		
+		} else {
+			return array(
+				$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter)
+			);		
+		}
 	}	
 
 	/**
@@ -97,7 +103,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 
 		// Create the class.
 		$class = $matched->getNamespacedClass();
-		$dispatchable = new $class($this->input, $this->output);
+		$dispatchable = new $class($this->container, $this->input, $this->output);
 
 		// Dispatch the class.
 		$dispatchable->dispatch();

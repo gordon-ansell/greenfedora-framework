@@ -18,7 +18,7 @@ use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\Logger\Formatter\StdLogFormatter;
 use GreenFedora\Logger\Writer\FileLogWriter;
-use GreenFedora\Logger\Writer\ConsoleLogWriter;
+use GreenFedora\Logger\Writer\ForcedConsoleLogWriter;
 use GreenFedora\Router\Router;
 use GreenFedora\Router\RouterInterface;
 
@@ -68,7 +68,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
 		return array(
 			$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter),
-			$this->createInstance(ConsoleLogWriter::class, $this->getConfig('logger'), $formatter)
+			$this->createInstance(ForcedConsoleLogWriter::class, $this->getConfig('logger'), $formatter)
 		);		
 	}	
 

@@ -12,6 +12,11 @@
 declare(strict_types=1);
 namespace GreenFedora\Adr\Responder;
 
+use GreenFedora\Application\Output\ApplicationOutputInterface;
+use GreenFedora\DependencyInjection\ContainerInterface;
+use GreenFedora\DependencyInjection\ContainerAwareInterface;
+use GreenFedora\DependencyInjection\ContainerAwareTrait;
+
 
 /**
  * The base for all responders.
@@ -24,9 +29,11 @@ abstract class AbstractResponder
 	/**
 	 * Constructor.
 	 *
+	 * @param 	ContainerInterface			$container	Dependency injection container.
+	 * @param 	ApplicationOutputInterface	$output 	Output.
 	 * @return	void
 	 */
-	public function __construct()
+	public function __construct(ContainerInterface $container, ApplicationOutputInterface $output)
 	{
 	}
 	

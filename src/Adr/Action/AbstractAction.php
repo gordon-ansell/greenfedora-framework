@@ -13,7 +13,9 @@ declare(strict_types=1);
 namespace GreenFedora\Adr\Action;
 
 use GreenFedora\Arr\Arr;
-
+use GreenFedora\Arr\ArrInterface;
+use GreenFedora\Application\Input\ApplicationInputInterface;
+use GreenFedora\Application\Output\ApplicationOutputInterface;
 
 /**
  * The base for all actions.
@@ -24,19 +26,35 @@ use GreenFedora\Arr\Arr;
 abstract class AbstractAction 
 {
 	/**
+	 * Input.
+	 * @var ApplicationInputInterface
+	 */
+	protected $input = null;
+
+	/**
+	 * Output.
+	 * @var ApplicationOutputInterface
+	 */
+	protected $output = null;
+
+	/**
 	 * Parameters.
-	 * @var Arr
+	 * @var ArrInterface
 	 */
 	protected $params = null;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param 	array	$params 	Parameters.
+	 * @param 	ApplicationInputInterface	$input 		Input.
+	 * @param 	ApplicationOutputInterface	$output 	Output.
+	 * @param 	array						$params 	Parameters.
 	 * @return	void
 	 */
-	public function __construct(array $params = [])
+	public function __construct(ApplicationInputInterface $input, ApplicationOutputInterface $output, array $params = [])
 	{
+		$this->input = $input;
+		$this->output = $output;
 		$this->params = new Arr($params);
 	}
 

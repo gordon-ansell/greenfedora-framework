@@ -36,6 +36,6 @@ class ForcedConsoleLogWriter extends ConsoleLogWriter implements LogWriterInterf
 	 */
 	public function write(string $msg, string $level, array $context = array())
 	{
-		error_log(self::LOGLEVELCOLS[$level] . $this->formatter->format($msg, $level, $context) . self::ENDCOL . PHP_EOL);
+		error_log(self::LOGLEVELCOLS[$level] . $this->formatter->format($msg, $level, $context) . self::ENDCOL);
 	}	
 }

@@ -24,8 +24,16 @@ use GreenFedora\DependencyInjection\ContainerAwareTrait;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractResponder
+abstract class AbstractResponder implements ContainerAwareInterface
 {
+	use ContainerAwareTrait;
+	
+	/**
+	 * Output.
+	 * @var ApplicationOutputInterface
+	 */
+	protected $output = null;
+
 	/**
 	 * Constructor.
 	 *
@@ -35,6 +43,8 @@ abstract class AbstractResponder
 	 */
 	public function __construct(ContainerInterface $container, ApplicationOutputInterface $output)
 	{
+		$this->container = $container;
+		$this->output = $output;
 	}
 
 	/**

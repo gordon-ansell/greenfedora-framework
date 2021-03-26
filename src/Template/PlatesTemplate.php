@@ -34,16 +34,24 @@ class PlatesTemplate extends Engine implements TemplateInterface, ContainerAware
 	use InflectorAwareTrait;
 
 	/**
+	 * Configs.
+	 * @var Arr
+	 */
+	protected $cfg = null;	 
+
+	/**
 	 * Constructor.
 	 *
+     * @param   iterable     		$cfg            Template specifications.
 	 * @param 	ContainerInterface	$container		Dependency injection container.
      * @param 	string|array		$templateDir 	Template directory.
 	 *
 	 * @return 	void
 	 */
-	public function __construct(ContainerInterface $container, $templateDir)
+	public function __construct(iterable $cfg, ContainerInterface $container)
 	{
-        parent::__construct(templateDir);      
+		$this->cfg = new Arr($cfg);
+        parent::__construct($this->cfg->templateDir);      
         $this->container = $container;
 	}	
 }

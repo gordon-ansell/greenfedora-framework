@@ -21,6 +21,8 @@ use GreenFedora\Logger\Writer\FileLogWriter;
 use GreenFedora\Logger\Writer\ForcedConsoleLogWriter;
 use GreenFedora\Router\Router;
 use GreenFedora\Router\RouterInterface;
+use GreenFedora\Template\PlatesTemplate;
+use GreenFedora\Template\PlatesInterface;
 
 /**
  * An HTTP application.
@@ -44,6 +46,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	{
 		parent::__construct($input, $output, $mode);
 		$this->processRouter();
+		$this->processTemplate();
 	}
 	
 	/**
@@ -56,6 +59,23 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		$this->createInstance(Router::class, $this->getConfig('routing'), $this->container);
 		$this->aliasInstance('router', Router::class);
 		$this->trace4('Router initialised.');
+	}
+
+	/**
+	 * Process the template processor.
+	 *
+	 * @return	void
+     */
+	protected function processTemplate()
+	{
+		$tplType = $this->getConfig('templateType');
+		if ('plates' == $tplType) {
+			$this->createInstance(PlatesTemplate::class, $this->getConfig('template'), $this->container);
+			$this->aliasInstance('template', PlatesTemplate::class);
+		} else if ('smarty' == $tplType) {
+
+		}
+		$this->trace4('Template engine initialised.');
 	}
 
 	/**
@@ -86,6 +106,16 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	public function getRouter() : RouterInterface
 	{
 		return $this->getInstance('router');
+	}			
+
+	/**
+	 * Get the template engine.
+	 *
+	 * @return	TemplateInterface
+	 */
+	public function getTemplate() : TemplateInterface
+	{
+		return $this->getInstance('template');
 	}			
 
 	/**

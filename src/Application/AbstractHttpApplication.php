@@ -22,7 +22,8 @@ use GreenFedora\Logger\Writer\ForcedConsoleLogWriter;
 use GreenFedora\Router\Router;
 use GreenFedora\Router\RouterInterface;
 use GreenFedora\Template\PlatesTemplate;
-use GreenFedora\Template\PlatesInterface;
+use GreenFedora\Template\SmartyTemplate;
+use GreenFedora\Template\TemplateInterface;
 
 /**
  * An HTTP application.
@@ -73,7 +74,10 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 			$this->createInstance(PlatesTemplate::class, $this->getConfig('template'), $this->container);
 			$this->aliasInstance('template', PlatesTemplate::class);
 		} else if ('smarty' == $tplType) {
-
+			$this->createInstance(SmartyTemplate::class, $this->getConfig('template'), $this->container);
+			$this->aliasInstance('template', SmartyTemplate::class);
+		} else {
+			throw new InvalidArgumentException(sprintf("No template support for type '%s'", $tplType));
 		}
 		$this->trace4('Template engine initialised.');
 	}

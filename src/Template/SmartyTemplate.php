@@ -19,6 +19,7 @@ use GreenFedora\DependencyInjection\ContainerAwareTrait;
 use GreenFedora\Inflector\InflectorInterface;
 use GreenFedora\Inflector\InflectorAwareInterface;
 use GreenFedora\Inflector\InflectorAwareTrait;
+use GreenFedora\Arr\Arr;
 
 use Smarty;
 
@@ -34,22 +35,28 @@ class SmartyTemplate extends Smarty implements TemplateInterface, ContainerAware
 	use InflectorAwareTrait;
 
 	/**
+	 * Configs.
+	 * @var ArrInterface
+	 */
+	protected $cfg = null;	 
+
+	/**
 	 * Constructor.
 	 *
+	 * @param 	iterable			$cfg 			Configs.
 	 * @param 	ContainerInterface	$container		Dependency injection container.
-     * @param 	string 				$compileDir		Compile directory.
-     * @param 	string|array		$templateDir 	Template directory.
 	 *
 	 * @return 	void
 	 */
-	public function __construct(ContainerInterface $container, string $compileDir, $templateDir)
+	public function __construct(iterable $cfg, ContainerInterface $container)
 	{
         parent::__construct();
+		$this->cfg = new Arr($cfg);
         
         $this->container = $container;
         
-	    $this->setCompileDir($compileDir);
-	    $this->setTemplateDir($templateDir);
+	    $this->setCompileDir($this->cfg->compileDir);
+	    $this->setTemplateDir($this->cfg->templateDir);
 		
 		$this->error_reporting = E_ALL;
 		

@@ -19,7 +19,7 @@ use GreenFedora\DependencyInjection\ContainerAwareTrait;
 use GreenFedora\Inflector\InflectorInterface;
 use GreenFedora\Inflector\InflectorAwareInterface;
 use GreenFedora\Inflector\InflectorAwareTrait;
-use GreenFedoea\Arr\Arr;
+use GreenFedora\Arr\Arr;
 
 use League\Plates\Engine;
 

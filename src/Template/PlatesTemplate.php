@@ -19,6 +19,7 @@ use GreenFedora\DependencyInjection\ContainerAwareTrait;
 use GreenFedora\Inflector\InflectorInterface;
 use GreenFedora\Inflector\InflectorAwareInterface;
 use GreenFedora\Inflector\InflectorAwareTrait;
+use GreenFedoea\Arr\Arr;
 
 use League\Plates\Engine;
 
@@ -54,7 +55,7 @@ class PlatesTemplate extends Engine implements TemplateInterface, ContainerAware
         parent::__construct($this->cfg->templateDir);      
         $this->container = $container;
 	}	
-	
+
 	/**
 	 * Get the inflector.
 	 *

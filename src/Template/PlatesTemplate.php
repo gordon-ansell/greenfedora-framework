@@ -28,7 +28,7 @@ use League\Plates\Engine;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class PlatesTemplate implements TemplateInterface, ContainerAwareInterface, InflectorAwareInterface
+class PlatesTemplate extends Engine implements TemplateInterface, ContainerAwareInterface, InflectorAwareInterface
 {
 	use ContainerAwareTrait;
 	use InflectorAwareTrait;
@@ -38,12 +38,6 @@ class PlatesTemplate implements TemplateInterface, ContainerAwareInterface, Infl
 	 * @var Arr
 	 */
 	protected $cfg = null;	 
-
-	/**
-	 * Plates engine.
-	 * @var Plates
-	 */
-	protected $engine = null;
 
 	/**
 	 * Constructor.
@@ -57,7 +51,17 @@ class PlatesTemplate implements TemplateInterface, ContainerAwareInterface, Infl
 	public function __construct(iterable $cfg, ContainerInterface $container)
 	{
 		$this->cfg = new Arr($cfg);
+        parent::__construct($this->cfg->templateDir);      
         $this->container = $container;
-		$this->engine = new Engine($this->cfg->templateDir);
+	}	
+	
+	/**
+	 * Get the inflector.
+	 *
+	 * @return 	InflectorInterface
+	 */
+	public function getInflector() : InflectorInterface
+	{
+		return $this->getInstance('inflector');
 	}	
 }

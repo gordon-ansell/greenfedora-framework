@@ -36,7 +36,7 @@ class PlatesTemplate extends Engine implements TemplateInterface, ContainerAware
 
 	/**
 	 * Configs.
-	 * @var Arr
+	 * @var ArrInterface
 	 */
 	protected $cfg = null;	 
 
@@ -52,8 +52,8 @@ class PlatesTemplate extends Engine implements TemplateInterface, ContainerAware
 	public function __construct(iterable $cfg, ContainerInterface $container)
 	{
 		$this->cfg = new Arr($cfg);
-        parent::__construct($this->cfg->templateDir);      
         $this->container = $container;
+        parent::__construct($this->cfg->templateDir);      
 	}	
 
 	/**

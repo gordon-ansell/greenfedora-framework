@@ -25,6 +25,8 @@ use GreenFedora\Template\PlatesTemplate;
 use GreenFedora\Template\SmartyTemplate;
 use GreenFedora\Template\TemplateInterface;
 
+use GreenFedora\Application\Exception\InvalidArgumentException;
+
 /**
  * An HTTP application.
  *

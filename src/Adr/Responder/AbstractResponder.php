@@ -16,6 +16,8 @@ use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
+use GreenFedora\Arr\Arr;
+use GreenFedora\Arr\ArrInterface;
 
 
 /**
@@ -35,6 +37,12 @@ abstract class AbstractResponder implements ContainerAwareInterface
 	protected $output = null;
 
 	/**
+	 * Responder data.
+	 * @var ArrInterface
+	 */
+	protected $data = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	Dependency injection container.
@@ -45,6 +53,26 @@ abstract class AbstractResponder implements ContainerAwareInterface
 	{
 		$this->container = $container;
 		$this->output = $output;
+		$this->data = new Arr();
+		$this->addDefaultdata();
+	}
+
+	/**
+	 * Add some default data.
+	 * 
+	 * @return 	void
+	 */
+	protected function addDefaultData()
+	{
+		$cfg = $this->getInstance('config');
+
+		$webroot = null;
+		if (!$cfg->has('locations') or !$cfg->get('locations')->has('webroot')) {
+			$this->data->set('webroot', '/');
+		} else {
+			$this->data->set('webroot', $cfg->get('locations')->get('webroot'));
+		}
+
 	}
 
 	/**

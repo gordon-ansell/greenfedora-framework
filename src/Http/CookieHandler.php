@@ -79,9 +79,9 @@ class CookieHandler
     {
         foreach ($this->names as $key => $default) {
             if ($source->has($key)) {
-                setcookie($this->prefix . $key, $source->get($key));
+                setcookie($this->prefix . $key, strval($source->get($key)));
             } else {
-                setcookie($this->prefix . $key, $default);
+                setcookie($this->prefix . $key, strval($default));
             }
         }
     }

@@ -14,6 +14,7 @@ namespace GreenFedora\Payload;
 
 use GreenFedora\Payload\PayloadInterface;
 use GreenFedora\Arr\Arr;
+use GreenFedora\Arr\ArrInterface;
 
 /**
  * Payload of data.
@@ -21,6 +22,6 @@ use GreenFedora\Arr\Arr;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Payload extends Arr implements PayloadInterface
+class Payload extends Arr implements PayloadInterface, ArrInterface
 {
 }

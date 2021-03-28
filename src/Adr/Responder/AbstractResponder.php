@@ -16,8 +16,8 @@ use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
-use GreenFedora\Arr\Arr;
-use GreenFedora\Arr\ArrInterface;
+use GreenFedora\Payload\Payload;
+use GreenFedora\Payload\PayloadInterface;
 
 
 /**
@@ -38,22 +38,28 @@ abstract class AbstractResponder implements ContainerAwareInterface
 
 	/**
 	 * Responder data.
-	 * @var ArrInterface
+	 * @var PayloadInterface
 	 */
-	protected $data = null;
+	protected $payload = null;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	Dependency injection container.
 	 * @param 	ApplicationOutputInterface	$output 	Output.
+	 * @param 	PayloadInterface 			$payload 	Payload of data.
 	 * @return	void
 	 */
-	public function __construct(ContainerInterface $container, ApplicationOutputInterface $output)
+	public function __construct(ContainerInterface $container, ApplicationOutputInterface $output, 
+		PayloadInterface $payload = null)
 	{
 		$this->container = $container;
 		$this->output = $output;
-		$this->data = new Arr();
+		if (null == $payload) {
+			$this->payload = new Payload();
+		} else {
+			$this->payload = $payload;
+		}
 		$this->addDefaultdata();
 	}
 
@@ -68,9 +74,9 @@ abstract class AbstractResponder implements ContainerAwareInterface
 
 		$webroot = null;
 		if (!$cfg->has('locations') or !$cfg->get('locations')->has('webroot')) {
-			$this->data->set('webroot', '/');
+			$this->payload->set('webroot', '/');
 		} else {
-			$this->data->set('webroot', $cfg->get('locations')->get('webroot'));
+			$this->payload->set('webroot', $cfg->get('locations')->get('webroot'));
 		}
 
 	}

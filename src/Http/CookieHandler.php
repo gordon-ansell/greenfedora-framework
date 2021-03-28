@@ -12,6 +12,9 @@
 declare(strict_types=1);
 namespace GreenFedora\Http;
 
+use GreenFedora\Http\RequestInterface;
+use GreenFedora\Arr\ArrInterface;
+
 /**
  * HTTP cookie handler class.
  *

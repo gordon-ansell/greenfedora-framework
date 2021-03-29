@@ -38,10 +38,10 @@ class ValidatorCollection
     /**
      * Constructor.
      * 
-     * @param   iterable    $validators     Validators to add.
+     * @param   array    $validators     Validators to add.
      * @return  void 
      */
-    public function __construct(?iterable $validators = null)
+    public function __construct(?array $validators = null)
     {
         if (null !== $validators) {
             foreach ($validators as $validator) {

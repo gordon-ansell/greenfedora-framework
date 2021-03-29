@@ -90,7 +90,7 @@ class FormValidator
     public function validate(iterable $source, array $fields): ?string
     {
         foreach ($fields as $field) {
-            if (!$source[$field]) {
+            if (!array_key_exists($field, $source)) {
                 print_r($source);
                 throw new InvalidArgumentException(sprintf("Field '%s' not found in source for form validation", $field));
             } else {

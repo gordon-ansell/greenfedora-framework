@@ -37,7 +37,7 @@ class FilterCollection
     public function __construct(?array $filters = null)
     {
         if (null !== $filters) {
-            foreach ($filters as $filter§) {
+            foreach ($filters as $filter) {
                 $this->add($filter);
             }
         }

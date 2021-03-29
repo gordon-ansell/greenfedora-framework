@@ -40,6 +40,12 @@ class FormValidator
     protected $filters = [];
 
     /**
+     * Field that failed.
+     * @var string
+     */
+    protected $failedField = null;
+
+    /**
      * Constructor.
      * 
      * @return  void 
@@ -102,6 +108,7 @@ class FormValidator
 
                 if ($this->validators[$field]) {
                     if (!$this->validators[$field]->validate($f)) {
+                        $this->failedField = $field;
                         return $this->validators[$field]->getError();
                     }
                 }
@@ -109,5 +116,15 @@ class FormValidator
         }
 
         return null;
+    }
+
+    /**
+     * Get the failed field name.
+     * 
+     * @return  string      Failed field.
+     */
+    public function getFailedField(): ?string
+    {
+        return $this->failedField;
     }
 }

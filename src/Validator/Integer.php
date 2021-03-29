@@ -32,7 +32,7 @@ class Integer extends AbstractValidator implements ValidatorInterface
     public function validate($data) : bool
     {
 
-        if (!ctype_digit($data)) {
+        if (null !== $data and !empty($data) and !ctype_digit($data)) {
             $this->error = vsprintf("The '%s' field must be an integer.", $this->reps);
             return false;
         }

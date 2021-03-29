@@ -32,7 +32,7 @@ class Compulsory extends AbstractValidator implements ValidatorInterface
     public function validate($data) : bool
     {
         if ((null === $data) or (empty($data))) {
-            $this->error = vsprintf("The '%s' field is compulsory", $this->reps);
+            $this->error = vsprintf("The '%s' field is compulsory.", $this->reps);
             return false;
         }
         return true;

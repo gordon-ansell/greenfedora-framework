@@ -32,7 +32,7 @@ class Numeric extends AbstractValidator implements ValidatorInterface
     public function validate($data) : bool
     {
         if (!is_numeric($data)) {
-            $this->error = vsprintf("The '%s' field must be numeric", $this->reps);
+            $this->error = vsprintf("The '%s' field must be numeric.", $this->reps);
             return false;
         }
         return true;

@@ -10,7 +10,7 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Validator;
+namespace GreenFedora\Filter;
 
 use GreenFedora\Filter\FilterInterface;
 

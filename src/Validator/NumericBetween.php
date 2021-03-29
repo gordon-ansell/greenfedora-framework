@@ -34,6 +34,10 @@ class NumericBetween extends AbstractValidator implements ValidatorInterface
      */
     public function validate($data) : bool
     {
+        if (null === $data or empty($data)) {
+            return true;
+        }
+        
         if (!is_numeric($data)) {
             $this->error = vsprintf("The '%s' field must be numeric", $this->reps);
             return false;

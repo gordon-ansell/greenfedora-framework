@@ -36,6 +36,7 @@ class FilterCollection
      */
     public function __construct(?array $filters = null)
     {
+        print_r($filters);
         if (null !== $filters) {
             foreach ($filters as $filter) {
                 $this->add($filter);

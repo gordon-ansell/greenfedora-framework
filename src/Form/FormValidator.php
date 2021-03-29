@@ -91,6 +91,7 @@ class FormValidator
     {
         foreach ($fields as $field) {
             if (!$source[$field]) {
+                print_r($source);
                 throw new InvalidArgumentException(sprintf("Field '%s' not found in source for form validation", $field));
             } else {
                 $f = $source[$field];

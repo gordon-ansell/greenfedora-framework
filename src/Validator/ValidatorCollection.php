@@ -12,8 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Validator;
 
-use GreenFedora\Arr\Arr;
-use GreenFedora\Arr\ArrInterface;
+use GreenFedora\Validator\ValidatorInterface;
 
 /**
  * Validator collection.

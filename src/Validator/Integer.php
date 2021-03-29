@@ -36,8 +36,8 @@ class Integer extends AbstractValidator implements ValidatorInterface
             return true;
         }
 
-        if (ctype_digit($data)) {
-            $this->error = vsprintf("The '%s' field must be an integer. >>>" . $data . '<<<', $this->reps);
+        if (!ctype_digit($data)) {
+            $this->error = vsprintf("The '%s' field must be an integer.", $this->reps);
             return false;
         }
         return true;

@@ -46,7 +46,7 @@ class NumericBetween extends AbstractValidator implements ValidatorInterface
             throw new InvalidArgumentException("The NumericBetween validation requires the 'low' option.");
         }
 
-        if ($this->data < $this->options['low'] or $this->data > $this->options['high']) {
+        if ($data < $this->options['low'] or $data > $this->options['high']) {
             $reps = $this->reps;
             $reps[] = $this->options['low'];
             $reps[] = $this->options['high'];

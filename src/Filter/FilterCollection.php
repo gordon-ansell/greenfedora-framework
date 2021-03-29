@@ -51,7 +51,6 @@ class FilterCollection
      */
     public function add(FilterInterface $filter): self
     {
-        print_r($filter);
         $this->filter[] = $filter;
         return $this;
     }

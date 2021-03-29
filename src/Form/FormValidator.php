@@ -83,11 +83,11 @@ class FormValidator
     /**
      * Do the validation.
      * 
-     * @param   iterable    $source             Source to check.
+     * @param   array       $source             Source to check.
      * @param   array       $fields             Fields to check.
      * @return  string|null                     Error message or null if all is well. 
      */
-    public function validate(iterable $source, array $fields): ?string
+    public function validate(array $source, array $fields): ?string
     {
         foreach ($fields as $field) {
             if (!array_key_exists($field, $source)) {

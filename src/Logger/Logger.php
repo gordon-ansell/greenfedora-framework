@@ -111,23 +111,17 @@ class Logger implements LoggerInterface
 	 */
 	public function __construct(iterable $cfg, iterable $writers = array())
 	{
-        echo "logger1" . PHP_EOL;
 		$this->cfg = new Arr($this->defaults);
-        echo "logger2" . PHP_EOL;
 		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
-        echo "logger3" . PHP_EOL;
 		$this->writers = $writers;
-        echo "logger4" . PHP_EOL;
 		foreach ($this->writers as $writer) {
 			if (!$writer instanceof LogWriterInterface) {
 				throw new InvalidArgumentException(sprintf("Log writers passed to the Logger must implement LogWriterInterface, you passed type '%s'", gettype($write)));
 			}
 		}
-        echo "logger5" . PHP_EOL;
 		if (!$this->checkLevel($this->cfg->level)) {
 			throw new InvalidArgumentException(sprintf("Log level '%s' is not allowed.", $this->cfg->level));
 		}
-        echo "logger6" . PHP_EOL;
 	}
 	
 	/**

@@ -122,6 +122,7 @@ class Router implements RouterInterface, ContainerAwareInterface
         }
 
         if (null === $matched) {
+            print_r($this->routes);
             if (array_key_exists('_404_', $this->routes)) {
                 $matched = $this->routes['_404_'];
                 $this->trace4("Matched 404 route.");

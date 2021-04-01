@@ -12,7 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Logger;
 
-use Psr\Log\Loglevel as PsrLogLevel;
+use Psr\Log\LogLevel as PsrLogLevel;
 
 /**
  * Log levels.

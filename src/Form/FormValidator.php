@@ -102,11 +102,11 @@ class FormValidator
             } else {
                 $f = $source[$field];
 
-                if ($this->filters[$field]) {
+                if (array_key_exists($field, $this->filters)) {
                     $f = $this->filters[$field]->filter($f);
                 }
 
-                if ($this->validators[$field]) {
+                if (array_key_exists($field, $this->validators)) {
                     if (!$this->validators[$field]->validate($f)) {
                         $this->failedField = $field;
                         return $this->validators[$field]->getError();

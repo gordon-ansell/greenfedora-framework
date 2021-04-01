@@ -88,7 +88,7 @@ class Router implements RouterInterface, ContainerAwareInterface
     protected function loadRoutes($routes)
     {
         foreach($routes as $pattern => $target) {
-            $this->routes[] = new Route($pattern, $target);
+            $this->routes[$pattern] = new Route($pattern, $target);
         }
         $this->trace4(sprintf('Loaded %s routes.', sizeof($this->routes)));
     }
@@ -122,7 +122,6 @@ class Router implements RouterInterface, ContainerAwareInterface
         }
 
         if (null === $matched) {
-            print_r($this->routes);
             if (array_key_exists('_404_', $this->routes)) {
                 $matched = $this->routes['_404_'];
                 $this->trace4("Matched 404 route.");

@@ -144,12 +144,8 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 */
 	protected function getLogWriters() : array
 	{
-		if ('dev' == $this->mode) {
-			$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
-			return array($this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter));		
-		} else {
-			return array($this->createInstance(FileLogWriter::class, $this->getConfig('logger')));		
-		}
+		$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
+		return array($this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter));		
 	}	
 	
 	/**
@@ -159,7 +155,9 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
      */
 	protected function processLogger()
 	{
+		echo "pl1" . PHP_EOL;
 		$this->createInstance(Logger::class, $this->getConfig('logger'), $this->getLogWriters());
+		echo "pl2" . PHP_EOL;
 		$this->aliasInstance('logger', Logger::class);
 		if (!is_null($this->newLogLevel)) {
 			$this->getInstance('logger')->level($this->newLogLevel);

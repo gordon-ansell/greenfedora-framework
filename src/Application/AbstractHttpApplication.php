@@ -93,6 +93,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	{
 		echo "glr1" . PHP_EOL;
 		$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
+		echo "glr2" . PHP_EOL;
 		if ('dev' == $this->mode) {
 			return array(
 				$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter),
@@ -103,7 +104,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 				$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter)
 			);		
 		}
-		echo "glr2" . PHP_EOL;
+		echo "glr3" . PHP_EOL;
 	}	
 
 	/**

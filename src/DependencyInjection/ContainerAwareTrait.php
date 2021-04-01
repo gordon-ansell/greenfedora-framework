@@ -61,14 +61,9 @@ trait ContainerAwareTrait
 	 */
 	public function createInstance(string $className, ...$args)
 	{
-		echo "ci1" .PHP_EOL;
 		$args = func_get_args();
-		echo "ci2" .PHP_EOL;
 		array_shift($args);
-		echo "ci3 " . $className . PHP_EOL;
-		$x = $this->getContainer()->create($className, $args);
-		echo "ci4" .PHP_EOL;
-		return $x;
+		return $this->getContainer()->create($className, $args);
 	}	
 
 	/**

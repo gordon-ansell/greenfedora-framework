@@ -144,8 +144,12 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 */
 	protected function getLogWriters() : array
 	{
-		$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
-		return array($this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter));		
+		if ('dev' == $this->mode) {
+			$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
+			return array($this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter));		
+		} else {
+			return array($this->createInstance(FileLogWriter::class, $this->getConfig('logger')));		
+		}
 	}	
 	
 	/**

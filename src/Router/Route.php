@@ -13,6 +13,12 @@ declare(strict_types=1);
 namespace GreenFedora\Router;
 
 use GreenFedora\Router\RouteInterface;
+use GreenFedora\DependencyInjection\ContainerAwareTrait;
+use GreenFedora\DependencyInjection\ContainerAwareInterface;
+use GreenFedora\DependencyInjection\ContainerInterface;
+use GreenFedora\Logger\LoggerAwareTrait;
+use GreenFedora\Logger\LoggerAwareInterface;
+use GreenFedora\Logger\LoggerInterface;
 
 /**
  * Single route.
@@ -22,6 +28,9 @@ use GreenFedora\Router\RouteInterface;
 
 class Route implements RouteInterface
 {
+    use ContainerAwareTrait;
+    use LoggerAwareTrait;
+
     /**
      * Route pattern.
      * @var string|null
@@ -61,7 +70,10 @@ class Route implements RouteInterface
      */
     public function match(string $pattern) : bool
     {
+        $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $this->pattern));
+        
         if ($pattern == $this->pattern) {
+            $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $this->pattern));
             return true;
         }
         return false;

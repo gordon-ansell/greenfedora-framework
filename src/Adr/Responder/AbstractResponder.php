@@ -72,13 +72,17 @@ abstract class AbstractResponder implements ContainerAwareInterface
 	{
 		$cfg = $this->getInstance('config');
 
-		$webroot = null;
 		if (!$cfg->has('locations') or !$cfg->get('locations')->has('webroot')) {
 			$this->payload->set('webroot', '/');
 		} else {
 			$this->payload->set('webroot', $cfg->get('locations')->get('webroot'));
 		}
 
+		if (!$cfg->has('locations') or !$cfg->get('locations')->has('assets')) {
+			$this->payload->set('assets', '/');
+		} else {
+			$this->payload->set('assets', $cfg->get('locations')->get('assets'));
+		}
 	}
 
 	/**

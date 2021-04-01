@@ -88,7 +88,7 @@ class Router implements RouterInterface, ContainerAwareInterface
     protected function loadRoutes($routes)
     {
         foreach($routes as $pattern => $target) {
-            $this->routes[$pattern] = new Route($pattern, $target);
+            $this->routes[$pattern] = new Route($pattern, $target, $this->container);
         }
         $this->trace4(sprintf('Loaded %s routes.', sizeof($this->routes)));
     }

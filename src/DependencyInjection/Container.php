@@ -91,6 +91,7 @@ class Container implements ContainerInterface
 
 		$rc = new \ReflectionClass($className);
 		echo "cc3" . PHP_EOL;
+		print_r($args);
 		$this->instances[$className] = $rc->newInstanceArgs($args);
 		echo "cc4" . PHP_EOL;
 

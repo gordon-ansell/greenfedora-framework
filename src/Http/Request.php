@@ -107,19 +107,21 @@ class Request implements RequestInterface
 		$this->cmdLineArgs = new Arr();
 		$this->cmdLineSwitches = new Arr();
 		
-		foreach ($_SERVER['argv'] as $arg) {
-			if (strpos($arg, '=') != false) {
-				$parts = explode("=", $arg);
-				$key = trim($parts[0]);
-				$this->cmdLineArgs->set($key, trim($parts[1]));
-			} else if ('--' == substr($arg, 0, 2)) {
-				$switch = substr($arg, 2);
-				$this->cmdLineSwitches->set($switch, true);
-			} else if ('-' == substr($arg, 0, 1)) {
-				$switch = substr($arg, 1);
-				$this->cmdLineSwitches->set($switch, true);
-			}
-		}
+        if ($_SERVER['argv']) {
+            foreach ($_SERVER['argv'] as $arg) {
+                if (strpos($arg, '=') != false) {
+                    $parts = explode("=", $arg);
+                    $key = trim($parts[0]);
+                    $this->cmdLineArgs->set($key, trim($parts[1]));
+                } else if ('--' == substr($arg, 0, 2)) {
+                    $switch = substr($arg, 2);
+                    $this->cmdLineSwitches->set($switch, true);
+                } else if ('-' == substr($arg, 0, 1)) {
+                    $switch = substr($arg, 1);
+                    $this->cmdLineSwitches->set($switch, true);
+                }
+            }
+        }
 	}
 	
 	/**

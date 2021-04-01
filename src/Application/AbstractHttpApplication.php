@@ -47,9 +47,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 */
 	public function __construct(ApplicationInputInterface $input, ApplicationOutputInterface $output, string $mode = 'prod')
 	{
-		echo "http constructor1" . PHP_EOL;
 		parent::__construct($input, $output, $mode);
-		echo "http constructor2" . PHP_EOL;
 		$this->processRouter();
 		$this->processTemplate();
 	}

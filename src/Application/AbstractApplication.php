@@ -163,11 +163,15 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
      */
 	protected function processLogger()
 	{
+		echo "PL 1" . PHP_EOL;
 		$this->createInstance(Logger::class, $this->getConfig('logger'), $this->getLogWriters());
+		echo "PL 2" . PHP_EOL;
 		$this->aliasInstance('logger', Logger::class);
+		echo "PL 3" . PHP_EOL;
 		if (!is_null($this->newLogLevel)) {
 			$this->getInstance('logger')->level($this->newLogLevel);
 		}
+		echo "PL 4" . PHP_EOL;
 		$this->trace4('Logger initialised.');
 	}
 	

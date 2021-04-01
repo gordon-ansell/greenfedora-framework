@@ -81,19 +81,13 @@ class Container implements ContainerInterface
 	 */
 	public function create(string $className, array $args = array())
 	{
-		echo "cc1 " . $className . PHP_EOL;
 		if (array_key_exists($className, $this->instances)) {
-			echo "cc1a " . $className . PHP_EOL;
 			throw new InvalidArgumentException(sprintf("Cannot create instance of '%s' as it already exists", $className));
 			return null;
 		}
-		echo "cc2" . PHP_EOL;
 
 		$rc = new \ReflectionClass($className);
-		echo "cc3" . PHP_EOL;
-		print_r($args);
 		$this->instances[$className] = $rc->newInstanceArgs($args);
-		echo "cc4" . PHP_EOL;
 
 		return $this->instances[$className];
 	}

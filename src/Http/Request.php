@@ -107,7 +107,7 @@ class Request implements RequestInterface
 		$this->cmdLineArgs = new Arr();
 		$this->cmdLineSwitches = new Arr();
 		
-        if ($_SERVER['argv']) {
+        if (array_key_exists('argv', $_SERVER) and count($_SERVER['argv'])) {
             foreach ($_SERVER['argv'] as $arg) {
                 if (strpos($arg, '=') != false) {
                     $parts = explode("=", $arg);

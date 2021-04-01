@@ -49,6 +49,7 @@ class StdLogFormatter implements LogFormatterInterface
 	 */
 	public function __construct(iterable $cfg)	
 	{
+		echo "slf1" . PHP_EOL;
 		$this->cfg = new Arr($this->defaults);
 		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
 	}

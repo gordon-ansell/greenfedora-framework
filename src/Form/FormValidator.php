@@ -63,7 +63,7 @@ class FormValidator
      */
     public function addValidator(string $field, ValidatorInterface $validator): self
     {
-        if (!$this->validators[$field]) {
+        if (!array_key_exists($field, $this->validators)) {
             $this->validators[$field] = new ValidatorCollection();
         }
         $this->validators[$field]->add($validator);
@@ -79,7 +79,7 @@ class FormValidator
      */
     public function addFilter(string $field, FilterInterface $filter): self
     {
-        if (!$this->filters[$field]) {
+        if (!array_key_exists($field, $this->filters)) {
             $this->filters[$field] = new FilterCollection();
         }
         $this->filters[$field]->add($filter);

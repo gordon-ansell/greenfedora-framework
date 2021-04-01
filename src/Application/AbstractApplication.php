@@ -93,16 +93,24 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 */
 	public function __construct(ApplicationInputInterface $input, ApplicationOutputInterface $output, string $mode = 'prod')
 	{
+		echo "abs constructor1" . PHP_EOL;
 		$this->input = $input;
 		$this->output = $output;
 		$this->mode = $mode;
+		echo "abs constructor2" . PHP_EOL;
 
 		$this->processContainer();
+		echo "abs constructor3" . PHP_EOL;
 		$this->processConfig();	
+		echo "abs constructor4" . PHP_EOL;
 		$this->processLocale();
+		echo "abs constructor5" . PHP_EOL;
 		$this->processLogger();
+		echo "abs constructor6" . PHP_EOL;
 		$this->processLang();
+		echo "abs constructor7" . PHP_EOL;
 		$this->processInflector();
+		echo "abs constructor8" . PHP_EOL;
 	}
 	
 	/**

@@ -56,10 +56,21 @@ class Route implements RouteInterface
      * @param   string   $target       Route target.
      * @return  void
      */
-    public function __construct(string $pattern, string $target)
+    public function __construct(string $pattern, string $target, ContainerInterface $container)
     {
         $this->pattern = $pattern;
         $this->target = $target;
+        $this->container = $container;
+    }
+
+	/**
+	 * Get the logger.
+	 *
+	 * @return 	LoggerInterface
+	 */
+	public function getLogger() : LoggerInterface
+    {
+		return $this->getInstance('logger');
     }
 
     /**

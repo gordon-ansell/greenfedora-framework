@@ -90,18 +90,19 @@ class Route implements RouteInterface
      */
     public function match(string $pattern) : bool
     {
+        $frigged = "@^" . preg_replace('/\\\:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)', preg_quote($this->pattern)) . "$@D";
 
-        $pattern = '/' . trim($pattern, '/') . '/';
+        //$pattern = '/' . trim($pattern, '/') . '/';
 
-        $tail = "\/.*$|$";
+        //$tail = "\/.*$|$";
         //$quoted = preg_quote('/' . trim($this->pattern, '/'), '@') . $tail;
-        $quoted = '/' . trim($this->pattern, '/') . '/';
+        //$quoted = '/' . trim($this->pattern, '/') . '/';
         //$quoted = preg_quote($quoted, '@');
         $matches = [];
 
-        $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $quoted));
+        $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $frigged));
 
-        $result = preg_match('@' . $quoted . '@', $pattern, $matches, PREG_UNMATCHED_AS_NULL);
+        $result = preg_match($frigged, $pattern, $matches);
 
         if (false === $result) {
             throw new InvalidArgumentException(sprintf("Invalid regex in router: %s",  
@@ -109,7 +110,8 @@ class Route implements RouteInterface
         } else if (1 == $result) {
             $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $quoted));
             if (count($matches) > 1) {
-                for ($i = 1; $i < count($matches); $i++) {
+                array_shift($matches);
+                for ($i = 0; $i < count($matches); $i++) {
                     $this->parameters[] = trim($matches[$i], "/");
                 }
             }

@@ -95,11 +95,18 @@ class Route implements RouteInterface
 
 
         $pat = '/' . trim($this->pattern, "/");
+
+        $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $pat));
+
+        if ($pat == $pattern) {
+            $this->trace4(sprintf("MATCHED (exactly) '%s' against '%s'.", $pattern, $pat));
+            return true;
+        }
+
+
         $frigged = "@^" . preg_replace('/\\\:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)?(\/)?', preg_quote($pat)) . "$@D";
 
         $matches = [];
-
-        $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $frigged));
 
         $result = preg_match($frigged, $pattern, $matches);
 

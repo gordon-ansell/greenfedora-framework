@@ -90,7 +90,12 @@ class Route implements RouteInterface
      */
     public function match(string $pattern) : bool
     {
-        $frigged = "@^" . preg_replace('/\\\:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)', preg_quote($this->pattern)) . "$@D";
+        $pattern = '/' . rtrim($pattern) . '/';
+        if ('//' == $pattern) $pattern = '/';
+
+
+        $pat = '/' . trim($this->pattern, "/") . "/";
+        $frigged = "@^" . preg_replace('/\\\:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)', preg_quote($pat)) . "$@D";
 
         //$pattern = '/' . trim($pattern, '/') . '/';
 

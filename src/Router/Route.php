@@ -52,6 +52,12 @@ class Route implements RouteInterface
     protected $namespacedClass = null;
 
     /**
+     * Parameters.
+     * @var array
+     */
+    protected $parameters = [];
+
+    /**
      * Constructor.
      * 
      * @param   string   $pattern      Route pattern.
@@ -86,10 +92,11 @@ class Route implements RouteInterface
     {
         $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $this->pattern));
 
-        $quoted = preg_quote($this->pattern, '/');
+        $quoted = preg_quote(rtrim($this->pattern, '/'), '/');
         $matches = [];
+        $tail = "((\/.*$)|$)";
 
-        $result = preg_match('/' . $quoted . '/', $pattern, $matches);
+        $result = preg_match('/' . $quoted . $tail . '/', $pattern, $matches);
 
         if (false === $result) {
             throw new InvalidArgumentException(sprintf("Invalid regex in router: %s",  

@@ -90,19 +90,20 @@ class Route implements RouteInterface
      */
     public function match(string $pattern) : bool
     {
-        $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $this->pattern));
 
-        $quoted = preg_quote('/' . trim($this->pattern, '/'), '/');
-        $matches = [];
         $tail = "((\/.*$)|$)";
+        $quoted = preg_quote('/' . trim($this->pattern, '/'), '/') . $tail;
+        $matches = [];
 
-        $result = preg_match('/' . $quoted . $tail . '/', $pattern, $matches);
+        $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $quoted));
+
+        $result = preg_match('/' . $quoted . '/', $pattern, $matches);
 
         if (false === $result) {
             throw new InvalidArgumentException(sprintf("Invalid regex in router: %s",  
                 array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]));
         } else if (1 == $result) {
-            $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $this->pattern));
+            $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $quoted));
             print_r($matches);
             return true;
         }

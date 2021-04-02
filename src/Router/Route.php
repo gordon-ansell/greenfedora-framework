@@ -107,7 +107,7 @@ class Route implements RouteInterface
             $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $quoted));
             if (count($matches) > 1) {
                 for ($i = 1; $i < count($matches); $i++) {
-                    $this->parameters[] = $matches[$i];
+                    $this->parameters[] = trim($matches[$i], "/");
                 }
             }
             print_r($matches);

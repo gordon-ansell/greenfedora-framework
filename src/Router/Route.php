@@ -105,7 +105,13 @@ class Route implements RouteInterface
                 array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]));
         } else if (1 == $result) {
             $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $quoted));
+            if (count($matches) > 1) {
+                for ($i = 1; $i < count($matches); $i++) {
+                    $this->parameters[] = $matches[$i];
+                }
+            }
             print_r($matches);
+            print_r($this->parameters);
             return true;
         }
         

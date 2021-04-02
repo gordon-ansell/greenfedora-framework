@@ -98,7 +98,7 @@ class Route implements RouteInterface
 
         $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $pat));
 
-        if ($pat == $pattern) {
+        if (trim($pat, '/') == trim($pattern, '/')) {
             $this->trace4(sprintf("MATCHED (exactly) '%s' against '%s'.", $pattern, $pat));
             return true;
         }

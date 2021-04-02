@@ -135,7 +135,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		$matched = $this->getRouter()->match($this->input->getRoute());
 
 		// Just some debugging.
-		$this->trace4(sprintf("Matched namespaced class is: %s", $matched->getNamespacedClass()));
+		$this->trace4(sprintf("Matched namespaced class is: %s", $matched[0]->getNamespacedClass()));
 
 		// Create the class.
 		$class = $matched[0]->getNamespacedClass();

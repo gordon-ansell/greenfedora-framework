@@ -20,6 +20,8 @@ use GreenFedora\Logger\LoggerAwareTrait;
 use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerInterface;
 
+use GreenFedora\Router\Exception\InvalidArgumentException;
+
 /**
  * Single route.
  *
@@ -77,16 +79,33 @@ class Route implements RouteInterface
      * See if the route matches.
      * 
      * @param   string  $pattern    Pattern to match.
-     * @return  bool                True if it matches, else false.           
+     * @return  bool                True if it matches, else false.  
+     * @throws  InvalidArgumentException         
      */
     public function match(string $pattern) : bool
     {
         $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $this->pattern));
+
+        $quoted = preg_quote($this->pattern, '/');
+        $matches = [];
+
+        $result = preg_match($quoted, $pattern, $matches);
+
+        if (false === $result) {
+            throw new InvalidArgumentException(sprintf("Invalid regex in router: %s",  
+                array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]));
+        } else if (1 == $result) {
+            $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $this->pattern));
+            print_r($matches);
+            return true;
+        }
         
+        /*
         if ($pattern == $this->pattern) {
             $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $this->pattern));
             return true;
         }
+        */
         return false;
     }
 

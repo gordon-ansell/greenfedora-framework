@@ -92,12 +92,12 @@ class Route implements RouteInterface
     {
 
         $tail = "((\/.*$)|$)";
-        $quoted = preg_quote('/' . trim($this->pattern, '/'), '/') . $tail;
+        $quoted = preg_quote('/' . trim($this->pattern, '/'), '@') . $tail;
         $matches = [];
 
         $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $quoted));
 
-        $result = preg_match('/' . $quoted . '/', $pattern, $matches);
+        $result = preg_match('@' . $quoted . '@', $pattern, $matches);
 
         if (false === $result) {
             throw new InvalidArgumentException(sprintf("Invalid regex in router: %s",  

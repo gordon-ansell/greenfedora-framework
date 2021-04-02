@@ -91,6 +91,8 @@ class Route implements RouteInterface
     public function match(string $pattern) : bool
     {
 
+        $pattern = '/' . trim($pattern, '/') . '/';
+
         $tail = "\/.*$|$";
         //$quoted = preg_quote('/' . trim($this->pattern, '/'), '@') . $tail;
         $quoted = '/' . trim($this->pattern, '/') . '/';

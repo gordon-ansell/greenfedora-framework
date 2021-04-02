@@ -90,7 +90,7 @@ class Route implements RouteInterface
      */
     public function match(string $pattern) : bool
     {
-        $pattern = '/' . rtrim($pattern) . '/';
+        $pattern = '/' . trim($pattern) . '/';
         if ('//' == $pattern) $pattern = '/';
 
 

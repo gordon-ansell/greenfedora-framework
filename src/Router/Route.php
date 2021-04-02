@@ -96,7 +96,7 @@ class Route implements RouteInterface
         $tail = "\/.*$|$";
         //$quoted = preg_quote('/' . trim($this->pattern, '/'), '@') . $tail;
         $quoted = '/' . trim($this->pattern, '/') . '/';
-        $quoted = preg_quote($quoted, '@');
+        //$quoted = preg_quote($quoted, '@');
         $matches = [];
 
         $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $quoted));

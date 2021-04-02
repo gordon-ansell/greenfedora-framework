@@ -98,7 +98,7 @@ class Route implements RouteInterface
 
         $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $quoted));
 
-        $result = preg_match('@' . $quoted . '@', $pattern, $matches);
+        $result = preg_match('@' . $quoted . '@', $pattern, $matches, PREG_UNMATCHED_AS_NULL);
 
         if (false === $result) {
             throw new InvalidArgumentException(sprintf("Invalid regex in router: %s",  

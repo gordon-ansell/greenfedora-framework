@@ -89,7 +89,7 @@ class Route implements RouteInterface
         $quoted = preg_quote($this->pattern, '/');
         $matches = [];
 
-        $result = preg_match($quoted, $pattern, $matches);
+        $result = preg_match('/' . $quoted . '/', $pattern, $matches);
 
         if (false === $result) {
             throw new InvalidArgumentException(sprintf("Invalid regex in router: %s",  

@@ -113,7 +113,7 @@ class Route implements RouteInterface
             throw new InvalidArgumentException(sprintf("Invalid regex in router: %s",  
                 array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]));
         } else if (1 == $result) {
-            $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $quoted));
+            $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $frigged));
             if (count($matches) > 1) {
                 array_shift($matches);
                 for ($i = 0; $i < count($matches); $i++) {

@@ -12,8 +12,6 @@
 declare(strict_types=1);
 namespace GreenFedora\Adr\Action;
 
-use GreenFedora\Arr\Arr;
-use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
@@ -51,9 +49,9 @@ abstract class AbstractAction implements ContainerAwareInterface
 
 	/**
 	 * Parameters.
-	 * @var ArrInterface
+	 * @var array
 	 */
-	protected $params = null;
+	protected $params = [];
 
 	/**
 	 * Constructor.
@@ -64,12 +62,13 @@ abstract class AbstractAction implements ContainerAwareInterface
 	 * @param 	array						$params 	Parameters.
 	 * @return	void
 	 */
-	public function __construct(ContainerInterface $container, ApplicationInputInterface $input, ApplicationOutputInterface $output, array $params = [])
+	public function __construct(ContainerInterface $container, ApplicationInputInterface $input, 
+		ApplicationOutputInterface $output, array $params = [])
 	{
 		$this->container = $container;
 		$this->input = $input;
 		$this->output = $output;
-		$this->params = new Arr($params);
+		$this->params = $params;
 	}
 
 	/**

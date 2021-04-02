@@ -97,9 +97,9 @@ class Router implements RouterInterface, ContainerAwareInterface
      * Match a route.
      * 
      * @param   string  $pattern    Route pattern to match.
-     * @return  RouteInterface      Matched route object.
+     * @return  array               Matched route object and parameters.
      */
-    public function match(string $pattern): ?RouteInterface
+    public function match(string $pattern): ?array
     {
         $matched = null;
 
@@ -132,6 +132,8 @@ class Router implements RouterInterface, ContainerAwareInterface
 
         $matched->setNamespacedClass($prefix);
 
-        return $matched;
+        $params = ($matched->hasParameters()) ? $matched->getParameters() : [];
+
+        return [$matched, $params];
     }
 }

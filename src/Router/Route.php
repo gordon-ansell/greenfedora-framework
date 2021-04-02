@@ -97,12 +97,6 @@ class Route implements RouteInterface
         $pat = '/' . trim($this->pattern, "/");
         $frigged = "@^" . preg_replace('/\\\:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)?(\/)?', preg_quote($pat)) . "$@D";
 
-        //$pattern = '/' . trim($pattern, '/') . '/';
-
-        //$tail = "\/.*$|$";
-        //$quoted = preg_quote('/' . trim($this->pattern, '/'), '@') . $tail;
-        //$quoted = '/' . trim($this->pattern, '/') . '/';
-        //$quoted = preg_quote($quoted, '@');
         $matches = [];
 
         $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $frigged));
@@ -120,17 +114,9 @@ class Route implements RouteInterface
                     $this->parameters[] = trim($matches[$i], "/");
                 }
             }
-            print_r($matches);
-            print_r($this->parameters);
             return true;
         }
         
-        /*
-        if ($pattern == $this->pattern) {
-            $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $this->pattern));
-            return true;
-        }
-        */
         return false;
     }
 
@@ -194,5 +180,25 @@ class Route implements RouteInterface
 		$class = '\\' . trim($class, '\\') . '\\' . trim($this->target, '\\');
 
         $this->namespacedClass = $class;
+    }
+
+    /**
+     * Get the parameters.
+     * 
+     * @return  array 
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * Do we have parameters?
+     * 
+     * @return  bool
+     */
+    public function hasParameters(): bool
+    {
+        return (count($this->parameters) > 0) ? true : false;
     }
 }

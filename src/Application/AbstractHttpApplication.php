@@ -138,8 +138,8 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		$this->trace4(sprintf("Matched namespaced class is: %s", $matched->getNamespacedClass()));
 
 		// Create the class.
-		$class = $matched->getNamespacedClass();
-		$dispatchable = new $class($this->container, $this->input, $this->output);
+		$class = $matched[0]->getNamespacedClass();
+		$dispatchable = new $class($this->container, $this->input, $this->output, $matched[1]);
 
 		// Dispatch the class.
 		$dispatchable->dispatch();

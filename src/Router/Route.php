@@ -95,7 +95,7 @@ class Route implements RouteInterface
 
 
         $pat = '/' . trim($this->pattern, "/");
-        $frigged = "@^" . preg_replace('/\\\:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)?(?:(\/))', preg_quote($pat)) . "$@D";
+        $frigged = "@^" . preg_replace('/\\\:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)?(\/)', preg_quote($pat)) . "$@D";
 
         //$pattern = '/' . trim($pattern, '/') . '/';
 

@@ -41,16 +41,20 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	DI container.
+	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
 	 * @param	ApplicationInputInterface	$input 		Input.
 	 * @param	ApplicationOutputInterface	$output 	Output.
-	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
 	 *
 	 * @return	void
 	 */
-	public function __construct(ContainerInterface $container, ApplicationInputInterface $input, 
-		ApplicationOutputInterface $output, string $mode = 'prod')
+	public function __construct(
+		ContainerInterface $container, 
+		string $mode = 'prod', 
+		?ApplicationInputInterface $input = null, 
+		?ApplicationOutputInterface $output = null
+		)
 	{
-		parent::__construct($container, $input, $output, $mode);
+		parent::__construct($container, $mode, $input, $output);
 		$this->processRouter();
 		$this->processTemplate();
 	}

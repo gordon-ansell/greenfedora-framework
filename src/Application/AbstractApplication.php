@@ -27,7 +27,6 @@ use GreenFedora\Logger\Writer\ConsoleLogWriter;
 use GreenFedora\DependencyInjection\ContainerInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;
-use GreenFedora\Locale\Locale;
 use GreenFedora\Locale\LocaleInterface;
 use GreenFedora\Locale\LocaleAwareInterface;
 use GreenFedora\Locale\LocaleAwareTrait;
@@ -104,7 +103,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 		$this->mode = $mode;
 
 		//$this->processConfig();	
-		$this->processLocale();
+		//$this->processLocale();
 		$this->processLogger();
 		$this->processLang();
 		$this->processInflector();
@@ -128,11 +127,13 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 *
 	 * @return	void
 	 */
+	/*
 	protected function processLocale()
 	{
 		$this->createInstance(Locale::class, $this->getConfig('locale'));
 		$this->aliasInstance('locale', Locale::class);
-	}	
+	}
+	*/	
 	
 	/**
 	 * Get the log writers.

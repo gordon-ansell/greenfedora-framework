@@ -203,7 +203,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 *
 	 * @return 	void
 	 */
-	public function main()
+	final public function main()
 	{
 		$this->trace4('Main started.');
 		if ($this->preRun()) {

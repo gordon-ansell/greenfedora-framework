@@ -17,7 +17,6 @@ use GreenFedora\Application\Exception\InvalidArgumentException;
 use GreenFedora\Application\Exception\OutOfBoundsException;
 use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
-use GreenFedora\Config\Config;
 use GreenFedora\Logger\Logger;
 use GreenFedora\Logger\LoggerInterface;
 use GreenFedora\Logger\LoggerAwareInterface;
@@ -104,7 +103,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 		$this->output = $output ?: $this->container->get('output');
 		$this->mode = $mode;
 
-		$this->processConfig();	
+		//$this->processConfig();	
 		$this->processLocale();
 		$this->processLogger();
 		$this->processLang();
@@ -116,11 +115,13 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 *
 	 * @return	void
      */
+	/*
 	protected function processConfig()
 	{
 		$this->createInstance(Config::class)->process($this->mode);
 		$this->aliasInstance('config', Config::class);
 	}
+	*/
 	
 	/**
 	 * Process the locale.

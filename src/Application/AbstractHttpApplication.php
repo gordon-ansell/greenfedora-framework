@@ -49,68 +49,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		)
 	{
 		parent::__construct($container, $mode, $input, $output);
-		//$this->processRouter();
-		//$this->processTemplate();
 	}
-	
-	/**
-	 * Process the router.
-	 *
-	 * @return	void
-     */
-	/*
-	protected function processRouter()
-	{
-		$this->createInstance(Router::class, $this->getConfig('routing'), $this->container);
-		$this->aliasInstance('router', Router::class);
-		$this->trace4('Router initialised.');
-	}
-	*/
-
-	/**
-	 * Process the template processor.
-	 *
-	 * @return	void
-     */
-	/*
-	protected function processTemplate()
-	{
-		$tplType = $this->getConfig('templateType');
-		if ('plates' == $tplType) {
-			$this->createInstance(PlatesTemplate::class, $this->getConfig('template'), $this->container);
-			$this->aliasInstance('template', PlatesTemplate::class);
-		} else if ('smarty' == $tplType) {
-			$this->createInstance(SmartyTemplate::class, $this->getConfig('template'), $this->container);
-			$this->aliasInstance('template', SmartyTemplate::class);
-		} else {
-			throw new InvalidArgumentException(sprintf("No template support for type '%s'", $tplType));
-		}
-		$this->trace4('Template engine initialised.');
-	}
-	*/
-
-	/**
-	 * Get the log writers.
-	 *
-	 * @return array
-	 */
-	/*
-	protected function getLogWriters() : array
-	{
-		$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
-		if ('dev' == $this->mode) {
-			return array(
-				$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter),
-				$this->createInstance(ForcedConsoleLogWriter::class, $this->getConfig('logger'), $formatter)
-			);		
-		} else {
-			return array(
-				$this->createInstance(FileLogWriter::class, $this->getConfig('logger'), $formatter)
-			);		
-		}
-	}	
-	*/
-
 	/**
 	 * Get the router.
 	 *

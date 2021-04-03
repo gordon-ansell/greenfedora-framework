@@ -83,7 +83,7 @@ class Container implements ContainerInterface
 	public function create(string $className, array $args = array(), ?string $alias = null)
 	{
 		if (array_key_exists($className, $this->instances)) {
-			//throw new InvalidArgumentException(sprintf("Cannot create instance of '%s' as it already exists", $className));
+			throw new InvalidArgumentException(sprintf("Cannot create instance of '%s' as it already exists", $className));
 			return null;
 		}
 

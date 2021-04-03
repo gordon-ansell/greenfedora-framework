@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Session;
 
 use GreenFedora\Session\SessionInterface;
+use GreenFedora\Arr\Arr;
 
 /**
  * Session handler.

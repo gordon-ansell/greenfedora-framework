@@ -29,7 +29,6 @@ use GreenFedora\DependencyInjection\ContainerAwareInterface;
 use GreenFedora\Locale\LocaleInterface;
 use GreenFedora\Locale\LocaleAwareInterface;
 use GreenFedora\Locale\LocaleAwareTrait;
-use GreenFedora\Lang\Lang;
 use GreenFedora\Lang\LangInterface;
 use GreenFedora\Lang\LangAwareTrait;
 use GreenFedora\Lang\LangAwareInterface;
@@ -104,7 +103,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 		//$this->processConfig();	
 		//$this->processLocale();
 		//$this->processLogger();
-		$this->processLang();
+		//$this->processLang();
 		$this->processInflector();
 	}
 		
@@ -169,12 +168,14 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 *
 	 * @return 	void
 	 */
+	/*
 	protected function processLang() 
 	{
 		$this->createInstance(Lang::class, $this->getLocale()->getLangCode());
 		$this->aliasInstance('lang', Lang::class);
 		$this->trace4('Language processing initialised.');
-	}	
+	}
+	*/	
 
 	/**
 	 * Process inflector.

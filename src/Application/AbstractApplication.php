@@ -32,7 +32,6 @@ use GreenFedora\Locale\LocaleAwareTrait;
 use GreenFedora\Lang\LangInterface;
 use GreenFedora\Lang\LangAwareTrait;
 use GreenFedora\Lang\LangAwareInterface;
-use GreenFedora\Inflector\Inflector;
 use GreenFedora\Inflector\InflectorInterface;
 use GreenFedora\Inflector\InflectorAwareInterface;
 use GreenFedora\Inflector\InflectorAwareTrait;
@@ -104,7 +103,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 		//$this->processLocale();
 		//$this->processLogger();
 		//$this->processLang();
-		$this->processInflector();
+		//$this->processInflector();
 	}
 		
 	/**
@@ -182,12 +181,14 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 *
 	 * @return 	void
 	 */
+	/*
 	protected function processInflector() 
 	{
 		$this->createInstance(Inflector::class);
 		$this->aliasInstance('inflector', Inflector::class);
 		$this->trace4('Inflector initialised.');
-	}	
+	}
+	*/	
 
 	/**
 	 * See if we have a config key.

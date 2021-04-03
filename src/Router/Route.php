@@ -88,7 +88,7 @@ class Route implements RouteInterface
      * @return  bool                True if it matches, else false.  
      * @throws  InvalidArgumentException         
      */
-    public function match1(string $pattern) : bool
+    public function match1(string $raw) : bool
     {
         if (preg_match('#' . $this->pattern . '#', $raw, $matches)) {
             $this->parameters = explode('/', trim($matches['params'], '/'));

@@ -24,6 +24,7 @@ use GreenFedora\Router\RouterInterface;
 use GreenFedora\Template\PlatesTemplate;
 use GreenFedora\Template\SmartyTemplate;
 use GreenFedora\Template\TemplateInterface;
+use GreenFedora\DependencyInjection\ContainerInterface;
 
 use GreenFedora\Application\Exception\InvalidArgumentException;
 

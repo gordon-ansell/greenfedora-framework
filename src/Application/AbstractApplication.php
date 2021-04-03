@@ -25,6 +25,7 @@ use GreenFedora\Logger\LoggerAwareTrait;
 use GreenFedora\Logger\Formatter\StdLogFormatter;
 use GreenFedora\Logger\Writer\FileLogWriter;
 use GreenFedora\Logger\Writer\ConsoleLogWriter;
+use GreenFedora\DependencyInjection\ContainerInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;
 use GreenFedora\Locale\Locale;

@@ -84,6 +84,22 @@ class Route implements RouteInterface
     /**
      * See if the route matches.
      * 
+     * @param   string  $raw        Pattern to match.
+     * @return  bool                True if it matches, else false.  
+     * @throws  InvalidArgumentException         
+     */
+    public function match1(string $pattern) : bool
+    {
+        if (preg_match('#' . $this->pattern . '#', $raw, $matches)) {
+            $this->parameters = explode('/', trim($matches['params'], '/'));
+            return true;
+        }        
+        return false;
+    }
+
+    /**
+     * See if the route matches.
+     * 
      * @param   string  $pattern    Pattern to match.
      * @return  bool                True if it matches, else false.  
      * @throws  InvalidArgumentException         
@@ -102,7 +118,6 @@ class Route implements RouteInterface
             $this->trace4(sprintf("MATCHED (exactly) '%s' against '%s'.", $pattern, $pat));
             return true;
         }
-
 
         $frigged = "@^" . preg_replace('/\\\:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)?(\/)?', preg_quote($pat)) . "$@D";
 

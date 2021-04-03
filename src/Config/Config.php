@@ -33,9 +33,9 @@ class Config extends Arr implements ConfigInterface
 	 * @var array
 	 */
 	protected $modeSubDirs = array(
-		'prod'	=>	array('.'),
-		'test'	=>	array('.', 'test'),
-		'dev'	=>	array('.', 'test', 'dev'),	
+		'prod'		=>	array('.'),
+		'staging'	=>	array('.', 'staging'),
+		'dev'		=>	array('.', 'staging', 'dev'),	
 	);
 	
 	/**
@@ -67,7 +67,7 @@ class Config extends Arr implements ConfigInterface
 	 *
 	 *	-	.php indicates a PHP config file that will simply be 'required'.
 	 *
-	 * Subdirectories on each path can be named 'dev' or 'test' and are only processed if the given mode
+	 * Subdirectories on each path can be named 'dev' or 'staging' and are only processed if the given mode
 	 * is passed in.
 	 *
 	 * Paths are processed in the order they're passed in with later values overwriting older ones. However,

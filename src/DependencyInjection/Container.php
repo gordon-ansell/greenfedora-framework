@@ -74,12 +74,13 @@ class Container implements ContainerInterface
 	 *
 	 * @param 	string 			$className	Class name.
 	 * @param 	array			$args		Arguments to pass to constructor.
+	 * @param 	string 			$alias 		Alias to set.
 	 *
 	 * @return 	object|null
 	 *
 	 * @throws 	InvalidArgumentException If the class has already been created.
 	 */
-	public function create(string $className, array $args = array())
+	public function create(string $className, array $args = array(), ?string $alias = null)
 	{
 		if (array_key_exists($className, $this->instances)) {
 			throw new InvalidArgumentException(sprintf("Cannot create instance of '%s' as it already exists", $className));
@@ -88,6 +89,10 @@ class Container implements ContainerInterface
 
 		$rc = new \ReflectionClass($className);
 		$this->instances[$className] = $rc->newInstanceArgs($args);
+
+		if (null !== $alias) {
+			$this->alias($alias, $className);
+		}
 
 		return $this->instances[$className];
 	}

@@ -50,9 +50,8 @@ class Locale implements LocaleInterface
 	 *
 	 * @return 	void
 	 */
-	public function __construct($cfg)
+	public function __construct(iterable $cfg)
 	{
-		print_r($cfg);
 		$this->cfg = new Arr();
 		$this->cfg->timezone = date_default_timezone_get();
 		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);

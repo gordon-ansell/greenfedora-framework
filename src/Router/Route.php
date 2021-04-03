@@ -88,7 +88,7 @@ class Route implements RouteInterface
      * @return  bool                True if it matches, else false.  
      * @throws  InvalidArgumentException         
      */
-    public function match1(string $raw) : bool
+    public function match(string $raw) : bool
     {
         if (preg_match('#' . $this->pattern . '#', $raw, $matches)) {
             if (array_key_exists('params', $matches)) {
@@ -106,6 +106,7 @@ class Route implements RouteInterface
      * @return  bool                True if it matches, else false.  
      * @throws  InvalidArgumentException         
      */
+    /*
     public function match(string $pattern) : bool
     {
         $pattern = '/' . trim($pattern, '/') . '/';
@@ -143,6 +144,7 @@ class Route implements RouteInterface
         
         return false;
     }
+    */
 
     /**
      * Return the pattern.

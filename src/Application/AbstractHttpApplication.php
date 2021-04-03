@@ -17,8 +17,6 @@ use GreenFedora\Application\ApplicationInterface;
 use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\Router\RouterInterface;
-use GreenFedora\Template\PlatesTemplate;
-use GreenFedora\Template\SmartyTemplate;
 use GreenFedora\Template\TemplateInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
 
@@ -52,7 +50,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	{
 		parent::__construct($container, $mode, $input, $output);
 		//$this->processRouter();
-		$this->processTemplate();
+		//$this->processTemplate();
 	}
 	
 	/**
@@ -74,6 +72,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 *
 	 * @return	void
      */
+	/*
 	protected function processTemplate()
 	{
 		$tplType = $this->getConfig('templateType');
@@ -88,6 +87,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		}
 		$this->trace4('Template engine initialised.');
 	}
+	*/
 
 	/**
 	 * Get the log writers.

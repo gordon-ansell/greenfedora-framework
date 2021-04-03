@@ -27,6 +27,14 @@ use GreenFedora\Inflector\InflectorInterface;
 
 interface ApplicationInterface
 {
+
+	/**
+	 * The main run call.
+	 *
+	 * @return 	void
+	 */
+	public function main();
+
 	/**
 	 * See if we have a config key.
 	 *

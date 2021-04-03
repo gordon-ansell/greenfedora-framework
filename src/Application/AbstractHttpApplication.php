@@ -16,10 +16,6 @@ use GreenFedora\Application\AbstractApplication;
 use GreenFedora\Application\ApplicationInterface;
 use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
-//use GreenFedora\Logger\Formatter\StdLogFormatter;
-//use GreenFedora\Logger\Writer\FileLogWriter;
-//use GreenFedora\Logger\Writer\ForcedConsoleLogWriter;
-use GreenFedora\Router\Router;
 use GreenFedora\Router\RouterInterface;
 use GreenFedora\Template\PlatesTemplate;
 use GreenFedora\Template\SmartyTemplate;
@@ -55,7 +51,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		)
 	{
 		parent::__construct($container, $mode, $input, $output);
-		$this->processRouter();
+		//$this->processRouter();
 		$this->processTemplate();
 	}
 	
@@ -64,12 +60,14 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 *
 	 * @return	void
      */
+	/*
 	protected function processRouter()
 	{
 		$this->createInstance(Router::class, $this->getConfig('routing'), $this->container);
 		$this->aliasInstance('router', Router::class);
 		$this->trace4('Router initialised.');
 	}
+	*/
 
 	/**
 	 * Process the template processor.

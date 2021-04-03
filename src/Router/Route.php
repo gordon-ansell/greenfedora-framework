@@ -91,7 +91,9 @@ class Route implements RouteInterface
     public function match1(string $raw) : bool
     {
         if (preg_match('#' . $this->pattern . '#', $raw, $matches)) {
-            $this->parameters = explode('/', trim($matches['params'], '/'));
+            if ($matches['params']) {
+                $this->parameters = explode('/', trim($matches['params'], '/'));
+            }
             return true;
         }        
         return false;

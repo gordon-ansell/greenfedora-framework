@@ -16,9 +16,9 @@ use GreenFedora\Application\AbstractApplication;
 use GreenFedora\Application\ApplicationInterface;
 use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
-use GreenFedora\Logger\Formatter\StdLogFormatter;
-use GreenFedora\Logger\Writer\FileLogWriter;
-use GreenFedora\Logger\Writer\ForcedConsoleLogWriter;
+//use GreenFedora\Logger\Formatter\StdLogFormatter;
+//use GreenFedora\Logger\Writer\FileLogWriter;
+//use GreenFedora\Logger\Writer\ForcedConsoleLogWriter;
 use GreenFedora\Router\Router;
 use GreenFedora\Router\RouterInterface;
 use GreenFedora\Template\PlatesTemplate;
@@ -96,6 +96,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 *
 	 * @return array
 	 */
+	/*
 	protected function getLogWriters() : array
 	{
 		$formatter = $this->createInstance(StdLogFormatter::class, $this->getConfig('logger'));
@@ -110,6 +111,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 			);		
 		}
 	}	
+	*/
 
 	/**
 	 * Get the router.

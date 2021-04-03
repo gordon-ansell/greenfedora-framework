@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Form;
 
 use GreenFedora\Session\SessionInterface;
+use GreenFedora\Http\RequestInterface;
 
 /**
  * Form persistance handler.

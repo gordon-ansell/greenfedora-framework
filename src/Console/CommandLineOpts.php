@@ -24,7 +24,19 @@ use GreenFedora\Application\Input\ApplicationInputInterface;
 
 class CommandLineOpts implements ApplicationInputInterface
 {
-    /**
+	/**
+	 * Options.
+	 * @var string
+	 */
+	protected $opts = '';
+	
+	/**
+	 * Long options.
+	 * @var array
+	 */
+	protected $longOpts = array();	
+
+	/**
      * Arguments.
      * @var array
      */
@@ -33,11 +45,15 @@ class CommandLineOpts implements ApplicationInputInterface
 	/**
 	 * Constructor.
 	 *
-     * @param   string      $mode   Execution mode.
+     * @param   string      $mode   	Execution mode.
+	 * @param 	string 		$opts 		Options.
+	 * @param 	array 		$longopts 	Long options.
 	 * @return	void
 	 */
-	public function __construct(string $mode = 'prod')
+	public function __construct(string $mode = 'prod', string $opts = '', array $longOpts = [])
 	{
+		$this->opts = $opts;
+		$this->longOpts = $longOpts;
 		$this->args = getopt($this->opts, $this->longOpts);
 		$this->processArgs($mode);
 	}

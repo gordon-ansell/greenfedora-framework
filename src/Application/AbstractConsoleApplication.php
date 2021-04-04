@@ -28,7 +28,7 @@ use GreenFedora\Application\Exception\InvalidArgumentException;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractConsoleApplication extends AbstractApplication implements HttpApplicationInterface
+abstract class AbstractConsoleApplication extends AbstractApplication implements ConsoleApplicationInterface
 {
 		
 	/**

@@ -50,6 +50,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	{
 		parent::__construct($container, $mode, $input, $output);
 	}
+	
 	/**
 	 * Get the router.
 	 *

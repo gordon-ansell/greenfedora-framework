@@ -24,6 +24,11 @@ use GreenFedora\Application\Input\ApplicationInputInterface;
 
 class CommandLineOpts implements ApplicationInputInterface
 {
+    /**
+     * Arguments.
+     * @var array
+     */
+    protected $args = [];
 		
 	/**
 	 * Constructor.

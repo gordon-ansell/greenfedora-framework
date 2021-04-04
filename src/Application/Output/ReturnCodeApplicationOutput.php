@@ -37,7 +37,7 @@ class ReturnCodeApplicationOutput implements ApplicationOutputInterface
 	 */
 	public function __construct(int $output = 0)
 	{
-		$this->output = $ouput;	
+		$this->output = $output;	
 	}	
 	
 	/**

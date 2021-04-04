@@ -50,25 +50,6 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	{
 		parent::__construct($container, $mode, $input, $output);
 	}
-	/**
-	 * Get the router.
-	 *
-	 * @return	RouterInterface
-	 */
-	public function getRouter() : RouterInterface
-	{
-		return $this->getInstance('router');
-	}			
-
-	/**
-	 * Get the template engine.
-	 *
-	 * @return	TemplateInterface
-	 */
-	public function getTemplate() : TemplateInterface
-	{
-		return $this->getInstance('template');
-	}			
 
 	/**
 	 * Dispatch.

@@ -23,9 +23,23 @@ use GreenFedora\Router\RouterInterface;
 interface ConsoleApplicationInterface
 {
 	/**
-	 * Get the router.
+	 * See if we have a particular argument.
 	 *
-	 * @return	RouterInterface
+	 * @param 	string 		$name 		Argument name.
+	 *
+	 * @return 	bool
 	 */
-	//public function getRouter() : RouterInterface;
+	public function hasArg(string $name) : bool;
+	
+	/**
+	 * Get an argument.
+	 *
+	 * For arguments that are just present but without a value (switches) we return true.
+	 * Otherwise we return the value.
+	 *
+	 * @param 	string 		$name		Argument name.
+	 * @param 	mixed 		$default 	Default if arg not found.
+	 * @return	mixed
+	 */
+	public function getArg(string $name, $default = null);
 }

@@ -29,8 +29,25 @@ use GreenFedora\Application\Exception\InvalidArgumentException;
  */
 
 abstract class AbstractConsoleApplication extends AbstractApplication implements ConsoleApplicationInterface
-{
-		
+{		
+	/**
+	 * Options.
+	 * @var string
+	 */
+	protected $opts = '';
+	
+	/**
+	 * Long options.
+	 * @var array
+	 */
+	protected $longOpts = array();	
+	 	
+	/**
+	 * Command line arguments.
+	 * @var array
+	 */
+	protected $args = array();
+
 	/**
 	 * Constructor.
 	 *
@@ -48,16 +65,45 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 		?ApplicationOutputInterface $output = null
 		)
 	{
+		$this->args = getopt($this->opts, $this->longOpts);
 		parent::__construct($container, $mode, $input, $output);
 	}
 
 	/**
-	 * Dispatch.
+	 * See if we have a particular argument.
+	 *
+	 * @param 	string 		$name 		Argument name.
+	 *
+	 * @return 	bool
+	 */
+	public function hasArg(string $name) : bool
+	{
+		return $this->input->hasArg($name);
+	}	
+	
+	/**
+	 * Get an argument.
+	 *
+	 * For arguments that are just present but without a value (switches) we return true.
+	 * Otherwise we return the value.
+	 *
+	 * @param 	string 		$name		Argument name.
+	 * @param 	mixed 		$default 	Default if arg not found.
+	 * @return	mixed
+	 */
+	public function getArg(string $name, $default = null)
+	{
+		return $this->input->getArg($name, $default);
+	}	
+
+	/**
+	 * Run.
 	 *
 	 * @return 	void
 	 */
-	protected function dispatch()
+	protected function run()
 	{
+		$this->output->setOutput(0);
 	}
 
 }

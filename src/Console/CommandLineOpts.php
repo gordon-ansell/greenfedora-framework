@@ -87,11 +87,12 @@ class CommandLineOpts implements ApplicationInputInterface
 	 * Otherwise we return the value.
 	 *
 	 * @param 	string 		$name		Argument name.
+	 * @param 	mixed 		$default 	Default if arg not found.
 	 * @return	mixed
 	 *
-	 * @throws 	OutOfBoundsException 	If argument not found.
+	 * @throws 	OutOfBoundsException 	If argument not found and no default.
 	 */
-	public function getArg(string $name)
+	public function getArg(string $name, $default = null)
 	{
 		if ($this->hasArg($name)) {
 			if (false === $this->args[$name]) {
@@ -99,8 +100,10 @@ class CommandLineOpts implements ApplicationInputInterface
 			} else {
 				return $this->args[$name];
 			}	
+		} else if (null !== $default) {
+			return $default;
 		}
-		throw new OutOfBoundsException(sprintf("No command line argument named '%s' found", $name));
+		throw new OutOfBoundsException(sprintf("No command line argument named '%s' found and no default specified", $name));
 	}	
 
 }

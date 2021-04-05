@@ -59,22 +59,9 @@ class ConsoleApplication extends AbstractApplication
 	public function __construct(ApplicationInputInterface $input, ApplicationOutputInterface $output, string $mode = 'prod')
 	{
 		$this->args = getopt($this->opts, $this->longOpts);
-		$mode = $this->processArgs($mode);
 		parent::__construct($input, $output, $mode);
 	}
-	
-	/**
-	 * Process arguments.
-	 *
-	 * @param 	string 		$mode		Mode.
-	 *
-	 * @return 	string	Possibly updated mode.
-	 */
-	protected function processArgs(string $mode) : string
-	{
-		return $mode;
-	}	
-	
+		
 	/**
 	 * See if we have a particular argument.
 	 *
@@ -84,31 +71,22 @@ class ConsoleApplication extends AbstractApplication
 	 */
 	public function hasArg(string $name) : bool
 	{
-		return array_key_exists($name, $this->args);
+		return $this->input->hasArg($name);
 	}	
 	
 	/**
 	 * Get an argument.
 	 *
-	 * For arguments that are just present but without a value (switches) we retuen true.
+	 * For arguments that are just present but without a value (switches) we return true.
 	 * Otherwise we return the value.
 	 *
 	 * @param 	string 		$name		Argument name.
-	 *
+	 * @param 	mixed 		$default 	Default if arg not found.
 	 * @return	mixed
-	 *
-	 * @throws 	OutOfBoundsException 	If argument not found.
 	 */
-	public function getArg(string $name)
+	public function getArg(string $name, $default = null)
 	{
-		if ($this->hasArg($name)) {
-			if (false === $this->args[$name]) {
-				return true;
-			} else {
-				return $this->args[$name];
-			}	
-		}
-		throw new OutOfBoundsException(sprintf("No command line argument named '%s' found", $name));
+		return $this->input->getArg($name, $default);
 	}	
 
 	/**

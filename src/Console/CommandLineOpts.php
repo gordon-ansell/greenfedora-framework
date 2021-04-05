@@ -106,4 +106,13 @@ class CommandLineOpts implements ApplicationInputInterface
 		throw new OutOfBoundsException(sprintf("No command line argument named '%s' found and no default specified", $name));
 	}	
 
+	/**
+	 * Get all arguments.
+	 * 
+	 * @return	array
+	 */
+	public function getArgs(): array
+	{
+		return $this->args;
+	}	
 }

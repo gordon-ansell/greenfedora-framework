@@ -42,4 +42,12 @@ interface ConsoleApplicationInterface
 	 * @return	mixed
 	 */
 	public function getArg(string $name, $default = null);
+
+	/**
+	 * Get all arguments.
+	 * 
+	 * @return	array
+	 */
+	public function getArgs(): array;
+
 }

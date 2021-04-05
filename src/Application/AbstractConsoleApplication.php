@@ -31,24 +31,6 @@ use GreenFedora\Application\Exception\InvalidArgumentException;
 abstract class AbstractConsoleApplication extends AbstractApplication implements ConsoleApplicationInterface
 {		
 	/**
-	 * Options.
-	 * @var string
-	 */
-	protected $opts = '';
-	
-	/**
-	 * Long options.
-	 * @var array
-	 */
-	protected $longOpts = array();	
-	 	
-	/**
-	 * Command line arguments.
-	 * @var array
-	 */
-	protected $args = array();
-
-	/**
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	DI container.
@@ -65,7 +47,6 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 		?ApplicationOutputInterface $output = null
 		)
 	{
-		$this->args = getopt($this->opts, $this->longOpts);
 		parent::__construct($container, $mode, $input, $output);
 	}
 
@@ -94,6 +75,16 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	public function getArg(string $name, $default = null)
 	{
 		return $this->input->getArg($name, $default);
+	}	
+
+	/**
+	 * Get all arguments.
+	 * 
+	 * @return	array
+	 */
+	public function getArgs(): array
+	{
+		return $this->input->getArgs();
 	}	
 
 	/**

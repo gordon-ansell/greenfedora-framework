@@ -337,4 +337,38 @@ class Arr extends \ArrayObject implements ArrInterface
 	{
 		return (array_keys($array) === range(0, count($array) - 1));
 	}	
+
+    /**
+     * See if an array is associative (i.e. it has at least one non-numeric key).
+     * 
+     * @param   array       $arr            Array to test.
+     * @return  bool
+     */
+    public static function isArrayAssociative(array $arr) : bool
+    {
+        return (count(array_filter(array_keys($arr), 'is_string')) > 0);
+    }
+
+    /**
+     * Recursive implode.
+     * 
+     * @param   string          $sep            Separator.
+     * @param   array           $array          Array to implode.
+     * @return  string
+     */
+    public static function implode(string $sep, array $array) : string 
+    {
+        $ret = '';
+        foreach ($array as $item) {
+            if ('' != $ret) {
+                $ret .= $sep;
+            }
+            if (is_array($item)) {
+                $ret .= self::implode($sep, $item);
+            } else {
+                $ret .= $item;
+            }
+        }
+        return $ret;
+    }
 }

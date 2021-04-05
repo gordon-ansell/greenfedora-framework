@@ -72,7 +72,7 @@ class WhoIsParser implements WhoIsParserInterface
 
         if (array_key_exists('admin', $regrinfo)) {
             $admin = $regrinfo['admin'];
-            if (is_array($admin) and Arr::isSeq($admin)) {
+            if (is_array($admin) and Arr::isArraySequential($admin)) {
                 $admin = $admin[0];
             }
             $this->admin = $admin;
@@ -80,7 +80,7 @@ class WhoIsParser implements WhoIsParserInterface
 
         if (array_key_exists('owner', $regrinfo)) {
             $owner = $regrinfo['owner'];
-            if (is_array($owner) and Arr::isSeq($owner)) {
+            if (is_array($owner) and Arr::isArraySequential($owner)) {
                 $owner = $owner[0];
             }
             $this->owner = $owner;
@@ -88,7 +88,7 @@ class WhoIsParser implements WhoIsParserInterface
 
         if (array_key_exists('network', $regrinfo)) {
             $network = $regrinfo['network'];
-            if (is_array($network) and Arr::isSeq($network)) {
+            if (is_array($network) and Arr::isArraySequential($network)) {
                 $network = $network[0];
             }
             $this->network = $network;

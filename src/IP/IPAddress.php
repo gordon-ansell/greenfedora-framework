@@ -18,7 +18,7 @@ use GreenFedora\IP\IPAddressInterface;
 /**
  * IP address class.
  */
-class IPAddress extends IPAddressInterface
+class IPAddress implements IPAddressInterface
 {
     /**
      * IP.

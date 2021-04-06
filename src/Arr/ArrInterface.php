@@ -24,6 +24,15 @@ use GreenFedora\Arr\Exception\InvalidArgumentException;
 
 interface ArrInterface
 {
+    /**
+     * Load some values.
+     *
+     * @param   array|Arr|Traversable       $vals           Values to load.
+     * @return  void
+     * @throws  InvalidArgumentException
+     */
+    public function loadValues($vals);
+
 	/**
 	 * Set or get the flag that controls exceptions.
 	 *
@@ -87,6 +96,84 @@ interface ArrInterface
 	 */
 	public function mergeReplaceRecursive(iterable $new) : self;
 	
+    /**
+	 * Get all elements that don't have a key that begins with a certain string.   
+     *
+     * @param 	string|array 	$begin 		String(s) to avoid.
+     * @param 	bool			$preserve 	Preserve objects?
+     * @param 	bool 			$numKeys	Make numeric keys integers?
+     * @return  ArrInterface
+     */
+    public function notBeginningWith($begin, bool $preserve = true, bool $numKeys = false) : self;
+
+    /**
+	 * Sort array by column.
+	 *
+	 * @param 	string 	$col 		Column to sorty by.
+	 * @param 	int 	$spec 		Sort spec.	
+	 * @return 	void
+	 */
+	public function sortByCol(string $col, int $spec = SORT_ASC);
+
+    /**
+	 * Sort array by keys.
+	 *
+	 * @param 	int 	$spec 		Sort spec.	
+	 * @return 	void
+	 */
+	public function kSort(int $spec = SORT_REGULAR);
+
+    /**
+     * See if something's NOT in this array.
+     *
+     * @param 	mixed 	$thing 		Thing to check.
+     * @param 	bool 	$strict 	Strict check?
+     * @return  bool
+     */
+    public function notIn($thing, bool $strict = false) : bool;
+
+    /**
+     * Get the key of something in this array.
+     *
+     * @param 	mixed 	$thing 		Thing to check.
+     * @param 	bool 	$strict 	Strict check?
+     * @return  string|null
+     */
+    public function indexOf($thing, bool $strict = false) : ?string;
+
+    /**
+     * See if an element is (strictly) true.
+     *
+     * @param 	string 	$key 		Key to check.
+     * @return  bool
+     */
+    public function isStrictlyTrue(string $key) : bool;
+
+    /**
+     * Get the (string) key for something at a given index.
+     *
+     * @param 	int 	$index 		Index to look up.
+     * @return  string
+     */
+    public function keyFromIndex(int $index) : string;
+    
+    /**
+     * Get a value by its index (or default).
+     *
+     * @param   int      	$index          Index.
+     * @param   mixed       $default        Default.
+     * @return  mixed
+     */
+    public function getByIndex(int $index, $default = null);
+    
+    /**
+     * Count elements.
+     *
+     * @param 	string 	$key 		Key to check.
+     * @return  int
+     */
+    public function cnt(string $key) : int;
+
 	/**
 	 * Convert ourselves to a proper array.
 	 *

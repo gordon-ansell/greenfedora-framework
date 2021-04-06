@@ -224,6 +224,151 @@ class Arr extends \ArrayObject implements ArrInterface
 		return $this;
 	}
 	
+    /**
+	 * Get all elements that don't have a key that begins with a certain string.   
+     *
+     * @param 	string|array 	$begin 		String(s) to avoid.
+     * @param 	bool			$preserve 	Preserve objects?
+     * @param 	bool 			$numKeys	Make numeric keys integers?
+     * @return  ArrInterface
+     */
+    public function notBeginningWith($begin, bool $preserve = true, bool $numKeys = false) : ArrInterface
+    {
+	    $curr = $this->toArray($preserve, $numKeys);
+	    
+	    if (!is_array($begin)) {
+		    $begin = array($begin);
+	    }
+	    $ret = array();
+	    
+	    foreach ($curr as $k => $v) {
+		    $avoid = false;
+		    if (is_string($k)) {
+		    	foreach ($begin as $excl) {
+					if (substr($k, 0, strlen($excl)) == $excl) {
+						$avoid = true;
+						break;
+					}
+		    	}
+		    }
+		    if ($avoid) {
+			    continue;
+		    }
+		    $ret[$k] = $v;
+	    }
+	    return new Arr($ret);
+	}
+
+    /**
+	 * Sort array by column.
+	 *
+	 * @param 	string 	$col 		Column to sorty by.
+	 * @param 	int 	$spec 		Sort spec.	
+	 * @return 	void
+	 */
+	public function sortByCol(string $col, int $spec = SORT_ASC)
+	{
+		$tmp = $this->toArray();
+		$ac  = array_column($tmp, $col);
+		array_multisort($ac, $spec, $tmp);
+		$this->exchangeArray(new static($tmp));
+	}
+
+    /**
+	 * Sort array by keys.
+	 *
+	 * @param 	int 	$spec 		Sort spec.	
+	 * @return 	void
+	 */
+	public function kSort(int $spec = SORT_REGULAR)
+	{
+		$tmp = $this->toArray();
+		ksort($tmp, $spec);
+		$this->exchangeArray(new static($tmp));
+	}
+
+    /**
+     * See if something's NOT in this array.
+     *
+     * @param 	mixed 	$thing 		Thing to check.
+     * @param 	bool 	$strict 	Strict check?
+     * @return  bool
+     */
+    public function notIn($thing, bool $strict = false) : bool
+    {
+	    return !in_array($thing, $this->toArray(), $strict);
+    }
+
+    /**
+     * Get the key of something in this array.
+     *
+     * @param 	mixed 	$thing 		Thing to check.
+     * @param 	bool 	$strict 	Strict check?
+     * @return  string|null
+     */
+    public function indexOf($thing, bool $strict = false) : ?string
+    {
+	    $tmp = array_search($thing, $this->toArray(), $strict);
+	    return (false === $tmp) ? null : $tmp;
+    }
+
+    /**
+     * See if an element is (strictly) true.
+     *
+     * @param 	string 	$key 		Key to check.
+     * @return  bool
+     */
+    public function isStrictlyTrue(string $key) : bool
+    {
+	    if ($this->has($key) and is_bool($this->$key) and (true === $this->$key)) {
+	    	return true;
+	    }
+	    return false;
+    }
+
+    /**
+     * Get the (string) key for something at a given index.
+     *
+     * @param 	int 	$index 		Index to look up.
+     * @return  string
+     */
+    public function keyFromIndex(int $index) : string
+    {
+	    $keys = array_keys($this->toArray());
+	    return $keys[$index];
+    }
+    
+    /**
+     * Get a value by its index (or default).
+     *
+     * @param   int      	$index          Index.
+     * @param   mixed       $default        Default.
+     * @return  mixed
+     */
+    public function getByIndex(int $index, $default = null)
+    {
+	    $key = $this->keyFromIndex($index);
+	    
+        if ($this->offsetExists($key)) {
+            return $this->offsetGet($key);
+        }
+        return $default;
+    }
+    
+    /**
+     * Count elements.
+     *
+     * @param 	string 	$key 		Key to check.
+     * @return  int
+     */
+    public function cnt(string $key) : int
+    {
+	    if ($this->has($key)) {
+	    	return count($this->$key->toArray());
+	    }
+	    return 0;
+    }
+
 	/**
 	 * Convert ourselves to a proper array.
 	 *

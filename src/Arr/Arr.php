@@ -83,13 +83,13 @@ class Arr extends \ArrayObject implements ArrInterface
      */
     public function loadValues($vals)
     {
-        if ($vals instanceof Traversable) {
+        if ($vals instanceof \Traversable) {
             $vals = static::iteratorToArray($vals);
         }
 
         if (is_array($vals)) {
             foreach ($vals as $key => $value) {
-                if (is_array($value) or ($value instanceof Traversable)) {
+                if (is_array($value) or ($value instanceof \Traversable)) {
                     parent::offsetSet($key, new static($value));
                 } else {
                     parent::offsetSet($key, $value);

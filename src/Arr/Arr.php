@@ -63,13 +63,48 @@ class Arr extends \ArrayObject implements ArrInterface
 		if (($flags & self::NOT_FOUND_TRIGGERS_EXCEPTION) == self::NOT_FOUND_TRIGGERS_EXCEPTION) {
 			$this->notFoundTriggersException(true);
 		}
-		
+
+		$this->loadValues($input);
+
+		/*
 		foreach ($input as $k => $v) {
 			$this->offsetSet($k, $v);
 		}
+		*/
 		
 	}
 	
+    /**
+     * Load some values.
+     *
+     * @param   array|Arr|Traversable       $vals           Values to load.
+     * @return  void
+     * @throws  InvalidArgumentException
+     */
+    public function loadValues($vals)
+    {
+        if ($vals instanceof Traversable) {
+            $vals = static::iteratorToArray($vals);
+        }
+
+        if (is_array($vals)) {
+            foreach ($vals as $key => $value) {
+                if (is_array($value) or ($value instanceof Traversable)) {
+                    parent::offsetSet($key, new static($value));
+                } else {
+                    parent::offsetSet($key, $value);
+                }
+            }
+        } else if ($vals instanceof Arr) {
+            $this->exchangeArray($vals);
+        } else {
+            throw new InvalidArgumentException(sprintf(
+                "Invalid type '%s' supplied to Arr's loadValues",
+                gettype($vals)
+            ));
+        }
+    }
+
 	/**
 	 * Set or get the flag that controls exceptions.
 	 *

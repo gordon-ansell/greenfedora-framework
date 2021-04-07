@@ -48,9 +48,10 @@ class FileInfo extends \SplFileInfo implements FileInfoInterface
 	/**
 	 * Open a file from file info.
 	 */
-	public function openFile(string $openMode = "r", bool $useIncludePath = false, $context = null): File
+	public function openFile($openMode = "r", $useIncludePath = false, $context = null): File
 	{
-		return new File($this->getPathname(), $openMode, $useIncludePath, $context);
+		return parent::openFile($openMode, $useIncludePath, $context);
+		//eturn new File($this->getPathname(), $openMode, $useIncludePath, $context);
 	}
 
 }

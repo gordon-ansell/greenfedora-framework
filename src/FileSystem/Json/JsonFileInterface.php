@@ -28,10 +28,10 @@ interface JsonFileInterface
 	 * @param 	resource	$context		Optional context.
      * @param   int         $offset         Offset to start reading.
      * @param   int         $maxlen         Max length to read.
-     * @return  string
+     * @return  string|false
      */
     public function read(bool $use_include_path = false, resource $context = null, int $offset = 0, 
-        int $maxlen = null): string;
+        int $maxlen = null);
 
     /**
      * Get the file contents into an array.
@@ -40,10 +40,10 @@ interface JsonFileInterface
 	 * @param 	resource	$context		Optional context.
      * @param   int         $offset         Offset to start reading.
      * @param   int         $maxlen         Max length to read.
-     * @return  array
+     * @return  array|false
      */
     public function readArray(bool $use_include_path = false, resource $context = null, int $offset = 0, 
-        int $maxlen = null): array;
+        int $maxlen = null);
 
     /**
      * Write the file contents.

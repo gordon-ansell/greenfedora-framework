@@ -40,9 +40,9 @@ class FileInfo extends \SplFileInfo implements FileInfoInterface
 	 */
 	public function __construct(string $fileName)
 	{
-		parent::__construct($fileName);
 		$this->setFileClass(File::class);
 		$this->setInfoClass(FileInfo::class);
+		parent::__construct($fileName);
 	}	
 
 	/**

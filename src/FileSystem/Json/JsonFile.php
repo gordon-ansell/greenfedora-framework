@@ -33,7 +33,7 @@ class JsonFile extends FileInfo implements JsonFileInterface
 	{
 		parent::__construct($fileName);
         if (!file_exists($fileName) && $create) {
-            $fh = $this->openFile($fileName, 'w');
+            $fh = $this->openFile("w");
         }
 	}	
 

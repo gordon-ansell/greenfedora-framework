@@ -44,4 +44,5 @@ class FileInfo extends \SplFileInfo implements FileInfoInterface
 		$this->setFileClass(File::class);
 		$this->setInfoClass(FileInfo::class);
 	}	
+
 }

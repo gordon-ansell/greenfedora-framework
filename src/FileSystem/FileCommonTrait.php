@@ -39,5 +39,23 @@ trait FileCommonTrait
 		}
 		
 		throw new RuntimException("Cannot return directory iterator for '%s' because it's not a directory", $this->getPathname());
-	}		
+	}	
+	
+	/**
+	 * Join parts of a path.
+	 * 
+	 * @param 	string 	$elems	Elements to join.
+	 * @return 	string
+	 */
+	static public function join(...$elems): string
+	{
+		$ret = '';
+		foreach ($elems as $elem) {
+			if ('' != $ret) {
+				$ret .= DIRECTORY_SEPARATOR;
+			}
+			$ret .= trim($elem, DIRECTORY_SEPARATOR);
+		}
+		return DIRECTORY_SEPARATOR . $ret;
+	}
 }

@@ -45,7 +45,11 @@ class JsonFile extends FileInfo implements JsonFileInterface
     public function read(bool $use_include_path = false, resource $context = null, int $offset = 0, 
         int $maxlen = null): string
     {
-        return file_get_contents($this->getPathname(), $use_include_path, $context, $offset, $maxlen);
+        if (null === $maxlen) {
+            return file_get_contents($this->getPathname(), $use_include_path, $context, $offset);
+        } else {
+            return file_get_contents($this->getPathname(), $use_include_path, $context, $offset, $maxlen);
+        }
     }
 
     /**

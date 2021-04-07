@@ -26,11 +26,15 @@ class JsonFile extends FileInfo implements JsonFileInterface
 	 * Constructor.
 	 *
 	 * @param 	string		$fileName		Name of file or directory to process.
+     * @param   bool        $create         Create the file if it doesn't exist?
 	 * @return	void
 	 */
-	public function __construct(string $fileName)
+	public function __construct(string $fileName, bool $create = true)
 	{
 		parent::__construct($fileName);
+        if (!file_exists($fileName) && $create) {
+            $fh = $this->openFile('w');
+        }
 	}	
 
     /**
@@ -40,10 +44,10 @@ class JsonFile extends FileInfo implements JsonFileInterface
 	 * @param 	resource	$context		Optional context.
      * @param   int         $offset         Offset to start reading.
      * @param   int         $maxlen         Max length to read.
-     * @return  string
+     * @return  string|false
      */
     public function read(bool $use_include_path = false, resource $context = null, int $offset = 0, 
-        int $maxlen = null): string
+        int $maxlen = null)
     {
         if (null === $maxlen) {
             return file_get_contents($this->getPathname(), $use_include_path, $context, $offset);
@@ -59,12 +63,15 @@ class JsonFile extends FileInfo implements JsonFileInterface
 	 * @param 	resource	$context		Optional context.
      * @param   int         $offset         Offset to start reading.
      * @param   int         $maxlen         Max length to read.
-     * @return  array
+     * @return  array|false
      */
     public function readArray(bool $use_include_path = false, resource $context = null, int $offset = 0, 
-        int $maxlen = null): array
+        int $maxlen = null)
     {
-        return json_decode($this->read($use_include_path, $context, $offset, $maxlen), true);
+        $s = $this->read($use_include_path, $context, $offset, $maxlen);
+        if (false !== $s) {
+            return json_decode($s, true);
+        }
     }
 
     /**

@@ -47,7 +47,7 @@ trait FileCommonTrait
 	 * @param 	string 	$elems	Elements to join.
 	 * @return 	string
 	 */
-	static public function join(...$elems): string
+	static public function join(string ...$elems): string
 	{
 		$ret = '';
 		foreach ($elems as $elem) {

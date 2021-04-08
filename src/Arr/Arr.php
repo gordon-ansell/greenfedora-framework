@@ -551,19 +551,19 @@ class Arr extends \ArrayObject implements ArrInterface
         }
         return $ret;
     }
-	
+
     /**
      * Convert an iterator to an array, recursively.
      *
-     * @param   Traversable     $iterator       To convert.
+     * @param   \Traversable    $iterator       To convert.
      * @param   bool            $useKeys        Use element keys as index?
      * @return  array
      */
-    public static function iteratorToArray(Traversable $iterator, bool $useKeys = true) : array
+    public static function iteratorToArray(\Traversable $iterator, bool $useKeys = true) : array
     {
         $ret = array();
         foreach ($iterator as $key => $value) {
-            if ($value instanceof Iterator) {
+            if ($value instanceof \Iterator) {
                 $value = self::iteratorToArray($value, $useKeys);
             }
             if ($useKeys) {

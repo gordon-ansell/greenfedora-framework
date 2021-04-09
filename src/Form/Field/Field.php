@@ -94,6 +94,7 @@ class Field extends Html implements FieldInterface
         }
 
         $ret = $this->build($data) . PHP_EOL;
+        echo "Finished: " .$this->tag . PHP_EOL;
 
         return $ret;
     }

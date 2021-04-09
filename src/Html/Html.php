@@ -44,6 +44,12 @@ class Html implements HtmlInterface
 	protected $selfClose = null;	
 
 	/**
+	 * Value param = data?
+	 * @var bool|null
+	 */
+	protected $valueData = null;
+
+	/**
 	 * Self closing tags.
 	 * @var array
 	 */
@@ -57,13 +63,24 @@ class Html implements HtmlInterface
      * @param   array       $params     Parameters.
      * @param   string|null $data       Data.
      * @param   bool|null   $selfClose  Self-closing?
+	 * @param 	bool|null   $valueData  Treat value param as data.
+	 * @return 	void
      */
-    public function __construct(string $tag, array $params = [], ?string $data = null, ?bool $selfClose = null)
+    public function __construct(string $tag, array $params = [], ?string $data = null, 
+		?bool $selfClose = null, ?bool $valueData = null)
     {
         $this->tag = $tag;
         $this->setParams($params);
         $this->data = $data;
 		$this->setSelfClose($selfClose);
+		$this->setValueData($valueData);
+
+		if ($this->valueData and array_key_exists('value', $this->params)) {
+			if (null === $this->data) {
+				$this->data = $this->params['value'];
+				unset($this->params['value']);
+			}
+		}
     }
 
 	/**
@@ -238,7 +255,23 @@ class Html implements HtmlInterface
 		return $this;
 	}
 
-    /**
+	/**
+	 * Set the value = data flag.
+	 *
+	 * @param 	bool 	$sc 	Value.
+	 * @return  HtmlInterface
+	 */
+	public function setValueData(?bool $vd = true) : HtmlInterface
+	{
+		if (null === $vd) {
+			$this->valueData = !in_array($this->tag, $this->selfClosers);
+		} else {
+			$this->valueData = $vd;
+		}
+		return $this;
+	}
+
+	/**
 	 * Build anything before the closing tag.
 	 *
 	 * @return string

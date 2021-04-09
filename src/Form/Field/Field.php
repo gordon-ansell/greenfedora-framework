@@ -80,7 +80,7 @@ class Field extends Html implements FieldInterface
      */
     public function render(): string
     {
-        echo "Rendering: " .$this->tag . PHP_EOL;
+        echo "Rendering: " . $this->tag . PHP_EOL;
         $data = null;
 
         if (count($this->fields)) {
@@ -89,12 +89,13 @@ class Field extends Html implements FieldInterface
                 if ($data != '') {
                     $data .= PHP_EOL;
                 }
+                echo "Rendering inner: " . $field->getTag() . PHP_EOL;
                 $data .= $field->render() . PHP_EOL;
             }
         }
 
         $ret = $this->build($data) . PHP_EOL;
-        echo "Finished: " .$this->tag . PHP_EOL;
+        echo "Finished: " . $this->tag . PHP_EOL;
 
         return $ret;
     }

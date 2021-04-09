@@ -112,6 +112,16 @@ class Html implements HtmlInterface
 		
 		return $ret;
 	}
+
+	/**
+	 * Get the tag.
+	 * 
+	 * @return	string
+	 */
+	public function getTag(): string
+	{
+		return $this->tag;
+	}
 	
 	/**
 	 * Set the data.

@@ -31,6 +31,9 @@ class Field extends Html implements FieldInterface
      */
     public function __construct(string $tag, array $params = [])
     {
+        if (array_key_exists('name', $params) and !array_key_exists('id', $params['id'])) {
+            $params['id'] = $params['name'];
+        }
         parent::__construct($tag, $params);
     }
 

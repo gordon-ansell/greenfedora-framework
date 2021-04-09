@@ -96,6 +96,12 @@ class Html implements HtmlInterface
 		
 		$ret .= $params;
 
+		if ($this->selfClose) {
+			$ret .= ' />';
+		} else {
+			$ret .= '>';
+		}
+
 		return $ret;
 	}
 		 	
@@ -109,19 +115,14 @@ class Html implements HtmlInterface
 	{
 		$ret = '';
 		
-		if ($this->selfClose) {
-			$ret .= ' />';
-		} else {
-			$ret .= '>';
-			if ((null === $data) and (null !== $this->data)) {
-				$data = $this->data;
-			}
-			if (null !== $data) {
-				$ret .= $data;
-			}
-			$ret .= $this->beforeClosingTag();
-			$ret .= '</' . $this->tag . '>';
+		if ((null === $data) and (null !== $this->data)) {
+			$data = $this->data;
 		}
+		if (null !== $data) {
+			$ret .= $data;
+		}
+		$ret .= $this->beforeClosingTag();
+		$ret .= '</' . $this->tag . '>';
 		
 		return $ret;
 	}
@@ -134,7 +135,13 @@ class Html implements HtmlInterface
 	 */
 	public function render(?string $data = null) : string
 	{
-		return $this->renderOpen() . $this->renderClose($data);
+		$ret = $this->renderOpen(); 
+		
+		if ($this->selfClose) {
+			$ret .= $this->renderClose($data);
+		}
+
+		return $ret;
 	}
 
 	/**

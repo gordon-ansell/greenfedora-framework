@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Form\Field;
 
 use GreenFedora\Html\Html;
-use GreenFedora\Form\FieldInterface;
+use GreenFedora\Form\Field\FieldInterface;
 
 /**
  * Form field class.

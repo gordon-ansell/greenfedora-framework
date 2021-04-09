@@ -76,9 +76,10 @@ class Field extends Html implements FieldInterface
     /**
      * Render the field.
      * 
-     * @return  string      Rendered form HTML.
+     * @param   string  $data   data to use.
+     * @return  string          Rendered form HTML.
      */
-    public function render(): string
+    public function render(?string $data = null): string
     {
         echo "Rendering: " . $this->tag . PHP_EOL;
         $data = null;
@@ -94,7 +95,7 @@ class Field extends Html implements FieldInterface
             }
         }
 
-        $ret = $this->build($data) . PHP_EOL;
+        $ret = $this->render($data) . PHP_EOL;
         echo "Finished: " . $this->tag . PHP_EOL;
 
         return $ret;

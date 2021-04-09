@@ -22,7 +22,7 @@ interface HtmlInterface
 	 * $param 	string|null	$data 	Data.
 	 * @return 	string
 	 */
-	public function build(?string $data = null) : string;
+	public function render(?string $data = null) : string;
 	
 	/**
 	 * Set the data.

@@ -66,12 +66,12 @@ class Html implements HtmlInterface
     }
 		 	
 	/**
-	 * Build the statement.
+	 * Render the statement.
 	 *
 	 * $param 	string|null	$data 	Data.
 	 * @return 	string
 	 */
-	public function build(?string $data = null) : string
+	public function render(?string $data = null) : string
 	{
 		$ret = '<' . $this->tag;
 		

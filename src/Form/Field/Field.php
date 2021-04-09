@@ -95,7 +95,7 @@ class Field extends Html implements FieldInterface
             }
         }
 
-        $ret = $this->render($data) . PHP_EOL;
+        $ret = parent::render($data) . PHP_EOL;
         echo "Finished: " . $this->tag . PHP_EOL;
 
         return $ret;

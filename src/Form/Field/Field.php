@@ -74,6 +74,28 @@ class Field extends Html implements FieldInterface
     }
 
     /**
+     * Render the field.
+     * 
+     * @return  string      Rendered form HTML.
+     */
+    public function render(): string
+    {
+        $data = null;
+
+        if (count($this->fields)) {
+            $data = '';
+            foreach ($this->fields as $field) {
+                if ($data != '') {
+                    $data .= PHP_EOL;
+                }
+                $data .= $field->render() . PHP_EOL;
+            }
+        }
+
+        return $this->build($data) . PHP_EOL;
+    }
+
+    /**
      * Static field creator.
      * 
      * @param   string  $type   Type of field.

@@ -20,7 +20,7 @@ use GreenFedora\Form\Field\Field;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Field extends Field
+class Div extends Field
 {
     /**
      * Constructor.

@@ -14,6 +14,12 @@ namespace GreenFedora\Form\Field;
 
 use GreenFedora\Html\Html;
 use GreenFedora\Form\Field\FieldInterface;
+use GreenFedora\Form\Field\Div;
+use GreenFedora\Form\Field\Fieldset;
+use GreenFedora\Form\Field\Label;
+use GreenFedora\Form\Field\Input;
+
+use GreenFedora\Form\Exception\InvalidArgumentException;
 
 /**
  * Form field class.
@@ -65,5 +71,39 @@ class Field extends Html implements FieldInterface
             $this->addField($field);
         }
         return $this;
+    }
+
+    /**
+     * Static field creator.
+     * 
+     * @param   string  $type   Type of field.
+     * @param   array               $params     Parameters.
+     * @param   FieldInterface[]    $fields     Subfields.
+     * @return  FieldInterface
+     * @throws  InvalidArgumentException
+     */
+    static public function createField(string $type, array $params = [], array $fields = []): FieldInterface
+    {
+        switch (strtolower($type)) {
+            case 'div':
+                return new Div($params, $fields);
+                break;
+
+            case 'fieldset':
+                return new Fieldset($params, $fields);
+                break;
+
+            case 'label':
+                return new Fieldset($params, $fields);
+                break;
+
+            case 'input':
+                return new Fieldset($params, $fields);
+                break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("'%s' is an invalid form field type", $type));
+                break;
+        }
     }
 }

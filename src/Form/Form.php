@@ -16,12 +16,6 @@ use GreenFedora\Form\FormInterface;
 
 use GreenFedora\Form\Field\FieldInterface;
 use GreenFedora\Form\Field\Field;
-use GreenFedora\Form\Field\Div;
-use GreenFedora\Form\Field\Fieldset;
-use GreenFedora\Form\Field\Label;
-use GreenFedora\Form\Field\Input;
-
-use GreenFedora\Form\Exception\InvalidArgumentException;
 
 /**
  * Form class.
@@ -58,40 +52,6 @@ class Form extends Field implements FormInterface
         );
 
         parent::__construct('form', $p, $fields);
-    }
-
-    /**
-     * Static field creator.
-     * 
-     * @param   string  $type   Type of field.
-     * @param   array               $params     Parameters.
-     * @param   FieldInterface[]    $fields     Subfields.
-     * @return  FieldInterface
-     * @throws  InvalidArgumentException
-     */
-    static public function createField(string $type, array $params = [], array $fields = []): FieldInterface
-    {
-        switch (strtolower($type)) {
-            case 'div':
-                return new Div($params, $fields);
-                break;
-
-            case 'fieldset':
-                return new Fieldset($params, $fields);
-                break;
-
-            case 'label':
-                return new Fieldset($params, $fields);
-                break;
-
-            case 'input':
-                return new Fieldset($params, $fields);
-                break;
-
-            default:
-                throw new InvalidArgumentException(sprintf("'%s' is an invalid form field type", $type));
-                break;
-        }
     }
 
 }

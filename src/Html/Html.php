@@ -107,6 +107,8 @@ class Html implements HtmlInterface
 	 */
 	public function renderClose(?string $data = null): string
 	{
+		$ret = '';
+		
 		if ($this->selfClose) {
 			$ret .= ' />';
 		} else {

@@ -47,6 +47,12 @@ class Form extends Html implements FormInterface
     protected $method = 'POST';
 
     /**
+     * Fields.
+     * @var array
+     */
+    protected $fields = [];
+
+    /**
      * Constructor.
      * 
      * @param   string              $action     Action.

@@ -10,27 +10,15 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Form\Field;
+namespace GreenFedora\Html\Exception;
 
-use GreenFedora\Form\Field\Field;
 
 /**
- * Form field class.
+ * Interface for exceptions on this component.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Input extends Field
+interface ExceptionInterface extends \Throwable
 {
-    /**
-     * Constructor.
-     * 
-     * @param   array               $params     Parameters.
-     * @return  void
-     */
-    public function __construct(array $params = [])
-    {
-        parent::__construct('input', $params);
-    }
-
 }

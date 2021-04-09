@@ -10,27 +10,16 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Form\Field;
+namespace GreenFedora\Html\Exception;
 
-use GreenFedora\Form\Field\Field;
+use GreenFedora\Html\Exception\ExceptionInterface;
 
 /**
- * Form field class.
+ * Invalid argument passed to Form.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Input extends Field
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
-    /**
-     * Constructor.
-     * 
-     * @param   array               $params     Parameters.
-     * @return  void
-     */
-    public function __construct(array $params = [])
-    {
-        parent::__construct('input', $params);
-    }
-
 }

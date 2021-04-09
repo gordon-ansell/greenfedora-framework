@@ -14,12 +14,6 @@ namespace GreenFedora\Form\Field;
 
 use GreenFedora\Html\Html;
 use GreenFedora\Form\Field\FieldInterface;
-use GreenFedora\Form\Field\Div;
-use GreenFedora\Form\Field\Fieldset;
-use GreenFedora\Form\Field\Label;
-use GreenFedora\Form\Field\Input;
-
-use GreenFedora\Form\Exception\InvalidArgumentException;
 
 /**
  * Form field class.
@@ -30,47 +24,36 @@ use GreenFedora\Form\Exception\InvalidArgumentException;
 class Field extends Html implements FieldInterface
 {
     /**
-     * Sub fields.
-     * @var FieldInterface[]
-     */
-    protected $fields = [];
-
-    /**
      * Constructor.
      * @param   string              $tag        HTML tag.
      * @param   array               $params     Parameters.
-     * @param   FieldInterface[]    $fields     Subfields.
+     * @return  void
      */
-    public function __construct(string $tag, array $params = [], array $fields = [])
+    public function __construct(string $tag, array $params = [])
     {
         parent::__construct($tag, $params);
-        $this->addFields($fields);
     }
 
     /**
-     * Add a field.
+     * Set the name.
      * 
-     * @param   FieldInterface      $field      Field to add.
-     * @return  FieldInterface 
+     * @param   string      $name   Name to set.
+     * @return  FieldInterface
      */
-    public function addField(FieldInterface $field): FieldInterface
+    public function setName(string $name): FieldInterface
     {
-        $this->fields[] = $field;
+        $this->setParam('name', $name);
         return $this;
     }
 
     /**
-     * Add a bunch of fields.
+     * Get the name.
      * 
-     * @param   FieldInterface[]    $fields     Fields to add.
-     * @return  FieldInterface 
+     * @return  string
      */
-    public function addFields(array $fields = []): FieldInterface
+    public function getName(): string
     {
-        foreach ($fields as $field) {
-            $this->addField($field);
-        }
-        return $this;
+        return $this->getParam('name');
     }
 
     /**
@@ -81,57 +64,7 @@ class Field extends Html implements FieldInterface
      */
     public function render(?string $data = null): string
     {
-        echo "Rendering: " . $this->tag . PHP_EOL;
-        $data = null;
-
-        if (count($this->fields)) {
-            $data = '';
-            foreach ($this->fields as $field) {
-                if ($data != '') {
-                    $data .= PHP_EOL;
-                }
-                echo "Rendering inner: " . $field->getTag() . PHP_EOL;
-                $data .= $field->render() . PHP_EOL;
-            }
-        }
-
-        $ret = parent::render($data) . PHP_EOL;
-        echo "Finished: " . $this->tag . PHP_EOL;
-
-        return $ret;
+        return parent::render($data) . PHP_EOL;
     }
 
-    /**
-     * Static field creator.
-     * 
-     * @param   string  $type   Type of field.
-     * @param   array               $params     Parameters.
-     * @param   FieldInterface[]    $fields     Subfields.
-     * @return  FieldInterface
-     * @throws  InvalidArgumentException
-     */
-    static public function createField(string $type, array $params = [], array $fields = []): FieldInterface
-    {
-        switch (strtolower($type)) {
-            case 'div':
-                return new Div($params, $fields);
-                break;
-
-            case 'fieldset':
-                return new Fieldset($params, $fields);
-                break;
-
-            case 'label':
-                return new Label($params, $fields);
-                break;
-
-            case 'input':
-                return new Input($params, $fields);
-                break;
-
-            default:
-                throw new InvalidArgumentException(sprintf("'%s' is an invalid form field type", $type));
-                break;
-        }
-    }
 }

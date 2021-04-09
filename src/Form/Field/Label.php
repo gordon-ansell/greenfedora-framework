@@ -24,12 +24,13 @@ class Label extends Field
 {
     /**
      * Constructor.
+     * 
      * @param   array               $params     Parameters.
-     * @param   FieldInterface[]    $fields     Subfields.
+     * @return  void
      */
-    public function __construct(array $params = [], array $fields = [])
+    public function __construct(array $params = [])
     {
-        parent::__construct('label', $params, $fields);
+        parent::__construct('label', $params);
     }
 
 }

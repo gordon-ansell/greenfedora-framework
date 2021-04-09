@@ -20,7 +20,7 @@ use GreenFedora\Form\Field\Field;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Input extends Field
+class DivOpen extends Field
 {
     /**
      * Constructor.
@@ -30,7 +30,17 @@ class Input extends Field
      */
     public function __construct(array $params = [])
     {
-        parent::__construct('input', $params);
+        parent::__construct('div', $params);
     }
 
+    /**
+     * Render the field.
+     * 
+     * @param   string  $data   data to use.
+     * @return  string          Rendered form HTML.
+     */
+    public function render(?string $data = null): string
+    {
+        return parent::renderOpen() . PHP_EOL;
+    }
 }

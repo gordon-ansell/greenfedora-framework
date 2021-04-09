@@ -20,16 +20,27 @@ use GreenFedora\Form\Field\Field;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Div extends Field
+class DivClose extends Field
 {
     /**
      * Constructor.
+     * 
      * @param   array               $params     Parameters.
-     * @param   FieldInterface[]    $fields     Subfields.
+     * @return  void
      */
-    public function __construct(array $params = [], array $fields = [])
+    public function __construct(array $params = [])
     {
-        parent::__construct('div', $params, $fields);
+        parent::__construct('div', $params);
     }
 
+    /**
+     * Render the field.
+     * 
+     * @param   string  $data   data to use.
+     * @return  string          Rendered form HTML.
+     */
+    public function render(?string $data = null): string
+    {
+        return parent::renderClose($data) . PHP_EOL;
+    }
 }

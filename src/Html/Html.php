@@ -101,6 +101,7 @@ class Html implements HtmlInterface
 		}
 		
 		if ($this->selfClose) {
+			echo "here";
 			$ret .= ' />';
 		} else {
 			$ret .= '>';

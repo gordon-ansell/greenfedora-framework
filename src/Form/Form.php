@@ -161,5 +161,24 @@ class Form extends Html implements FormInterface
         return $this; 
     }
 
+    /**
+     * Render the field.
+     * 
+     * @param   string  $data   data to use.
+     * @return  string          Rendered form HTML.
+     */
+    public function render(?string $data = null): string
+    {
+        $ret = '';
+        $ret .= parent::renderOpen();
+
+        foreach ($this->fields as $field) {
+            $ret .= $field->render();
+        }
+
+        $ret .= parent::renderClose();
+
+        return $ret;
+    }
 
 }

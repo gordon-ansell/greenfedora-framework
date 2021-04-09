@@ -116,11 +116,11 @@ class Field extends Html implements FieldInterface
                 break;
 
             case 'label':
-                return new Fieldset($params, $fields);
+                return new Label($params, $fields);
                 break;
 
             case 'input':
-                return new Fieldset($params, $fields);
+                return new Input($params, $fields);
                 break;
 
             default:

@@ -80,6 +80,7 @@ class Field extends Html implements FieldInterface
      */
     public function render(): string
     {
+        echo "Rendering: " .$this->tag . PHP_EOL;
         $data = null;
 
         if (count($this->fields)) {

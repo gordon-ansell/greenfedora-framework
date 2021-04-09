@@ -73,7 +73,6 @@ class Html implements HtmlInterface
 	 */
 	public function build(?string $data = null) : string
 	{
-		echo "tag: " . $this->tag , " - open";
 		$ret = '<' . $this->tag;
 		
 		$params = '';
@@ -98,7 +97,6 @@ class Html implements HtmlInterface
 		$ret .= $params;
 
 		if ($this->selfClose) {
-			echo "tag: " . $this->tag , " - close";
 			$ret .= ' />';
 		} else {
 			$ret .= '>';
@@ -106,11 +104,9 @@ class Html implements HtmlInterface
 				$data = $this->data;
 			}
 			if (null !== $data) {
-				echo "tag: " . $this->tag , " - data";
 				$ret .= $data;
 			}
 			$ret .= $this->beforeClosingTag();
-			echo "tag: " . $this->tag , " - close";
 			$ret .= '</' . $this->tag . '>';
 		}
 		

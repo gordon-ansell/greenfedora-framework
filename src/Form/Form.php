@@ -54,7 +54,7 @@ class Form extends Field implements FormInterface
             'method' => $method,
         );
 
-        parent::construct('form', $p, $fields);
+        parent::__construct('form', $p, $fields);
     }
 
     /**

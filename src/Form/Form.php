@@ -17,6 +17,9 @@ use GreenFedora\Form\FormInterface;
 use GreenFedora\Form\Field\FieldInterface;
 use GreenFedora\Form\Field\Field;
 use GreenFedora\Form\Field\Div;
+use GreenFedora\Form\Field\Fieldset;
+use GreenFedora\Form\Field\Label;
+use GreenFedora\Form\Field\Input;
 
 use GreenFedora\Form\Exception\InvalidArgumentException;
 
@@ -72,6 +75,19 @@ class Form extends Field implements FormInterface
             case 'div':
                 return new Div($params, $fields);
                 break;
+
+            case 'fieldset':
+                return new Fieldset($params, $fields);
+                break;
+
+            case 'label':
+                return new Fieldset($params, $fields);
+                break;
+
+            case 'input':
+                return new Fieldset($params, $fields);
+                break;
+
             default:
                 throw new InvalidArgumentException(sprintf("'%s' is an invalid form field type", $type));
                 break;

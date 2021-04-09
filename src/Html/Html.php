@@ -96,12 +96,7 @@ class Html implements HtmlInterface
 		
 		$ret .= $params;
 
-		if ('input' == $this->tag) {
-			echo $this->selfClose;
-		}
-		
 		if ($this->selfClose) {
-			echo "here";
 			$ret .= ' />';
 		} else {
 			$ret .= '>';

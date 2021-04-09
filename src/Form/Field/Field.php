@@ -94,8 +94,6 @@ class Field extends Html implements FieldInterface
 
         $ret = $this->build($data) . PHP_EOL;
 
-        echo $this->tag . ': ' . $ret;
-
         return $ret;
     }
 

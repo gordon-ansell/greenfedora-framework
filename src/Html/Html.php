@@ -137,7 +137,7 @@ class Html implements HtmlInterface
 	{
 		$ret = $this->renderOpen(); 
 		
-		if ($this->selfClose) {
+		if (!$this->selfClose) {
 			$ret .= $this->renderClose($data);
 		}
 

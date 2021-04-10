@@ -286,6 +286,21 @@ class Form extends Html implements FormInterface
     }
 
     /**
+     * Save persistence.
+     * 
+     * @param   ArrInterface    $source     Where to save them from.
+     * @return  FormInterface 
+     */
+    public function save(ArrInterface $source): FormInterface
+    {
+        if (null !== $this->persist) {
+            $this->persist->save($source);
+        }
+
+        return $this;
+    }
+
+    /**
      * Do we have errors?
      * 
      * @return  bool 

@@ -39,7 +39,7 @@ class Field extends Html implements FieldInterface
      * Field value.
      * @var mixed
      */
-    protected $value = null;
+    protected $value = '';
 
     /**
      * Set the autofocus.
@@ -180,6 +180,10 @@ class Field extends Html implements FieldInterface
     {
         if ($this->autofocus) {
             $this->setParam('autofocus', true);
+        }
+
+        if (!empty($this->value)) {
+            $this->setParam('value', $this->value);
         }
 
         $ret = '';

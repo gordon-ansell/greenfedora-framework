@@ -21,6 +21,9 @@ use GreenFedora\Form\Field\FieldsetClose;
 
 use GreenFedora\Form\Field\Exception\InvalidArgumentException;
 
+use GreenFedora\Filter\FilterInterface;
+use GreenFedora\Validator\ValidatorInterface;
+
 /**
  * Form field class.
  *
@@ -64,6 +67,18 @@ class Field extends Html implements FieldInterface
      * @var bool
      */
     protected $allowAutoWrap = false;
+
+    /**
+     * Filters.
+     * @var FilterInterface[]
+     */
+    protected $filters = [];
+
+    /**
+     * Validators.
+     * @var ValidatorInterface[]
+     */
+    protected $validators = [];
 
     /**
      * Constructor.
@@ -167,6 +182,30 @@ class Field extends Html implements FieldInterface
     public function setAutofocus(bool $autofocus = true): FieldInterface
     {
         $this->autofocus = $autofocus;
+        return $this;
+    }
+
+    /**
+     * Add a validator.
+     * 
+     * @param   ValidatorInterface  $validator  New validator.
+     * @return  FieldInterface 
+     */
+    public function addValidator(ValidatorInterface $validator): FieldInterface
+    {
+        $this->validators[] = $validator;
+        return $this;
+    }
+
+    /**
+     * Add a filter.
+     * 
+     * @param   FilterInterface     $filter     New filter.
+     * @return  FieldInterface 
+     */
+    public function addFilter(FilterInterface $filter): FieldInterface
+    {
+        $this->filters[] = $filter;
         return $this;
     }
 

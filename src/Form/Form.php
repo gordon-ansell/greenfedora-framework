@@ -177,10 +177,10 @@ class Form extends Html implements FormInterface
      * @param   string|null                 $name       Field name.
      * @param   array                       $params     Field parameters.
      * 
-     * @return  FormInterface
+     * @return  FieldInterface
      * @throws  InvalidArgumentException
      */
-    public function addField($type, ?string $name = null, array $params = []): FormInterface
+    public function addField($type, ?string $name = null, array $params = []): FieldInterface
     {
         if ($type instanceof FieldInterface) {
             $name = $type->getName();
@@ -208,9 +208,9 @@ class Form extends Html implements FormInterface
      * @param   string|null                 $name       Field name.
      * @param   array                       $params     Field parameters.
      * 
-     * @return  FormInterface
+     * @return  FieldInterface
      */
-    public function setField($type, ?string $name = null, array $params = []): FormInterface
+    public function setField($type, ?string $name = null, array $params = []): FieldInterface
     {
         $ret = null;
 
@@ -222,7 +222,7 @@ class Form extends Html implements FormInterface
         }
 
         $this->fields[$name] = $ret;
-        return $this; 
+        return $this->fields[$name]; 
     }
 
     /**

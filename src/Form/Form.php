@@ -23,6 +23,7 @@ use GreenFedora\Form\Field\DivOpen;
 use GreenFedora\Form\Field\DivClose;
 use GreenFedora\Form\Field\Label;
 use GreenFedora\Form\Field\Input;
+use GreenFedora\Form\Field\InputText;
 
 use GreenFedora\Form\Exception\InvalidArgumentException;
 
@@ -128,29 +129,34 @@ class Form extends Html implements FormInterface
             switch (strtolower($type)) {
 
                 case 'divopen':
-                    $ret = new DivOpen($params);
+                    $ret = new DivOpen($this, $params);
                     break;
 
                 case 'divclose':
-                    $ret = new DivClose($params);
+                    $ret = new DivClose($this, $params);
                     break;
 
                 case 'fieldsetopen':
-                    $ret = new FieldsetOpen($params);
+                    $ret = new FieldsetOpen($this, $params);
                     break;
 
                 case 'fieldsetclose':
-                    $ret = new FieldsetClose($params);
+                    $ret = new FieldsetClose($this, $params);
                     break;
             
                 case 'label':
-                    $ret = new Label($params);
+                    $ret = new Label($this, $params);
                     break;
 
                 case 'input':
-                    $ret = new Input($params);
+                    $ret = new Input($this, $params);
                     break;
 
+                case 'inputtext':
+                    $params['type'] = "text";
+                    $ret = new Input($this, $params);
+                    break;
+    
                 default:
                     throw new InvalidArgumentException(sprintf("'%s' is an invalid form field type", $type));
                     break;

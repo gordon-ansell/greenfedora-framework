@@ -14,6 +14,7 @@ namespace GreenFedora\Form\Field;
 
 use GreenFedora\Html\Html;
 use GreenFedora\Form\Field\FieldInterface;
+use GreenFedora\Form\FormInterface;
 
 /**
  * Form field class.
@@ -24,13 +25,22 @@ use GreenFedora\Form\Field\FieldInterface;
 class Field extends Html implements FieldInterface
 {
     /**
+     * Parent form.
+     * @var FormInterface
+     */
+    protected $form = null;
+
+    /**
      * Constructor.
+     * 
+     * @param   FormInterface       $form       Parent form.
      * @param   string              $tag        HTML tag.
      * @param   array               $params     Parameters.
      * @return  void
      */
-    public function __construct(string $tag, array $params = [])
+    public function __construct(FormInterface $form, string $tag, array $params = [])
     {
+        $this->form = $form;
         if (array_key_exists('name', $params) and !array_key_exists('id', $params)) {
             $params['id'] = $params['name'];
         }

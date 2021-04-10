@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Form\Field;
 
 use GreenFedora\Form\Field\Field;
+use GreenFedora\Form\FormInterface;
 
 /**
  * Form field class.
@@ -25,12 +26,13 @@ class Label extends Field
     /**
      * Constructor.
      * 
+     * @param   FormInterface       $form       Parent form.
      * @param   array               $params     Parameters.
      * @return  void
      */
-    public function __construct(array $params = [])
+    public function __construct(FormInterface $form, array $params = [])
     {
-        parent::__construct('label', $params);
+        parent::__construct($form, 'label', $params);
     }
 
 }

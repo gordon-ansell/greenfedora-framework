@@ -144,10 +144,10 @@ class Field extends Html implements FieldInterface
     /**
      * Get the name.
      * 
-     * @return  string
+     * @return  string|null
      * @throws  InvalidArgumentException
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         if (!$this->hasParam('name')) {
             return null;

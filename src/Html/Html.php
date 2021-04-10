@@ -72,7 +72,7 @@ class Html implements HtmlInterface
         $this->setParams($params);
         $this->data = $data;
 		$this->setSelfClose($selfClose);
-		$this->setValueData($valueData);
+		//$this->setValueData($valueData);
 
 		/*
 		if ($this->valueData and array_key_exists('value', $this->params)) {

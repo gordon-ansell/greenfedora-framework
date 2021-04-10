@@ -279,14 +279,6 @@ class Form extends Html implements FormInterface
     }
 
     /**
-     * Set the values for all the fields.
-     */
-    public function setValues(): FormInterface
-    {
-        
-    }
-
-    /**
      * Load persistence.
      * 
      * @param   ArrInterface    $target     Where to load them.

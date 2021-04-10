@@ -27,7 +27,7 @@ class DivOpen extends Field
      * Value type.
      * @var int
      */
-    protected $valueType = self::NO_VALUE;
+    protected $valueType = self::VALUE_NONE;
 
     /**
      * Constructor.

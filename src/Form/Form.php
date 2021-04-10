@@ -275,6 +275,11 @@ class Form extends Html implements FormInterface
         if (null !== $this->persist) {
             $this->persist->load($target);
         }
+
+        foreach ($target as $k => $v) {
+            $this->fields[$k]->setValue($v);
+        }
+
         return $this;
     }
 

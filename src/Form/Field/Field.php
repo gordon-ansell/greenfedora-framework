@@ -185,7 +185,7 @@ class Field extends Html implements FieldInterface
         $ret = '';
 
         if ($this->allowAutoWrap and $this->wrap) {
-            $w = $this->form->createField($this->wrap . 'open', $this->getName() . $this->wrap . 'open', []);
+            $w = $this->form->createField($this->wrap . 'open', $this->getName() . $this->wrap);
             $ret .= $w->render();
         }
 
@@ -197,7 +197,7 @@ class Field extends Html implements FieldInterface
         $ret .= parent::render($data) . PHP_EOL;
 
         if ($this->allowAutoWrap and $this->wrap) {
-            $w = $this->form->createField($this->wrap . 'close', $this->getName() . $this->wrap . 'close', []);
+            $w = $this->form->createField($this->wrap . 'close', $this->getName() . $this->wrap);
             $ret .= $w->render();
         }
 

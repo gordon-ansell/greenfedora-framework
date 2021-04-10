@@ -16,6 +16,8 @@ use GreenFedora\Html\Html;
 use GreenFedora\Form\Field\FieldInterface;
 use GreenFedora\Form\FormInterface;
 use GreenFedora\Form\Field\Label;
+use GreenFedora\Form\Field\FieldsetOpen;
+use GreenFedora\Form\Field\FieldsetClose;
 
 use GreenFedora\Form\Field\Exception\InvalidArgumentException;
 
@@ -52,6 +54,12 @@ class Field extends Html implements FieldInterface
     protected $label = null;
 
     /**
+     * Wrap the field in something?
+     * @var string|null
+     */
+    protected $wrap = null;
+
+    /**
      * Constructor.
      * 
      * @param   FormInterface       $form       Parent form.
@@ -61,7 +69,8 @@ class Field extends Html implements FieldInterface
      * @return  void
      * @throws  InvalidArgumentException
      */
-    public function __construct(FormInterface $form, string $tag, array $params = [], bool $autoLabel = false)
+    public function __construct(FormInterface $form, string $tag, array $params = [],
+        bool $autoLabel = false)
     {
         $this->form = $form;
         if (array_key_exists('name', $params) and !array_key_exists('id', $params)) {
@@ -76,6 +85,16 @@ class Field extends Html implements FieldInterface
                 unset($params['label']);
             }
         }
+        if ($params['wrap']) {
+            $this->wrap = $params['wrap'];
+            unset($params['wrap']);
+        } else {
+            $ar = $form->getAutoWrap();
+            if (null !== $ar) {
+                $this->wrap = $ar;
+            }
+        }
+
         parent::__construct($tag, $params);
     }
 
@@ -148,11 +167,25 @@ class Field extends Html implements FieldInterface
         }
 
         $ret = '';
+
+        if ($this->wrap) {
+            $w = $this->form->createField($this->wrap . 'open', $this->getName() . $this->wrap . 'open', []);
+            $ret .= $w->render();
+        }
+
+
         if (null !== $this->label) {
             $ret .= $this->label->render();
         }
 
-        return $ret . parent::render($data) . PHP_EOL;
+        $ret .= parent::render($data) . PHP_EOL;
+
+        if ($this->wrap) {
+            $w = $this->form->createField($this->wrap . 'close', $this->getName() . $this->wrap . 'close', []);
+            $ret .= $w->render();
+        }
+
+        return $ret;
     }
 
 }

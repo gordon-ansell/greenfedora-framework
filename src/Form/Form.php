@@ -54,6 +54,12 @@ class Form extends Html implements FormInterface
     protected $fields = [];
 
     /**
+     * Auto wrap fields?
+     * @var string|null
+     */
+    protected $autoWrap = null;
+
+    /**
      * Constructor.
      * 
      * @param   string              $action     Action.
@@ -71,16 +77,77 @@ class Form extends Html implements FormInterface
     }
 
     /**
+     * Create a field.
+     * 
+     * @param   string                      $type       Field type.
+     * @param   string|null                 $name       Field name.
+     * @param   array                       $params     Field parameters.
+     * 
+     * @return  FieldInterface
+     * @throws  InvalidArgumentException
+     */
+    public function createField(string $type, ?string $name = null, array $params = []): FieldInterface
+    {
+        $ret = null;
+
+        if (null === $name) {
+            if (array_key_exists('name', $params)) {
+                $name = $params['name'];
+            }
+        } else {
+            $params['name'] = $name;
+        }
+
+        switch (strtolower($type)) {
+
+            case 'divopen':
+                $ret = new DivOpen($this, $params);
+                break;
+
+            case 'divclose':
+                $ret = new DivClose($this, $params);
+                break;
+
+            case 'fieldsetopen':
+                $ret = new FieldsetOpen($this, $params);
+                break;
+
+            case 'fieldsetclose':
+                $ret = new FieldsetClose($this, $params);
+                break;
+        
+            case 'label':
+                $ret = new Label($this, $params);
+                break;
+
+            case 'input':
+                $ret = new Input($this, $params);
+                break;
+
+            case 'inputtext':
+                $params['type'] = "text";
+                $ret = new Input($this, $params);
+                break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("'%s' is an invalid form field type", $type));
+                break;
+        }
+
+        return $ret;
+    }
+
+    /**
      * Add a field.
      * 
-     * @param   string|FieldInterface       $type       Field type ot class instance.
+     * @param   string|FieldInterface       $type       Field type or class instance.
      * @param   string|null                 $name       Field name.
      * @param   array                       $params     Field parameters.
      * 
      * @return  FormInterface
      * @throws  InvalidArgumentException
      */
-    public function addField(string $type, ?string $name = null, array $params = []): FormInterface
+    public function addField($type, ?string $name = null, array $params = []): FormInterface
     {
         if ($type instanceof FieldInterface) {
             $name = $type->getName();
@@ -104,13 +171,13 @@ class Form extends Html implements FormInterface
     /**
      * Set a field.
      * 
-     * @param   string|FieldInterface       $type       Field type ot class instance.
+     * @param   string|FieldInterface       $type       Field type or class instance.
      * @param   string|null                 $name       Field name.
      * @param   array                       $params     Field parameters.
      * 
      * @return  FormInterface
      */
-    public function setField(string $type, ?string $name = null, array $params = []): FormInterface
+    public function setField($type, ?string $name = null, array $params = []): FormInterface
     {
         $ret = null;
 
@@ -118,49 +185,7 @@ class Form extends Html implements FormInterface
             $ret = $type;
             $name = $type->getName();
         } else {
-            if (null === $name) {
-                if (array_key_exists('name', $params)) {
-                    $name = $params['name'];
-                }
-            } else {
-                $params['name'] = $name;
-            }
-
-            switch (strtolower($type)) {
-
-                case 'divopen':
-                    $ret = new DivOpen($this, $params);
-                    break;
-
-                case 'divclose':
-                    $ret = new DivClose($this, $params);
-                    break;
-
-                case 'fieldsetopen':
-                    $ret = new FieldsetOpen($this, $params);
-                    break;
-
-                case 'fieldsetclose':
-                    $ret = new FieldsetClose($this, $params);
-                    break;
-            
-                case 'label':
-                    $ret = new Label($this, $params);
-                    break;
-
-                case 'input':
-                    $ret = new Input($this, $params);
-                    break;
-
-                case 'inputtext':
-                    $params['type'] = "text";
-                    $ret = new Input($this, $params);
-                    break;
-    
-                default:
-                    throw new InvalidArgumentException(sprintf("'%s' is an invalid form field type", $type));
-                    break;
-            }
+            $ret = $this->createField($type, $name, $params);
         }
 
         $this->fields[$name] = $ret;
@@ -178,8 +203,32 @@ class Form extends Html implements FormInterface
     {
         if (array_key_exists($field, $this->fields)) {
             $this->fields[$field]->setAutfocus();
+            return $this;
         }
         throw new InvalidArgumentException(sprintf("Cannot set autofocus to'%s' - field does not exist", $type));
+    }
+
+    /**
+     * Set the autoWrap field.
+     * 
+     * @param   string          $type   Type of wrapping to do.
+     * @return  FormInterface
+     * @throws  InvalidArgumentException
+     */
+    public function setAutoWrap(string $type): FormInterface
+    {
+        $this->autoWrap = $type;
+        return $this;
+    }
+
+    /**
+     * Get the autowrap field.
+     * 
+     * @return  string|null
+     */
+    public function getAutoWrap(): ?string
+    {
+        return $this->autoWrap;
     }
 
     /**

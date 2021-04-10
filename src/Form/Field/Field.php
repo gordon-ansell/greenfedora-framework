@@ -85,7 +85,7 @@ class Field extends Html implements FieldInterface
                 unset($params['label']);
             }
         }
-        if ($params['wrap']) {
+        if (array_key_exists('wrap', $params)) {
             $this->wrap = $params['wrap'];
             unset($params['wrap']);
         } else {

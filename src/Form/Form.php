@@ -344,7 +344,7 @@ class Form extends Html implements FormInterface
                     $this->errors[] = $v->getError();
                     $status = false;
                     if (!$gotAf) {
-                        $v->setAutofocus();
+                        $this->setAutofocus($v->getName());
                         $gotAf = true;
                     }
                 }

@@ -15,7 +15,9 @@ namespace GreenFedora\Form;
 use GreenFedora\Form\FormInterface;
 use GreenFedora\Form\FormPersistHandlerInterface;
 
+use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Html\Html;
+
 use GreenFedora\Form\Field\FieldInterface;
 use GreenFedora\Form\Field\Field;
 use GreenFedora\Form\Field\FieldsetOpen;
@@ -25,6 +27,7 @@ use GreenFedora\Form\Field\DivClose;
 use GreenFedora\Form\Field\Label;
 use GreenFedora\Form\Field\Input;
 use GreenFedora\Form\Field\Button;
+use GreenFedora\Form\Field\Errors;
 
 use GreenFedora\Form\Exception\InvalidArgumentException;
 
@@ -65,6 +68,12 @@ class Form extends Html implements FormInterface
      * @var string|null
      */
     protected $autoWrap = null;
+
+    /**
+     * Form errors.
+     * @var array
+     */
+    protected $errors = [];
 
     /**
      * Constructor.
@@ -148,6 +157,11 @@ class Form extends Html implements FormInterface
                 $ret = new Button($this, $params);
                 break;
 
+            case 'errors':
+                $ret = new Errors($this, $params);
+                break;
+    
+    
             default:
                 throw new InvalidArgumentException(sprintf("'%s' is an invalid form field type", $type));
                 break;
@@ -248,6 +262,40 @@ class Form extends Html implements FormInterface
     public function getAutoWrap(): ?string
     {
         return $this->autoWrap;
+    }
+
+    /**
+     * Load persistence.
+     * 
+     * @param   ArrInterface    $target     Where to load them.
+     * @return  FormInterface 
+     */
+    public function load(ArrInterface &$target): FormInterface
+    {
+        if (null !== $this->persist) {
+            $this->persist->load($target);
+        }
+        return $this;
+    }
+
+    /**
+     * Do we have errors?
+     * 
+     * @return  bool 
+     */
+    public function hasErrors(): bool
+    {
+        return (count($this->errors) > 0);
+    }
+
+    /**
+     * Get the errors.
+     * 
+     * @return  array
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 
     /**

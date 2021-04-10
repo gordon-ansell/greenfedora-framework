@@ -49,12 +49,6 @@ class Field extends Html implements FieldInterface
     protected $value = '';
 
     /**
-     * Set the autofocus.
-     * @var bool
-     */
-    protected $autofocus = false;
-
-    /**
      * Label for autolabel.
      * @var Label
      */
@@ -184,18 +178,6 @@ class Field extends Html implements FieldInterface
     }
 
     /**
-     * Set the autofocus.
-     * 
-     * @param   bool    $autofocus  Value to set.
-     * @return  FieldInterface
-     */
-    public function setAutofocus(bool $autofocus = true): FieldInterface
-    {
-        $this->autofocus = $autofocus;
-        return $this;
-    }
-
-    /**
      * Add a validator.
      * 
      * @param   ValidatorInterface  $validator  New validator.
@@ -285,7 +267,7 @@ class Field extends Html implements FieldInterface
      */
     public function render(?string $data = null): string
     {
-        if ($this->autofocus) {
+        if ($this->form->getAutofocus() == $this->getName()) {
             $this->setParam('autofocus', true);
         }
 

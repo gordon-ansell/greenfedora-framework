@@ -80,6 +80,12 @@ class Form extends Html implements FormInterface
     protected $errors = [];
 
     /**
+     * Autofocus field.
+     * @var string|null
+     */
+    protected $autofocus = null;
+
+    /**
      * Constructor.
      * 
      * @param   string                      $action     Action.
@@ -239,10 +245,20 @@ class Form extends Html implements FormInterface
     public function setAutofocus(string $field): FormInterface
     {
         if (array_key_exists($field, $this->fields)) {
-            $this->fields[$field]->setAutfocus();
+            $this->autofocus = $field;
             return $this;
         }
         throw new InvalidArgumentException(sprintf("Cannot set autofocus to'%s' - field does not exist", $type));
+    }
+
+    /**
+     * Get the autofocus field.
+     * 
+     * @return  string|null
+     */
+    public function getAutofocus(): ?string
+    {
+        return $this->autofocus;
     }
 
     /**

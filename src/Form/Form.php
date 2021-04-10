@@ -329,6 +329,7 @@ class Form extends Html implements FormInterface
     public function validate(array $source): bool
     {
         $status = true;
+        $gotAf = false;
 
         foreach ($this->fields as $k => $v) {
 
@@ -342,6 +343,10 @@ class Form extends Html implements FormInterface
                 if (!$v->validate($data)) {
                     $this->errors[] = $v->getError();
                     $status = false;
+                    if (!$gotAf) {
+                        $v->setAutofocus();
+                        $gotAf = true;
+                    }
                 }
 
             }

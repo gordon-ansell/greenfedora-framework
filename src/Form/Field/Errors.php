@@ -46,7 +46,7 @@ class Errors extends Field
     {
         if ($this->form->hasErrors()) {
             foreach ($this->form->getErrors() as $error) {
-                $data .= $error . PHP_EOL;
+                $data .= $error . '<br />' . PHP_EOL;
             }
         }       
         return parent::render($data) . PHP_EOL;

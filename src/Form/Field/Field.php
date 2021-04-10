@@ -15,7 +15,7 @@ namespace GreenFedora\Form\Field;
 use GreenFedora\Html\Html;
 use GreenFedora\Form\Field\FieldInterface;
 use GreenFedora\Form\FormInterface;
-use GreenFedoea\Form\Field\Label;
+use GreenFedora\Form\Field\Label;
 
 use GreenFedora\Form\Field\Exception\InvalidArgumentException;
 

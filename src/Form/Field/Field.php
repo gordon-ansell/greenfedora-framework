@@ -60,17 +60,24 @@ class Field extends Html implements FieldInterface
     protected $wrap = null;
 
     /**
+     * Allow auto wrap?
+     * @var bool
+     */
+    protected $allowAutoWrap = false;
+
+    /**
      * Constructor.
      * 
-     * @param   FormInterface       $form       Parent form.
-     * @param   string              $tag        HTML tag.
-     * @param   array               $params     Parameters.
-     * @param   bool                $autoLabel  Automatically add a label?
+     * @param   FormInterface       $form           Parent form.
+     * @param   string              $tag            HTML tag.
+     * @param   array               $params         Parameters.
+     * @param   bool                $autoLabel      Automatically add a label?
+     * @param   bool                $allowAutoWrap  Allow auto wrapping?
      * @return  void
      * @throws  InvalidArgumentException
      */
     public function __construct(FormInterface $form, string $tag, array $params = [],
-        bool $autoLabel = false)
+        bool $autoLabel = false, bool $allowAutoWrap = false)
     {
         $this->form = $form;
         if (array_key_exists('name', $params) and !array_key_exists('id', $params)) {
@@ -85,13 +92,18 @@ class Field extends Html implements FieldInterface
                 unset($params['label']);
             }
         }
-        if (array_key_exists('wrap', $params)) {
-            $this->wrap = $params['wrap'];
-            unset($params['wrap']);
-        } else {
-            $ar = $form->getAutoWrap();
-            if (null !== $ar) {
-                $this->wrap = $ar;
+
+        $this->allowAutoWrap = $allowAutoWrap;
+
+        if ($this->allowAutoWrap) {
+            if (array_key_exists('wrap', $params)) {
+                $this->wrap = $params['wrap'];
+                unset($params['wrap']);
+            } else {
+                $ar = $form->getAutoWrap();
+                if (null !== $ar) {
+                    $this->wrap = $ar;
+                }
             }
         }
 
@@ -172,7 +184,7 @@ class Field extends Html implements FieldInterface
 
         $ret = '';
 
-        if ($this->wrap) {
+        if ($this->allowAutoWrap and $this->wrap) {
             $w = $this->form->createField($this->wrap . 'open', $this->getName() . $this->wrap . 'open', []);
             $ret .= $w->render();
         }
@@ -184,7 +196,7 @@ class Field extends Html implements FieldInterface
 
         $ret .= parent::render($data) . PHP_EOL;
 
-        if ($this->wrap) {
+        if ($this->allowAutoWrap and $this->wrap) {
             $w = $this->form->createField($this->wrap . 'close', $this->getName() . $this->wrap . 'close', []);
             $ret .= $w->render();
         }

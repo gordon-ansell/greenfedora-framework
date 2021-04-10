@@ -273,11 +273,13 @@ class Form extends Html implements FormInterface
     public function load(ArrInterface &$target): FormInterface
     {
         if (null !== $this->persist) {
+            echo "Loading: " . $this->getName() . PHP_EOL;
             $this->persist->load($target);
         }
 
         foreach ($target as $k => $v) {
             if (array_key_exists($k, $this->fields)) {
+                echo "Setting value: " . $this->getName() . PHP_EOL;
                 $this->fields[$k]->setValue($v);
             }
         }
@@ -294,6 +296,7 @@ class Form extends Html implements FormInterface
     public function save(ArrInterface $source): FormInterface
     {
         if (null !== $this->persist) {
+            echo "Saving: " . $this->getName() . PHP_EOL;
             $this->persist->save($source);
         }
 

@@ -269,6 +269,16 @@ class Form extends Html implements FormInterface
     }
 
     /**
+     * Get the persistence handler.
+     * 
+     * @return  FormPersistHandlerInterface
+     */
+    public function getPersisthandler(): FormPersistHandlerInterface
+    {
+        return $this->persist;
+    }
+
+    /**
      * Load persistence.
      * 
      * @param   ArrInterface    $target     Where to load them.

@@ -24,7 +24,7 @@ use GreenFedora\Form\Field\Exception\InvalidArgumentException;
 use GreenFedora\Filter\FilterInterface;
 use GreenFedora\Validator\ValidatorInterface;
 
-use GreenFedora\Log\InternalDebugTrait;
+use GreenFedora\Logger\InternalDebugTrait;
 
 /**
  * Form field class.

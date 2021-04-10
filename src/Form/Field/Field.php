@@ -81,6 +81,12 @@ class Field extends Html implements FieldInterface
     protected $validators = [];
 
     /**
+     * Error.
+     * @var string|null
+     */
+    protected $error = null;
+
+    /**
      * Constructor.
      * 
      * @param   FormInterface       $form           Parent form.
@@ -207,6 +213,64 @@ class Field extends Html implements FieldInterface
     {
         $this->filters[] = $filter;
         return $this;
+    }
+
+    /**
+     * Filter the field.
+     * 
+     * @param   mixed   $source     Source to filter.
+     * @return  mixed
+     */
+    public function filter($source)
+    {
+        if (count($this->filters) > 0) {
+            foreach ($this->filters as $filter) {
+                $source = $filter->filter($source);
+            }
+        }
+        return $source;
+    }
+
+    /**
+     * Do we have validators.
+     * 
+     * @return  bool
+     */
+    public function hasValidators(): bool
+    {
+        return (count($this->validators) > 0);
+    }
+
+    /**
+     * Validate the field.
+     * 
+     * @param   mixed   $source     Source to check.
+     * @return  bool
+     */
+    public function validate($source): bool
+    {
+        if (count($this->validators) > 0) {
+            $source = $this->filter($source);
+
+            foreach ($this->validators as $validator) {
+                if (!$validator->validate($source)) {
+                    $this->error = $validator->getError();
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Get the error.
+     * 
+     * @return  string|null
+     */
+    public function getError(): ?string
+    {
+        return $this->error;
     }
 
     /**

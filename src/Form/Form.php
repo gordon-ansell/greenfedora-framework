@@ -301,6 +301,41 @@ class Form extends Html implements FormInterface
     }
 
     /**
+     * Validate the form.
+     * 
+     * @param   array   $source     Source data to validate.
+     * @return  bool
+     */
+    public function validate(array $source): bool
+    {
+        $status = true;
+
+        foreach ($this->fields as $k => $v) {
+
+            if ($v->hasValidators()) {
+
+                $data = null;
+                if (array_key_exists($k, $source)) {
+                    $data = $source[$k];
+                }
+
+                if (!$v->validate($data)) {
+                    $this->errors[] = $v->getError();
+                    $status = false;
+                }
+
+            }
+
+        }
+
+        if ($this->hasErrors() and array_key_exists('errors', $this->fields)) {
+            $this->fields['errors']->setValue($this->getErrors());
+        }
+
+        return $status;
+    }
+
+    /**
      * Do we have errors?
      * 
      * @return  bool 

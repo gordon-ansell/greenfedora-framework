@@ -24,6 +24,12 @@ use GreenFedora\Form\FormInterface;
 class DivClose extends Field
 {
     /**
+     * Value type.
+     * @var int
+     */
+    protected $valueType = self::NO_VALUE;
+
+    /**
      * Constructor.
      * 
      * @param   FormInterface       $form       Parent form.

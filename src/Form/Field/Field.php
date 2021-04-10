@@ -37,6 +37,13 @@ class Field extends Html implements FieldInterface
     use InternalDebugTrait;
 
     /**
+     * Value types.
+     */
+    const VALUE_NONE = 0;
+    const VALUE_IS_VALUE = 1;
+    const VALUE_IS_DATA = 2;
+
+    /**
      * Parent form.
      * @var FormInterface
      */
@@ -89,6 +96,12 @@ class Field extends Html implements FieldInterface
      * @var string|null
      */
     protected $error = null;
+
+    /**
+     * Value type.
+     * @var int
+     */
+    protected $valueType = self::VALUE_IS_VALUE;
 
     /**
      * Constructor.
@@ -290,7 +303,11 @@ class Field extends Html implements FieldInterface
         }
 
         if (!empty($this->value)) {
-            $this->setParam('value', $this->value);
+            if ($this->valueType = self::VALUE_IS_DATA) {
+                $this->setData($this->value);
+            } else if ($this->valueType == self::VALUE_IS_VALUE) {
+                $this->setParam('value', $this->value);
+            }
         }
 
         $ret = '';

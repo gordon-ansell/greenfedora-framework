@@ -17,6 +17,8 @@ use GreenFedora\Http\RequestInterface;
 use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Form\FormPersisthandlerInterface;
 
+use GreenFedora\Logger\InternalDebugTrait;
+
 /**
  * Form persistance handler.
  *
@@ -25,6 +27,8 @@ use GreenFedora\Form\FormPersisthandlerInterface;
 
 class FormPersistHandler implements FormPersistHandlerInterface
 {
+    use InternalDebugTrait;
+
     /**
      * Session.
      * @var SessionInterface
@@ -75,6 +79,7 @@ class FormPersistHandler implements FormPersistHandlerInterface
     public function load(ArrInterface &$target)
     {
         foreach ($this->names as $key => $default) {
+            $this->debug(sprintf("Loading form persist for: %s", $key));
             $target->set($key, $this->session->get($this->prefix . $key, $default));
         }
     }
@@ -89,8 +94,10 @@ class FormPersistHandler implements FormPersistHandlerInterface
     {
         foreach ($this->names as $key => $default) {
             if ($source->has($key)) {
+                $this->debug(sprintf("Saving form persist for: %s (real data)", $key));
                 $this->session->set($this->prefix . $key, strval($source->get($key)));
             } else {
+                $this->debug(sprintf("Saving form persist for: %s (default data)", $key));
                 $this->session->set($this->prefix . $key, strval($default));
             }
         }

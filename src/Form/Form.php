@@ -18,6 +18,8 @@ use GreenFedora\Form\FormPersistHandlerInterface;
 use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Html\Html;
 
+use GreenFedora\Logger\InternalDebugTrait;
+
 use GreenFedora\Form\Field\FieldInterface;
 use GreenFedora\Form\Field\Field;
 use GreenFedora\Form\Field\FieldsetOpen;
@@ -39,6 +41,8 @@ use GreenFedora\Form\Exception\InvalidArgumentException;
 
 class Form extends Html implements FormInterface
 {
+    use InternalDebugTrait;
+
     /**
      * Form action.
      * @var string
@@ -369,6 +373,26 @@ class Form extends Html implements FormInterface
         $ret .= parent::renderClose();
 
         return $ret;
+    }
+
+    /**
+     * Get the debug messages.
+     * 
+     * @return  array   
+     */
+    public function getDebugging(): array
+    {
+        $fd = $this->debugMsgs;
+
+        foreach ($this->fields as $k => $v) {
+            if ($v->hasDebugging()) {
+                foreach ($v->getDebugging() as $d) {
+                    $fd[] = array($d[0], $k . ': ' . $d[1]);
+                }
+            }
+        }
+
+        return $fd;
     }
 
 }

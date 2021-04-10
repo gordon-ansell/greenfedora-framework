@@ -43,6 +43,16 @@ trait InternalDebugTrait
     }
 
     /**
+     * See if we have debugging.
+     * 
+     * @return  bool
+     */
+    public function hasDebugging(): bool
+    {
+        return (count($this->debugMsgs) > 0);
+    }
+
+    /**
      * Get the debug messages.
      * 
      * @return  array   

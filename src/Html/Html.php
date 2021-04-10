@@ -84,6 +84,13 @@ class Html implements HtmlInterface
 	 */
 	public function renderOpen(): string
 	{
+		if ($this->valueData and array_key_exists('value', $this->params)) {
+			if (null === $this->data) {
+				$this->data = $this->params['value'];
+				unset($this->params['value']);
+			}
+		}
+
 		$ret = '<' . $this->tag;
 		
 		$params = '';
@@ -124,12 +131,6 @@ class Html implements HtmlInterface
 	 */
 	public function renderClose(?string $data = null): string
 	{
-		if ($this->valueData and array_key_exists('value', $this->params)) {
-			if (null === $this->data) {
-				$this->data = $this->params['value'];
-				unset($this->params['value']);
-			}
-		}
 
 		$ret = '';
 		

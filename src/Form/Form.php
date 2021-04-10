@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Form;
 
 use GreenFedora\Form\FormInterface;
+use GreenFedora\Form\FormPersistHandlerInterface;
 
 use GreenFedora\Html\Html;
 use GreenFedora\Form\Field\FieldInterface;
@@ -48,6 +49,12 @@ class Form extends Html implements FormInterface
     protected $method = 'POST';
 
     /**
+     * Persistence handler.
+     * @var FormPersistHandlerInterface
+     */
+    protected $persist = null;
+
+    /**
      * Fields.
      * @var array
      */
@@ -62,11 +69,12 @@ class Form extends Html implements FormInterface
     /**
      * Constructor.
      * 
-     * @param   string              $action     Action.
-     * @param   string              $method     Method.
+     * @param   string                      $action     Action.
+     * @param   FormPersistHandlerInterface $persist    Persistence handler.
+     * @param   string                      $method     Method.
      * @return  void
      */
-    public function __construct(string $action, string $method = 'POST')
+    public function __construct(string $action, FormPersistHandlerInterface $persist = null, string $method = 'POST')
     {
         $p = array(
             'action' => $action,
@@ -74,6 +82,8 @@ class Form extends Html implements FormInterface
         );
 
         parent::__construct('form', $p);
+
+        $this->persist = $persist;
     }
 
     /**

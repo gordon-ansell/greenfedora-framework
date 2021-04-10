@@ -15,6 +15,7 @@ namespace GreenFedora\Form;
 use GreenFedora\Session\SessionInterface;
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Arr\ArrInterface;
+use GreenFedora\Form\FormPersisthandlerInterface;
 
 /**
  * Form persistance handler.
@@ -22,7 +23,7 @@ use GreenFedora\Arr\ArrInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class FormPersistHandler
+class FormPersistHandler implements FormPersistHandlerInterface
 {
     /**
      * Session.

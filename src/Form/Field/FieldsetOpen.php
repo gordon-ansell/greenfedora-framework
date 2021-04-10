@@ -23,11 +23,6 @@ use GreenFedora\Form\FormInterface;
 
 class FieldsetOpen extends Field
 {
-    /**
-     * Value type.
-     * @var int
-     */
-    protected $valueType = self::VALUE_NONE;
 
     /**
      * Constructor.

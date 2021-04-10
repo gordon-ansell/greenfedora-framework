@@ -47,7 +47,7 @@ class Html implements HtmlInterface
 	 * Value param = data?
 	 * @var bool|null
 	 */
-	//protected $valueData = null;
+	protected $valueData = null;
 
 	/**
 	 * Self closing tags.
@@ -66,22 +66,15 @@ class Html implements HtmlInterface
 	 * @param 	bool|null   $valueData  Treat value param as data.
 	 * @return 	void
      */
-    public function __construct(string $tag, array $params = [], ?string $data = null, ?bool $selfClose = null)
+    public function __construct(string $tag, array $params = [], ?string $data = null, 
+		?bool $selfClose = null, ?bool $valueData = null)
     {
         $this->tag = $tag;
         $this->setParams($params);
         $this->data = $data;
 		$this->setSelfClose($selfClose);
-		//$this->setValueData($valueData);
+		$this->setValueData($valueData);
 
-		/*
-		if ($this->valueData and array_key_exists('value', $this->params)) {
-			if (null === $this->data) {
-				$this->data = $this->params['value'];
-				unset($this->params['value']);
-			}
-		}
-		*/
     }
 
 	/**
@@ -131,6 +124,13 @@ class Html implements HtmlInterface
 	 */
 	public function renderClose(?string $data = null): string
 	{
+		if ($this->valueData and array_key_exists('value', $this->params)) {
+			if (null === $this->data) {
+				$this->data = $this->params['value'];
+				unset($this->params['value']);
+			}
+		}
+
 		$ret = '';
 		
 		if ((null === $data) and (null !== $this->data)) {

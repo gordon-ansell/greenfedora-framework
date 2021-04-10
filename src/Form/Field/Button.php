@@ -24,12 +24,6 @@ use GreenFedora\Form\FormInterface;
 class Button extends Field
 {
     /**
-     * Value type.
-     * @var int
-     */
-    protected $valueType = self::VALUE_IS_DATA;
-
-    /**
      * Constructor.
      * 
      * @param   FormInterface       $form       Parent form.

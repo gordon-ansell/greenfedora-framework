@@ -24,12 +24,6 @@ use GreenFedora\Form\FormInterface;
 class DivOpen extends Field
 {
     /**
-     * Value type.
-     * @var int
-     */
-    protected $valueType = self::VALUE_NONE;
-
-    /**
      * Constructor.
      * 
      * @param   FormInterface       $form       Parent form.

@@ -23,11 +23,6 @@ use GreenFedora\Form\FormInterface;
 
 class Errors extends Field
 {
-    /**
-     * Value type.
-     * @var int
-     */
-    protected $valueType = self::VALUE_NONE;
 
     /**
      * Constructor.

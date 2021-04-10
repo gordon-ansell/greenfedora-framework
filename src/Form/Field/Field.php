@@ -150,7 +150,8 @@ class Field extends Html implements FieldInterface
     public function getName(): string
     {
         if (!$this->hasParam('name')) {
-            throw new InvalidArgumentException(sprintf("Field (type = %s) does not have a 'name'", $this->tag));
+            return null;
+            //throw new InvalidArgumentException(sprintf("Field (type = %s) does not have a 'name'", $this->tag));
         }
         return $this->getParam('name');
     }

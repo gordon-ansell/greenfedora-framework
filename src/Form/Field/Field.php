@@ -15,6 +15,9 @@ namespace GreenFedora\Form\Field;
 use GreenFedora\Html\Html;
 use GreenFedora\Form\Field\FieldInterface;
 use GreenFedora\Form\FormInterface;
+use GreenFedoea\Form\Field\Label;
+
+use GreenFedora\Form\Field\Exception\InvalidArgumentException;
 
 /**
  * Form field class.
@@ -31,18 +34,47 @@ class Field extends Html implements FieldInterface
     protected $form = null;
 
     /**
+     * Field value.
+     * @var mixed
+     */
+    protected $value = null;
+
+    /**
+     * Set the autofocus.
+     * @var bool
+     */
+    protected $autofocus = false;
+
+    /**
+     * Label for autolabel.
+     * @var Label
+     */
+    protected $label = null;
+
+    /**
      * Constructor.
      * 
      * @param   FormInterface       $form       Parent form.
      * @param   string              $tag        HTML tag.
      * @param   array               $params     Parameters.
+     * @param   bool                $autoLabel  Automatically add a label?
      * @return  void
+     * @throws  InvalidArgumentException
      */
-    public function __construct(FormInterface $form, string $tag, array $params = [])
+    public function __construct(FormInterface $form, string $tag, array $params = [], bool $autoLabel = false)
     {
         $this->form = $form;
         if (array_key_exists('name', $params) and !array_key_exists('id', $params)) {
             $params['id'] = $params['name'];
+        }
+        if ($autoLabel) {
+            if (!$params['label']) {
+                throw new InvalidArgumentException(sprintf("Autolabel form fields must have the 'label' parameter (%s)", $this->tag));
+            } else {
+                $this->label = new Label($form, ['for' => $params['name']]);
+                $this->label->setData($params['label']);
+                unset($params['label']);
+            }
         }
         parent::__construct($tag, $params);
     }
@@ -70,6 +102,40 @@ class Field extends Html implements FieldInterface
     }
 
     /**
+     * Set the field value.
+     * 
+     * @param   mixed   $value      Value to set.
+     * @return  FieldInterface
+     */
+    public function setValue($value): FieldInterface
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    /**
+     * Get the value.
+     * 
+     * @return  mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set the autofocus.
+     * 
+     * @param   bool    $autofocus  Value to set.
+     * @return  FieldInterface
+     */
+    public function setAutofocus(bool $autofocus = true): FieldInterface
+    {
+        $this->autofocus = $autofocus;
+        return $this;
+    }
+
+    /**
      * Render the field.
      * 
      * @param   string  $data   data to use.
@@ -77,7 +143,16 @@ class Field extends Html implements FieldInterface
      */
     public function render(?string $data = null): string
     {
-        return parent::render($data) . PHP_EOL;
+        if ($this->autofocus) {
+            $this->setParam('autofocus', true);
+        }
+
+        $ret = '';
+        if (null !== $this->label) {
+            $ret .= $this->label->render();
+        }
+
+        return $ret . parent::render($data) . PHP_EOL;
     }
 
 }

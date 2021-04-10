@@ -28,11 +28,12 @@ class Input extends Field
      * 
      * @param   FormInterface       $form       Parent form.
      * @param   array               $params     Parameters.
+     * @param   bool                $autoLabel  Autolabel?
      * @return  void
      */
-    public function __construct(FormInterface $form, array $params = [])
+    public function __construct(FormInterface $form, array $params = [], bool $autoLabel = true)
     {
-        parent::__construct($form, 'input', $params);
+        parent::__construct($form, 'input', $params, $autoLabel);
     }
 
 }

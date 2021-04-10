@@ -168,9 +168,24 @@ class Form extends Html implements FormInterface
     }
 
     /**
+     * Set the autofocus field.
+     * 
+     * @param   string  $field  Name of field to set.
+     * @return  FormInterface
+     * @throws  InvalidArgumentException
+     */
+    public function setAutofocus(string $field): FormInterface
+    {
+        if (array_key_exists($field, $this->fields)) {
+            $this->fields[$field]->setAutfocus();
+        }
+        throw new InvalidArgumentException(sprintf("Cannot set autofocus to'%s' - field does not exist", $type));
+    }
+
+    /**
      * Render the field.
      * 
-     * @param   string  $data   data to use.
+     * @param   string  $data   Data to use.
      * @return  string          Rendered form HTML.
      */
     public function render(?string $data = null): string

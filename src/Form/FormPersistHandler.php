@@ -79,7 +79,7 @@ class FormPersistHandler implements FormPersistHandlerInterface
     public function load(ArrInterface &$target)
     {
         foreach ($this->names as $key => $default) {
-            $this->debug(sprintf("Loading form persist for: %s", $key));
+            $this->debug(sprintf("Loading form persist for: %s = %s", $key, $this->session->get($this->prefix . $key, $default)));
             $target->set($key, $this->session->get($this->prefix . $key, $default));
         }
     }
@@ -94,10 +94,10 @@ class FormPersistHandler implements FormPersistHandlerInterface
     {
         foreach ($this->names as $key => $default) {
             if ($source->has($key)) {
-                $this->debug(sprintf("Saving form persist for: %s (real data)", $key));
+                $this->debug(sprintf("Saving form persist for: %s = %s (real data)", $key, strval($source->get($key))));
                 $this->session->set($this->prefix . $key, strval($source->get($key)));
             } else {
-                $this->debug(sprintf("Saving form persist for: %s (default data)", $key));
+                $this->debug(sprintf("Saving form persist for: %s = %s (default data)", $key, strval($default)));
                 $this->session->set($this->prefix . $key, strval($default));
             }
         }

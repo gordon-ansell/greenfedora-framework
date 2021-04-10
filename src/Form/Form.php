@@ -328,10 +328,6 @@ class Form extends Html implements FormInterface
 
         }
 
-        if ($this->hasErrors() and array_key_exists('errors', $this->fields)) {
-            $this->fields['errors']->setValue($this->getErrors());
-        }
-
         return $status;
     }
 

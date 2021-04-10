@@ -277,7 +277,9 @@ class Form extends Html implements FormInterface
         }
 
         foreach ($target as $k => $v) {
-            $this->fields[$k]->setValue($v);
+            if (array_key_exists($k, $this->fields)) {
+                $this->fields[$k]->setValue($v);
+            }
         }
 
         return $this;

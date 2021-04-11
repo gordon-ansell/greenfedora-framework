@@ -15,7 +15,7 @@ namespace GreenFedora\Form;
 use GreenFedora\Session\SessionInterface;
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Arr\ArrInterface;
-use GreenFedora\Form\FormPersisthandlerInterface;
+use GreenFedora\Form\FormPersistHandlerInterface;
 
 use GreenFedora\Logger\InternalDebugTrait;
 

@@ -260,7 +260,8 @@ class Form extends Html implements FormInterface
         $name = $item['name'];
         $type = $item['type'];
 
-        return $this->addField(str_replace('open', 'close', $type), ['name' => str_replace('open', 'close', $name)]);
+        return $this->addField(str_replace('open', 'close', $type), 
+            ['name' => str_replace('open', '', $name . 'close')]);
     }
 
     /**

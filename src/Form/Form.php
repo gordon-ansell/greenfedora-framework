@@ -94,17 +94,17 @@ class Form extends Html implements FormInterface
      * 
      * @param   string                      $action     Action.
      * @param   FormPersistHandlerInterface $persist    Persistence handler.
+     * @param   array                       $params     Parameters.
      * @param   string                      $method     Method.
      * @return  void
      */
-    public function __construct(string $action, FormPersistHandlerInterface $persist = null, string $method = 'POST')
+    public function __construct(string $action, FormPersistHandlerInterface $persist = null, array $params = [], 
+        string $method = 'POST')
     {
-        $p = array(
-            'action' => $action,
-            'method' => $method,
-        );
+        $params['action'] = $action;
+        $params['method'] = $method;
 
-        parent::__construct('form', $p);
+        parent::__construct('form', $params);
 
         $this->persist = $persist;
     }

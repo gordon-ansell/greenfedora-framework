@@ -17,6 +17,8 @@ use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
+use GreenFedora\Logger\LoggerAwareInterface;
+use GreenFedora\Logger\LoggerAwareTrait;
 
 
 /**
@@ -25,9 +27,10 @@ use GreenFedora\DependencyInjection\ContainerAwareTrait;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractAction implements ContainerAwareInterface 
+abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInterface 
 {
 	use ContainerAwareTrait;
+	use LoggerAwareTrait;
 
 	/**
 	 * Container.

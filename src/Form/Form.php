@@ -258,6 +258,21 @@ class Form extends Html implements FormInterface
     }
 
     /**
+     * Get a field.
+     * 
+     * @param   string  $name   Name of field to get.
+     * @return  FieldInterface
+     * @throws  InvalidArgumentException
+     */
+    public function getField(string $name): FieldInterface
+    {
+        if (!array_key_exists($name, $this->fields)) {
+            throw new InvalidArgumentException(sprintf("Form has no field called '%s'", $name));
+        }
+        return $this->fields[$name];
+    }
+
+    /**
      * Set the autofocus field.
      * 
      * @param   string  $field  Name of field to set.

@@ -29,6 +29,8 @@ use GreenFedora\Form\Field\DivClose;
 use GreenFedora\Form\Field\Label;
 use GreenFedora\Form\Field\Input;
 use GreenFedora\Form\Field\Button;
+use GreenFedora\Form\Field\Select;
+use GreenFedora\Form\Field\RadioSet;
 use GreenFedora\Form\Field\Errors;
 
 use GreenFedora\Form\Exception\InvalidArgumentException;
@@ -156,6 +158,15 @@ class Form extends Html implements FormInterface
                 $ret = new Input($this, $params);
                 break;
 
+            case 'inputradio':
+                $params['type'] = "radio";
+                $ret = new Input($this, $params);
+                break;
+
+            case 'radioset':
+                $ret = new RadioSet($this, $params);
+                break;
+    
             case 'button':
                 $ret = new Button($this, $params);
                 break;

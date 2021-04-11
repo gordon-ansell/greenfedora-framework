@@ -22,7 +22,7 @@ use GreenFedora\Html\Html;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Select extends Field
+class RadioSet extends Field
 {
     /**
      * Select options.
@@ -39,13 +39,13 @@ class Select extends Field
      * @param   bool                $allowAutoWrap  Allow auto wrapping?
      * @return  void
      */
-    public function __construct(FormInterface $form, array $params = [], bool $autoLabel = true, bool $allowAutoWrap = true)
+    public function __construct(FormInterface $form, array $params = [], bool $autoLabel = false, bool $allowAutoWrap = false)
     {
         if (array_key_exists('options', $params)) {
             $this->options = $params['options'];
             unset($params['options']);
         }
-        parent::__construct($form, 'input', $params, $autoLabel, $allowAutoWrap);
+        parent::__construct($form, 'fieldset', $params, $autoLabel, $allowAutoWrap);
     }
 
     /**
@@ -57,12 +57,18 @@ class Select extends Field
     public function render(?string $data = null): string
     {
         $opts = '';
+
+        $span = new Html('span', ['class' => 'label'], $this->getParam('label'));
+        $opts .= $span->render() . PHP_EOL;
+        
         foreach ($this->options as $k => $v) {
-            $h = new Html('option', ['value' => $k], $v);
+            $input = new Html('input', ['type' => 'radio', 'id' => $k, 'value' => $k, 'name' => $this->getName()]);
             if ($this->getValue() == $k) {
-                $h->setParam('selected', true);
+                $input->setParam('checked', true);
             }
-            $opts .= $h->render() . PHP_EOL;
+            $opts .= $input->render() . PHP_EOL;
+            $label = new Html('label', ['for' => $k], $v);
+            $opts .= $label->render() . PHP_EOL;
         }
 
         return parent::render($opts);

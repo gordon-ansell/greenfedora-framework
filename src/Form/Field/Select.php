@@ -45,7 +45,7 @@ class Select extends Field
             $this->options = $params['options'];
             unset($params['options']);
         }
-        parent::__construct($form, 'input', $params, $autoLabel, $allowAutoWrap);
+        parent::__construct($form, 'select', $params, $autoLabel, $allowAutoWrap);
     }
 
     /**

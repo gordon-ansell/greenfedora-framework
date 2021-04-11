@@ -26,6 +26,8 @@ use GreenFedora\Form\Field\FieldsetOpen;
 use GreenFedora\Form\Field\FieldsetClose;
 use GreenFedora\Form\Field\DivOpen;
 use GreenFedora\Form\Field\DivClose;
+use GreenFedora\Form\Field\SpanOpen;
+use GreenFedora\Form\Field\SpanClose;
 use GreenFedora\Form\Field\Label;
 use GreenFedora\Form\Field\Input;
 use GreenFedora\Form\Field\Button;
@@ -135,6 +137,14 @@ class Form extends Html implements FormInterface
 
             case 'divclose':
                 $ret = new DivClose($this, $params);
+                break;
+
+            case 'spanopen':
+                $ret = new SpanOpen($this, $params);
+                break;
+
+            case 'spanclose':
+                $ret = new SpanClose($this, $params);
                 break;
 
             case 'fieldsetopen':

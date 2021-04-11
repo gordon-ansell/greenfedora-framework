@@ -304,14 +304,14 @@ class Field extends Html implements FieldInterface
             $ret .= $this->label->render();
         }
 
-        $ret .= parent::render($data) . PHP_EOL;
+        $ret .= parent::render($data) . PHP_EOL . $this->after;
 
         if ($this->allowAutoWrap and $this->wrap) {
             $w = $this->form->createField($this->wrap . 'close', ['name' => $this->getName() . $this->wrap]);
             $ret .= $w->render();
         }
 
-        return $ret . $this->after;
+        return $ret;
     }
 
 }

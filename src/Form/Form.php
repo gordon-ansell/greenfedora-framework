@@ -36,6 +36,7 @@ use GreenFedora\Form\Field\RadioSet;
 use GreenFedora\Form\Field\Errors;
 
 use GreenFedora\Form\Exception\InvalidArgumentException;
+use GreenFedora\Form\Exception\OutOfBoundsException;
 
 /**
  * Form class.
@@ -88,6 +89,12 @@ class Form extends Html implements FormInterface
      * @var string|null
      */
     protected $autofocus = null;
+
+    /**
+     * Last fields added.
+     * @var array
+     */
+    protected $lastFields = [];
 
     /**
      * Constructor.
@@ -229,7 +236,31 @@ class Form extends Html implements FormInterface
             throw new InvalidArgumentException(sprintf("A form field with the name '%s' already exists", $name));
         }
 
+        if (false !== strpos($type, 'open')) {
+            $this->lastFields[] = array('type' => $type, 'name' => $name);
+        }
+
         return $this->setField($type, $params);
+    }
+
+    /**
+     * Close the last field.
+     * 
+     * @return  FieldInterface 
+     * @throws  OutOfBoundsException
+     */
+    public function closeField(): FieldInterface
+    {
+        if (0 == count($this->lastFields)) {
+            throw new OutOfBoundsException("Nothing on the lastFields stack.");
+        }
+
+        $item = array_pop($this->lastFields);
+
+        $name = $item['name'];
+        $type = $item['type'];
+
+        return $this->addField(str_replace('open', 'close', $type), ['name' => str_replace('open', 'close', $name)]);
     }
 
     /**

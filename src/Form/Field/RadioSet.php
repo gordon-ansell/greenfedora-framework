@@ -31,6 +31,12 @@ class RadioSet extends Field
     protected $options = [];
 
     /**
+     * Onclick setting.
+     * @var string|null
+     */
+    protected $onclick = null;
+
+    /**
      * Constructor.
      * 
      * @param   FormInterface       $form           Parent form.
@@ -44,6 +50,10 @@ class RadioSet extends Field
         if (array_key_exists('options', $params)) {
             $this->options = $params['options'];
             unset($params['options']);
+        }
+        if (array_key_exists('onclick', $params)) {
+            $this->onclick = $params['onclick'];
+            unset($params['onclick']);
         }
         parent::__construct($form, 'fieldset', $params, $autoLabel, $allowAutoWrap);
     }
@@ -65,6 +75,9 @@ class RadioSet extends Field
             $input = new Html('input', ['type' => 'radio', 'id' => $k, 'value' => $k, 'name' => $this->getName()]);
             if ($this->getValue() == $k) {
                 $input->setParam('checked', true);
+            }
+            if (null !== $this->onclick) {
+                $input->setParam('onclick', $this->onclick);
             }
             $opts .= $input->render() . PHP_EOL;
             $label = new Html('label', ['for' => $k], $v);

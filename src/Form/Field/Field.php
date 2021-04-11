@@ -91,6 +91,12 @@ class Field extends Html implements FieldInterface
     protected $after = '';
 
     /**
+     * Allow validation?
+     * @var bool
+     */
+    protected $validationAllowed = true;
+
+    /**
      * Constructor.
      * 
      * @param   FormInterface       $form           Parent form.
@@ -240,6 +246,9 @@ class Field extends Html implements FieldInterface
      */
     public function validate($source): bool
     {
+        if (!$this->validationAllowed) {
+            return true;
+        }
         if (count($this->validators) > 0) {
             $source = $this->filter($source);
 
@@ -252,6 +261,17 @@ class Field extends Html implements FieldInterface
         }
 
         return true;
+    }
+
+    /**
+     * Disable validators.
+     * 
+     * @return  FieldInterface
+     */
+    public function disableValidators(): FieldInterface
+    {
+        $this->validationAllowed = false;
+        return $this;
     }
 
     /**

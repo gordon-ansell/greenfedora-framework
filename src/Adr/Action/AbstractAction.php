@@ -75,6 +75,16 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 	}
 
 	/**
+	 * Get the logger.
+	 *
+	 * @return	LoggerInterface
+	 */
+	public function getLogger() : LoggerInterface
+	{
+		return $this->getInstance('logger');
+	}			
+
+	/**
 	 * Dispatcher.
 	 */
 	abstract public function dispatch();

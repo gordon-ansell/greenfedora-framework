@@ -85,6 +85,12 @@ class Field extends Html implements FieldInterface
     protected $error = null;
 
     /**
+     * Code to display after field.
+     * @var string
+     */
+    protected $after = '';
+
+    /**
      * Constructor.
      * 
      * @param   FormInterface       $form           Parent form.
@@ -249,6 +255,18 @@ class Field extends Html implements FieldInterface
     }
 
     /**
+     * Set the after stuff.
+     * 
+     * @param   string      $stuff      Stuff you want after the field.
+     * @return  FieldInterface
+     */
+    public function setAfter(string $stuff): FieldInterface
+    {
+        $this->after = $stuff;
+        return $this;
+    }
+
+    /**
      * Get the error.
      * 
      * @return  string|null
@@ -293,7 +311,7 @@ class Field extends Html implements FieldInterface
             $ret .= $w->render();
         }
 
-        return $ret;
+        return $ret . $this->after;
     }
 
 }

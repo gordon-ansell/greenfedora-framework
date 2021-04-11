@@ -108,23 +108,21 @@ class Form extends Html implements FormInterface
     /**
      * Create a field.
      * 
-     * @param   string                      $type       Field type.
      * @param   string|null                 $name       Field name.
      * @param   array                       $params     Field parameters.
      * 
      * @return  FieldInterface
      * @throws  InvalidArgumentException
      */
-    public function createField(string $type, ?string $name = null, array $params = []): FieldInterface
+    public function createField(string $type, array $params = []): FieldInterface
     {
         $ret = null;
+        $name = null;
 
-        if (null === $name) {
-            if (array_key_exists('name', $params)) {
-                $name = $params['name'];
-            }
+        if (array_key_exists('name', $params)) {
+            $name = $params['name'];
         } else {
-            $params['name'] = $name;
+            throw new InvalidArgumentException(sprintf("Form fields require a 'name' (type = %s)", $type));
         }
 
         switch (strtolower($type)) {
@@ -184,21 +182,19 @@ class Form extends Html implements FormInterface
      * Add a field.
      * 
      * @param   string|FieldInterface       $type       Field type or class instance.
-     * @param   string|null                 $name       Field name.
      * @param   array                       $params     Field parameters.
      * 
      * @return  FieldInterface
      * @throws  InvalidArgumentException
      */
-    public function addField($type, ?string $name = null, array $params = []): FieldInterface
+    public function addField($type, array $params = []): FieldInterface
     {
+        $name = null;
         if ($type instanceof FieldInterface) {
             $name = $type->getName();
         } else {
-            if (null === $name) {
-                if (array_key_exists('name', $params)) {
-                    $name = $params['name'];
-                }
+            if (array_key_exists('name', $params)) {
+                $name = $params['name'];
             }
         }
 
@@ -208,27 +204,28 @@ class Form extends Html implements FormInterface
             throw new InvalidArgumentException(sprintf("A form field with the name '%s' already exists", $name));
         }
 
-        return $this->setField($type, $name, $params);
+        return $this->setField($type, $params);
     }
 
     /**
      * Set a field.
      * 
      * @param   string|FieldInterface       $type       Field type or class instance.
-     * @param   string|null                 $name       Field name.
      * @param   array                       $params     Field parameters.
      * 
      * @return  FieldInterface
      */
-    public function setField($type, ?string $name = null, array $params = []): FieldInterface
+    public function setField($type, array $params = []): FieldInterface
     {
         $ret = null;
+        $name = null;
 
         if ($type instanceof FieldInterface) {
             $ret = $type;
             $name = $type->getName();
         } else {
-            $ret = $this->createField($type, $name, $params);
+            $ret = $this->createField($type, $params);
+            $name = $ret->getName();
         }
 
         $this->fields[$name] = $ret;

@@ -165,6 +165,10 @@ class Form extends Html implements FormInterface
 
             case 'radioset':
                 $ret = new RadioSet($this, $params);
+                break;    
+
+            case 'select':
+                $ret = new Select($this, $params);
                 break;
     
             case 'button':

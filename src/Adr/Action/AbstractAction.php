@@ -19,6 +19,7 @@ use GreenFedora\DependencyInjection\ContainerAwareInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
 use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerAwareTrait;
+use GreenFedora\Logger\LoggerInterface;
 
 
 /**

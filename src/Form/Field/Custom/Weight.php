@@ -46,6 +46,7 @@ class Weight extends Field
             $this->ourLabel = $params['label'];
             unset($params['label']);
         }
+        $params['style'] = 'max-width: 8em';
         parent::__construct($form, 'input', $params, $autoLabel, $allowAutoWrap);
     }
 
@@ -60,8 +61,8 @@ class Weight extends Field
         $fieldset = new Html('fieldset', ['name' => $this->getName() . 'fieldset', 'class' => 'duofield']);
         $label = new Label($this->form, ['for' => $this->getName()]);
         $options = array('kg' => 'kg', 'lb' => 'lb');
-        $select = new Select($this->form, ['options' => $options, 'name' => $this->getName() . 'Units'], false, false);
-        //$select->setAfter('<span class="caret">&#9660;</span>');
+        $select = new Select($this->form, ['options' => $options, 'name' => $this->getName() . 'Units', 
+            'style' => 'max-width: 4em'], false, false);
 
         $weightPlusUnits = parent::render() . $select->render();
 

@@ -61,7 +61,7 @@ class Weight extends Field
         $label = new Label($this->form, ['for' => $this->getName()]);
         $options = array('kg' => 'kg', 'lb' => 'lb');
         $select = new Select($this->form, ['options' => $options, 'name' => $this->getName() . 'Units'], false, false);
-        $select->setAfter('<span class="caret">&#9660;</span>');
+        //$select->setAfter('<span class="caret">&#9660;</span>');
 
         $weightPlusUnits = parent::render() . $select->render();
 

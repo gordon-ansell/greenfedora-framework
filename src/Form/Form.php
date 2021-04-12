@@ -176,6 +176,11 @@ class Form extends Html implements FormInterface
                 $ret = new Input($this, $params);
                 break;
 
+            case 'inputnumber':
+                $params['type'] = "number";
+                $ret = new Input($this, $params);
+                break;
+    
             case 'inputradio':
                 $params['type'] = "radio";
                 $ret = new Input($this, $params);

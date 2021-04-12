@@ -42,7 +42,7 @@ class Weight extends Field
      */
     public function __construct(FormInterface $form, array $params = [], bool $autoLabel = false, bool $allowAutoWrap = false)
     {
-        if (array_ley_exists('label', $params)) {
+        if (array_key_exists('label', $params)) {
             $this->label = $params['label'];
             unset($params['label']);
         }

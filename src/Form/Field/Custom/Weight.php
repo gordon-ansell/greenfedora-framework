@@ -29,7 +29,7 @@ class Weight extends Field
     /**
      * Label.
      */
-    protected $label = null;
+    protected $ourLabel = null;
 
     /**
      * Constructor.
@@ -43,7 +43,7 @@ class Weight extends Field
     public function __construct(FormInterface $form, array $params = [], bool $autoLabel = false, bool $allowAutoWrap = false)
     {
         if (array_key_exists('label', $params)) {
-            $this->label = $params['label'];
+            $this->ourLabel = $params['label'];
             unset($params['label']);
         }
         parent::__construct($form, 'input', $params, $autoLabel, $allowAutoWrap);
@@ -66,7 +66,7 @@ class Weight extends Field
 
         $span = new Html('span', ['class' => 'duowrap']);
 
-        $ret = $label->render() . PHP_EOL . $span->render($weightPlusUnits) . PHP_EOL;
+        $ret = $label->render($this->ourLabel) . PHP_EOL . $span->render($weightPlusUnits) . PHP_EOL;
 
         return $fieldset->render($ret) . PHP_EOL;
     }

@@ -194,7 +194,6 @@ class Html implements HtmlInterface
      */
     public function setParam(string $name, $val): HtmlInterface
     {
-		echo "Setting " . $name . ' = ' . $val . PHP_EOL;
         $this->params[$name] = $val;
         return $this;
     }

@@ -32,7 +32,7 @@ class Select extends Field
 
     /**
      * Inner wrap.
-     * @var array
+     * @var array|null
      */
     protected $innerWrap = array('span', array('class' => 'select-wrapper'));
 

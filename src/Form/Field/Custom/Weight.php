@@ -62,16 +62,12 @@ class Weight extends Field
         $options = array('kg' => 'kg', 'lb' => 'lb');
         $select = new Select($this->form, ['options' => $options, 'name' => $this->getName() . 'Units'], false, false);
 
-        $weightPlusUnits = $this->render() . $select->render();
+        $weightPlusUnits = parent::render() . $select->render();
 
-        return $weightPlusUnits;
-
-        /*
         $span = new Html('span', ['class' => 'duowrap']);
 
         $ret = $label->render($this->ourLabel) . PHP_EOL . $span->render($weightPlusUnits) . PHP_EOL;
 
         return $fieldset->render($ret) . PHP_EOL;
-        */
     }
 }

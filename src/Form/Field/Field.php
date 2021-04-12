@@ -97,6 +97,12 @@ class Field extends Html implements FieldInterface
     protected $validationAllowed = true;
 
     /**
+     * Inner wrap.
+     * @var array|null
+     */
+    protected $innerWrap = null;
+
+    /**
      * Constructor.
      * 
      * @param   FormInterface       $form           Parent form.
@@ -324,7 +330,15 @@ class Field extends Html implements FieldInterface
             $ret .= $this->label->render();
         }
 
-        $ret .= parent::render($data) . PHP_EOL . $this->after;
+        $iw = null;
+        if (null !== $this->innerWrap) {
+            $html = new Html($this->innerWrap[0], $this->innerWrap[1]);
+            $iw = $html->render(parent::render($data));
+        } else {
+            $iw = parent::render($data);
+        }
+
+        $ret .= $iw . PHP_EOL . $this->after;
 
         if ($this->allowAutoWrap and $this->wrap) {
             $w = $this->form->createField($this->wrap . 'close', ['name' => $this->getName() . $this->wrap]);

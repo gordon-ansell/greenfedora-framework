@@ -31,6 +31,12 @@ class Select extends Field
     protected $options = [];
 
     /**
+     * Inner wrap.
+     * @var array
+     */
+    protected $innerWrap = array('span', array('class' => 'select-wrapper'));
+
+    /**
      * Constructor.
      * 
      * @param   FormInterface       $form           Parent form.

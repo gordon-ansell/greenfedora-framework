@@ -46,7 +46,7 @@ class Weight extends Field
             $this->ourLabel = $params['label'];
             unset($params['label']);
         }
-        $params['style'] = 'max-width: 8em';
+        $params['style'] = 'max-width: 6em';
         parent::__construct($form, 'input', $params, $autoLabel, $allowAutoWrap);
     }
 

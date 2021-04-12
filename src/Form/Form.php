@@ -34,6 +34,7 @@ use GreenFedora\Form\Field\Button;
 use GreenFedora\Form\Field\Select;
 use GreenFedora\Form\Field\RadioSet;
 use GreenFedora\Form\Field\Errors;
+use GreenFedora\Form\Field\Custom\Weight;
 
 use GreenFedora\Form\Exception\InvalidArgumentException;
 use GreenFedora\Form\Exception\OutOfBoundsException;
@@ -201,7 +202,10 @@ class Form extends Html implements FormInterface
                 $ret = new Errors($this, $params);
                 break;
     
-    
+            case 'weight':
+                $ret = new Weight($this, $params);
+                break;       
+        
             default:
                 throw new InvalidArgumentException(sprintf("'%s' is an invalid form field type", $type));
                 break;

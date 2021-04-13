@@ -12,6 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Form;
 
+use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Form\FormInterface;
 use GreenFedora\Form\FormPersistHandlerInterface;
 use GreenFedora\Form\Field\FieldInterface;

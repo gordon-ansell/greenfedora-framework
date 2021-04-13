@@ -12,6 +12,11 @@
 declare(strict_types=1);
 namespace GreenFedora\Form;
 
+use GreenFedora\Form\FormInterface;
+use GreenFedora\Form\FormPersistHandlerInterface;
+use GreenFedora\Form\Field\FieldInterface;
+
+
 /**
  * Form interface.
  *
@@ -20,4 +25,145 @@ namespace GreenFedora\Form;
 
 interface FormInterface
 {
+    /**
+     * Create a field.
+     * 
+     * @param   string|null                 $name       Field name.
+     * @param   array                       $params     Field parameters.
+     * 
+     * @return  FieldInterface
+     * @throws  InvalidArgumentException
+     */
+    public function createField(string $type, array $params = []): FieldInterface;
+
+    /**
+     * Add a field.
+     * 
+     * @param   string|FieldInterface       $type       Field type or class instance.
+     * @param   array                       $params     Field parameters.
+     * 
+     * @return  FieldInterface
+     * @throws  InvalidArgumentException
+     */
+    public function addField($type, array $params = []): FieldInterface;
+ 
+    /**
+     * Close the last field.
+     * 
+     * @return  FieldInterface 
+     * @throws  OutOfBoundsException
+     */
+    public function closeField(): FieldInterface;
+
+    /**
+     * Set a field.
+     * 
+     * @param   string|FieldInterface       $type       Field type or class instance.
+     * @param   array                       $params     Field parameters.
+     * 
+     * @return  FieldInterface
+     */
+    public function setField($type, array $params = []): FieldInterface;
+
+    /**
+     * Get a field.
+     * 
+     * @param   string  $name   Name of field to get.
+     * @return  FieldInterface
+     * @throws  InvalidArgumentException
+     */
+    public function getField(string $name): FieldInterface;
+
+    /**
+     * Set the autofocus field.
+     * 
+     * @param   string  $field  Name of field to set.
+     * @return  FormInterface
+     * @throws  InvalidArgumentException
+     */
+    public function setAutofocus(string $field): FormInterface;
+
+    /**
+     * Get the autofocus field.
+     * 
+     * @return  string|null
+     */
+    public function getAutofocus(): ?string;
+
+    /**
+     * Set the autoWrap field.
+     * 
+     * @param   string          $type   Type of wrapping to do.
+     * @return  FormInterface
+     * @throws  InvalidArgumentException
+     */
+    public function setAutoWrap(string $type): FormInterface;
+
+    /**
+     * Get the autowrap field.
+     * 
+     * @return  string|null
+     */
+    public function getAutoWrap(): ?string;
+
+    /**
+     * Get the persistence handler.
+     * 
+     * @return  FormPersistHandlerInterface
+     */
+    public function getPersisthandler(): FormPersistHandlerInterface;
+
+    /**
+     * Load persistence.
+     * 
+     * @param   ArrInterface    $target     Where to load them.
+     * @return  FormInterface 
+     */
+    public function load(ArrInterface &$target): FormInterface;
+
+    /**
+     * Save persistence.
+     * 
+     * @param   ArrInterface    $source     Where to save them from.
+     * @return  FormInterface 
+     */
+    public function save(ArrInterface $source): FormInterface;
+
+    /**
+     * Validate the form.
+     * 
+     * @param   array   $source     Source data to validate.
+     * @return  bool
+     */
+    public function validate(array $source): bool;
+
+    /**
+     * Do we have errors?
+     * 
+     * @return  bool 
+     */
+    public function hasErrors(): bool;
+
+    /**
+     * Get the errors.
+     * 
+     * @return  array
+     */
+    public function getErrors(): array;
+
+    /**
+     * Render the field.
+     * 
+     * @param   string  $data   Data to use.
+     * @return  string          Rendered form HTML.
+     */
+    public function render(?string $data = null): string;
+
+    /**
+     * Get the debug messages.
+     * 
+     * @return  array   
+     */
+    public function getDebugging(): array;
+
 }

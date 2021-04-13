@@ -71,7 +71,7 @@ class Session implements SessionInterface
 	        //session_save_path($sp);
 			ini_set('session.save_path', $sp);
         } else {
-            ini_set('session.save_path', APP_PATH . ‘/sessions’);
+            ini_set('session.save_path', APP_PATH . "/sessions");
         }
 
         $path = $this->cfg->get('cookie_path', '/');

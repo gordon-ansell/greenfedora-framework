@@ -12,6 +12,10 @@
 declare(strict_types=1);
 namespace GreenFedora\Table;
 
+use GreenFedora\Table\TableInterface;
+use GreenFedora\Table\ColumnInterface;
+use GreenFedora\Table\Column;
+
 /**
  * Table maker.
  *
@@ -20,26 +24,61 @@ namespace GreenFedora\Table;
 
 class Table implements TableInterface
 {
-	/**
-	 * Configs.
-	 * @var ArrInterface
-	 */
-	protected $cfg = null;	 
+    /**
+     * Parameters.
+     * @var array
+     */
+    protected $params = [];
 
-	/**
-	 * Constructor.
-	 *
-     * @param   iterable     		$cfg            Template specifications.
-     * @param   bool                $init           Initiate?
-	 *
-	 * @return 	void
-	 */
-	public function __construct(iterable $cfg, bool $init = true)
-	{
-		$this->cfg = new Arr($cfg);
+    /**
+     * Class.
+     * @var string
+     */
+    protected $class = null;
 
-        if ($init) {
-            $this->init();
+    /**
+     * Constructor.
+     * 
+     * @param   TableInterface  $table          Parent table.
+     * @param   string          $title          Column title.
+     * @param   string|null     $hdrClass       Column header class.
+     * @param   string|null     $bodyClass      Column body class.
+     * @param   array           $hdrParams      Header parameters.
+     * @param   array           $bodyParams     Body parameters.
+     * @return  void
+     */
+    public function __construct(?string $class = null, array $params = [])
+    {
+
+        $this->class = $class;
+        $this->params = $params;
+    }
+
+    /**
+     * Add a class.
+     * 
+     * @param   string  $class  Class to add.
+     * @return  TableInterface
+     */
+    public function addClass(string $class): TableInterface
+    {
+        if (null !== $this->class and '' != $this->class) {
+            $this->class .= ' ';
         }
-	}	
+        $this->class .= $class;
+        return $this;
+    }
+
+    /**
+     * Set the class.
+     * 
+     * @param   string  $class  Class to set.
+     * @return  TableInterface
+     */
+    public function setClass(string $class): TableInterface
+    {
+        $this->class = $class;
+        return $this;
+    }
+
 }

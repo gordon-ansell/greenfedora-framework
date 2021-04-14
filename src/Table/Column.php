@@ -220,6 +220,18 @@ class Column implements ColumnInterface
     }
 
     /**
+     * Set the column status hidden.
+     * 
+     * @param   int     $status     Status to set.
+     * @return  ColumnInterface
+     */
+    public function setHidden() : ColumnInterface
+    {
+        $this->status |= self::COL_STATUS_HIDDEN;
+        return $this;
+    }
+
+    /**
      * See if column is hidden.
      * 
      * @return  bool

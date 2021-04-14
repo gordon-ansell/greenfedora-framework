@@ -155,10 +155,10 @@ class Table implements TableInterface
     /**
      * Set the data.
      * 
-     * @param   \Traversable    $data   Data to set.
+     * @param   iterable        $data   Data to set.
      * @return  TableInterface
      */
-    public function setData(\Traversable $data): TableInterface
+    public function setData(iterable $data): TableInterface
     {
         $this->data = $data;
         return $this;

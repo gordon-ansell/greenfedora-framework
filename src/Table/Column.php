@@ -28,7 +28,7 @@ class Column implements ColumnInterface
     /**
      * Column status codes.
      */
-    const COL_STATS_NONE = 0;
+    const COL_STATUS_NONE = 0;
     const COL_STATUS_HIDDEN = 1;
 
     /**

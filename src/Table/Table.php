@@ -201,7 +201,7 @@ class Table implements TableInterface
             $trData = '';
             $rowData = null;
             if (is_object($row)) {
-                $rowData = $row->toArray();
+                $rowData = $row->asArray();
             } else {
                 $rowData = $row;
             }

@@ -203,7 +203,7 @@ class Table implements TableInterface
                 $rowData = $row;
             }
             foreach($this->columns as $k => $v) {
-                $ret .= $tr->render($v->renderBody($rowData[$k]));
+                $ret .= $tr->render($v->renderBody(strval($rowData[$k])));
             }
         }
 

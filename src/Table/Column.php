@@ -215,16 +215,27 @@ class Column implements ColumnInterface
      * Render the body.
      * 
      * @param   mixed   $data   Data to render.
+     * @param   string  $class  Additional classes.
      * @return  string
      */
-    public function renderBody($data): string
+    public function renderBody($data, string $class = null): string
     {
-        $params = $this->bodyParams;
+        $cls = '';
         if ($this->bodyClass) {
-            $params['class'] = $this->bodyClass;
+            $cls = $this->bodyClass;
         } else if ($this->hdrClass) {
-            $params['class'] = $this->hdrClass;
+            $cls = $this->hdrClass;
         }
+
+        if (null !== $class) {
+            if ('' != $cls and null !== $cls) {
+                $cls .= ' ';
+            }
+            $cls .= $class;
+        }
+
+        $params = $this->bodyParams;
+        $params['class'] = $cls;
 
         $h = new Html($this->bodyTag, $params);
         return $h->render($this->filter($data));

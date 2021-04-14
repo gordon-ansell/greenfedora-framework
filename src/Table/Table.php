@@ -219,7 +219,7 @@ class Table implements TableInterface
     {
         $params = $this->params;
         if ($this->class) {
-            $params['class'] = $this->params;
+            $params['class'] = $this->class;
         }
         $table = new Html($this->tableTag, $params);
 

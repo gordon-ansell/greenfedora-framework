@@ -15,6 +15,7 @@ namespace GreenFedora\Table;
 use GreenFedora\Table\TableInterface;
 use GreenFedora\Table\ColumnInterface;
 use GreenFedora\Table\Column;
+use GreenFedora\Html\Html;
 
 use GreenFedora\Table\Exception\InvalidArgumentException;
 
@@ -43,6 +44,36 @@ class Table implements TableInterface
      * @var array
      */
     protected $columns = [];
+
+    /**
+     * Data.
+     * @var \Traversable
+     */
+    protected $data = [];
+
+    /**
+     * Table tag.
+     * @var string
+     */
+    protected $tableTag = 'table';
+
+    /**
+     * Header tag.
+     * @var string
+     */
+    protected $headTag = 'thead';
+
+    /**
+     * Body tag.
+     * @var string
+     */
+    protected $bodyTag = 'tbody';
+
+    /**
+     * Row tag.
+     * @var string
+     */
+    protected $rowTag = 'tr';
 
     /**
      * Constructor.
@@ -76,7 +107,7 @@ class Table implements TableInterface
             return $this;
         }
 
-        $this->columns[] = new Column($title, $hdrClass, $bodyClass, $hdrParam, $bodyParams);
+        $this->columns[] = new Column($this, $title, $hdrClass, $bodyClass, $hdrParam, $bodyParams);
         return $this;
     }
 
@@ -123,13 +154,71 @@ class Table implements TableInterface
     }
 
     /**
+     * Set the data.
+     * 
+     * @param   \Traversable    $data   Data to set.
+     * @return  TableInterface
+     */
+    public function setData(\Traversable $data): TableInterface
+    {
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
+     * Render the head.
+     * 
+     * @return string
+     */
+    public function renderHdr()
+    {
+        $thead = new Html($this->headTag);
+        $tr = new Html($this->rowTag);
+
+        $ret = '';
+
+        foreach($this->columns as $k => $v) {
+            $ret .= $v->renderHdr();
+        }
+
+        return $thead->render($tr->render($ret));
+    }
+
+    /**
+     * Render the body.
+     * 
+     * @return string
+     */
+    public function renderBody()
+    {
+        $tbody = new Html($this->bodyTag);
+        $tr = new Html($this->rowTag);
+
+        $ret = '';
+
+        foreach ($this->data as $row) {
+            foreach($this->columns as $k => $v) {
+                $ret .= $tr.render($v->renderBody($row[$k]));
+            }
+        }
+
+        return $tbody->render($ret);
+    }
+
+    /**
      * Render the table.
      * 
      * @return  string
      */
     public function render(): string
     {
-        $ret = '';
+        $params = $this->params;
+        if ($this->class) {
+            $params['class'] = $this->params;
+        }
+        $table = new Html($this->tableTag, $params);
+
+        $ret = $table->render($this->renderHdr() . $this->renderBody());
         return $ret;
     }
 

@@ -169,10 +169,29 @@ class Column implements ColumnInterface
     {
         $params = $this->hdrParams;
         if ($this->hdrClass) {
-            $params['class'] = $this->hdrParams;
+            $params['class'] = $this->hdrClass;
         }
 
         $h = new Html($this->hdrTag, $params);
         return $h->render($this->title);
+    }
+
+    /**
+     * Render the body.
+     * 
+     * @param   mixed   $data   Data to render.
+     * @return  string
+     */
+    public function renderBody($data): string
+    {
+        $params = $this->bodyParams;
+        if ($this->bodyClass) {
+            $params['class'] = $this->bodyClass;
+        } else if ($this->hdrClass) {
+            $params['class'] = $this->hdrClass;
+        }
+
+        $h = new Html($this->bodyTag, $params);
+        return $h->render($data);
     }
 }

@@ -84,7 +84,6 @@ class Table implements TableInterface
      */
     public function __construct(?string $class = null, array $params = [])
     {
-
         $this->class = $class;
         $this->params = $params;
     }

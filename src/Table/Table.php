@@ -198,7 +198,7 @@ class Table implements TableInterface
 
         foreach ($this->data as $row) {
             foreach($this->columns as $k => $v) {
-                $ret .= $tr.render($v->renderBody($row[$k]));
+                $ret .= $tr->render($v->renderBody($row[$k]));
             }
         }
 

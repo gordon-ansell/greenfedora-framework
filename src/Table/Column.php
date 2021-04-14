@@ -15,6 +15,7 @@ namespace GreenFedora\Table;
 use GreenFedora\Table\ColumnInterface;
 use GreenFedora\Table\TableInterface;
 use GreenFedora\Html\Html;
+use GreenFedora\Filter\FilterInterface;
 
 /**
  * Table column.
@@ -59,6 +60,12 @@ class Column implements ColumnInterface
      * @var string
      */
     protected $bodyClass = null;
+
+    /**
+     * Filters.
+     * @var FilterInterface[]
+     */
+    protected $filters = [];
 
     /**
      * Header tag.
@@ -161,6 +168,34 @@ class Column implements ColumnInterface
     }
 
     /**
+     * Add a filter.
+     * 
+     * @param   FilterInterface     $filter     New filter.
+     * @return  ColumnInterface 
+     */
+    public function addFilter(FilterInterface $filter): ColumnInterface
+    {
+        $this->filters[] = $filter;
+        return $this;
+    }
+
+    /**
+     * Filter the field.
+     * 
+     * @param   mixed   $source     Source to filter.
+     * @return  mixed
+     */
+    public function filter($source)
+    {
+        if (count($this->filters) > 0) {
+            foreach ($this->filters as $filter) {
+                $source = $filter->filter($source);
+            }
+        }
+        return $source;
+    }
+
+    /**
      * Render the header.
      * 
      * @return  string
@@ -192,6 +227,6 @@ class Column implements ColumnInterface
         }
 
         $h = new Html($this->bodyTag, $params);
-        return $h->render($data);
+        return $h->render($this->filter($data));
     }
 }

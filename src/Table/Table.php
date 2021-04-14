@@ -107,7 +107,7 @@ class Table implements TableInterface
             return $this;
         }
 
-        $this->columns[] = new Column($this, $title, $hdrClass, $bodyClass, $hdrParam, $bodyParams);
+        $this->columns[] = new Column($this, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
         return $this;
     }
 

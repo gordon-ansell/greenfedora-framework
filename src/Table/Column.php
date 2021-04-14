@@ -220,6 +220,16 @@ class Column implements ColumnInterface
     }
 
     /**
+     * See if column is hidden.
+     * 
+     * @return  bool
+     */
+    public function isHidden(): bool
+    {
+        return (($this->status & self::COL_STATUS_HIDDEN) == self::COL_STATUS_HIDDEN);
+    }
+
+    /**
      * Render the header.
      * 
      * @return  string

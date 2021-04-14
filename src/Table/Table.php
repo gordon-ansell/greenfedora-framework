@@ -177,7 +177,9 @@ class Table implements TableInterface
         $ret = '';
 
         foreach($this->columns as $k => $v) {
-            $ret .= $v->renderHdr();
+            if (!$v->isHidden()) {
+                $ret .= $v->renderHdr();
+            }
         }
 
         return $thead->render($tr->render($ret));
@@ -204,7 +206,9 @@ class Table implements TableInterface
                 $rowData = $row;
             }
             foreach($this->columns as $k => $v) {
-                $trData .= $v->renderBody(strval($rowData[$k]));
+                if (!$v->isHidden()) {
+                    $trData .= $v->renderBody(strval($rowData[$k]));
+                }
             }
             $ret .= $tr->render($trData);
         }

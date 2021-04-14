@@ -207,7 +207,11 @@ class Table implements TableInterface
             }
             foreach($this->columns as $k => $v) {
                 if (!$v->isHidden()) {
-                    $trData .= $v->renderBody(strval($rowData[$k]));
+                    if (is_array($rowData[$k])) {
+                        $trData .= $v->renderBody(strval($rowData[$k][0]));
+                    } else {
+                        $trData .= $v->renderBody(strval($rowData[$k]));
+                    }
                 }
             }
             $ret .= $tr->render($trData);

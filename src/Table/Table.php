@@ -196,6 +196,7 @@ class Table implements TableInterface
         $ret = '';
 
         foreach ($this->data as $row) {
+            $trData = '';
             $rowData = null;
             if (is_object($row)) {
                 $rowData = $row->toArray();
@@ -203,8 +204,9 @@ class Table implements TableInterface
                 $rowData = $row;
             }
             foreach($this->columns as $k => $v) {
-                $ret .= $tr->render($v->renderBody(strval($rowData[$k])));
+                $trData .= $v->renderBody(strval($rowData[$k]));
             }
+            $ret .= $tr->render($trData);
         }
 
         return $tbody->render($ret);

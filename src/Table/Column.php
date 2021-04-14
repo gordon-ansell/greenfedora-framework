@@ -26,6 +26,12 @@ use GreenFedora\Filter\FilterInterface;
 class Column implements ColumnInterface
 {
     /**
+     * Column status codes.
+     */
+    const COL_STATS_NONE = 0;
+    const COL_STATUS_HIDDEN = 1;
+
+    /**
      * Table.
      * @var TableInterface
      */
@@ -78,6 +84,12 @@ class Column implements ColumnInterface
      * @var string
      */
     protected $bodyTag = 'td';
+
+    /**
+     * Column status
+     * @var int
+     */
+    protected $status = self::COL_STATUS_NONE;
 
     /**
      * Constructor.
@@ -193,6 +205,18 @@ class Column implements ColumnInterface
             }
         }
         return $source;
+    }
+
+    /**
+     * Set the column status.
+     * 
+     * @param   int     $status     Status to set.
+     * @return  ColumnInterface
+     */
+    public function setStatus(int $status) : ColumnInterface
+    {
+        $this->status = $status;
+        return $this;
     }
 
     /**

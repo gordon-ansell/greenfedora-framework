@@ -12,6 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Adr\Responder;
 
+use GreenFedora\Application\Output\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;
@@ -32,6 +33,12 @@ abstract class AbstractResponder implements ContainerAwareInterface
 	
 	/**
 	 * Output.
+	 * @var ApplicationInputInterface
+	 */
+	protected $input = null;
+
+	/**
+	 * Output.
 	 * @var ApplicationOutputInterface
 	 */
 	protected $output = null;
@@ -46,14 +53,16 @@ abstract class AbstractResponder implements ContainerAwareInterface
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	Dependency injection container.
+	 * @param 	ApplicationInputInterface	$input 		Input.
 	 * @param 	ApplicationOutputInterface	$output 	Output.
 	 * @param 	PayloadInterface 			$payload 	Payload of data.
 	 * @return	void
 	 */
-	public function __construct(ContainerInterface $container, ApplicationOutputInterface $output, 
-		PayloadInterface $payload = null)
+	public function __construct(ContainerInterface $container, ApplicationInputInterface $input, 
+		ApplicationOutputInterface $output, PayloadInterface $payload = null)
 	{
 		$this->container = $container;
+		$this->input = $input;
 		$this->output = $output;
 		if (null == $payload) {
 			$this->payload = new Payload();

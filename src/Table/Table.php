@@ -196,14 +196,14 @@ class Table implements TableInterface
         $ret = '';
 
         foreach ($this->data as $row) {
+            $rowData = null;
+            if (is_object($row)) {
+                $rowData = $row->toArray();
+            } else {
+                $rowData = $row;
+            }
             foreach($this->columns as $k => $v) {
-                $data = null;
-                if (is_object($row[$k])) {
-                    $data = $row[$k]->toArray();
-                } else {
-                    $data = $row[$k];
-                }
-                $ret .= $tr->render($v->renderBody($data));
+                $ret .= $tr->render($v->renderBody($rowData[$k]));
             }
         }
 

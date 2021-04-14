@@ -208,7 +208,7 @@ class Table implements TableInterface
             foreach($this->columns as $k => $v) {
                 if (!$v->isHidden()) {
                     if (is_array($rowData[$k])) {
-                        $trData .= $v->renderBody(strval($rowData[$k][0]));
+                        $trData .= $v->renderBody(strval(array_values($rowData[$k])[0]));
                     } else {
                         $trData .= $v->renderBody(strval($rowData[$k]));
                     }

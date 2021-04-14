@@ -12,7 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Adr\Responder;
 
-use GreenFedora\Application\Output\ApplicationInputInterface;
+use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;

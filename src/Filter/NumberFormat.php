@@ -31,6 +31,6 @@ class NumberFormat extends AbstractFilter implements FilterInterface
      */
     public function filter($data)
     {
-        return number_format($data, $this->options['decimals']);
+        return number_format(floatval($data), $this->options['decimals']);
     }
 }

@@ -46,8 +46,8 @@ class Json implements JsonInterface
     {    
         $out = '';
     
-        foreach ($json as $key => $value)
-        {
+        foreach ($json as $key => $value) {
+            
             $out .= str_repeat("\t", $indent + 1);
             $out .= "\"" . self::escape((string)$key) . "\": ";
     

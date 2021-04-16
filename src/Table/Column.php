@@ -38,6 +38,12 @@ class Column implements ColumnInterface
     protected $table;
 
     /**
+     * Column name.
+     * @var string
+     */
+    protected $name;
+
+    /**
      * Title.
      * @var string
      */
@@ -95,6 +101,7 @@ class Column implements ColumnInterface
      * Constructor.
      * 
      * @param   TableInterface  $table          Parent table.
+     * @param   string          $name           Column name.
      * @param   string          $title          Column title.
      * @param   string|null     $hdrClass       Column header class.
      * @param   string|null     $bodyClass      Column body class.
@@ -102,15 +109,26 @@ class Column implements ColumnInterface
      * @param   array           $bodyParams     Body parameters.
      * @return  void
      */
-    public function __construct(TableInterface $table, string $title = '', ?string $hdrClass = null, 
+    public function __construct(TableInterface $table, string $name, string $title = '', ?string $hdrClass = null, 
         ?string $bodyClass = null, array $hdrParams = [], array $bodyParams = [])
     {
+        $this->name = $name;
         $this->table = $table;
         $this->title = $title;
         $this->hdrClass = $hdrClass;
         $this->bodyClass = $bodyClass;
         $this->hdrParams = $hdrParams;
         $this->bodyParams = $bodyParams;
+    }
+
+    /**
+     * Get the name.
+     * 
+     * @var string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**

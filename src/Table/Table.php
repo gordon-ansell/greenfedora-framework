@@ -47,7 +47,7 @@ class Table implements TableInterface
 
     /**
      * Data.
-     * @var \Traversable
+     * @var iterable
      */
     protected $data = [];
 
@@ -109,22 +109,23 @@ class Table implements TableInterface
     /**
      * Add a column.
      * 
-     * @param   string|ColumnInterface      $title          Column title or instance.
+     * @param   string|ColumnInterface      $name           Column name or instance.
+     * @param   string                      $title          Column title.
      * @param   string|null                 $hdrClass       Column header class.
      * @param   string|null                 $bodyClass      Column body class.
      * @param   array                       $hdrParams      Header parameters.
      * @param   array                       $bodyParams     Body parameters.
      * @return  TableInterface
      */
-    public function addColumn($title = '', ?string $hdrClass = null, 
+    public function addColumn($name, string $title = '', ?string $hdrClass = null, 
         ?string $bodyClass = null, array $hdrParams = [], array $bodyParams = []): TableInterface
     {
-        if ($title instanceof ColumnInterface) {
-            $this->columns[] = $title;
+        if ($name instanceof ColumnInterface) {
+            $this->columns[$name->getName()] = $name;
             return $this;
         }
 
-        $this->columns[] = new Column($this, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
+        $this->columns[] = new Column($this, $name, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
         return $this;
     }
 
@@ -143,11 +144,11 @@ class Table implements TableInterface
         ?string $bodyClass = null, array $hdrParams = [], array $bodyParams = []): TableInterface
     {
         if ($name instanceof SortableColumnInterface) {
-            $this->columns[] = $name;
+            $this->columns[$name->getName()] = $name;
             return $this;
         }
 
-        $this->columns[] = new SortableColumn($this, $name, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
+        $this->columns[$name] = new SortableColumn($this, $name, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
         $this->hasSortableColumns = true;
         return $this;
     }
@@ -155,16 +156,16 @@ class Table implements TableInterface
     /**
      * Get a column.
      * 
-     * @param   int     $index      Column index, 1-based.
+     * @param   string     $name      Column name.
      * @return  ColumnInterface
      * @throws  InvalidArgumentException
      */
-    public function getColumn(int $index): ColumnInterface
+    public function getColumn(string $name): ColumnInterface
     {
-        if ($this->columns[$index - 1]) {
-            return $this->columns[$index - 1];
+        if (array_key_exists($name, $this->columns)) {
+            return $this->columns[$name];
         }
-        throw new InvalidArgumentException(sprintf("No column with index '%s' found.", strval($index - 1)));
+        throw new InvalidArgumentException(sprintf("No column with name '%s' found.", $name));
     }
 
     /**

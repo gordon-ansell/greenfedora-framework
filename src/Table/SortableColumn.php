@@ -26,38 +26,17 @@ use GreenFedora\Html\Html;
 class SortableColumn extends Column implements SortableColumnInterface
 {
     /**
-     * Column name.
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * Constructor.
+     * Render the header.
      * 
-     * @param   TableInterface  $table          Parent table.
-     * @param   string          $name           Column name.
-     * @param   string          $title          Column title.
-     * @param   string|null     $hdrClass       Column header class.
-     * @param   string|null     $bodyClass      Column body class.
-     * @param   array           $hdrParams      Header parameters.
-     * @param   array           $bodyParams     Body parameters.
-     * @return  void
+     * @return  string
      */
-    public function __construct(TableInterface $table, string $name, string $title = '', ?string $hdrClass = null, 
-        ?string $bodyClass = null, array $hdrParams = [], array $bodyParams = [])
+    public function renderHdr(): string
     {
-        $this->name = $name;
-        parent::__construct($table, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
-    }
-
-    /**
-     * Get the name.
-     * 
-     * @var string
-     */
-    public function getName(): string
-    {
-        return $this->name;
+        return '<button type="submit" class="sortablecolumn-button" name="sort" id="sort" value="' . 
+            $this->name .
+            '" >' .
+            parent::renderHdr() .
+            '</button>';
     }
 
 }

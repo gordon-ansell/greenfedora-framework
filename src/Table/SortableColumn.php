@@ -47,6 +47,8 @@ class SortableColumn extends Column implements SortableColumnInterface
 
         $h = new Html($this->hdrTag, $params);
 
+        print_r($h->render($this->title));
+
         return $b->render($h->render($this->title));
     }
 

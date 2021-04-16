@@ -258,14 +258,17 @@ class Table implements TableInterface
             } else {
                 $rowData = $row;
             }
+
+            $count = 0;
             foreach($this->columns as $k => $v) {
                 if (!$v->isHidden()) {
-                    if (is_array($rowData[$k])) {
-                        $trData .= $v->renderBody(strval(array_values($rowData[$k])[0]));
+                    if (is_array($rowData[$count])) {
+                        $trData .= $v->renderBody(strval(array_values($rowData[$count])[0]));
                     } else {
-                        $trData .= $v->renderBody(strval($rowData[$k]));
+                        $trData .= $v->renderBody(strval($rowData[$count]));
                     }
                 }
+                $count++;
             }
             $ret .= $tr->render($trData);
         }

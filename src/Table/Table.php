@@ -76,16 +76,34 @@ class Table implements TableInterface
     protected $rowTag = 'tr';
 
     /**
+     * Do we have sortable columns?
+     * @var bool
+     */
+    protected $hasSortableColumns = false;
+
+    /**
      * Constructor.
      * 
+     * @param   string          $name        Table name.
      * @param   string|null     $class       Class.
      * @param   array           $params      Parameters.
      * @return  void
      */
-    public function __construct(?string $class = null, array $params = [])
+    public function __construct(string $name, ?string $class = null, array $params = [])
     {
+        $this->name = $name;
         $this->class = $class;
         $this->params = $params;
+    }
+
+    /**
+     * Get the name.
+     * 
+     * @return  string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**
@@ -107,6 +125,30 @@ class Table implements TableInterface
         }
 
         $this->columns[] = new Column($this, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
+        return $this;
+    }
+
+    /**
+     * Add a sortable column.
+     * 
+     * @param   string|SortableColumnInterface  $name           Column name or instance.
+     * @param   string                          $title          Column title.
+     * @param   string|null                     $hdrClass       Column header class.
+     * @param   string|null                     $bodyClass      Column body class.
+     * @param   array                           $hdrParams      Header parameters.
+     * @param   array                           $bodyParams     Body parameters.
+     * @return  TableInterface
+     */
+    public function addSortableColumn($name, string $title = '', ?string $hdrClass = null, 
+        ?string $bodyClass = null, array $hdrParams = [], array $bodyParams = []): TableInterface
+    {
+        if ($name instanceof SortableColumnInterface) {
+            $this->columns[] = $name;
+            return $this;
+        }
+
+        $this->columns[] = new SortableColumn($this, $name, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
+        $this->hasSortableColumns = true;
         return $this;
     }
 

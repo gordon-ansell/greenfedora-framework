@@ -82,6 +82,12 @@ class Table implements TableInterface
     protected $hasSortableColumns = false;
 
     /**
+     * Sort order.
+     * @var array|null
+     */
+    protected $sortCol = null;
+
+    /**
      * Constructor.
      * 
      * @param   string          $name        Table name.
@@ -152,6 +158,33 @@ class Table implements TableInterface
         $this->columns[$name] = new SortableColumn($this, $name, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
         $this->hasSortableColumns = true;
         return $this;
+    }
+
+    /**
+     * Set the sort column.
+     * 
+     * @param   string|null $col    Column.
+     * @param   string      $dir    Direction.
+     * @return  FormInterface
+     */
+    public function setSort(?string $col, string $dir = 'asc'): FormInterface
+    {
+        if (null === $col) {
+            $this->sortCol = null;
+        } else {
+            $this->sortCol = array($col, $dir);
+        }
+        return $this;
+    }
+
+    /**
+     * Get the sort column.
+     * 
+     * @return  array|null
+     */
+    public function getSort(): ?array
+    {
+        return $this->sortCol;
     }
 
     /**

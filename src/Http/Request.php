@@ -315,7 +315,7 @@ class Request implements RequestInterface
      */
     public function formSubmitted(string $form): bool
     {
-        return ($this->post('form-submitted', null) == $form);
+        return ($this->isPost() and $this->post('form-submitted', null) == $form);
     }
 
     /**

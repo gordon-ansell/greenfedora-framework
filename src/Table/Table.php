@@ -238,8 +238,9 @@ class Table implements TableInterface
 
         if ($this->hasSortableColumns) {
             $fparams = array(
-                'name'  =>  $this->name . '-form',
-                'class' =>  'tableform tableform-' . $this->name
+                'name'      =>  $this->name . '-form',
+                'class'     =>  'tableform tableform-' . $this->name,
+                'method'    =>  'POST'
             );
             $f = new Html('form', $fparams);
             $ret = $f->render($ret);

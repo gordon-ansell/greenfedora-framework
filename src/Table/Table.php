@@ -145,6 +145,7 @@ class Table implements TableInterface
     {
         if ($name instanceof SortableColumnInterface) {
             $this->columns[$name->getName()] = $name;
+            $this->hasSortableColumns = true;
             return $this;
         }
 

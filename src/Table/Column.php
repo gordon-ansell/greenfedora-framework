@@ -115,6 +115,7 @@ class Column implements ColumnInterface
         $this->name = $name;
         $this->table = $table;
         $this->title = $title;
+        echo $title . PHP_EOL;
         $this->hdrClass = $hdrClass;
         $this->bodyClass = $bodyClass;
         $this->hdrParams = $hdrParams;

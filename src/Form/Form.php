@@ -557,6 +557,8 @@ class Form extends Html implements FormInterface
             $ret .= "<input type='hidden' name='token2' value='" . $token2 . "' />";
         }
 
+        $ret .= "<input type='hidden' name='form-submitted' value='" . $this->name . "' />";
+
         $ret .= parent::renderClose();
 
         return $ret;

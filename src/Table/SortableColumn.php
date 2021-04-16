@@ -41,6 +41,25 @@ class SortableColumn extends Column implements SortableColumnInterface
         );
         $b = new Html('button', $p, null, false, false);
 
+        $sortDir = null;
+        $sortCol = $this->table->getSort();
+        
+        if (null === $sortCol) {
+            $sortDir = 'asc';
+        } else if ('desc' == $sortCol[1]) {
+            $sortDir = 'asc';
+        } else {
+            $sortDir = 'desc';
+        }
+
+        $p1 = array(
+            'type'      =>  'hidden',
+            'name'      =>  'sortdir',
+            'id'        =>  'sortdir-' . $this->name,
+            'value'     =>  $sortDir
+        );
+        $b1 = new Html('input', $p1);
+
         $params = $this->hdrParams;
         if ($this->hdrClass) {
             $params['class'] = $this->hdrClass;
@@ -48,7 +67,7 @@ class SortableColumn extends Column implements SortableColumnInterface
 
         $h = new Html($this->hdrTag, $params);
 
-        return $h->render($b->render($this->title));
+        return $h->render($b->render($this->title) . $b1->render());
     }
 
 }

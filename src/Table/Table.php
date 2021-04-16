@@ -243,7 +243,7 @@ class Table implements TableInterface
                 'method'    =>  'POST'
             );
             $f = new Html('form', $fparams);
-            $ret = $f->render($ret);
+            $ret = $f->render("<input type='hidden' name='form-submitted' value='" . $this->name . "_form' />" . $ret);
         }
 
         return $thead->render($tr->render($ret));

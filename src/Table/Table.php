@@ -277,7 +277,7 @@ class Table implements TableInterface
 
         $ret = $table->render($this->renderHdr() . $this->renderBody());
 
-        if ($this->hasSortableColumn) {
+        if ($this->hasSortableColumns) {
             $fparams = array(
                 'name'  =>  $this->name . '-form',
                 'class' =>  'tableform tableform-' . $this->name

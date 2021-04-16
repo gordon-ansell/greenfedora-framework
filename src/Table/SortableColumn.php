@@ -36,6 +36,7 @@ class SortableColumn extends Column implements SortableColumnInterface
             'type'      =>  'submit',
             'class'     =>  'sortablecolumn-button',
             'name'      =>  'sortcol',
+            'id'        =>  'sortcol-' . $this->name,
             'value'     =>  $this->name
         );
         $b = new Html('button', $p, null, false, false);

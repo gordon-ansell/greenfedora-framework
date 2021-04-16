@@ -47,7 +47,17 @@ class SortableColumn extends Column implements SortableColumnInterface
         ?string $bodyClass = null, array $hdrParams = [], array $bodyParams = [])
     {
         $this->name = $name;
-        parent::__construct($form, $title, $hdrClass, $bodyClass, $hdrParam, $bodyParams);
+        parent::__construct($table, $title, $hdrClass, $bodyClass, $hdrParam, $bodyParams);
+    }
+
+    /**
+     * Get the name.
+     * 
+     * @var string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
 }

@@ -32,11 +32,14 @@ class SortableColumn extends Column implements SortableColumnInterface
      */
     public function renderHdr(): string
     {
-        return '<button type="submit" class="sortablecolumn-button" name="sort" id="sort" value="' . 
-            $this->name .
-            '" >' .
-            parent::renderHdr() .
-            '</button>';
+        $p = array(
+            'type'      =>  'submit',
+            'class'     =>  'sortablecolumn-button',
+            'name'      =>  'sort',
+            'value'     =>  $this->name
+        );
+        $b = new Html('button', $p);
+        return $b->render(parent::renderHdr());
     }
 
 }

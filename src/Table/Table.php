@@ -125,7 +125,7 @@ class Table implements TableInterface
             return $this;
         }
 
-        $this->columns[] = new Column($this, $name, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
+        $this->columns[$name] = new Column($this, $name, $title, $hdrClass, $bodyClass, $hdrParams, $bodyParams);
         return $this;
     }
 
@@ -166,6 +166,16 @@ class Table implements TableInterface
             return $this->columns[$name];
         }
         throw new InvalidArgumentException(sprintf("No column with name '%s' found.", $name));
+    }
+
+    /**
+     * Get all the columns.
+     * 
+     * @return  ColumnInterface[]
+     */
+    public function getColumns(): array
+    {
+        return $this->columns;
     }
 
     /**

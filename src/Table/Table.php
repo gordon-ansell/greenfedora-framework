@@ -282,7 +282,7 @@ class Table implements TableInterface
                 'name'  =>  $this->name . '-form',
                 'class' =>  'tableform tableform-' . $this->name
             );
-            $f = new Html('form', $params);
+            $f = new Html('form', $fparams);
             $ret = $f->render($ret);
         }
 

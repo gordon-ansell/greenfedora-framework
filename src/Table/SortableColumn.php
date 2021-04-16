@@ -38,7 +38,7 @@ class SortableColumn extends Column implements SortableColumnInterface
             'name'      =>  'sortcol',
             'value'     =>  $this->name
         );
-        $b = new Html('button', $p, false, false);
+        $b = new Html('button', $p, null, false, false);
         return $b->render(">" . $this->title . "<");
     }
 

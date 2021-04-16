@@ -35,11 +35,11 @@ class SortableColumn extends Column implements SortableColumnInterface
         $p = array(
             'type'      =>  'submit',
             'class'     =>  'sortablecolumn-button',
-            'name'      =>  'sort',
+            'name'      =>  'sortcol',
             'value'     =>  $this->name
         );
-        $b = new Html('button', $p);
-        return $b->render(">" . $this->name . "<");
+        $b = new Html('button', $p, false, false);
+        return $b->render(">" . $this->title . "<");
     }
 
 }

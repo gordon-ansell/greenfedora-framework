@@ -74,7 +74,6 @@ class Html implements HtmlInterface
         $this->data = $data;
 		$this->setSelfClose($selfClose);
 		$this->setValueData($valueData);
-
     }
 
 	/**

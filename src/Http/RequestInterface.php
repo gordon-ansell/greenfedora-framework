@@ -138,6 +138,14 @@ interface RequestInterface
     public function hasPost(string $key) : bool;
 
     /**
+     * Check the form submitted.
+     *
+     * @param   string  $form   Form name to check.
+     * @return  bool
+     */
+    public function formSubmitted(string $form): bool;
+
+    /**
      * Get request variable(s).
      *
      * @param   string          $key        Key to get.

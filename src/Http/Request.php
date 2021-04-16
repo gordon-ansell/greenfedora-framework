@@ -308,6 +308,17 @@ class Request implements RequestInterface
     }
 
     /**
+     * Check the form submitted.
+     *
+     * @param   string  $form   Form name to check.
+     * @return  bool
+     */
+    public function formSubmitted(string $form): bool
+    {
+        return ($this->post('form-submitted', null) == $form);
+    }
+
+    /**
      * Get request variable(s).
      *
      * @param   string          $key        Key to get.

@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Form;
 
 use GreenFedora\Arr\ArrInterface;
+use GreenFedora\Session\SessionInterface;
 
 /**
  * Form persistance handler interface.
@@ -22,6 +23,13 @@ use GreenFedora\Arr\ArrInterface;
 
 interface FormPersistHandlerInterface
 {
+    /**
+     * Get the session handler.
+     * 
+     * @return  SessionInterface
+     */
+    public function getSession(): SessionInterface;
+
     /**
      * Load the cookies.
      * 

@@ -71,6 +71,16 @@ class FormPersistHandler implements FormPersistHandlerInterface
     }
 
     /**
+     * Get the session handler.
+     * 
+     * @return  SessionInterface
+     */
+    public function getSession(): SessionInterface
+    {
+        return $this->session;
+    }
+
+    /**
      * Load the cookies.
      * 
      * @param   ArrInterface    $target     Where to load them.

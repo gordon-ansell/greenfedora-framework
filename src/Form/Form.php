@@ -50,6 +50,12 @@ class Form extends Html implements FormInterface
     use InternalDebugTrait;
 
     /**
+     * Form name.
+     * @var string|null
+     */
+    protected $name = null;
+
+    /**
      * Form action.
      * @var string
      */
@@ -98,17 +104,26 @@ class Form extends Html implements FormInterface
     protected $lastFields = [];
 
     /**
+     * Use CSRF?
+     * @var bool
+     */
+    protected $csrf = true;
+
+    /**
      * Constructor.
      * 
+     * @param   string                      $name       Form name,
      * @param   string                      $action     Action.
      * @param   FormPersistHandlerInterface $persist    Persistence handler.
      * @param   array                       $params     Parameters.
      * @param   string                      $method     Method.
      * @return  void
      */
-    public function __construct(string $action, FormPersistHandlerInterface $persist = null, array $params = [], 
-        string $method = 'POST')
+    public function __construct(string $name, string $action, FormPersistHandlerInterface $persist = null, 
+        array $params = [], string $method = 'POST')
     {
+        $this->name = $name;
+
         $params['action'] = $action;
         $params['method'] = $method;
 
@@ -185,7 +200,12 @@ class Form extends Html implements FormInterface
                 $params['type'] = "radio";
                 $ret = new Input($this, $params);
                 break;
-
+    
+            case 'inputhidden':
+                $params['type'] = "hidden";
+                $ret = new Input($this, $params);
+                break;
+    
             case 'radioset':
                 $ret = new RadioSet($this, $params);
                 break;    
@@ -414,6 +434,44 @@ class Form extends Html implements FormInterface
         return $this;
     }
 
+   /**
+     * Check CSRF.
+     * 
+     * @return  bool
+     */
+    protected function checkCsrf(): bool
+    {
+        if (!$this->csrf) {
+            return true;
+        }
+
+        $session = $this->persist->getSession();
+
+        $token1 = $session->csrfToken1();
+        if (!empty($_POST['token1'])) {
+            if (!hash_equals($token1, $_POST['token1'])) {
+                $this->errors[] = "Invalid CSRF token (1)";
+                return false;
+            }
+        } else {
+            $this->error[] = "No CSRF token (1)";
+            return false;
+        }
+
+        $token2 = $session->csrfToken2($this->name);
+        if (!empty($_POST['token2'])) {
+            if (!hash_equals($token2, $_POST['token2'])) {
+                $this->errors[] = "Invalid CSRF token (2)";
+                return false;
+            }
+        } else {
+            $this->errors[] = "No CSRF token (2)";
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Validate the form.
      * 
@@ -424,6 +482,12 @@ class Form extends Html implements FormInterface
     {
         $status = true;
         $gotAf = false;
+
+        if ($this->csrf) {
+            if (!$this->checkCsrf()) {
+                return false;
+            }
+        }
 
         foreach ($this->fields as $k => $v) {
 
@@ -483,6 +547,14 @@ class Form extends Html implements FormInterface
 
         foreach ($this->fields as $field) {
             $ret .= $field->render();
+        }
+
+        if ($this->csrf) {
+            $session = $this->persist->getSession();
+            $token1 = $session->csrfToken1();
+            $token2 = $session->csrfToken2($this->name);
+            $ret .= "<input type='hidden' name='token1' value='" . $token1 . "' />";
+            $ret .= "<input type='hidden' name='token2' value='" . $token2 . "' />";
         }
 
         $ret .= parent::renderClose();

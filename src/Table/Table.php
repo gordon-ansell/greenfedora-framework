@@ -236,6 +236,15 @@ class Table implements TableInterface
             }
         }
 
+        if ($this->hasSortableColumns) {
+            $fparams = array(
+                'name'  =>  $this->name . '-form',
+                'class' =>  'tableform tableform-' . $this->name
+            );
+            $f = new Html('form', $fparams);
+            $ret = $f->render($ret);
+        }
+
         return $thead->render($tr->render($ret));
     }
 
@@ -291,15 +300,6 @@ class Table implements TableInterface
         $table = new Html($this->tableTag, $params);
 
         $ret = $table->render($this->renderHdr() . $this->renderBody());
-
-        if ($this->hasSortableColumns) {
-            $fparams = array(
-                'name'  =>  $this->name . '-form',
-                'class' =>  'tableform tableform-' . $this->name
-            );
-            $f = new Html('form', $fparams);
-            $ret = $f->render($ret);
-        }
 
         return $ret;
     }

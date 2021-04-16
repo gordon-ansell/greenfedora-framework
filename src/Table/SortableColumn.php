@@ -39,7 +39,7 @@ class SortableColumn extends Column implements SortableColumnInterface
             'value'     =>  $this->name
         );
         $b = new Html('button', $p, null, false, false);
-        return $b->render(">" . $this->title . "<");
+        return $b->render(">" . parent::renderHdr() . "<");
     }
 
 }

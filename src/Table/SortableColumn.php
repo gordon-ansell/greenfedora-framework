@@ -49,8 +49,10 @@ class SortableColumn extends Column implements SortableColumnInterface
             if ('asc' == $sort[1]) {
                 $dirArrow = '&#8593;';
                 $sortDir = 'desc';
-            } else {
+            } else if ('desc' == $sort[1]) {
                 $dirArrow = '&#8595;';
+                $sortDir = 'off';
+            } else {
                 $sortDir = 'asc';
             }
         }

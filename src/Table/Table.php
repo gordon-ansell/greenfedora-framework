@@ -126,6 +126,12 @@ class Table implements TableInterface
             $this->debug('Table: sortcol = ' . $sortcol);
             $this->debug('Table: sortdir = ' . $sortdir);
         }
+        if ('off' == $sortcol) {
+            $session->unset($this->name . '-sortcol');
+            $session->unset($this->name . '-sortdir');
+            $this->sortCol(null);
+            return $this;
+        }
         if (null === $sortcol) {
             $this->debug('Table: trying to load sortcol from session.');
             $sortcol = $session->get($this->name . '-sortcol', null);

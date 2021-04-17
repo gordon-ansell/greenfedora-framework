@@ -129,7 +129,9 @@ class Table implements TableInterface
         if (null === $sortcol) {
             $this->setSort(null);
         } else {
-            if (null === $sortdir or 'desc' == $sortdir) {
+            if (null === $sortdir) {
+                $sortdir = 'asc';
+            } else if ('asc' == $sortdir) {
                 $sortdir = 'asc';
             } else {
                 $sortdir = 'desc';

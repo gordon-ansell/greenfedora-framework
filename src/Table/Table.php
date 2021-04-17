@@ -130,6 +130,8 @@ class Table implements TableInterface
             $session->unset($this->name . '-sortcol');
             $session->unset($this->name . '-sortdir');
             $this->sortCol(null);
+            $this->debug('Table: unset sortcol');
+            $this->debug('Table: unset sortdir');
             return $this;
         }
         if (null === $sortcol) {

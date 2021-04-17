@@ -131,7 +131,7 @@ class Table implements TableInterface
             $sortcol = $session->get($this->name . '-sortcol', null);
             $this->debug('Table: sortcol = ' . $sortcol);
         }
-        if (null === $sortcol) {
+        if (null === $sortdir) {
             $this->debug('Table: trying to load sortdir from session.');
             $sortdir = $session->get($this->name . '-sortdir', null);
             $this->debug('Table: sortdir = ' . $sortdir);

@@ -269,6 +269,7 @@ class Arr extends \ArrayObject implements ArrInterface
 	public function sortByCol(string $col, int $spec = SORT_ASC)
 	{
 		$tmp = $this->toArray();
+		print_r($tmp);
 		$ac  = array_column($tmp, $col);
 		print_r($ac);
 		array_multisort($ac, $spec, $tmp);

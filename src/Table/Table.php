@@ -111,7 +111,7 @@ class Table implements TableInterface
      * @param   SessionInterface    $session    Session object.
      * @return  TableInterface
      */
-    public function checkSort(RequestInterface $request, ?SessionInterface $session): TableInterfae
+    public function checkSort(RequestInterface $request, ?SessionInterface $session): TableInterface
     {
         $sortcol = null;
         $sortdir = null;

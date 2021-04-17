@@ -372,7 +372,6 @@ class Table implements TableInterface
             $count = 0;
             foreach($this->columns as $k => $v) {
                 if (!$v->isHidden()) {
-                    print_r($rowData);
                     if (is_array($rowData[$count])) {
                         $trData .= $v->renderBody(strval(array_values($rowData[$count])[0]));
                     } else {

@@ -16,6 +16,8 @@ use GreenFedora\Table\TableInterface;
 use GreenFedora\Table\ColumnInterface;
 use GreenFedora\Table\Column;
 use GreenFedora\Html\Html;
+use GreenFedora\Session\SessionInterface;
+use GreenFedora\Http\RequestInterface;
 
 use GreenFedora\Table\Exception\InvalidArgumentException;
 
@@ -90,9 +92,9 @@ class Table implements TableInterface
     /**
      * Constructor.
      * 
-     * @param   string          $name        Table name.
-     * @param   string|null     $class       Class.
-     * @param   array           $params      Parameters.
+     * @param   string          $name               Table name.
+     * @param   string|null     $class              Class.
+     * @param   array           $params             Parameters.
      * @return  void
      */
     public function __construct(string $name, ?string $class = null, array $params = [])
@@ -100,6 +102,44 @@ class Table implements TableInterface
         $this->name = $name;
         $this->class = $class;
         $this->params = $params;
+    }
+
+    /**
+     * Check the sorting.
+     * 
+     * @param   RequestInterface    $request    Request object.
+     * @param   SessionInterface    $session    Session object.
+     * @return  TableInterface
+     */
+    public function checkSort(RequestInterface $request, ?SessionInterface $session): TableInterfae
+    {
+        $sortcol = null;
+        $sortdir = null;
+        if ($request->formSubmitted($this->name)) {
+            $sortcol = $request->post('sortcol', null);
+            $sortdir = $request->post('sortdir', null);
+        }
+        if (null === $sortcol) {
+            $sortcol = $session->get($this->name . '-sortcol', null);
+        }
+        if (null === $sortcol) {
+            $sortdir = $session->get($this->name . '-sortdir', null);
+        }
+
+        if (null === $sortcol) {
+            $this->setSort(null);
+        } else {
+            if (null === $sortdir or 'desc' == $sortdir) {
+                $sortdir = 'asc';
+            } else {
+                $sortdir = 'desc';
+            }
+            $this->setSort($sortcol, $sortdir);
+            $session->set($this->name . '-sortcol', $sortcol);
+            $session->set($this->name . '-sortdir', $sortdir);
+        }
+
+        return $this;
     }
 
     /**

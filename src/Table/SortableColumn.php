@@ -43,12 +43,15 @@ class SortableColumn extends Column implements SortableColumnInterface
 
         $sort = $this->table->getSort();
         $dirArrow = '';
+        $sortDir = 'asc';
 
         if (null !== $sort and $sort[0] == $this->name) {
             if ('asc' == $sort[1]) {
                 $dirArrow = '&#8593;';
+                $sortDir = 'desc';
             } else {
                 $dirArrow = '&#8595;';
+                $sortDir = 'asc';
             }
         }
         

@@ -54,7 +54,6 @@ class SortableColumn extends Column implements SortableColumnInterface
                 $sortDir = 'asc';
             }
         }
-        echo "SortableColumn sortDir: " . $sort[1];
         
         $p1 = array(
             'type'      =>  'hidden',

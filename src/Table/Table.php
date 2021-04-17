@@ -205,9 +205,9 @@ class Table implements TableInterface
      * 
      * @param   string|null $col    Column.
      * @param   string      $dir    Direction.
-     * @return  FormInterface
+     * @return  TableInterface
      */
-    public function setSort(?string $col, string $dir = 'asc'): FormInterface
+    public function setSort(?string $col, string $dir = 'asc'): TableInterface
     {
         if (null === $col) {
             $this->sortCol = null;

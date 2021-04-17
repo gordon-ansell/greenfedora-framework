@@ -359,7 +359,7 @@ class Table implements TableInterface
             $trData = '';
             $rowData = null;
             if (is_object($row)) {
-                $rowData = $row->asArray();
+                $rowData = $row->toArray();
             } else {
                 $rowData = $row;
             }

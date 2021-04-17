@@ -270,6 +270,7 @@ class Arr extends \ArrayObject implements ArrInterface
 	{
 		$tmp = $this->toArray();
 		$ac  = array_column($tmp, $col);
+		print_r($ac);
 		array_multisort($ac, $spec, $tmp);
 		$this->exchangeArray(new static($tmp));
 	}

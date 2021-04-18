@@ -20,6 +20,7 @@ use GreenFedora\Logger\Formatter\LogFormatterInterface;
  * Write out to a log file.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
+ * @Inject logFormatter
  */
 
 class FileLogWriter extends AbstractLogWriter implements LogWriterInterface

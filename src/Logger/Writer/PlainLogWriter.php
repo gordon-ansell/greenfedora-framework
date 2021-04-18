@@ -21,6 +21,7 @@ use GreenFedora\Logger\LogLevel;
  * Write out a plain message.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
+ * @Inject logFormatter
  */
 
 class PlainLogWriter extends AbstractLogWriter implements LogWriterInterface

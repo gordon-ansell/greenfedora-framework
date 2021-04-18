@@ -20,6 +20,7 @@ use GreenFedora\Arr\Arr;
  * Abstract log writer.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
+ * @Inject logFormatter
  */
 
 abstract class AbstractLogWriter
@@ -54,10 +55,13 @@ abstract class AbstractLogWriter
 	 *
 	 * @return	void
 	 */
-	public function __construct(iterable $cfg, LogFormatterInterface $formatter)	
+	public function __construct(iterable $cfg, ?LogFormatterInterface $formatter = null)	
 	{
 		$this->cfg = new Arr($this->defaults);
 		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
+		if (null === $formatter) {
+			$formatter = $this->logFormatter;
+		}
 		$this->formatter = $formatter;
 	}
 }

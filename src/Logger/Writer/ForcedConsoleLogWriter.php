@@ -19,6 +19,7 @@ use GreenFedora\Logger\Writer\ConsoleLogWriter;
  * Write out to the console (forced).
  *
  * @author Gordon Ansell <contact@gordonansell.com>
+ * @Inject logFormatter
  */
 
 class ForcedConsoleLogWriter extends ConsoleLogWriter implements LogWriterInterface

@@ -20,6 +20,7 @@ use GreenFedora\Arr\Arr;
  * Format message for a log file in some sort of standard way.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
+ * @Inject loggerConfig
  */
 
 class StdLogFormatter implements LogFormatterInterface
@@ -43,13 +44,16 @@ class StdLogFormatter implements LogFormatterInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param 	iterable			$cfg 		Configs.
+	 * @param 	iterable|null		$cfg 	Configs.
 	 *
 	 * @return	void
 	 */
-	public function __construct(iterable $cfg)	
+	public function __construct(?iterable $cfg = null)	
 	{
 		$this->cfg = new Arr($this->defaults);
+		if (null === $cfg) {
+			$cfg = $this->loggerConfig;
+		}
 		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
 	}
 	

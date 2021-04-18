@@ -97,7 +97,7 @@ class JsonFile extends FileInfo implements JsonFileInterface
      */
     public function writeArray(array $contents, int $flags = 0, resource $context = null)
     {
-        return $this->write(json_encode($contents), $flags, $context);
+        return $this->write(json_encode($contents, JSON_PRETTY_PRINT), $flags, $context);
     }
 
     /**
@@ -124,6 +124,6 @@ class JsonFile extends FileInfo implements JsonFileInterface
      */
     public function appendArray(array $contents, int $flags = 0, resource $context = null)
     {
-        return $this->append(json_encode($contents), $flags, $context);
+        return $this->append(json_encode($contents, JSON_PRETTY_PRINT), $flags, $context);
     }
 }

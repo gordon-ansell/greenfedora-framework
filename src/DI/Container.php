@@ -179,13 +179,25 @@ class Container implements ContainerInterface
 	 * @return 	mixed
 	 *
 	 * @throws 	OutOfBoundsException If the map key does not exist.
+	 * @throws  InvalidArgumentException
 	 */
 	public function get(string $key)
 	{
 		if (!$this->has($key)) {
 			throw new OutOfBoundsException(sprintf("DI has no '%s' in the map", $key));
 		}
-		return $this->map[$key]->value;
+		if (ContainerMapEntry::TYPE_VALUE == $this->map[$key]->type) {
+			return $this->map[$key]->value;
+		} else if (ContainerMapEntry::TYPE_CLASS == $this->map[$key]->type) {
+			return $this->create($this->map[$key]->value, $this->map[$key]->arguments);
+		} else if (ContainerMapEntry::TYPE_SINGLETON == $this->map[$key]->type) {
+			if (!$this->map[$key]->hasInstance()) {
+				$this->map[$key]->instance = $this->create($this->map[$key]->value, $this->map[$key]->arguments);
+			}
+			return $this->map[$key]->instance;
+		} else {
+			throw new InvalidArgumentException(sprintf("Map entry for '%s' has an invalid type", $key));
+		}
 	}	
 
 	/**
@@ -227,6 +239,20 @@ class Container implements ContainerInterface
 	}
 
 	/**
+	 * Set a class and create it.
+	 * 
+	 * @param 	string 		$key	Key.
+	 * @param 	mixed 		$val	Value.
+	 * @param 	array|null	$args 	Arguments.
+	 * @return 	object
+	 */
+	public function setClassAndCreate(string $key, $value, ?array $args = null)
+	{
+		$this->set($key, new ContainerMapEntryClass($key, $value, $args));
+		return $this->create($this->map[$key]->value, $this->map[$key]->arguments);
+	}
+
+	/**
 	 * Set a singleton.
 	 * 
 	 * @param 	string 		$key	Key.
@@ -237,5 +263,20 @@ class Container implements ContainerInterface
 	public function setSingleton(string $key, $value, ?array $args = null): ContainerInterface
 	{
 		return $this->set($key, new ContainerMapEntrySingleton($key, $value, $args));
+	}
+
+	/**
+	 * Set a singleton and create it.
+	 * 
+	 * @param 	string 		$key	Key.
+	 * @param 	mixed 		$val	Value.
+	 * @param 	array|null	$args 	Arguments.
+	 * @return 	object
+	 */
+	public function setSingletonAndCreate(string $key, $value, ?array $args = null)
+	{
+		$this->set($key, new ContainerMapEntrySingleton($key, $value, $args));
+		$this->map[$key]->instance = $this->create($this->map[$key]->value, $this->map[$key]->arguments);
+		return $this->map[$key]->instance;
 	}
 }

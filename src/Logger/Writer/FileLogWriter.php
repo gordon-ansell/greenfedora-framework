@@ -20,8 +20,6 @@ use GreenFedora\Logger\Formatter\LogFormatterInterface;
  * Write out to a log file.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
- * @Inject logFormatter
- * @Inject loggerConfig
  */
 
 class FileLogWriter extends AbstractLogWriter implements LogWriterInterface
@@ -41,7 +39,7 @@ class FileLogWriter extends AbstractLogWriter implements LogWriterInterface
 	 *
 	 * @return	void
 	 */
-	public function __construct(?iterable $cfg = null, ?LogFormatterInterface $formatter = null, ?string $path = null)	
+	public function __construct(iterable $cfg, LogFormatterInterface $formatter, ?string $path = null)	
 	{
 		parent::__construct($cfg, $formatter);
 		

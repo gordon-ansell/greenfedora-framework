@@ -57,4 +57,32 @@ interface ContainerInterface extends PsrContainerInterface
 	 */
 	public function create(string $className, array $args = array());
 
+	/**
+	 * Set a value.
+	 * 
+	 * @param 	string 		$key	Key.
+	 * @param 	mixed 		$val	Value.
+	 * @return 	ContainerInterface
+	 */
+	public function setValue(string $key, $value): ContainerInterface;
+	
+	/**
+	 * Set a class.
+	 * 
+	 * @param 	string 		$key	Key.
+	 * @param 	mixed 		$val	Value.
+	 * @param 	array|null	$args 	Arguments.
+	 * @return 	ContainerInterface
+	 */
+	public function setClass(string $key, $value, ?array $args = null): ContainerInterface;
+
+	/**
+	 * Set a singleton.
+	 * 
+	 * @param 	string 		$key	Key.
+	 * @param 	mixed 		$val	Value.
+	 * @param 	array|null	$args 	Arguments.
+	 * @return 	ContainerInterface
+	 */
+	public function setSingleton(string $key, $value, ?array $args = null): ContainerInterface;
 }

@@ -77,6 +77,16 @@ interface ContainerInterface extends PsrContainerInterface
 	public function setClass(string $key, $value, ?array $args = null): ContainerInterface;
 
 	/**
+	 * Set a class and create it.
+	 * 
+	 * @param 	string 		$key	Key.
+	 * @param 	mixed 		$val	Value.
+	 * @param 	array|null	$args 	Arguments.
+	 * @return 	object
+	 */
+	public function setClassAndCreate(string $key, $value, ?array $args = null);
+
+	/**
 	 * Set a singleton.
 	 * 
 	 * @param 	string 		$key	Key.
@@ -85,4 +95,14 @@ interface ContainerInterface extends PsrContainerInterface
 	 * @return 	ContainerInterface
 	 */
 	public function setSingleton(string $key, $value, ?array $args = null): ContainerInterface;
+
+	/**
+	 * Set a singleton and create it.
+	 * 
+	 * @param 	string 		$key	Key.
+	 * @param 	mixed 		$val	Value.
+	 * @param 	array|null	$args 	Arguments.
+	 * @return 	object
+	 */
+	public function setSingletonAndCreate(string $key, $value, ?array $args = null);
 }

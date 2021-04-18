@@ -22,6 +22,7 @@ use GreenFedora\Logger\LogLevel;
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  * @Inject logFormatter
+ * @Inject loggerConfig
  */
 
 class ConsoleLogWriter extends AbstractLogWriter implements LogWriterInterface

@@ -45,7 +45,7 @@ class FileLogWriter extends AbstractLogWriter implements LogWriterInterface
 		parent::__construct($cfg, $formatter);
 		
 		if (is_null($path)) {
-			if (array_key_exists('path', $this->cfg)) {
+			if (array_key_exists('path', $this->cfg->toArray())) {
 				$this->path = $this->cfg->path;
 			} else if (defined('APP_PATH')) {
 				$this->path = rtrim(APP_PATH, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'logs'; 

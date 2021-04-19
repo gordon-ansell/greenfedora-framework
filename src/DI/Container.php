@@ -177,11 +177,26 @@ class Container implements ContainerInterface
 		}
 
 		if (count($injectables) > 0) {
+			$newArgs = array();
 			$paramSpec = $method->getParameters();
-			print_r($paramSpec);
-		}
+			$count = 0;
 
-		print_r($injectables);
+			foreach ($paramSpec as $p) {
+				if ($args[$count] and null !== $args[$count]) {
+					$newArgs[] = $args[$count];
+				} else if (array_key_exists('arg-' . $count, $injectables)) {
+					$newArgs[] = $injectables['arg-' . $count];
+				} else {
+					$newArgs[] = null;
+				}
+				$count++;
+			}
+
+			print_r($newArgs);
+
+		} else {
+			return $args;
+		}
 
 		return array();
 

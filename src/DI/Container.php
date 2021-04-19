@@ -131,10 +131,10 @@ class Container implements ContainerInterface
 	 * 
 	 * @param 	ReflectionClass 	$reflection 	Reflector.
 	 * @param 	array|null 			$args 			Arguments to match.
-	 * @return	array
+	 * @return	array|null
 	 * @throws 	InvalidArgumentException
 	 */
-	protected function checkConstructorDocComments(ReflectionClass $reflection, ?array $args): array
+	protected function checkConstructorDocComments(ReflectionClass $reflection, ?array $args): ?array
 	{
 		$method = $reflection->getConstructor();
 

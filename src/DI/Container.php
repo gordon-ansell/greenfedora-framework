@@ -188,6 +188,7 @@ class Container implements ContainerInterface
 			$count = 0;
 
 			foreach ($paramSpec as $p) {
+				echo "Processing " . $p->getName() . ", param " . $count . ", for " . $reflection->getName() . '<br />' . PHP_EOL;
 				if ($args[$count] and null !== $args[$count]) {
 					$newArgs[] = $args[$count];
 				} else if (array_key_exists('arg-' . $count, $injectables)) {

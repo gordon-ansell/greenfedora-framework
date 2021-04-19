@@ -21,7 +21,6 @@ use GreenFedora\Html\Html;
 use GreenFedora\Logger\InternalDebugTrait;
 
 use GreenFedora\Form\Field\FieldInterface;
-use GreenFedora\Form\Field\Field;
 use GreenFedora\Form\Field\FieldsetOpen;
 use GreenFedora\Form\Field\FieldsetClose;
 use GreenFedora\Form\Field\DivOpen;

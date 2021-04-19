@@ -14,6 +14,7 @@ namespace GreenFedora\Form;
 
 use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Session\SessionInterface;
+use GreenFedora\Logger\InternalDebugInterface;
 
 /**
  * Form persistance handler interface.
@@ -21,7 +22,7 @@ use GreenFedora\Session\SessionInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface FormPersistHandlerInterface
+interface FormPersistHandlerInterface extends InternalDebugInterface
 {
     /**
      * Get the session handler.

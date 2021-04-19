@@ -29,14 +29,14 @@ interface InternalDebugInterface
      * 
      * @return  bool
      */
-    public function hasDebugging(): bool;
+    public function hasDebugging();
 
     /**
      * Get the debug messages.
      * 
      * @return  array   
      */
-    public function getDebugging(): array;
+    public function getDebugging();
 
     /**
      * Output the debugging.

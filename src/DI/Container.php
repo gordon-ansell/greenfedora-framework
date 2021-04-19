@@ -319,8 +319,11 @@ class Container implements ContainerInterface
 	 * @param 	array|null	$args 	Arguments.
 	 * @return 	ContainerInterface
 	 */
-	public function setClass(string $key, $value, ?array $args = null): ContainerInterface
+	public function setClass(string $key, $value, $args = null): ContainerInterface
 	{
+		if (!is_array($args) and !is_null($args)) {
+			$args = [$args];
+		}
 		return $this->set($key, new ContainerMapEntryClass($key, $value, $args));
 	}
 
@@ -346,8 +349,11 @@ class Container implements ContainerInterface
 	 * @param 	array|null	$args 	Arguments.
 	 * @return 	ContainerInterface
 	 */
-	public function setSingleton(string $key, $value, ?array $args = null): ContainerInterface
+	public function setSingleton(string $key, $value, $args = null): ContainerInterface
 	{
+		if (!is_array($args) and !is_null($args)) {
+			$args = [$args];
+		}
 		return $this->set($key, new ContainerMapEntrySingleton($key, $value, $args));
 	}
 

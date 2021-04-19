@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace GreenFedora\Template;
 
 use GreenFedora\Template\TemplateInterface;
-use GreenFedora\DependencyInjection\ContainerInterface;
-use GreenFedora\DependencyInjection\ContainerAwareInterface;
-use GreenFedora\DependencyInjection\ContainerAwareTrait;
+use GreenFedora\DI\ContainerInterface;
+use GreenFedora\DI\ContainerAwareInterface;
+use GreenFedora\DI\ContainerAwareTrait;
 use GreenFedora\Inflector\InflectorInterface;
 use GreenFedora\Inflector\InflectorAwareInterface;
 use GreenFedora\Inflector\InflectorAwareTrait;
@@ -63,6 +63,6 @@ class PlatesTemplate extends Engine implements TemplateInterface, ContainerAware
 	 */
 	public function getInflector() : InflectorInterface
 	{
-		return $this->getInstance('inflector');
+		return $this->get('inflector');
 	}	
 }

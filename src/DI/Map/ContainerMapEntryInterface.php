@@ -10,9 +10,9 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\DI;
+namespace GreenFedora\DI\Map;
 
-use GreenFedora\DI\Exception\OutOfBoundsException;
+use GreenFedora\DI\Map\Exception\OutOfBoundsException;
 
 /**
  * Dependency injection container map entry interface.

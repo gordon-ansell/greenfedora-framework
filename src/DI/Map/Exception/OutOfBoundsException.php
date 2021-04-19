@@ -10,19 +10,17 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\DependencyInjection\Exception;
+namespace GreenFedora\DI\Map\Exception;
 
-use GreenFedora\DependencyInjection\Exception\ExceptionInterface;
-
-use Psr\Container\NotFoundExceptionInterface;
+use GreenFedora\DI\Map\Exception\ExceptionInterface;
 
 
 /**
- * Invalid argument passed to DependencyInjection.
+ * Out of bounds on DependencyInjection.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class InvalidArgumentException extends \InvalidArgumentException, NotFoundExceptionInterface implements ExceptionInterface
+class OutOfBoundsException extends \OutOfBoundsException implements ExceptionInterface
 {
 }

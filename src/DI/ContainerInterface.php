@@ -27,6 +27,13 @@ use Psr\Container\ContainerInterface as PsrContainerInterface;
 interface ContainerInterface extends PsrContainerInterface
 {
 	/**
+	 * Get the map.
+	 * 
+	 * @return	ContainerMapEntryInterface[] 
+	 */
+	public function getMap(): ?array;
+
+	/**
 	 * See if we have an instance of a class.
 	 *
 	 * @param 	string 	$className	Class name.

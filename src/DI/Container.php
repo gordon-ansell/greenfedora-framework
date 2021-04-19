@@ -16,10 +16,11 @@ use GreenFedora\DI\ContainerInterface;
 use GreenFedora\DI\Exception\InvalidArgumentException;
 use GreenFedora\DI\Exception\OutOfBoundsException;
 
-use GreenFedora\DI\ContainerMapEntryClass;
-use GreenFedora\DI\ContainerMapEntrySingleton;
-use GreenFedora\DI\ContainerMapEntryValue;
-use GreenFedora\DI\ContainerMapEntryInterface;
+use GreenFedora\DI\Map\ContainerMapEntry;
+use GreenFedora\DI\Map\ContainerMapEntryClass;
+use GreenFedora\DI\Map\ContainerMapEntrySingleton;
+use GreenFedora\DI\Map\ContainerMapEntryValue;
+use GreenFedora\DI\Map\ContainerMapEntryInterface;
 
 use \ReflectionClass;
 
@@ -54,6 +55,16 @@ class Container implements ContainerInterface
 			self::$instance = new self;
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * Get the map.
+	 * 
+	 * @return	ContainerMapEntryInterface[] 
+	 */
+	public function getMap(): ?array
+	{
+		return $this->map;
 	}
 
 	/**

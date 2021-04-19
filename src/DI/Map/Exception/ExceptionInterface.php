@@ -10,7 +10,7 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\DependencyInjection\Exception;
+namespace GreenFedora\DI\Map\Exception;
 
 use Psr\Container\ContainerExceptionInterface;
 

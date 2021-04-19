@@ -198,6 +198,7 @@ class Container implements ContainerInterface
 					$newArgs[] = $this->createByType($injectables['arg-' . $count]);
 				} else {
 					echo "Oops setting to null: 'arg-" . $count . "', " . $reflection->getName() . '<br />' . PHP_EOL;
+					print_r($injectables);
 					$newArgs[] = null;
 				}
 				$count++;

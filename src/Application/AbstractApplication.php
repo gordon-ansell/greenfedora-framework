@@ -12,17 +12,11 @@
 declare(strict_types=1);
 namespace GreenFedora\Application;
 
-use GreenFedora\Application\ApplicationInterface;
-use GreenFedora\Application\Exception\InvalidArgumentException;
-use GreenFedora\Application\Exception\OutOfBoundsException;
 use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\Logger\LoggerInterface;
 use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerAwareTrait;
-use GreenFedora\Logger\Formatter\StdLogFormatter;
-use GreenFedora\Logger\Writer\FileLogWriter;
-use GreenFedora\Logger\Writer\ConsoleLogWriter;
 use GreenFedora\DependencyInjection\ContainerInterface;
 use GreenFedora\DependencyInjection\ContainerAwareTrait;
 use GreenFedora\DependencyInjection\ContainerAwareInterface;

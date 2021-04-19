@@ -57,14 +57,14 @@ class Container implements ContainerInterface
 	}
 
 	/**
-	 * Check doc comments for injections.
+	 * Check class doc comments for injections.
 	 * 
 	 * @param 	ReflectionClass 	$reflection 	Reflector.
 	 * @param 	object 				$obj 			Object in question.
 	 * @return	object
 	 * @throws 	InvalidArgumentException
 	 */
-	protected function checkDocComments(ReflectionClass $reflection, object $obj): object
+	protected function checkClassDocComments(ReflectionClass $reflection, object $obj): object
 	{
 		if ($doc = $reflection->getDocComment()) {
 
@@ -110,7 +110,8 @@ class Container implements ContainerInterface
 							}
 
 						} else {
-							throw new OutOfBoundsException(sprintf("DI DocComments injector cannot find '%s' in the map"));
+							throw new OutOfBoundsException(sprintf("DI DocComments injector cannot find '%s' in the map",
+								strval($this->map[$key]->type)));
 						}
 
 					}
@@ -122,6 +123,62 @@ class Container implements ContainerInterface
 		}
 
 		return $obj;
+
+	}
+
+	/**
+	 * Check constructor doc comments for injections.
+	 * 
+	 * @param 	ReflectionClass 	$reflection 	Reflector.
+	 * @param 	array 				$args 			Arguments to match.
+	 * @return	array
+	 * @throws 	InvalidArgumentException
+	 */
+	protected function checkConstructorDocComments(ReflectionClass $reflection, array $args): array
+	{
+		$method = $reflection->getConstructor();
+
+		if (null === $method) {
+			return $args;
+		}
+
+		$injectables = array();
+
+		if ($doc = $method->getDocComment()) {
+
+			$lines = explode("\n", $doc);
+
+			foreach($lines as $line) {
+
+				if (count($parts = explode("@Inject", $line)) > 1) {
+
+					$parts = explode(" ", $parts[1]);
+
+					if (count($parts) > 1) {
+
+						$key = $parts[1];
+						$key = str_replace("\n", "", $key);
+						$key = str_replace("\r", "", $key);
+
+						if (false === strpos($key, '|')) {
+							throw new InvalidArgumentException(
+								sprintf("Injectable constructor argument invalid, must be of formal 'num|def'. Got '%s'.", $key));
+						}
+
+						$final = explode('|', $key); 
+						$injectables['arg-' . trim($final[0])] = trim($final[1]);
+
+					}
+
+				}
+
+			}
+
+		}
+
+		print_r($injectables);
+
+		return array();
 
 	}
 
@@ -143,6 +200,9 @@ class Container implements ContainerInterface
 		// Create the reflection.
 		$reflection = new ReflectionClass($className);
 
+		// Check constructor arguments.
+		$newArgs = $this->checkConstructorDocComments($reflection, $args);
+
 		// Create the object.
 		$obj = null;
 		if (null === $args or 0 == count($args)) {
@@ -155,7 +215,7 @@ class Container implements ContainerInterface
 		}
 
 		// Check the doc comments for injection.
-		$this->checkDocComments($reflection, $obj);
+		$this->checkClassDocComments($reflection, $obj);
 
 		return $obj;
 	}

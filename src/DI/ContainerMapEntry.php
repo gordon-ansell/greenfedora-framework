@@ -46,11 +46,11 @@ class ContainerMapEntry implements ContainerMapEntryInterface
     /**
      * Constructor.
      * 
-     * @param   string      $key        Index key.
-     * @param   int         $type       Entry type.
-     * @param   mixed       $value      Value.
-     * @param   array|null  $arguments  Arguments.
-     * @param   object|null $instance   Instance.
+     * @param   string      $key            Index key.
+     * @param   int         $type           Entry type.
+     * @param   mixed       $value          Value.
+     * @param   array|null  $arguments      Arguments.
+     * @param   object|null $instance       Instance.
      * @return  void
      */
     public function __construct(string $key, int $type, $value, ?array $arguments = null, ?object $instance = null)

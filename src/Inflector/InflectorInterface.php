@@ -12,8 +12,6 @@
 declare(strict_types=1);
 namespace GreenFedora\Inflector;
 
-use GreenFedora\Inflector\InflectorInterface;
-
 /**
  * Inflector interface.
  */	

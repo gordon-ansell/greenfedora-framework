@@ -12,6 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Application;
 
+use GreenFedora\Application\ApplicationInterface;
 use GreenFedora\Router\RouterInterface;
 
 /**
@@ -20,7 +21,7 @@ use GreenFedora\Router\RouterInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface HttpApplicationInterface
+interface HttpApplicationInterface extends ApplicationInterface
 {
 	/**
 	 * Get the router.

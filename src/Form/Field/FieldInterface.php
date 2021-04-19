@@ -12,8 +12,6 @@
 declare(strict_types=1);
 namespace GreenFedora\Form\Field;
 
-use GreenFedora\Form\Field\FieldInterface;
-use GreenFedora\Form\Field\Exception\InvalidArgumentException;
 use GreenFedora\Filter\FilterInterface;
 use GreenFedora\Validator\ValidatorInterface;
 

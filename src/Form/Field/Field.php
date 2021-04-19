@@ -16,8 +16,6 @@ use GreenFedora\Html\Html;
 use GreenFedora\Form\Field\FieldInterface;
 use GreenFedora\Form\FormInterface;
 use GreenFedora\Form\Field\Label;
-use GreenFedora\Form\Field\FieldsetOpen;
-use GreenFedora\Form\Field\FieldsetClose;
 
 use GreenFedora\Form\Field\Exception\InvalidArgumentException;
 

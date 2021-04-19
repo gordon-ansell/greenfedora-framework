@@ -12,6 +12,8 @@
 declare(strict_types=1);
 namespace GreenFedora\Router;
 
+use GreenFedora\Logger\LoggerInterface;
+
 /**
  * Router interface.
  *
@@ -20,4 +22,18 @@ namespace GreenFedora\Router;
 
 interface RouterInterface
 {
+	/**
+	 * Get the logger.
+	 *
+	 * @return 	LoggerInterface
+	 */
+	public function getLogger() : LoggerInterface;
+
+    /**
+     * Match a route.
+     * 
+     * @param   string  $pattern    Route pattern to match.
+     * @return  array               Matched route object and parameters.
+     */
+    public function match(string $pattern): ?array;
 }

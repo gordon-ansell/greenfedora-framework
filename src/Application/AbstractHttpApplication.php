@@ -13,14 +13,12 @@ declare(strict_types=1);
 namespace GreenFedora\Application;
 
 use GreenFedora\Application\AbstractApplication;
-use GreenFedora\Application\ApplicationInterface;
-use GreenFedora\Application\Input\ApplicationInputInterface;
-use GreenFedora\Application\Output\ApplicationOutputInterface;
+use GreenFedora\Application\HttpApplicationInterface;
+use GreenFedora\Http\RequestInterface;
+use GreenFedora\Http\ResponseInterface;
 use GreenFedora\Router\RouterInterface;
 use GreenFedora\Template\TemplateInterface;
 use GreenFedora\DependencyInjection\ContainerInterface;
-
-use GreenFedora\Application\Exception\InvalidArgumentException;
 
 /**
  * An HTTP application.
@@ -30,22 +28,33 @@ use GreenFedora\Application\Exception\InvalidArgumentException;
 
 abstract class AbstractHttpApplication extends AbstractApplication implements HttpApplicationInterface
 {
+	/**
+	 * Input.
+	 * @var RequestInterface
+	 */
+	protected $input = null;
+
+	/**
+	 * Output.
+	 * @var ResponseInterface
+	 */
+	protected $output = null;
 		
 	/**
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	DI container.
 	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
-	 * @param	ApplicationInputInterface	$input 		Input.
-	 * @param	ApplicationOutputInterface	$output 	Output.
+	 * @param	RequestInterface			$input 		Input.
+	 * @param	ResponseInterface			$output 	Output.
 	 *
 	 * @return	void
 	 */
 	public function __construct(
 		ContainerInterface $container, 
 		string $mode = 'prod', 
-		?ApplicationInputInterface $input = null, 
-		?ApplicationOutputInterface $output = null
+		?RequestInterface $input = null, 
+		?ResponseInterface $output = null
 		)
 	{
 		parent::__construct($container, $mode, $input, $output);

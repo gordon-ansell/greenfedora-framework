@@ -14,6 +14,7 @@ namespace GreenFedora\Http;
 
 use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Uri\UriInterface;
+use GreenFedora\Application\Input\ApplicationInputInterface;
 
 use GreenFedora\Http\Exception\InvalidArgumentException;
 
@@ -23,7 +24,7 @@ use GreenFedora\Http\Exception\InvalidArgumentException;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface RequestInterface
+interface RequestInterface extends ApplicationInputInterface
 {
 	
 	/**

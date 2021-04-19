@@ -137,7 +137,7 @@ class Column implements ColumnInterface
      * @param  string  $title   Title.
      * @return ColumnInterface 
      */
-    public function setTitle(string $class): ColumnInterface
+    public function setTitle(string $title): ColumnInterface
     {
         $this->title = $title;
         return $this;

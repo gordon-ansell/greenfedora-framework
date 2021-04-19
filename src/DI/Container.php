@@ -191,6 +191,8 @@ class Container implements ContainerInterface
 				if ($args[$count] and null !== $args[$count]) {
 					$newArgs[] = $args[$count];
 				} else if (array_key_exists('arg-' . $count, $injectables)) {
+					echo "Creating by type: 'arg-" . $count . "', " . $reflection->getName() . PHP_EOL;
+					$tmp = $this->createByType($injectables['arg-' . $count]);
 					$newArgs[] = $this->createByType($injectables['arg-' . $count]);
 				} else {
 					$newArgs[] = null;

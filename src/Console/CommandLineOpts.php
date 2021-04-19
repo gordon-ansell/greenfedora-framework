@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Console;
 
 use GreenFedora\Console\Exception\OutOfBoundsException;
-use GreenFedora\Application\Input\ApplicationInputInterface;
+use GreenFedora\Console\CommandLineOptsInterface;
 
 
 /**
@@ -22,7 +22,7 @@ use GreenFedora\Application\Input\ApplicationInputInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class CommandLineOpts implements ApplicationInputInterface
+class CommandLineOpts implements CommandLineOptsInterface
 {
 	/**
 	 * Options.

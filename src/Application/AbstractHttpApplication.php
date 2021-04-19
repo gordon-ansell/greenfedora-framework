@@ -18,7 +18,7 @@ use GreenFedora\Http\RequestInterface;
 use GreenFedora\Http\ResponseInterface;
 use GreenFedora\Router\RouterInterface;
 use GreenFedora\Template\TemplateInterface;
-use GreenFedora\DependencyInjection\ContainerInterface;
+use GreenFedora\DI\ContainerInterface;
 
 /**
  * An HTTP application.
@@ -67,7 +67,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 */
 	public function getRouter() : RouterInterface
 	{
-		return $this->getInstance('router');
+		return $this->get('router');
 	}			
 
 	/**
@@ -77,7 +77,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 */
 	public function getTemplate() : TemplateInterface
 	{
-		return $this->getInstance('template');
+		return $this->get('template');
 	}			
 
 	/**

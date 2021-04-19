@@ -13,14 +13,9 @@ declare(strict_types=1);
 namespace GreenFedora\Application;
 
 use GreenFedora\Application\AbstractApplication;
-use GreenFedora\Application\ApplicationInterface;
-use GreenFedora\Application\Input\ApplicationInputInterface;
-use GreenFedora\Application\Output\ApplicationOutputInterface;
-use GreenFedora\Router\RouterInterface;
-use GreenFedora\Template\TemplateInterface;
-use GreenFedora\DependencyInjection\ContainerInterface;
-
-use GreenFedora\Application\Exception\InvalidArgumentException;
+use GreenFedora\Console\CommandLineOptsInterface;
+use GreenFedora\Application\Output\ReturnCodeApplicationOutputInterface;
+use GreenFedora\DI\ContainerInterface;
 
 /**
  * A console application.
@@ -31,20 +26,32 @@ use GreenFedora\Application\Exception\InvalidArgumentException;
 abstract class AbstractConsoleApplication extends AbstractApplication implements ConsoleApplicationInterface
 {		
 	/**
+	 * Input.
+	 * @var CommandLineOptsInterface
+	 */
+	protected $input = null;
+
+	/**
+	 * Output.
+	 * @var ReturnCodeApplicationOutputInterface
+	 */
+	protected $output = null;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param 	ContainerInterface			$container	DI container.
-	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
-	 * @param	ApplicationInputInterface	$input 		Input.
-	 * @param	ApplicationOutputInterface	$output 	Output.
+	 * @param 	ContainerInterface						$container	DI container.
+	 * @param	string									$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
+	 * @param	CommandLineOptsInterface				$input 		Input.
+	 * @param	ReturnCodeApplicationOutputInterface	$output 	Output.
 	 *
 	 * @return	void
 	 */
 	public function __construct(
 		ContainerInterface $container, 
 		string $mode = 'prod', 
-		?ApplicationInputInterface $input = null, 
-		?ApplicationOutputInterface $output = null
+		?CommandLineOptsInterface $input = null, 
+		?ReturnCodeApplicationOutputInterface $output = null
 		)
 	{
 		parent::__construct($container, $mode, $input, $output);

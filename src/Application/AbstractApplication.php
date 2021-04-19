@@ -103,7 +103,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 */
 	public function hasConfig(string $key) : bool
 	{
-		return $this->getInstance('config')->has($key);
+		return $this->get('config')->has($key);
 	}
 
 	/**
@@ -116,7 +116,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 */
 	public function getConfig(?string $key = null, $default = array())
 	{
-		$instance = $this->getInstance('config');
+		$instance = $this->get('config');
 		
 		if (is_null($key)) {
 			return $instance;
@@ -135,7 +135,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 */
 	public function getLocale() : LocaleInterface
 	{
-		return $this->getInstance('locale');
+		return $this->get('locale');
 	}			
 	
 	/**
@@ -145,7 +145,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 */
 	public function getLogger() : LoggerInterface
 	{
-		return $this->getInstance('logger');
+		return $this->get('logger');
 	}			
 
 	/**
@@ -155,7 +155,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 */
 	public function getLang() : LangInterface
 	{
-		return $this->getInstance('lang');
+		return $this->get('lang');
 	}
 	
 	/**
@@ -165,7 +165,7 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 */
 	public function getInflector() : InflectorInterface
 	{
-		return $this->getInstance('inflector');
+		return $this->get('inflector');
 	}
 
 	/**

@@ -57,6 +57,48 @@ class Container implements ContainerInterface
 	}
 
 	/**
+	 * Create by the type.
+	 * 
+	 * @param 	string 		$key 	Key of item to create.
+	 * @return 	mixed|object|null
+	 * @throws 	InvalidArgumentException
+	 * @throws  OutOfBoundsException
+	 */
+	protected function createByType(string $key)
+	{
+		if ($this->has($key)) {
+
+			switch ($this->map[$key]->type) {
+
+				case ContainerMapEntry::TYPE_VALUE:
+					return $this->map[$key]->value;
+				break;
+
+				case ContainerMapEntry::TYPE_CLASS:
+					return $this->create($this->map[$key]->value, $this->map[$key]->arguments);
+				break;
+
+				case ContainerMapEntry::TYPE_SINGLETON:
+					if (!$this->map[$key]->hasInstance()) {
+						$this->map[$key]->instance = $this->create($this->map[$key]->value, $this->map[$key]->arguments);
+					} 
+					return $this->map[$key]->instance;
+				break;
+
+				default:
+					throw new InvalidArgumentException(sprintf("DI: '%s' is an invalid map key type, for key '%s'", 
+						strval($this->map[$key]->type), $key));
+
+			}
+
+		} else {
+			throw new OutOfBoundsException(sprintf("DI: createByType cannot find '%s' in the map", $key));
+		}
+
+		return null;
+	}
+
+	/**
 	 * Check class doc comments for injections.
 	 * 
 	 * @param 	ReflectionClass 	$reflection 	Reflector.
@@ -82,44 +124,11 @@ class Container implements ContainerInterface
 						$key = str_replace("\n", "", $key);
 						$key = str_replace("\r", "", $key);
 
-						if ($this->has($key)) {
-
-							switch ($this->map[$key]->type) {
-
-								case ContainerMapEntry::TYPE_VALUE:
-									$obj->$key = $this->map[$key]->value;
-								break;
-
-								case ContainerMapEntry::TYPE_CLASS:
-									$obj->$key = $this->create($this->map[$key]->value, $this->map[$key]->arguments);
-								break;
-
-								case ContainerMapEntry::TYPE_SINGLETON:
-									if (!$this->map[$key]->hasInstance()) {
-										$obj->$key = $this->map[$key]->instance = 
-											$this->create($this->map[$key]->value, $this->map[$key]->arguments);
-									} else {
-										$obj->$key = $this->map[$key]->instance;
-									}
-								break;
-
-								default:
-									throw new InvalidArgumentException(sprintf("'%s' is an invalid map key type", 
-										strval($this->map[$key]->type)));
-
-							}
-
-						} else {
-							throw new OutOfBoundsException(sprintf("DI DocComments injector cannot find '%s' in the map",
-								strval($this->map[$key]->type)));
-						}
+						$obj->$key = $this->createByType($key);
 
 					}
-
 				}
-
 			}
-
 		}
 
 		return $obj;
@@ -169,11 +178,8 @@ class Container implements ContainerInterface
 						$injectables['arg-' . trim($final[0])] = trim($final[1]);
 
 					}
-
 				}
-
 			}
-
 		}
 
 		if (count($injectables) > 0) {
@@ -185,7 +191,7 @@ class Container implements ContainerInterface
 				if ($args[$count] and null !== $args[$count]) {
 					$newArgs[] = $args[$count];
 				} else if (array_key_exists('arg-' . $count, $injectables)) {
-					$newArgs[] = $injectables['arg-' . $count];
+					$newArgs[] = $this->createByType($injectables['arg-' . $count]);
 				} else {
 					$newArgs[] = null;
 				}

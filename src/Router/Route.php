@@ -13,11 +13,9 @@ declare(strict_types=1);
 namespace GreenFedora\Router;
 
 use GreenFedora\Router\RouteInterface;
-use GreenFedora\DependencyInjection\ContainerAwareTrait;
-use GreenFedora\DependencyInjection\ContainerAwareInterface;
-use GreenFedora\DependencyInjection\ContainerInterface;
+use GreenFedora\DI\ContainerAwareTrait;
+use GreenFedora\DI\ContainerInterface;
 use GreenFedora\Logger\LoggerAwareTrait;
-use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerInterface;
 
 use GreenFedora\Router\Exception\InvalidArgumentException;
@@ -78,7 +76,7 @@ class Route implements RouteInterface
 	 */
 	public function getLogger() : LoggerInterface
     {
-		return $this->getInstance('logger');
+		return $this->get('logger');
     }
 
     /**

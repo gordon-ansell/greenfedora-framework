@@ -14,14 +14,12 @@ namespace GreenFedora\Router;
 
 use GreenFedora\Router\RouterInterface;
 use GreenFedora\Router\Route;
-use GreenFedora\Router\RouteInterface;
 use GreenFedora\Arr\Arr;
 use GreenFedora\Arr\ArrInterface;
-use GreenFedora\DependencyInjection\ContainerAwareTrait;
-use GreenFedora\DependencyInjection\ContainerAwareInterface;
-use GreenFedora\DependencyInjection\ContainerInterface;
+use GreenFedora\DI\ContainerAwareTrait;
+use GreenFedora\DI\ContainerAwareInterface;
+use GreenFedora\DI\ContainerInterface;
 use GreenFedora\Logger\LoggerAwareTrait;
-use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerInterface;
 
 /**

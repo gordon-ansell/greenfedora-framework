@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace GreenFedora\Logger;
 
 use GreenFedora\Logger\LoggerInterface;
-use GreenFedora\Logger\LogLevel;
 
 /**
  * For objects aware of the logger.
@@ -49,7 +48,7 @@ trait InternalDebugTrait
      */
     public function hasDebugging(): bool
     {
-        return (count($this->debugMsgs) > 0);
+        return (count($this->debugMsgs) > 0) ? true : false;
     }
 
     /**

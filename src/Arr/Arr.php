@@ -12,7 +12,6 @@
 declare(strict_types=1);
 namespace GreenFedora\Arr;
 
-use GreenFedora\Arr\Exception\BadMethodCallException;
 use GreenFedora\Arr\Exception\InvalidArgumentException;
 use GreenFedora\Arr\Exception\OutOfBoundsException;
 use GreenFedora\Arr\ArrIter;
@@ -277,13 +276,13 @@ class Arr extends \ArrayObject implements ArrInterface
     /**
 	 * Sort array by keys.
 	 *
-	 * @param 	int 	$spec 		Sort spec.	
+	 * @param 	int 	$flags 		Sort spec.	
 	 * @return 	void
 	 */
-	public function kSort(int $spec = SORT_REGULAR)
+	public function ksort($flags = SORT_REGULAR)
 	{
 		$tmp = $this->toArray();
-		ksort($tmp, $spec);
+		ksort($tmp, $flags);
 		$this->exchangeArray(new static($tmp));
 	}
 

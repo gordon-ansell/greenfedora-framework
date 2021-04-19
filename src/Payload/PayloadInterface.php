@@ -12,12 +12,14 @@
 declare(strict_types=1);
 namespace GreenFedora\Payload;
 
+use GreenFedora\Arr\ArrInterface;
+
 /**
  * Payload interface.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface PayloadInterface
+interface PayloadInterface extends ArrInterface
 {
 }

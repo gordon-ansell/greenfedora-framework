@@ -118,10 +118,10 @@ interface ArrInterface
     /**
 	 * Sort array by keys.
 	 *
-	 * @param 	int 	$spec 		Sort spec.	
+	 * @param 	int 	$ksort 		Sort spec.	
 	 * @return 	void
 	 */
-	public function kSort(int $spec = SORT_REGULAR);
+	public function ksort($flags = SORT_REGULAR);
 
     /**
      * See if something's NOT in this array.

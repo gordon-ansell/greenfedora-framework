@@ -14,9 +14,9 @@ namespace GreenFedora\Adr\Responder;
 
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Http\ResponseInterface;
-use GreenFedora\DependencyInjection\ContainerInterface;
-use GreenFedora\DependencyInjection\ContainerAwareInterface;
-use GreenFedora\DependencyInjection\ContainerAwareTrait;
+use GreenFedora\DI\ContainerInterface;
+use GreenFedora\DI\ContainerAwareInterface;
+use GreenFedora\DI\ContainerAwareTrait;
 use GreenFedora\Payload\Payload;
 use GreenFedora\Payload\PayloadInterface;
 
@@ -79,7 +79,7 @@ abstract class AbstractResponder implements ContainerAwareInterface
 	 */
 	protected function addDefaultData()
 	{
-		$cfg = $this->getInstance('config');
+		$cfg = $this->get('config');
 
 		if (!$cfg->has('locations') or !$cfg->get('locations')->has('webroot')) {
 			$this->payload->set('webroot', '/');

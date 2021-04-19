@@ -14,9 +14,9 @@ namespace GreenFedora\Adr\Action;
 
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Http\ResponseInterface;
-use GreenFedora\DependencyInjection\ContainerInterface;
-use GreenFedora\DependencyInjection\ContainerAwareInterface;
-use GreenFedora\DependencyInjection\ContainerAwareTrait;
+use GreenFedora\DI\ContainerInterface;
+use GreenFedora\DI\ContainerAwareInterface;
+use GreenFedora\DI\ContainerAwareTrait;
 use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerAwareTrait;
 use GreenFedora\Logger\LoggerInterface;
@@ -82,7 +82,7 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 	 */
 	public function getLogger() : LoggerInterface
 	{
-		return $this->getInstance('logger');
+		return $this->get('logger');
 	}			
 
 	/**

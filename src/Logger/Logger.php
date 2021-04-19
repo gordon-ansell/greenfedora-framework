@@ -117,7 +117,6 @@ class Logger implements LoggerInterface
         if (null === $cfg) {
 			throw new InvalidArgumentException("Logger config is null.");
         }
-        print_r($cfg);
 		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
         if (null === $writers) {
 			throw new InvalidArgumentException("Log writers are null.");

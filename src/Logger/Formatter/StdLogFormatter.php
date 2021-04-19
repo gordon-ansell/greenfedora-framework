@@ -46,7 +46,7 @@ class StdLogFormatter implements LogFormatterInterface
 	 * @param 	iterable|null		$cfg 	Configs.
 	 *
 	 * @return	void
-	 * @inject 0|loggerConfig
+	 * @Inject 0|loggerConfig
 	 */
 	public function __construct(?iterable $cfg = null)	
 	{

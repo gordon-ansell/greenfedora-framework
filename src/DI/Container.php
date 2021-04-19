@@ -198,7 +198,7 @@ class Container implements ContainerInterface
 				$count++;
 			}
 
-			print_r($newArgs);
+			return $newArgs;
 
 		} else {
 			return $args;
@@ -227,7 +227,7 @@ class Container implements ContainerInterface
 		$reflection = new ReflectionClass($className);
 
 		// Check constructor arguments.
-		$newArgs = $this->checkConstructorDocComments($reflection, $args);
+		$args = $this->checkConstructorDocComments($reflection, $args);
 
 		// Create the object.
 		$obj = null;

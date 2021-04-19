@@ -176,6 +176,11 @@ class Container implements ContainerInterface
 
 		}
 
+		if (count($injectables) > 0) {
+			$paramSpec = $method->getParameters();
+			print_r($paramSpec);
+		}
+
 		print_r($injectables);
 
 		return array();

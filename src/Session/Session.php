@@ -78,12 +78,14 @@ class Session implements SessionInterface
 
         register_shutdown_function('session_write_close');
         session_set_cookie_params($lifetime, $path);
-        
-        if (!session_start(array('cookie_lifetime' => $lifetime))) {
-	        $this->clear();
-	        if (!session_start(array('cookie_lifetime' => $lifetime))) {
-		        return;
-		    }
+
+        if (session_status() == PHP_SESSION_NONE) {
+            if (!session_start(array('cookie_lifetime' => $lifetime))) {
+                $this->clear();
+                if (!session_start(array('cookie_lifetime' => $lifetime))) {
+                    return;
+                }
+            }
         }
         
 		setcookie(session_name(), session_id(), time() + $lifetime, $path);

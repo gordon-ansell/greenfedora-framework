@@ -46,8 +46,9 @@ class StdLogFormatter implements LogFormatterInterface
 	 * @param 	iterable|null		$cfg 	Configs.
 	 *
 	 * @return	void
+	 * @inject 0|loggerConfig
 	 */
-	public function __construct(iterable $cfg = null)	
+	public function __construct(?iterable $cfg = null)	
 	{
 		$this->cfg = new Arr($this->defaults);
 		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);

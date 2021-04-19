@@ -130,11 +130,11 @@ class Container implements ContainerInterface
 	 * Check constructor doc comments for injections.
 	 * 
 	 * @param 	ReflectionClass 	$reflection 	Reflector.
-	 * @param 	array 				$args 			Arguments to match.
+	 * @param 	array|null 			$args 			Arguments to match.
 	 * @return	array
 	 * @throws 	InvalidArgumentException
 	 */
-	protected function checkConstructorDocComments(ReflectionClass $reflection, array $args): array
+	protected function checkConstructorDocComments(ReflectionClass $reflection, ?array $args): array
 	{
 		$method = $reflection->getConstructor();
 

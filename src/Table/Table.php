@@ -21,7 +21,6 @@ use GreenFedora\Http\RequestInterface;
 use GreenFedora\Arr\Arr;
 
 use GreenFedora\Logger\InternalDebugTrait;
-use GreenFedora\Logger\InternalDebugInterface;
 
 use GreenFedora\Table\Exception\InvalidArgumentException;
 
@@ -31,7 +30,7 @@ use GreenFedora\Table\Exception\InvalidArgumentException;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Table implements TableInterface, InternalDebugInterface
+class Table implements TableInterface
 {
     use InternalDebugTrait;
 

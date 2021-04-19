@@ -16,6 +16,8 @@ use GreenFedora\Logger\Formatter\LogFormatterInterface;
 use GreenFedora\Logger\LogLevel;
 use GreenFedora\Arr\Arr;
 
+use GreenFedora\Logger\Writer\Exception\InvalidArgumentException;
+
 /**
  * Abstract log writer.
  *
@@ -49,17 +51,26 @@ abstract class AbstractLogWriter
 	/**
 	 * Constructor.
 	 *
-	 * @param 	iterable				$cfg 		Configs.
-	 * @param 	LogFormatterInterface	$formatter	Log message formatter.
+	 * @param 	iterable|null				$cfg 		Configs.
+	 * @param 	LogFormatterInterface|null	$formatter	Log message formatter.
 	 *
 	 * @return	void
+	 * 
+	 * @throws  InvalidArgumentException
+	 * 
 	 * @Inject 0|loggerConfig
 	 * @Inject 1|logFormatter
 	 */
-	public function __construct(iterable $cfg, LogFormatterInterface $formatter)	
+	public function __construct(?iterable $cfg = null, ?LogFormatterInterface $formatter = null)	
 	{
 		$this->cfg = new Arr($this->defaults);
+        if (null === $cfg) {
+			throw new InvalidArgumentException("Logger config is null.");
+        }
 		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
+        if (null === $formatter) {
+			throw new InvalidArgumentException("Log formatter is null.");
+        }
 		$this->formatter = $formatter;
 	}
 }

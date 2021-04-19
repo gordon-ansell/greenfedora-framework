@@ -10,14 +10,17 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Logger\Writer\Exception;
+namespace GreenFedora\Logger\Formatter\Exception;
+
+use GreenFedora\Logger\Formatter\Exception\ExceptionInterface;
+
 
 /**
- * Log writer exception interface.
+ * Invalid argument exception on log formatter.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ExceptionInterface extends \Throwable
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
 }

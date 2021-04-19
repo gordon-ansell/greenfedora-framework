@@ -124,7 +124,7 @@ class Logger implements LoggerInterface
 		$this->writers = $writers;
 		foreach ($this->writers as $writer) {
 			if (!$writer instanceof LogWriterInterface) {
-				throw new InvalidArgumentException(sprintf("Log writers passed to the Logger must implement LogWriterInterface, you passed type '%s'", gettype($write)));
+				throw new InvalidArgumentException(sprintf("Log writers passed to the Logger must implement LogWriterInterface, you passed type '%s'", gettype($writer)));
 			}
 		}
 		if (!$this->checkLevel($this->cfg->level)) {

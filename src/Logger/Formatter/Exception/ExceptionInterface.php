@@ -10,10 +10,10 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Logger\Writer\Exception;
+namespace GreenFedora\Logger\Formatter\Exception;
 
 /**
- * Log writer exception interface.
+ * Log formatter exception interface.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */

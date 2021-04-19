@@ -12,12 +12,15 @@
 declare(strict_types=1);
 namespace GreenFedora\Logger\Writer\Exception;
 
+use GreenFedora\Logger\Writer\Exception\ExceptionInterface;
+
+
 /**
- * Log writer exception interface.
+ * Invalid argument exception on log writer.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ExceptionInterface extends \Throwable
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
 }

@@ -188,17 +188,11 @@ class Container implements ContainerInterface
 			$count = 0;
 
 			foreach ($paramSpec as $p) {
-				echo "Processing " . $p->getName() . ", param " . $count . ", for " . $reflection->getName() . '<br />' . PHP_EOL;
 				if ($args[$count] and null !== $args[$count]) {
-					echo "Using passed arg: 'arg-" . $count . "', " . $reflection->getName() . '<br />' . PHP_EOL;
 					$newArgs[] = $args[$count];
 				} else if (array_key_exists('arg-' . $count, $injectables)) {
-					echo "Creating by type: 'arg-" . $count . "', " . $reflection->getName() . '<br />' . PHP_EOL;
-					$tmp = $this->createByType($injectables['arg-' . $count]);
 					$newArgs[] = $this->createByType($injectables['arg-' . $count]);
 				} else {
-					echo "Oops setting to null: 'arg-" . $count . "', " . $reflection->getName() . '<br />' . PHP_EOL;
-					print_r($injectables);
 					$newArgs[] = null;
 				}
 				$count++;

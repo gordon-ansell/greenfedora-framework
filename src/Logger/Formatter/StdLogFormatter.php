@@ -16,6 +16,8 @@ use GreenFedora\Logger\Formatter\LogFormatterInterface;
 use GreenFedora\Logger\LogLevel;
 use GreenFedora\Arr\Arr;
 
+use GreenFedora\Logger\Formatter\Exception\InvalidArgumentException;
+
 /**
  * Format message for a log file in some sort of standard way.
  *
@@ -43,14 +45,17 @@ class StdLogFormatter implements LogFormatterInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param 	iterable		$cfg 	Configs.
+	 * @param 	iterable|null	$cfg 	Configs.
 	 *
 	 * @return	void
 	 * @Inject 0|loggerConfig
 	 */
-	public function __construct(iterable $cfg)	
+	public function __construct(?iterable $cfg = null)	
 	{
 		$this->cfg = new Arr($this->defaults);
+        if (null === $cfg) {
+			throw new InvalidArgumentException("Logger config is null.");
+        }
 		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
 	}
 	

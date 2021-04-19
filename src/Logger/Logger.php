@@ -109,7 +109,7 @@ class Logger implements LoggerInterface
 	 * @throws	InvalidArgumentException	
      * 
      * @Inject 0|loggerConfig
-     * @inject 1|logWriters
+     * @Inject 1|logWriters
 	 */
 	public function __construct(?iterable $cfg = null, ?iterable $writers = null)
 	{

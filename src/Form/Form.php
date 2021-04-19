@@ -345,7 +345,7 @@ class Form extends Html implements FormInterface
             $this->autofocus = $field;
             return $this;
         }
-        throw new InvalidArgumentException(sprintf("Cannot set autofocus to'%s' - field does not exist", $type));
+        throw new InvalidArgumentException(sprintf("Cannot set autofocus to'%s' - field does not exist", $field));
     }
 
     /**

@@ -79,9 +79,9 @@ class Session implements SessionInterface
         $path = $this->cfg->get('cookie_path', '/');
 
         register_shutdown_function('session_write_close');
-        session_set_cookie_params($lifetime, $path);
 
         if (session_status() == PHP_SESSION_NONE) {
+            session_set_cookie_params($lifetime, $path);
             if (!session_start(array('cookie_lifetime' => $lifetime))) {
                 $this->clear();
                 if (!session_start(array('cookie_lifetime' => $lifetime))) {

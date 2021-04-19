@@ -38,6 +38,8 @@ class FileLogWriter extends AbstractLogWriter implements LogWriterInterface
 	 * @param 	interable				$cfg 		Configs.
 	 *
 	 * @return	void
+	 * @Inject 0|loggerConfig
+	 * @Inject 1|logFormatter
 	 */
 	public function __construct(iterable $cfg, LogFormatterInterface $formatter, ?string $path = null)	
 	{

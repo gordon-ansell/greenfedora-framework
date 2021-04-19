@@ -53,6 +53,8 @@ abstract class AbstractLogWriter
 	 * @param 	LogFormatterInterface	$formatter	Log message formatter.
 	 *
 	 * @return	void
+	 * @Inject 0|loggerConfig
+	 * @Inject 1|logFormatter
 	 */
 	public function __construct(iterable $cfg, LogFormatterInterface $formatter)	
 	{

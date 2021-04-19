@@ -57,21 +57,23 @@ class Session implements SessionInterface
 	        return;
         }
 
-        $gcml = $this->cfg->get('gc_maxlifetime', '7200');
-
         $lifetime = $this->cfg->get('cookie_lifetime', '0');
- 
-        ini_set('session.cookie_lifetime', $lifetime);
-        ini_set('session.gc_maxlifetime', $gcml);
-        ini_set('session.gc_probability', $this->cfg->get('gc_probability', '1'));
-        ini_set('session.gc_divisor', $this->cfg->get('gc_divisor', '100'));
-        
-        $sp = $this->cfg->get('save_path', '');
-        if ('' != $sp) {
-	        //session_save_path($sp);
-			ini_set('session.save_path', $sp);
-        } else {
-            ini_set('session.save_path', APP_PATH . "/sessions");
+
+        if (session_status() != PHP_SESSION_ACTIVE) {
+            $gcml = $this->cfg->get('gc_maxlifetime', '7200');
+    
+            ini_set('session.cookie_lifetime', $lifetime);
+            ini_set('session.gc_maxlifetime', $gcml);
+            ini_set('session.gc_probability', $this->cfg->get('gc_probability', '1'));
+            ini_set('session.gc_divisor', $this->cfg->get('gc_divisor', '100'));
+            
+            $sp = $this->cfg->get('save_path', '');
+            if ('' != $sp) {
+                //session_save_path($sp);
+                ini_set('session.save_path', $sp);
+            } else {
+                ini_set('session.save_path', APP_PATH . "/sessions");
+            }
         }
 
         $path = $this->cfg->get('cookie_path', '/');

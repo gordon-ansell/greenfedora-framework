@@ -74,7 +74,7 @@ class Router implements RouterInterface, ContainerAwareInterface
 	 */
 	public function getLogger() : LoggerInterface
     {
-		return $this->getInstance('logger');
+		return $this->get('logger');
     }
 
     /**

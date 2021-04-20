@@ -94,6 +94,7 @@ class ContainerMapEntry implements ContainerMapEntryInterface
      */
     public function valueMatches($match): bool
     {
+        echo "Checking " . $this->data['value'] . ' against ' . $match . '<br />' . PHP_EOL;
         return ($this->data['value'] == $match);
     }
 

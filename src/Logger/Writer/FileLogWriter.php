@@ -33,17 +33,15 @@ class FileLogWriter extends AbstractLogWriter implements LogWriterInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param 	iterable					$cfg 		Configs.
-	 * @param 	LogFormatterInterface|null	$formatter	Log message formatter.
-	 * @param 	string|null 				$path		Path to write to.
+	 * @param 	iterable					$_loggerConfig 		Configs.
+	 * @param 	LogFormatterInterface|null	$formatter			Log message formatter.
+	 * @param 	string|null 				$path				Path to write to.
 	 *
 	 * @return	void
-	 * @Inject 0|loggerConfig
-	 * @Inject 1|logFormatter
 	 */
-	public function __construct(?iterable $cfg = null, ?LogFormatterInterface $formatter = null, ?string $path = null)	
+	public function __construct(?iterable $_loggerConfig = null, ?LogFormatterInterface $formatter = null, ?string $path = null)	
 	{
-		parent::__construct($cfg, $formatter);
+		parent::__construct($_loggerConfig, $formatter);
 		
 		if (is_null($path)) {
 			if (array_key_exists('path', $this->cfg->toArray())) {

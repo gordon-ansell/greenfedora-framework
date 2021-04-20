@@ -51,23 +51,20 @@ abstract class AbstractLogWriter
 	/**
 	 * Constructor.
 	 *
-	 * @param 	iterable|null				$cfg 		Configs.
-	 * @param 	LogFormatterInterface|null	$formatter	Log message formatter.
+	 * @param 	iterable|null				$_loggerConfig 		Configs.
+	 * @param 	LogFormatterInterface|null	$formatter			Log message formatter.
 	 *
 	 * @return	void
 	 * 
 	 * @throws  InvalidArgumentException
-	 * 
-	 * @Inject 0|loggerConfig
-	 * @Inject 1|logFormatter
 	 */
-	public function __construct(?iterable $cfg = null, ?LogFormatterInterface $formatter = null)	
+	public function __construct(?iterable $_loggerConfig = null, ?LogFormatterInterface $formatter = null)	
 	{
 		$this->cfg = new Arr($this->defaults);
-        if (null === $cfg) {
+        if (null === $_loggerConfig) {
 			throw new InvalidArgumentException("Logger config is null.");
         }
-		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
+		$this->cfg = $this->cfg->mergeReplaceRecursive($_loggerConfig);
         if (null === $formatter) {
 			throw new InvalidArgumentException("Log formatter is null.");
         }

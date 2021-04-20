@@ -34,6 +34,11 @@ use \ReflectionType;
 
 class Container implements ContainerInterface
 {
+	/**
+	 * Injectable prefix.
+	 */
+	const INJCHAR = '_';
+
     /**
      * The map of things.
      * @var ContainerMapEntryInterface[]
@@ -291,7 +296,7 @@ class Container implements ContainerInterface
 					$type = $reflectionType->getName();
 					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
 						$found = $this->findEntryByValue($type);
-					} else {
+					} else if ('_' == $p->getName()[0]) {
 						$found = $this->findValueByKey($p->getName());
 					}
 				}
@@ -413,14 +418,32 @@ class Container implements ContainerInterface
 	 * 
 	 * @param 	string 		$key			Key.
 	 * @param 	mixed 		$val			Value.
-	 * @param 	bool 		$injectable 	Is this injectable?
+	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setValue(string $key, $value, bool $injectable = true): ContainerInterface
+	public function setValue(string $key, $value, ?bool $injectable = null): ContainerInterface
 	{
+		if (is_null($injectable)) {
+			$injectable = (self::INJCHAR == $key[0]) ? true : false;
+		}
 		return $this->set($key, new ContainerMapEntryValue($key, $value, $injectable));
 	}
 	
+	/**
+	 * Set an injectable value.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @return 	ContainerInterface
+	 */
+	public function setInjectableValue(string $key, $value): ContainerInterface
+	{
+		if (self::INJCHAR != $key[0]) {
+			$key = self::INJCHAR . $key;
+		}
+		return $this->setValue($key, $value, true);
+	}
+
 	/**
 	 * Set a class.
 	 * 

@@ -24,6 +24,7 @@ use GreenFedora\DI\Map\ContainerMapEntryInterface;
 
 use \ReflectionClass;
 use \ReflectionNamedType;
+use \ReflectionType;
 
 /**
  * Dependency injection container.
@@ -221,6 +222,22 @@ class Container implements ContainerInterface
 	}
 
 	/**
+	 * Find entry by the class name it contains (which is in the 'value' field).
+	 * 
+	 * @param 	mixed 	$name 		Name to find.
+	 * @return 	string|null 		Key name or null.
+	 */
+	protected function findEntryByValue($name): ?string
+	{
+		foreach ($this->map as $k => $v) {
+			if ($v->isInjectable() and $v->valueMatches($name)) {
+				return $k;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Possibly inject constructor parameters.
 	 * 
 	 * @param 	ReflectionClass 	$reflection 	Class we're dealing with.
@@ -244,9 +261,17 @@ class Container implements ContainerInterface
 				$newArgs[] = $args[$count];
 			} else {
 				$reflectionType = $p->getType();
-				if (!is_null($reflectionType)) {
+				if (!is_null($reflectionType) and ($reflectionType instanceof ReflectionNamedType)) {
 					$type = $reflectionType->getName();
-					echo $type . '</ br>' . PHP_EOL;
+					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
+						echo $type . '<br />' . PHP_EOL;
+
+						$found = $this->findEntryByValue($type);
+						if (!is_null($found)) {
+							echo "Found type in key: " . $found . '<br />' . PHP_EOL;
+						}
+
+					} 
 				}
 			}
 		}

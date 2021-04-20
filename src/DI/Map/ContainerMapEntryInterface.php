@@ -35,6 +35,14 @@ interface ContainerMapEntryInterface
     public function hasInstance(): bool;
 
     /**
+     * See if a value matches.
+     * 
+     * @param   mixed   $match  Thing to match with.
+     * @return  bool            
+     */
+    public function valueMatches($match): bool;
+
+    /**
      * See if this is injectable.
      * 
      * @return  bool

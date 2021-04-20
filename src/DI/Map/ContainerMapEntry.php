@@ -87,6 +87,17 @@ class ContainerMapEntry implements ContainerMapEntryInterface
     }
 
     /**
+     * See if a value matches.
+     * 
+     * @param   mixed   $match  Thing to match with.
+     * @return  bool            
+     */
+    public function valueMatches($match): bool
+    {
+        return ($this->data['value'] == $match);
+    }
+
+    /**
      * Setter.
      * 
      * @param   string      $key        Key to set.

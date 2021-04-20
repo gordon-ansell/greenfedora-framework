@@ -74,6 +74,15 @@ interface ContainerInterface extends PsrContainerInterface
 	public function setValue(string $key, $value): ContainerInterface;
 	
 	/**
+	 * Set an injectable value.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @return 	ContainerInterface
+	 */
+	public function setInjectableValue(string $key, $value): ContainerInterface;
+
+	/**
 	 * Set a class.
 	 * 
 	 * @param 	string 		$key	Key.

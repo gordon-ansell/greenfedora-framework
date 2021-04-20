@@ -101,23 +101,20 @@ class Logger implements LoggerInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param 	iterable|null	$cfg 		Log configs.
-	 * @param 	iterable|null	$writers	Log writers.
+	 * @param 	iterable|null	$_loggerConfig 		Log configs.
+	 * @param 	iterable|null	$writers	        Log writers.
 	 *
 	 * @return 	void
 	 *
 	 * @throws	InvalidArgumentException	
-     * 
-     * @Inject 0|loggerConfig
-     * @Inject 1|logWriters
 	 */
-	public function __construct(?iterable $cfg = null, ?iterable $writers = null)
+	public function __construct(?iterable $_loggerConfig = null, ?iterable $writers = null)
 	{
 		$this->cfg = new Arr($this->defaults);
-        if (null === $cfg) {
+        if (null === $_loggerConfig) {
 			throw new InvalidArgumentException("Logger config is null.");
         }
-		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
+		$this->cfg = $this->cfg->mergeReplaceRecursive($_loggerConfig);
         if (null === $writers) {
 			throw new InvalidArgumentException("Log writers are null.");
         }

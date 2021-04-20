@@ -251,6 +251,8 @@ class Container implements ContainerInterface
 			}
 		}
 
+		return null;
+
 	}
 
 	/**

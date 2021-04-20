@@ -238,6 +238,22 @@ class Container implements ContainerInterface
 	}
 
 	/**
+	 * Find a value by its key.
+	 * 
+	 * @param 	mixed 	$name 		Name to find.
+	 * @return 	string|null 		Key name or null.
+	 */
+	protected function findValueByKey($name): ?string
+	{
+		foreach ($this->map as $k => $v) {
+			if ($v->isInjectable() and $v->type == ContainerMapEntry::TYPE_VALUE and $v->valueMatches($name)) {
+				return $k;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Possibly inject constructor parameters.
 	 * 
 	 * @param 	ReflectionClass 	$reflection 	Class we're dealing with.
@@ -275,7 +291,9 @@ class Container implements ContainerInterface
 					$type = $reflectionType->getName();
 					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
 						$found = $this->findEntryByValue($type);
-					} 
+					} else {
+						$found = $this->findValueBykey($p->getName);
+					}
 				}
 				if (!is_null($found)) {
 					$newArgs[] = $this->createByType($found);

@@ -14,6 +14,8 @@ namespace GreenFedora\DI\Map;
 
 use GreenFedora\DI\Map\ContainerMapEntry;
 
+use \ReflectionClass;
+
 /**
  * Dependency injection container map entry.
  *
@@ -45,6 +47,16 @@ class ContainerMapEntryClass extends ContainerMapEntry
     public function valueMatches($match): bool
     {
         echo "Checking " . $this->data['value'] . ' against ' . $match . '<br />' . PHP_EOL;
+        
+        $r1 = new ReflectionClass($this->data['value']);
+        //$r2 = new ReflectionClass($match);
+
+        if ($r1->implementsInterface($match)) {
+            echo "Yup1" . '<br />' . PHP_EOL;
+        } else {
+            echo "Nope1" . '<br />' . PHP_EOL;
+        }
+
         if ($this->data['value'] instanceof $match) {
             echo "Yup" . '<br />' . PHP_EOL;
         } else {

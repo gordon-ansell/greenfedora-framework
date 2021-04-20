@@ -68,6 +68,7 @@ abstract class AbstractApplication extends Container
 		$this->input = $input ?: $this->container->get('input');
 		$this->output = $output ?: $this->container->get('output');
 		$this->mode = $mode;
+		self::setInstance($this);
 	}
 		
 	/**

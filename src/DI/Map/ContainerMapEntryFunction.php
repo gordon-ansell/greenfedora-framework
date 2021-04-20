@@ -45,7 +45,7 @@ class ContainerMapEntryFunction extends ContainerMapEntry
     public function get(string $key)
     {
         if ('value' == $key) {
-            return call_user_func($this->value);
+            return call_user_func($this->data['value']);
         }
         return parent::get($key);
     }

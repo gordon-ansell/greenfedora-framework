@@ -16,10 +16,8 @@ use GreenFedora\Router\RouterInterface;
 use GreenFedora\Router\Route;
 use GreenFedora\Arr\Arr;
 use GreenFedora\Arr\ArrInterface;
-use GreenFedora\DI\ContainerAwareTrait;
-use GreenFedora\DI\ContainerAwareInterface;
-use GreenFedora\DI\ContainerInterface;
 use GreenFedora\Logger\LoggerAwareTrait;
+use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerInterface;
 
 /**
@@ -28,9 +26,8 @@ use GreenFedora\Logger\LoggerInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Router implements RouterInterface, ContainerAwareInterface
+class Router implements RouterInterface, LoggerAwareInterface
 {
-    use ContainerAwareTrait;
     use LoggerAwareTrait;
 
     /**
@@ -57,12 +54,13 @@ class Router implements RouterInterface, ContainerAwareInterface
     /**
      * Constructor.
      * 
-     * @param   ArrInterface     $routeSpec      Route specifications.
+     * @param   ArrInterface            $routeSpec      Route specifications.
+     * @param   LoggerInterface|null    $logger         Logger.
      * @return  void
      */
-    public function __construct(ArrInterface $routeSpec, ContainerInterface $container)
+    public function __construct(ArrInterface $routeSpec, ?LoggerInterface $logger = null)
     {
-        $this->container = $container;
+        $this->logger = $logger;
         $this->routeSpec = $routeSpec;
         $this->loadRoutes($this->routeSpec->routes);
     }
@@ -74,7 +72,7 @@ class Router implements RouterInterface, ContainerAwareInterface
 	 */
 	public function getLogger() : LoggerInterface
     {
-		return $this->get('logger');
+		return $this->logger;
     }
 
     /**
@@ -86,7 +84,7 @@ class Router implements RouterInterface, ContainerAwareInterface
     protected function loadRoutes($routes)
     {
         foreach($routes as $pattern => $target) {
-            $this->routes[$pattern] = new Route($pattern, $target, $this->container);
+            $this->routes[$pattern] = new Route($pattern, $target);
         }
         $this->trace4(sprintf('Loaded %s routes.', sizeof($this->routes)));
     }

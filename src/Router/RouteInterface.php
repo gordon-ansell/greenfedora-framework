@@ -12,8 +12,6 @@
 declare(strict_types=1);
 namespace GreenFedora\Router;
 
-use GreenFedora\Logger\LoggerInterface;
-
 /**
  * Single route interface.
  *
@@ -22,13 +20,6 @@ use GreenFedora\Logger\LoggerInterface;
 
 interface RouteInterface
 {
-	/**
-	 * Get the logger.
-	 *
-	 * @return 	LoggerInterface
-	 */
-	public function getLogger() : LoggerInterface;
-
     /**
      * See if the route matches.
      * 

@@ -149,6 +149,6 @@ class SmartyTemplate extends Smarty implements TemplateInterface, ContainerAware
 	 */
 	public function getInflector() : InflectorInterface
 	{
-		return $this->getInstance('inflector');
+		return $this->get('inflector');
 	}	
 }

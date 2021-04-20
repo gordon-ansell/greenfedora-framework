@@ -13,10 +13,6 @@ declare(strict_types=1);
 namespace GreenFedora\Router;
 
 use GreenFedora\Router\RouteInterface;
-use GreenFedora\DI\ContainerAwareTrait;
-use GreenFedora\DI\ContainerInterface;
-use GreenFedora\Logger\LoggerAwareTrait;
-use GreenFedora\Logger\LoggerInterface;
 
 use GreenFedora\Router\Exception\InvalidArgumentException;
 
@@ -28,9 +24,6 @@ use GreenFedora\Router\Exception\InvalidArgumentException;
 
 class Route implements RouteInterface
 {
-    use ContainerAwareTrait;
-    use LoggerAwareTrait;
-
     /**
      * Route pattern.
      * @var string|null
@@ -62,21 +55,10 @@ class Route implements RouteInterface
      * @param   string   $target       Route target.
      * @return  void
      */
-    public function __construct(string $pattern, string $target, ContainerInterface $container)
+    public function __construct(string $pattern, string $target)
     {
         $this->pattern = $pattern;
         $this->target = $target;
-        $this->container = $container;
-    }
-
-	/**
-	 * Get the logger.
-	 *
-	 * @return 	LoggerInterface
-	 */
-	public function getLogger() : LoggerInterface
-    {
-		return $this->get('logger');
     }
 
     /**
@@ -96,53 +78,6 @@ class Route implements RouteInterface
         }        
         return false;
     }
-
-    /**
-     * See if the route matches.
-     * 
-     * @param   string  $pattern    Pattern to match.
-     * @return  bool                True if it matches, else false.  
-     * @throws  InvalidArgumentException         
-     */
-    /*
-    public function match(string $pattern) : bool
-    {
-        $pattern = '/' . trim($pattern, '/') . '/';
-        if ('//' == $pattern) $pattern = '/';
-
-
-        $pat = '/' . trim($this->pattern, "/");
-
-        $this->trace4(sprintf("Trying to match '%s' against '%s'.", $pattern, $pat));
-
-        if (trim($pat, '/') == trim($pattern, '/')) {
-            $this->trace4(sprintf("MATCHED (exactly) '%s' against '%s'.", $pattern, $pat));
-            return true;
-        }
-
-        $frigged = "@^" . preg_replace('/\\\:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)?(\/)?', preg_quote($pat)) . "$@D";
-
-        $matches = [];
-
-        $result = preg_match($frigged, $pattern, $matches);
-
-        if (false === $result) {
-            throw new InvalidArgumentException(sprintf("Invalid regex in router: %s",  
-                array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]));
-        } else if (1 == $result) {
-            $this->trace4(sprintf("MATCHED '%s' against '%s'.", $pattern, $frigged));
-            if (count($matches) > 1) {
-                array_shift($matches);
-                for ($i = 0; $i < count($matches); $i++) {
-                    $this->parameters[] = trim($matches[$i], "/");
-                }
-            }
-            return true;
-        }
-        
-        return false;
-    }
-    */
 
     /**
      * Return the pattern.

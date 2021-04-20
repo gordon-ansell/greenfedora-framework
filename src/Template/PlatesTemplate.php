@@ -13,12 +13,6 @@ declare(strict_types=1);
 namespace GreenFedora\Template;
 
 use GreenFedora\Template\TemplateInterface;
-use GreenFedora\DI\ContainerInterface;
-use GreenFedora\DI\ContainerAwareInterface;
-use GreenFedora\DI\ContainerAwareTrait;
-use GreenFedora\Inflector\InflectorInterface;
-use GreenFedora\Inflector\InflectorAwareInterface;
-use GreenFedora\Inflector\InflectorAwareTrait;
 use GreenFedora\Arr\Arr;
 
 use League\Plates\Engine;
@@ -29,11 +23,8 @@ use League\Plates\Engine;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class PlatesTemplate extends Engine implements TemplateInterface, ContainerAwareInterface, InflectorAwareInterface
+class PlatesTemplate extends Engine implements TemplateInterface
 {
-	use ContainerAwareTrait;
-	use InflectorAwareTrait;
-
 	/**
 	 * Configs.
 	 * @var ArrInterface
@@ -44,25 +35,13 @@ class PlatesTemplate extends Engine implements TemplateInterface, ContainerAware
 	 * Constructor.
 	 *
      * @param   iterable     		$cfg            Template specifications.
-	 * @param 	ContainerInterface	$container		Dependency injection container.
-     * @param 	string|array		$templateDir 	Template directory.
 	 *
 	 * @return 	void
 	 */
-	public function __construct(iterable $cfg, ContainerInterface $container)
+	public function __construct(iterable $cfg)
 	{
 		$this->cfg = new Arr($cfg);
-        $this->container = $container;
         parent::__construct($this->cfg->templateDir);      
 	}	
 
-	/**
-	 * Get the inflector.
-	 *
-	 * @return 	InflectorInterface
-	 */
-	public function getInflector() : InflectorInterface
-	{
-		return $this->get('inflector');
-	}	
 }

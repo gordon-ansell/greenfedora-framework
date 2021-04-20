@@ -246,6 +246,12 @@ class Container implements ContainerInterface
 	 */
 	protected function possiblyInjectConstructorParameters(ReflectionClass $reflection, ?array $args = null): ?array
 	{
+		echo "Dealing with class: " . $reflection->getName() . '<br />' .PHP_EOL;
+		echo "Args passed: " . '<br />' . PHP_EOL;
+		print_r($args);
+		echo '<br />' .PHP_EOL;
+
+
 		$method = $reflection->getConstructor();
 
 		if (null === $method) {

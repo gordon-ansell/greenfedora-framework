@@ -30,13 +30,11 @@ class ContainerMapEntrySingleton extends ContainerMapEntryClass
      * @param   mixed       $value          Value.
      * @param   array|null  $arguments      Arguments.
      * @param   bool        $injectable     Is this injectable?
-     * @param   object|null $instance       Instance.
      * @return  void
      */
-    public function __construct(string $key, $value, ?array $arguments = null, bool $injectable = true, $instance = null)
+    public function __construct(string $key, $value, ?array $arguments = null, bool $injectable = true)
     {
         parent::__construct($key, $value, $arguments, $injectable);
-        $this->data['type'] = ContainerMapEntry::TYPE_SINGLETON;
-        $this->data['instance'] = $instance;
+        $this->data['type'] = ContainerMapEntry::TYPE_SINGLETON; 
     }
 }

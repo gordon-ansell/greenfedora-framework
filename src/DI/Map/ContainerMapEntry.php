@@ -42,7 +42,8 @@ class ContainerMapEntry implements ContainerMapEntryInterface
         'value'         =>  null,
         'arguments'     =>  null,
         'instance'      =>  null,
-        'injectable'    =>  true
+        'injectable'    =>  true,
+        'funcparams'    =>  null,
     ];
 
     /**
@@ -52,19 +53,19 @@ class ContainerMapEntry implements ContainerMapEntryInterface
      * @param   int         $type           Entry type.
      * @param   mixed       $value          Value.
      * @param   array|null  $arguments      Arguments.
+     * @param   array|null  $funcparams     Function parameters.
      * @param   bool        $injectable     Is this injectable?
-     * @param   object|null $instance       Instance.
      * @return  void
      */
     public function __construct(string $key, int $type, $value, ?array $arguments = null, 
-        bool $injectable = true, ?object $instance = null)
+        ?array $funcparams = null, bool $injectable = true)
     {
         $this->data['key'] = $key;
         $this->data['type'] = $type;
         $this->data['value'] = $value;
         $this->data['arguments'] = $arguments;
         $this->data['injectable'] = $injectable;
-        $this->data['instance'] = $instance;        
+        $this->data['funcparams'] = $funcparams;    
     }
 
     /**

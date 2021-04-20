@@ -444,15 +444,17 @@ class Container implements ContainerInterface
 	 * 
 	 * @param 	string 		$key			Key.
 	 * @param 	callable 	$val			Value.
+	 * @param 	array|null	$funcparams		Function parameters.
 	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setFunction(string $key, callable $value, ?bool $injectable = null): ContainerInterface
+	public function setFunction(string $key, callable $value, ?array $funcparams = null, 
+		?bool $injectable = null): ContainerInterface
 	{
 		if (is_null($injectable)) {
 			$injectable = (self::INJCHAR == $key[0]) ? true : false;
 		}
-		return $this->set($key, new ContainerMapEntryFunction($key, $value, $injectable));
+		return $this->set($key, new ContainerMapEntryFunction($key, $value, $funcparams, $injectable));
 	}
 
 	/**
@@ -460,14 +462,15 @@ class Container implements ContainerInterface
 	 * 
 	 * @param 	string 		$key			Key.
 	 * @param 	callable 	$val			Value.
+	 * @param 	array|null	$funcparams		Function parameters.
 	 * @return 	ContainerInterface
 	 */
-	public function setInjectableFunction(string $key, callable $value): ContainerInterface
+	public function setInjectableFunction(string $key, callable $value, ?array $funcparams = null): ContainerInterface
 	{
 		if (self::INJCHAR != $key[0]) {
 			$key = self::INJCHAR . $key;
 		}
-		return $this->setFunction($key, $value, true);
+		return $this->setFunction($key, $value, $funcparams, true);
 	}
 
 	/**

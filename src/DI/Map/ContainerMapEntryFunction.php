@@ -27,12 +27,13 @@ class ContainerMapEntryFunction extends ContainerMapEntry
      * 
      * @param   string      $key            Index key.
      * @param   callable    $value          Value.
+     * @param   array|null  $funcparams     Function parameters.
      * @param   bool        $injectable     Is this injectable?
      * @return  void
      */
-    public function __construct(string $key, callable $value, bool $injectable = true)
+    public function __construct(string $key, callable $value, ?array $funcparams = null, bool $injectable = true)
     {
-        parent::__construct($key, ContainerMapEntry::TYPE_FUNCTION, $value, null, $injectable);
+        parent::__construct($key, ContainerMapEntry::TYPE_FUNCTION, $value, null, $funcparams, $injectable);
     }
 
     /**

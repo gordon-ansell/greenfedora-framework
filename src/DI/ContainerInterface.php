@@ -88,19 +88,21 @@ interface ContainerInterface extends PsrContainerInterface
 	 * 
 	 * @param 	string 		$key			Key.
 	 * @param 	callable 	$val			Value.
+	 * @param 	array|null	$funcparams		Function parameters.
 	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setFunction(string $key, callable $value, ?bool $injectable = null): ContainerInterface;
+	public function setFunction(string $key, callable $value, ?array $funcparams = null, ?bool $injectable = null): ContainerInterface;
 
 	/**
 	 * Set an injectable function.
 	 * 
 	 * @param 	string 		$key			Key.
 	 * @param 	callable 	$val			Value.
+	 * @param 	array|null	$funcparams		Function parameters.
 	 * @return 	ContainerInterface
 	 */
-	public function setInjectableFunction(string $key, callable $value): ContainerInterface;
+	public function setInjectableFunction(string $key, callable $value, ?array $funcparams = null): ContainerInterface;
 	/**
 	 * Set a class.
 	 * 

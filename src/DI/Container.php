@@ -264,11 +264,11 @@ class Container implements ContainerInterface
 				if (!is_null($reflectionType) and ($reflectionType instanceof ReflectionNamedType)) {
 					$type = $reflectionType->getName();
 					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
-						echo $type . '<br />' . PHP_EOL;
+						echo $reflection->getName() . ': ' . $type . '<br />' . PHP_EOL;
 
 						$found = $this->findEntryByValue($type);
 						if (!is_null($found)) {
-							echo "Found type in key: " . $found . '<br />' . PHP_EOL;
+							echo $reflection->getName() . ': ' . "Found type in key: " . $found . '<br />' . PHP_EOL;
 						}
 
 					} 

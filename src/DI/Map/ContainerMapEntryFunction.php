@@ -49,7 +49,7 @@ class ContainerMapEntryFunction extends ContainerMapEntry
             if (is_null($this->data['funcparams'])) {
                 return call_user_func($this->data['value']);
             } else {
-                $p = (is_array($this->data['funfparams'])) ? $this->data['funfparams'] : [$this->data['funfparams']];
+                $p = (is_array($this->data['funcparams'])) ? $this->data['funcparams'] : [$this->data['funcparams']];
                 return call_user_func_array($this->data['value'], $p);
             }
         }

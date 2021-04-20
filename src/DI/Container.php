@@ -230,7 +230,7 @@ class Container implements ContainerInterface
 	protected function findEntryByValue($name): ?string
 	{
 		foreach ($this->map as $k => $v) {
-			if ($v->isInjectable() and $v->valueMatches($name)) {
+			if ($v->isInjectable() and $v->type != ContainerMapEntry::TYPE_VALUE and $v->valueMatches($name)) {
 				return $k;
 			}
 		}
@@ -246,7 +246,7 @@ class Container implements ContainerInterface
 	protected function findValueByKey($name): ?string
 	{
 		foreach ($this->map as $k => $v) {
-			if ($v->isInjectable() and $v->type == ContainerMapEntry::TYPE_VALUE and $v->valueMatches($name)) {
+			if ($v->isInjectable() and $v->type == ContainerMapEntry::TYPE_VALUE and $name == $k) {
 				return $k;
 			}
 		}
@@ -292,7 +292,7 @@ class Container implements ContainerInterface
 					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
 						$found = $this->findEntryByValue($type);
 					} else {
-						$found = $this->findValueBykey($p->getName());
+						$found = $this->findValueByKey($p->getName());
 					}
 				}
 				if (!is_null($found)) {

@@ -73,6 +73,7 @@ abstract class AbstractFacade
     protected static function facadeRoot()
     {
         if (!static::getContainer()->has(static::facadeKey())) {
+            print_r(static::getContainer()->getMap());
             throw new RuntimeException(sprintf("Facade class '%s' cannot find container key '%s'", 
                 __CLASS__, static::facadeKey()));
         }

@@ -32,7 +32,7 @@ class ContainerMapEntryValue extends ContainerMapEntry
      */
     public function __construct(string $key, $value, bool $injectable = true)
     {
-        parent::__construct($key, ContainerMapEntry::TYPE_VALUE, $value, null, $injectable);
+        parent::__construct($key, ContainerMapEntry::TYPE_VALUE, $value, null, null, $injectable);
     }
 
     /**

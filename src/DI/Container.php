@@ -271,6 +271,8 @@ class Container implements ContainerInterface
 				}
 				if (!is_null($found)) {
 					$newArgs[] = $this->createByType($found);
+				} else if ($args[$count]) {
+					$newArgs[] = $args[$count];
 				} else {
 					$newArgs[] = null;
 				}

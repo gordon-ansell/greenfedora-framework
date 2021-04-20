@@ -50,13 +50,13 @@ class StdLogFormatter implements LogFormatterInterface
 	 * @return	void
 	 * @Inject 0|loggerConfig
 	 */
-	public function __construct(?iterable $cfg = null)	
+	public function __construct(?iterable $loggerConfig = null)	
 	{
 		$this->cfg = new Arr($this->defaults);
-        if (null === $cfg) {
+        if (null === $loggerConfig) {
 			throw new InvalidArgumentException("Logger config is null.");
         }
-		$this->cfg = $this->cfg->mergeReplaceRecursive($cfg);
+		$this->cfg = $this->cfg->mergeReplaceRecursive($loggerConfig);
 	}
 	
 	/**

@@ -70,7 +70,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 
 		// Create the class.
 		$class = $matched[0]->getNamespacedClass();
-		$dispatchable = new $class($this->container, $this->input, $this->output, $matched[1]);
+		$dispatchable = new $class($this, $this->input, $this->output, $matched[1]);
 
 		// Dispatch the class.
 		$dispatchable->dispatch();

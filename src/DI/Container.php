@@ -283,6 +283,9 @@ class Container implements ContainerInterface
 				} else if (is_array($args) and $args[$count]) {
 					$newArgs[] = $args[$count];
 					echo "Using passed argument (2)" . '<br />' . PHP_EOL;
+				} else if ($p->isDefaultValueAvailable()) {
+					$newArgs[] = $p->getDefaultValue();
+					echo "Using default value" . '<br />' . PHP_EOL;
 				} else {
 					$newArgs[] = null;
 					echo "Using null" . '<br />' . PHP_EOL;

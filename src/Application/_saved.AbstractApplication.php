@@ -1,0 +1,207 @@
+<?php
+
+/**
+ * This file is part of the GordyAnsell GreenFedora PHP framework.
+ *
+ * (c) Gordon Ansell <contact@gordonansell.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+namespace GreenFedora\Application;
+
+use GreenFedora\Application\Input\ApplicationInputInterface;
+use GreenFedora\Application\Output\ApplicationOutputInterface;
+use GreenFedora\Logger\LoggerInterface;
+use GreenFedora\Logger\LoggerAwareInterface;
+use GreenFedora\Logger\LoggerAwareTrait;
+use GreenFedora\DI\ContainerInterface;
+use GreenFedora\DI\ContainerAwareTrait;
+use GreenFedora\DI\ContainerAwareInterface;
+use GreenFedora\Locale\LocaleInterface;
+use GreenFedora\Locale\LocaleAwareInterface;
+use GreenFedora\Locale\LocaleAwareTrait;
+use GreenFedora\Lang\LangInterface;
+use GreenFedora\Lang\LangAwareTrait;
+use GreenFedora\Lang\LangAwareInterface;
+use GreenFedora\Inflector\InflectorInterface;
+use GreenFedora\Inflector\InflectorAwareInterface;
+use GreenFedora\Inflector\InflectorAwareTrait;
+use GreenFedora\DI\Container;
+
+/**
+ * The base for all applications.
+ *
+ * @author Gordon Ansell <contact@gordonansell.com>
+ */
+
+abstract class AbstractApplication extends Container implements ContainerAwareInterface, LoggerAwareInterface, 
+	LocaleAwareInterface, LangAwareInterface, InflectorAwareInterface
+{
+	use ContainerAwareTrait;
+	use LoggerAwareTrait;
+	use LocaleAwareTrait;
+	use LangAwareTrait;
+	use InflectorAwareTrait;
+	
+	/**
+	 * Input.
+	 * @var ApplicationInputInterface
+	 */
+	protected $input = null;
+
+	/**
+	 * Output.
+	 * @var ApplicationOutputInterface
+	 */
+	protected $output = null;
+
+	/**
+	 * The mode we're running in.
+	 * @var string
+	 */	
+	protected $mode = 'prod';
+	
+	/**
+	 * Message level for logger. Null means it will remain unchanged.
+	 * We just use this if we want to change the log level between start-up
+	 * and the creation of the logger.
+	 * @var string|null
+	 */
+	protected $newLogLevel = null;	
+		
+	/**
+	 * Constructor.
+	 *
+	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
+	 * @param	ApplicationInputInterface	$input 		Input.
+	 * @param	ApplicationOutputInterface	$output 	Output.
+	 *
+	 * @return	void
+	 */
+	public function __construct(
+		string $mode = 'prod', 
+		?ApplicationInputInterface $input = null, 
+		?ApplicationOutputInterface $output = null
+		)
+	{
+		$this->input = $input ?: $this->container->get('input');
+		$this->output = $output ?: $this->container->get('output');
+		$this->mode = $mode;
+	}
+		
+	/**
+	 * See if we have a config key.
+	 *
+	 * @param	string			$key		Key to check.
+	 * 
+	 * @return 	bool
+	 */
+	public function hasConfig(string $key) : bool
+	{
+		return $this->get('config')->has($key);
+	}
+
+	/**
+	 * Get the config.
+	 *
+	 * @param	string|null		$key		Key to get or null to get them all.
+	 * @param 	mixed 			$default	Default value to return if key not found.
+	 * 
+	 * @return 	mixed
+	 */
+	public function getConfig(?string $key = null, $default = array())
+	{
+		$instance = $this->get('config');
+		
+		if (is_null($key)) {
+			return $instance;
+		}
+		
+		if ($instance->has($key)) {
+			return $instance->$key;
+		}
+		return $default;
+	}
+
+	/**
+	 * Get the locale.
+	 *
+	 * @return	LocaleInterface
+	 */
+	public function getLocale() : LocaleInterface
+	{
+		return $this->get('locale');
+	}			
+	
+	/**
+	 * Get the logger.
+	 *
+	 * @return	LoggerInterface
+	 */
+	public function getLogger() : LoggerInterface
+	{
+		return $this->get('logger');
+	}			
+
+	/**
+	 * Get the language processor.
+	 *
+	 * @return	LangInterface
+	 */
+	public function getLang() : LangInterface
+	{
+		return $this->get('lang');
+	}
+	
+	/**
+	 * Get the inflector.
+	 *
+	 * @return	InflectorInterface
+	 */
+	public function getInflector() : InflectorInterface
+	{
+		return $this->get('inflector');
+	}
+
+	/**
+	 * Pre-run.
+	 *
+	 * @return 	bool
+	 */
+	protected function preRun() : bool
+	{
+		return true;
+	}
+
+	/**
+	 * Abstract run.
+	 *
+	 * @return 	void
+	 */
+	abstract protected function run();
+	
+	/**
+	 * Post-run.
+	 *
+	 * @return 	void
+	 */
+	protected function postRun() {}
+
+	/**
+	 * The main run call.
+	 *
+	 * @return 	void
+	 */
+	final public function main()
+	{
+		$this->trace4('Main started.');
+		if ($this->preRun()) {
+			$this->run();
+			$this->postRun();
+		}
+		$this->trace4('Main ended.');
+	}				
+}

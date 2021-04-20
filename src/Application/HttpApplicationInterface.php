@@ -23,10 +23,4 @@ use GreenFedora\Router\RouterInterface;
 
 interface HttpApplicationInterface extends ApplicationInterface
 {
-	/**
-	 * Get the router.
-	 *
-	 * @return	RouterInterface
-	 */
-	public function getRouter() : RouterInterface;
 }

@@ -14,21 +14,7 @@ namespace GreenFedora\Application;
 
 use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
-use GreenFedora\Logger\LoggerInterface;
-use GreenFedora\Logger\LoggerAwareInterface;
-use GreenFedora\Logger\LoggerAwareTrait;
-use GreenFedora\DI\ContainerInterface;
-use GreenFedora\DI\ContainerAwareTrait;
-use GreenFedora\DI\ContainerAwareInterface;
-use GreenFedora\Locale\LocaleInterface;
-use GreenFedora\Locale\LocaleAwareInterface;
-use GreenFedora\Locale\LocaleAwareTrait;
-use GreenFedora\Lang\LangInterface;
-use GreenFedora\Lang\LangAwareTrait;
-use GreenFedora\Lang\LangAwareInterface;
-use GreenFedora\Inflector\InflectorInterface;
-use GreenFedora\Inflector\InflectorAwareInterface;
-use GreenFedora\Inflector\InflectorAwareTrait;
+use GreenFedora\DI\Container;
 
 /**
  * The base for all applications.
@@ -36,15 +22,8 @@ use GreenFedora\Inflector\InflectorAwareTrait;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwareInterface, 
-	LocaleAwareInterface, LangAwareInterface, InflectorAwareInterface
-{
-	use ContainerAwareTrait;
-	use LoggerAwareTrait;
-	use LocaleAwareTrait;
-	use LangAwareTrait;
-	use InflectorAwareTrait;
-	
+abstract class AbstractApplication extends Container 
+{	
 	/**
 	 * Input.
 	 * @var ApplicationInputInterface
@@ -74,7 +53,6 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	/**
 	 * Constructor.
 	 *
-	 * @param 	ContainerInterface			$container	DI container.
 	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
 	 * @param	ApplicationInputInterface	$input 		Input.
 	 * @param	ApplicationOutputInterface	$output 	Output.
@@ -82,92 +60,16 @@ abstract class AbstractApplication implements ContainerAwareInterface, LoggerAwa
 	 * @return	void
 	 */
 	public function __construct(
-		ContainerInterface $container, 
 		string $mode = 'prod', 
 		?ApplicationInputInterface $input = null, 
 		?ApplicationOutputInterface $output = null
 		)
 	{
-		$this->container = $container;
 		$this->input = $input ?: $this->container->get('input');
 		$this->output = $output ?: $this->container->get('output');
 		$this->mode = $mode;
 	}
 		
-	/**
-	 * See if we have a config key.
-	 *
-	 * @param	string			$key		Key to check.
-	 * 
-	 * @return 	bool
-	 */
-	public function hasConfig(string $key) : bool
-	{
-		return $this->get('config')->has($key);
-	}
-
-	/**
-	 * Get the config.
-	 *
-	 * @param	string|null		$key		Key to get or null to get them all.
-	 * @param 	mixed 			$default	Default value to return if key not found.
-	 * 
-	 * @return 	mixed
-	 */
-	public function getConfig(?string $key = null, $default = array())
-	{
-		$instance = $this->get('config');
-		
-		if (is_null($key)) {
-			return $instance;
-		}
-		
-		if ($instance->has($key)) {
-			return $instance->$key;
-		}
-		return $default;
-	}
-
-	/**
-	 * Get the locale.
-	 *
-	 * @return	LocaleInterface
-	 */
-	public function getLocale() : LocaleInterface
-	{
-		return $this->get('locale');
-	}			
-	
-	/**
-	 * Get the logger.
-	 *
-	 * @return	LoggerInterface
-	 */
-	public function getLogger() : LoggerInterface
-	{
-		return $this->get('logger');
-	}			
-
-	/**
-	 * Get the language processor.
-	 *
-	 * @return	LangInterface
-	 */
-	public function getLang() : LangInterface
-	{
-		return $this->get('lang');
-	}
-	
-	/**
-	 * Get the inflector.
-	 *
-	 * @return	InflectorInterface
-	 */
-	public function getInflector() : InflectorInterface
-	{
-		return $this->get('inflector');
-	}
-
 	/**
 	 * Pre-run.
 	 *

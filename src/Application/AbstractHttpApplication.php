@@ -16,9 +16,6 @@ use GreenFedora\Application\AbstractApplication;
 use GreenFedora\Application\HttpApplicationInterface;
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Http\ResponseInterface;
-use GreenFedora\Router\RouterInterface;
-use GreenFedora\Template\TemplateInterface;
-use GreenFedora\DI\ContainerInterface;
 
 /**
  * An HTTP application.
@@ -43,7 +40,6 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	/**
 	 * Constructor.
 	 *
-	 * @param 	ContainerInterface			$container	DI container.
 	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
 	 * @param	RequestInterface			$input 		Input.
 	 * @param	ResponseInterface			$output 	Output.
@@ -51,35 +47,14 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 * @return	void
 	 */
 	public function __construct(
-		ContainerInterface $container, 
 		string $mode = 'prod', 
 		?RequestInterface $input = null, 
 		?ResponseInterface $output = null
 		)
 	{
-		parent::__construct($container, $mode, $input, $output);
+		parent::__construct($mode, $input, $output);
 	}
 	
-	/**
-	 * Get the router.
-	 *
-	 * @return	RouterInterface
-	 */
-	public function getRouter() : RouterInterface
-	{
-		return $this->get('router');
-	}			
-
-	/**
-	 * Get the template engine.
-	 *
-	 * @return	TemplateInterface
-	 */
-	public function getTemplate() : TemplateInterface
-	{
-		return $this->get('template');
-	}			
-
 	/**
 	 * Dispatch.
 	 *
@@ -88,7 +63,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	protected function dispatch()
 	{
 		// Find a match for the route.
-		$matched = $this->getRouter()->match($this->input->getRoute());
+		$matched = $this->get('router')->match($this->input->getRoute());
 
 		// Just some debugging.
 		$this->trace4(sprintf("Matched namespaced class is: %s", $matched[0]->getNamespacedClass()));

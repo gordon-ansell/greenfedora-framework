@@ -36,7 +36,7 @@ class ContainerMapEntrySingleton extends ContainerMapEntry
     {
         parent::__construct($key, ContainerMapEntry::TYPE_SINGLETON, $value, $arguments, $injectable, $instance);
     }
-    
+
     /**
      * See if a value matches.
      * 
@@ -45,7 +45,7 @@ class ContainerMapEntrySingleton extends ContainerMapEntry
      */
     public function valueMatches($match): bool
     {
-        echo "Checking " . get_class($this->data['value']) . ' against ' . get_class($match) . '<br />' . PHP_EOL;
+        echo "Checking " . $this->data['value'] . ' against ' . $match . '<br />' . PHP_EOL;
         return ($this->data['value'] == $match);
     }
 

@@ -31,6 +31,12 @@ abstract class AbstractFacade
     protected static $container = null;
 
     /**
+     * Resolved instances.
+     * @var array
+     */
+    protected static $resolved = [];
+
+    /**
      * Set the container.
      * 
      * @param   ContainerInterface  $container  Container.
@@ -66,6 +72,25 @@ abstract class AbstractFacade
     abstract protected static function facadeKey(): string;
 
     /**
+     * Resolve an instance for the facade.
+     * 
+     * @param   string  $name   Name to resolve.
+     * @return  mixed
+     */
+    protected static function resolveInstance(string $name)
+    {
+        if (is_object($name)) {
+            return $name;
+        }
+
+        if (isset(static::$resolved[$name])) {
+            return static::$resolved[$name];
+        }
+
+        return static::$resolved[$name] = static::getContainer()->get($name);
+    }
+
+    /**
      * Get the required entry from the container.
      * 
      * @return  mixed
@@ -73,11 +98,10 @@ abstract class AbstractFacade
     protected static function facadeRoot()
     {
         if (!static::getContainer()->has(static::facadeKey())) {
-            print_r(static::getContainer()->getMap());
             throw new RuntimeException(sprintf("Facade class '%s' cannot find container key '%s'", 
                 __CLASS__, static::facadeKey()));
         }
-        return static::getContainer()->get(static::facadeKey());
+        return static::resolveInstance(static::facadeKey());
     }
 
     /**

@@ -12,7 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Application\Output;
 
-use GreenFedora\Application\Output\ApplicationOutputInterface;
+use GreenFedora\Application\Output\ReturnCodeApplicationOutputInterface;
 
 /**
  * Return code output.
@@ -20,7 +20,7 @@ use GreenFedora\Application\Output\ApplicationOutputInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class ReturnCodeApplicationOutput implements ApplicationOutputInterface
+class ReturnCodeApplicationOutput implements ReturnCodeApplicationOutputInterface
 {
 	/**
 	 * Output code.

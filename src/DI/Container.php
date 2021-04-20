@@ -247,11 +247,12 @@ class Container implements ContainerInterface
 	protected function possiblyInjectConstructorParameters(ReflectionClass $reflection, ?array $args = null): ?array
 	{
 		$method = $reflection->getConstructor();
-		$parameters = $method->getParameters();
 
 		if (null === $method) {
 			return $args;
 		}
+
+		$parameters = $method->getParameters();
 
 		$newArgs = [];
 
@@ -261,22 +262,22 @@ class Container implements ContainerInterface
 				$newArgs[] = $args[$count];
 			} else {
 				$reflectionType = $p->getType();
+				$found = null;
 				if (!is_null($reflectionType) and ($reflectionType instanceof ReflectionNamedType)) {
 					$type = $reflectionType->getName();
 					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
-						echo $reflection->getName() . ': ' . $type . '<br />' . PHP_EOL;
-
 						$found = $this->findEntryByValue($type);
-						if (!is_null($found)) {
-							echo $reflection->getName() . ': ' . "Found type in key: " . $found . '<br />' . PHP_EOL;
-						}
-
 					} 
+				}
+				if (!is_null($found)) {
+					$newArgs[] = $this->createByType($found);
+				} else {
+					$newArgs[] = null;
 				}
 			}
 		}
 
-		return null;
+		return $newArgs;
 
 	}
 
@@ -299,8 +300,8 @@ class Container implements ContainerInterface
 		$reflection = new ReflectionClass($className);
 
 		// Check constructor arguments.
-		$this->possiblyInjectConstructorParameters($reflection, $args);
-		$args = $this->checkConstructorDocComments($reflection, $args);
+		$args = $this->possiblyInjectConstructorParameters($reflection, $args);
+		//$args = $this->checkConstructorDocComments($reflection, $args);
 
 		// Create the object.
 		$obj = null;

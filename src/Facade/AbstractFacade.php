@@ -114,7 +114,8 @@ abstract class AbstractFacade
     public static function __callStatic(string $method, iterable $args)
     {
         $instance = static::facadeRoot();
-        return $instance->$method(...$args);
+        return call_user_func(array($instance, $method), ...$args);
+        //return $instance->$method(...$args);
     }
 
 }

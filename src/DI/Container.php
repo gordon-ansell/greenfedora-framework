@@ -265,7 +265,7 @@ class Container implements ContainerInterface
 		$count = 0;
 		foreach ($parameters as $p) {
 			echo "Count : " . $count . '<br />' . PHP_EOL;
-			if (is_array($args) and $args[$count] and !is_null($args[$count])) {
+			if (is_array($args) and count($args) >= $count and !is_null($args[$count])) {
 				$newArgs[] = $args[$count];
 				echo "Using passed argument" . '<br />' . PHP_EOL;
 			} else {
@@ -280,7 +280,7 @@ class Container implements ContainerInterface
 				if (!is_null($found)) {
 					$newArgs[] = $this->createByType($found);
 					echo "Using injection" . '<br />' . PHP_EOL;
-				} else if (is_array($args) and $args[$count]) {
+				} else if (is_array($args) and count($args) >= $count) {
 					$newArgs[] = $args[$count];
 					echo "Using passed argument (2)" . '<br />' . PHP_EOL;
 				} else if ($p->isDefaultValueAvailable()) {

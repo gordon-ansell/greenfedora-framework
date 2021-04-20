@@ -23,6 +23,7 @@ use GreenFedora\DI\Map\ContainerMapEntryValue;
 use GreenFedora\DI\Map\ContainerMapEntryInterface;
 
 use \ReflectionClass;
+use \ReflectionNamedType;
 
 /**
  * Dependency injection container.
@@ -235,7 +236,20 @@ class Container implements ContainerInterface
 			return $args;
 		}
 
-		$injectables = [];
+		$newArgs = [];
+
+		$count = 0;
+		foreach ($parameters as $p) {
+			if ($args[$count] and !is_null($args[$count])) {
+				$newArgs[] = $args[$count];
+			} else {
+				$reflectionType = $p->getType();
+				if (!is_null($reflectionType)) {
+					$type = $reflectionType->getName();
+					echo $type . '</ br>' . PHP_EOL;
+				}
+			}
+		}
 
 	}
 
@@ -259,6 +273,7 @@ class Container implements ContainerInterface
 
 		// Check constructor arguments.
 		$args = $this->checkConstructorDocComments($reflection, $args);
+		$this->possiblyInjectConstructorParameters($reflection, $args);
 
 		// Create the object.
 		$obj = null;

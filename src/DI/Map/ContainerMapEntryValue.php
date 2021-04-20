@@ -34,4 +34,15 @@ class ContainerMapEntryValue extends ContainerMapEntry
     {
         parent::__construct($key, ContainerMapEntry::TYPE_VALUE, $value, null, $injectable);
     }
+
+    /**
+     * See if a value matches.
+     * 
+     * @param   mixed   $match  Thing to match with.
+     * @return  bool            
+     */
+    public function valueMatches($match): bool
+    {
+        return ($this->data['value'] == $match);
+    }
 }

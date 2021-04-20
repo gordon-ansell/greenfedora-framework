@@ -35,4 +35,16 @@ class ContainerMapEntryClass extends ContainerMapEntry
     {
         parent::__construct($key, ContainerMapEntry::TYPE_CLASS, $value, $arguments, $injectable);
     }
+    
+    /**
+     * See if a value matches.
+     * 
+     * @param   mixed   $match  Thing to match with.
+     * @return  bool            
+     */
+    public function valueMatches($match): bool
+    {
+        echo "Checking " . get_class($this->data['value']) . ' against ' . get_class($match) . '<br />' . PHP_EOL;
+        return ($this->data['value'] == $match);
+    }
 }

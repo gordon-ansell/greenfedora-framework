@@ -25,13 +25,14 @@ class ContainerMapEntryClass extends ContainerMapEntry
     /**
      * Constructor.
      * 
-     * @param   string      $key        Index key.
-     * @param   mixed       $value      Value.
-     * @param   array|null  $argument   Arguments.
+     * @param   string      $key            Index key.
+     * @param   mixed       $value          Value.
+     * @param   array|null  $argument       Arguments.
+     * @param   bool        $injectable     Is this injectable?
      * @return  void
      */
-    public function __construct(string $key, $value, ?array $arguments = null)
+    public function __construct(string $key, $value, ?array $arguments = null, bool $injectable = true)
     {
-        parent::__construct($key, ContainerMapEntry::TYPE_CLASS, $value, $arguments);
+        parent::__construct($key, ContainerMapEntry::TYPE_CLASS, $value, $arguments, $injectable);
     }
 }

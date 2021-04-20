@@ -27,10 +27,11 @@ class ContainerMapEntryValue extends ContainerMapEntry
      * 
      * @param   string      $key        Index key.
      * @param   mixed       $value      Value.
+     * @param   bool        $injectable     Is this injectable?
      * @return  void
      */
-    public function __construct(string $key, $value)
+    public function __construct(string $key, $value, bool $injectable = true)
     {
-        parent::__construct($key, ContainerMapEntry::TYPE_VALUE, $value);
+        parent::__construct($key, ContainerMapEntry::TYPE_VALUE, $value, null, $injectable);
     }
 }

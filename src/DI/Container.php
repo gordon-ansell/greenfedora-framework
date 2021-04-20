@@ -220,6 +220,26 @@ class Container implements ContainerInterface
 	}
 
 	/**
+	 * Possibly inject constructor parameters.
+	 * 
+	 * @param 	ReflectionClass 	$reflection 	Class we're dealing with.
+	 * @param 	array|null 			$args 			Real arguments.
+	 * @return 	array|null 
+	 */
+	protected function possiblyInjectConstructorParameters(ReflectionClass $reflection, ?array $args = null): ?array
+	{
+		$method = $reflection->getConstructor();
+		$parameters = $method->getParameters();
+
+		if (null === $method) {
+			return $args;
+		}
+
+		$injectables = [];
+
+	}
+
+	/**
 	 * Create an instance of something.
 	 * 
 	 * @param 	string 		$className 	Class to create.
@@ -313,72 +333,77 @@ class Container implements ContainerInterface
 	/**
 	 * Set a value.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	bool 		$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setValue(string $key, $value): ContainerInterface
+	public function setValue(string $key, $value, bool $injectable = true): ContainerInterface
 	{
-		return $this->set($key, new ContainerMapEntryValue($key, $value));
+		return $this->set($key, new ContainerMapEntryValue($key, $value, $injectable));
 	}
 	
 	/**
 	 * Set a class.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
-	 * @param 	array|null	$args 	Arguments.
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool 		$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setClass(string $key, $value, $args = null): ContainerInterface
+	public function setClass(string $key, $value, $args = null, bool $injectable = true): ContainerInterface
 	{
 		if (!is_array($args) and !is_null($args)) {
 			$args = [$args];
 		}
-		return $this->set($key, new ContainerMapEntryClass($key, $value, $args));
+		return $this->set($key, new ContainerMapEntryClass($key, $value, $args, $injectable));
 	}
 
 	/**
 	 * Set a class and create it.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
-	 * @param 	array|null	$args 	Arguments.
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool 		$injectable 	Is this injectable?
 	 * @return 	object
 	 */
-	public function setClassAndCreate(string $key, $value, ?array $args = null)
+	public function setClassAndCreate(string $key, $value, $args = null, bool $injectable = true)
 	{
-		$this->set($key, new ContainerMapEntryClass($key, $value, $args));
+		$this->setClass($key, $value, $args, $injectable);
 		return $this->create($this->map[$key]->value, $this->map[$key]->arguments);
 	}
 
 	/**
 	 * Set a singleton.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
-	 * @param 	array|null	$args 	Arguments.
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool 		$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setSingleton(string $key, $value, $args = null): ContainerInterface
+	public function setSingleton(string $key, $value, $args = null, bool $injectable = true): ContainerInterface
 	{
 		if (!is_array($args) and !is_null($args)) {
 			$args = [$args];
 		}
-		return $this->set($key, new ContainerMapEntrySingleton($key, $value, $args));
+		return $this->set($key, new ContainerMapEntrySingleton($key, $value, $args, $injectable));
 	}
 
 	/**
 	 * Set a singleton and create it.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
-	 * @param 	array|null	$args 	Arguments.
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool 		$injectable 	Is this injectable?
 	 * @return 	object
 	 */
-	public function setSingletonAndCreate(string $key, $value, ?array $args = null)
+	public function setSingletonAndCreate(string $key, $value, $args = null, bool $injectable = true)
 	{
-		$this->set($key, new ContainerMapEntrySingleton($key, $value, $args));
+		$this->setSingleton($key, $value, $args);
 		$this->map[$key]->instance = $this->create($this->map[$key]->value, $this->map[$key]->arguments);
 		return $this->map[$key]->instance;
 	}

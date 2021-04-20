@@ -36,11 +36,12 @@ class ContainerMapEntry implements ContainerMapEntryInterface
      * @var array
      */
     protected $data = [
-        'key'       =>  null,
-        'type'      =>  self::TYPE_NONE,
-        'value'     =>  null,
-        'arguments' =>  null,
-        'instance'  =>  null
+        'key'           =>  null,
+        'type'          =>  self::TYPE_NONE,
+        'value'         =>  null,
+        'arguments'     =>  null,
+        'instance'      =>  null,
+        'injectable'    =>  true
     ];
 
     /**
@@ -50,16 +51,19 @@ class ContainerMapEntry implements ContainerMapEntryInterface
      * @param   int         $type           Entry type.
      * @param   mixed       $value          Value.
      * @param   array|null  $arguments      Arguments.
+     * @param   bool        $injectable     Is this injectable?
      * @param   object|null $instance       Instance.
      * @return  void
      */
-    public function __construct(string $key, int $type, $value, ?array $arguments = null, ?object $instance = null)
+    public function __construct(string $key, int $type, $value, ?array $arguments = null, 
+        bool $injectable = true, ?object $instance = null)
     {
-        $this->key = $key;
-        $this->type = $type;
-        $this->value = $value;
-        $this->arguments = $arguments;
-        $this->instance = $instance;        
+        $this->data['key'] = $key;
+        $this->data['type'] = $type;
+        $this->data['value'] = $value;
+        $this->data['arguments'] = $arguments;
+        $this->data['injectable'] = $injectable;
+        $this->data['instance'] = $instance;        
     }
 
     /**
@@ -69,7 +73,17 @@ class ContainerMapEntry implements ContainerMapEntryInterface
      */
     public function hasInstance(): bool
     {
-        return (null !== $this->instance);
+        return (null !== $this->data['instance']);
+    }
+
+    /**
+     * See if this is injectable.
+     * 
+     * @return  bool
+     */
+    public function isInjectable(): bool
+    {
+        return $this->data['injectable'];
     }
 
     /**

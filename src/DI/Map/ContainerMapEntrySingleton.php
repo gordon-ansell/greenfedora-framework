@@ -25,15 +25,16 @@ class ContainerMapEntrySingleton extends ContainerMapEntry
     /**
      * Constructor.
      * 
-     * @param   string      $key        Index key.
-     * @param   mixed       $value      Value.
-     * @param   array|null  $arguments  Arguments.
-     * @param   object|null $instance   Instance.
+     * @param   string      $key            Index key.
+     * @param   mixed       $value          Value.
+     * @param   array|null  $arguments      Arguments.
+     * @param   bool        $injectable     Is this injectable?
+     * @param   object|null $instance       Instance.
      * @return  void
      */
-    public function __construct(string $key, $value, ?array $arguments = null, $instance = null)
+    public function __construct(string $key, $value, ?array $arguments = null, bool $injectable = true, $instance = null)
     {
-        parent::__construct($key, ContainerMapEntry::TYPE_SINGLETON, $value, $arguments, $instance);
+        parent::__construct($key, ContainerMapEntry::TYPE_SINGLETON, $value, $arguments, $injectable, $instance);
     }
 
 }

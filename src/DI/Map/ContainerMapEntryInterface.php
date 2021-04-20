@@ -35,6 +35,13 @@ interface ContainerMapEntryInterface
     public function hasInstance(): bool;
 
     /**
+     * See if this is injectable.
+     * 
+     * @return  bool
+     */
+    public function isInjectable(): bool;
+    
+    /**
      * Setter.
      * 
      * @param   string      $key        Key to set.

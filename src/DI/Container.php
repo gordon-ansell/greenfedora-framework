@@ -90,6 +90,7 @@ class Container implements ContainerInterface
 			switch ($this->map[$key]->type) {
 
 				case ContainerMapEntry::TYPE_VALUE:
+				case ContainerMapEntry::TYPE_FUNCTION:
 					return $this->map[$key]->value;
 				break;
 
@@ -236,7 +237,10 @@ class Container implements ContainerInterface
 	protected function findEntryByValue($name): ?string
 	{
 		foreach ($this->map as $k => $v) {
-			if ($v->isInjectable() and $v->type != ContainerMapEntry::TYPE_VALUE and $v->valueMatches($name)) {
+			if ($v->isInjectable() 
+				and $v->type != ContainerMapEntry::TYPE_VALUE 
+				and $v->type != ContainerMapEntry::TYPE_FUNCTION 
+				and $v->valueMatches($name)) {
 				return $k;
 			}
 		}
@@ -252,7 +256,9 @@ class Container implements ContainerInterface
 	protected function findValueByKey($name): ?string
 	{
 		foreach ($this->map as $k => $v) {
-			if ($v->isInjectable() and $v->type == ContainerMapEntry::TYPE_VALUE and $name == $k) {
+			if ($v->isInjectable() 
+				and ($v->type == ContainerMapEntry::TYPE_VALUE or $v->type == ContainerMapEntry::TYPE_FUNCTION) 
+				and $name == $k) {
 				return $k;
 			}
 		}
@@ -374,7 +380,8 @@ class Container implements ContainerInterface
 		if (!$this->has($key)) {
 			throw new OutOfBoundsException(sprintf("DI has no '%s' in the map", $key));
 		}
-		if (ContainerMapEntry::TYPE_VALUE == $this->map[$key]->type) {
+		if (ContainerMapEntry::TYPE_VALUE == $this->map[$key]->type or 
+			ContainerMapEntry::TYPE_FUNCTION == $this->map[$key]->type) {
 			return $this->map[$key]->value;
 		} else if (ContainerMapEntry::TYPE_CLASS == $this->map[$key]->type) {
 			return $this->create($this->map[$key]->value, $this->map[$key]->arguments);

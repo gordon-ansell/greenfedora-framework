@@ -67,11 +67,12 @@ interface ContainerInterface extends PsrContainerInterface
 	/**
 	 * Set a value.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setValue(string $key, $value): ContainerInterface;
+	public function setValue(string $key, $value, ?bool $injectable = null): ContainerInterface;
 	
 	/**
 	 * Set an injectable value.
@@ -83,42 +84,64 @@ interface ContainerInterface extends PsrContainerInterface
 	public function setInjectableValue(string $key, $value): ContainerInterface;
 
 	/**
-	 * Set a class.
+	 * Set a function.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
-	 * @param 	array|null	$args 	Arguments.
+	 * @param 	string 		$key			Key.
+	 * @param 	callable 	$val			Value.
+	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setClass(string $key, $value, ?array $args = null): ContainerInterface;
+	public function setFunction(string $key, callable $value, ?bool $injectable = null): ContainerInterface;
+
+	/**
+	 * Set an injectable function.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	callable 	$val			Value.
+	 * @return 	ContainerInterface
+	 */
+	public function setInjectableFunction(string $key, callable $value): ContainerInterface;
+	/**
+	 * Set a class.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool|null 	$injectable 	Is this injectable?
+	 * @return 	ContainerInterface
+	 */
+	public function setClass(string $key, $value, $args = null, ?bool $injectable = true): ContainerInterface;
 
 	/**
 	 * Set a class and create it.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
-	 * @param 	array|null	$args 	Arguments.
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	object
 	 */
-	public function setClassAndCreate(string $key, $value, ?array $args = null);
+	public function setClassAndCreate(string $key, $value, $args = null, ?bool $injectable = true);
 
 	/**
 	 * Set a singleton.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
-	 * @param 	array|null	$args 	Arguments.
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setSingleton(string $key, $value, ?array $args = null): ContainerInterface;
+	public function setSingleton(string $key, $value, $args = null, ?bool $injectable = true): ContainerInterface;
 
 	/**
 	 * Set a singleton and create it.
 	 * 
-	 * @param 	string 		$key	Key.
-	 * @param 	mixed 		$val	Value.
-	 * @param 	array|null	$args 	Arguments.
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	object
 	 */
-	public function setSingletonAndCreate(string $key, $value, ?array $args = null);
+	public function setSingletonAndCreate(string $key, $value, $args = null, ?bool $injectable = true);
 }

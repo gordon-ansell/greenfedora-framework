@@ -20,6 +20,7 @@ use GreenFedora\DI\Map\ContainerMapEntry;
 use GreenFedora\DI\Map\ContainerMapEntryClass;
 use GreenFedora\DI\Map\ContainerMapEntrySingleton;
 use GreenFedora\DI\Map\ContainerMapEntryValue;
+use GreenFedora\DI\Map\ContainerMapEntryFunction;
 use GreenFedora\DI\Map\ContainerMapEntryInterface;
 
 use \ReflectionClass;
@@ -429,6 +430,37 @@ class Container implements ContainerInterface
 			$key = self::INJCHAR . $key;
 		}
 		return $this->setValue($key, $value, true);
+	}
+
+	/**
+	 * Set a function.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	callable 	$val			Value.
+	 * @param 	bool|null 	$injectable 	Is this injectable?
+	 * @return 	ContainerInterface
+	 */
+	public function setFunction(string $key, callable $value, ?bool $injectable = null): ContainerInterface
+	{
+		if (is_null($injectable)) {
+			$injectable = (self::INJCHAR == $key[0]) ? true : false;
+		}
+		return $this->set($key, new ContainerMapEntryFunction($key, $value, $injectable));
+	}
+
+	/**
+	 * Set an injectable function.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	callable 	$val			Value.
+	 * @return 	ContainerInterface
+	 */
+	public function setInjectableFunction(string $key, callable $value): ContainerInterface
+	{
+		if (self::INJCHAR != $key[0]) {
+			$key = self::INJCHAR . $key;
+		}
+		return $this->setFunction($key, $value, true);
 	}
 
 	/**

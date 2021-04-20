@@ -44,9 +44,9 @@ class ContainerMapEntryFunction extends ContainerMapEntry
      */
     public function get(string $key)
     {
-        if (array_key_exists($key, $this->data)) {
-            return $this->data[$key]; 
+        if ('value' == $key) {
+            return call_user_func($this->value);
         }
-        throw new OutOfBoundsException(sprintf("'%s' is an invalid container map entry field"));
+        return parent::get($key);
     }
 }

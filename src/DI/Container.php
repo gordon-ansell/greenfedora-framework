@@ -291,6 +291,7 @@ class Container implements ContainerInterface
 					echo "Using null" . '<br />' . PHP_EOL;
 				}
 			}
+			$count++;
 		}
 
 		return $newArgs;

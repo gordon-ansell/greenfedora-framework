@@ -110,7 +110,7 @@ interface ContainerInterface extends PsrContainerInterface
 	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setClass(string $key, $value, $args = null, ?bool $injectable = true): ContainerInterface;
+	public function setClass(string $key, $value, $args = null, bool $injectable = true): ContainerInterface;
 
 	/**
 	 * Set a class and create it.
@@ -121,7 +121,7 @@ interface ContainerInterface extends PsrContainerInterface
 	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	object
 	 */
-	public function setClassAndCreate(string $key, $value, $args = null, ?bool $injectable = true);
+	public function setClassAndCreate(string $key, $value, $args = null, bool $injectable = true);
 
 	/**
 	 * Set a singleton.
@@ -132,7 +132,7 @@ interface ContainerInterface extends PsrContainerInterface
 	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	ContainerInterface
 	 */
-	public function setSingleton(string $key, $value, $args = null, ?bool $injectable = true): ContainerInterface;
+	public function setSingleton(string $key, $value, $args = null, bool $injectable = true): ContainerInterface;
 
 	/**
 	 * Set a singleton and create it.
@@ -143,5 +143,5 @@ interface ContainerInterface extends PsrContainerInterface
 	 * @param 	bool|null 	$injectable 	Is this injectable?
 	 * @return 	object
 	 */
-	public function setSingletonAndCreate(string $key, $value, $args = null, ?bool $injectable = true);
+	public function setSingletonAndCreate(string $key, $value, $args = null, bool $injectable = true);
 }

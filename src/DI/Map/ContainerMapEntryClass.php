@@ -45,7 +45,7 @@ class ContainerMapEntryClass extends ContainerMapEntry
     public function valueMatches($match): bool
     {
         echo "Checking " . $this->data['value'] . ' against ' . $match . '<br />' . PHP_EOL;
-        if ($this->data['value'] instanceof $match) {
+        if ($match instanceof $this->data['value']) {
             echo "Yup" . '<br />' . PHP_EOL;
         } else {
             echo "Nope" . '<br />' . PHP_EOL;

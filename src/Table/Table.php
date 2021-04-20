@@ -20,7 +20,7 @@ use GreenFedora\Session\SessionInterface;
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Arr\Arr;
 use GreenFedora\Facade\Logger;
-use GreenFedora\Container\Container;
+use GreenFedora\DI\Container;
 
 use GreenFedora\Table\Exception\InvalidArgumentException;
 

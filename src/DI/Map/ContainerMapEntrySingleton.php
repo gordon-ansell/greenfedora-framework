@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\DI\Map;
 
 use GreenFedora\DI\Map\ContainerMapEntry;
+use GreenFedora\DI\Map\ContainerMapEntryClass;
 
 /**
  * Dependency injection container map entry.
@@ -20,7 +21,7 @@ use GreenFedora\DI\Map\ContainerMapEntry;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class ContainerMapEntrySingleton extends ContainerMapEntry
+class ContainerMapEntrySingleton extends ContainerMapEntryClass
 {
     /**
      * Constructor.
@@ -34,19 +35,8 @@ class ContainerMapEntrySingleton extends ContainerMapEntry
      */
     public function __construct(string $key, $value, ?array $arguments = null, bool $injectable = true, $instance = null)
     {
-        parent::__construct($key, ContainerMapEntry::TYPE_SINGLETON, $value, $arguments, $injectable, $instance);
+        parent::__construct($key, $value, $arguments, $injectable);
+        $this->data['type'] = ContainerMapEntry::TYPE_SINGLETON;
+        $this->data['instance'] = $instance;
     }
-
-    /**
-     * See if a value matches.
-     * 
-     * @param   mixed   $match  Thing to match with.
-     * @return  bool            
-     */
-    public function valueMatches($match): bool
-    {
-        echo "Checking " . $this->data['value'] . ' against ' . $match . '<br />' . PHP_EOL;
-        return ($this->data['value'] == $match);
-    }
-
 }

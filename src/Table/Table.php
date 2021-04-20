@@ -19,8 +19,7 @@ use GreenFedora\Html\Html;
 use GreenFedora\Session\SessionInterface;
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Arr\Arr;
-
-use GreenFedora\Logger\InternalDebugTrait;
+use GreenFedora\Facade\Logger;
 
 use GreenFedora\Table\Exception\InvalidArgumentException;
 
@@ -32,8 +31,6 @@ use GreenFedora\Table\Exception\InvalidArgumentException;
 
 class Table implements TableInterface
 {
-    use InternalDebugTrait;
-
     /**
      * Parameters.
      * @var array
@@ -121,44 +118,44 @@ class Table implements TableInterface
         $sortcol = null;
         $sortdir = null;
         if ($request->formSubmitted($this->name)) {
-            $this->debug('Table: trying to load sort from POST.');
+            Logger::trace4('Table: trying to load sort from POST.');
             $sortcol = $request->post('sortcol', null);
             $sortdir = $request->post('sortdir', null);
-            $this->debug('Table: sortcol = ' . $sortcol);
-            $this->debug('Table: sortdir = ' . $sortdir);
+            Logger::trace4('Table: sortcol = ' . $sortcol);
+            Logger::trace4('Table: sortdir = ' . $sortdir);
         }
         if ('off' == $sortdir) {
             $session->unset($this->name . '-sortcol');
             $session->unset($this->name . '-sortdir');
             $this->setSort(null);
-            $this->debug('Table: unset sortcol');
-            $this->debug('Table: unset sortdir');
+            Logger::trace4('Table: unset sortcol');
+            Logger::trace4('Table: unset sortdir');
             return $this;
         }
         if (null === $sortcol) {
-            $this->debug('Table: trying to load sortcol from session.');
+            Logger::trace4('Table: trying to load sortcol from session.');
             $sortcol = $session->get($this->name . '-sortcol', null);
-            $this->debug('Table: sortcol = ' . $sortcol);
+            Logger::trace4('Table: sortcol = ' . $sortcol);
         }
         if (null === $sortdir) {
-            $this->debug('Table: trying to load sortdir from session.');
+            Logger::trace4('Table: trying to load sortdir from session.');
             $sortdir = $session->get($this->name . '-sortdir', null);
-            $this->debug('Table: sortdir = ' . $sortdir);
+            Logger::trace4('Table: sortdir = ' . $sortdir);
         }
 
         if (null === $sortcol) {
             $this->setSort(null);
-            $this->debug('Setting sort to null');
+            Logger::trace4('Setting sort to null');
         } else {
             if (null === $sortdir) {
                 $sortdir = 'asc';
             } 
             $this->setSort($sortcol, $sortdir);
-            $this->debug('Table: remembering sort in session.');
+            Logger::trace4('Table: remembering sort in session.');
             $session->set($this->name . '-sortcol', $sortcol);
             $session->set($this->name . '-sortdir', $sortdir);
-            $this->debug('Table: remembered sortcol = ' . $session->get($this->name . '-sortcol', null));
-            $this->debug('Table: remembered sortdir = ' . $session->get($this->name . '-sortdir', null));
+            Logger::trace4('Table: remembered sortcol = ' . $session->get($this->name . '-sortcol', null));
+            Logger::trace4('Table: remembered sortdir = ' . $session->get($this->name . '-sortdir', null));
         }
 
         return $this;

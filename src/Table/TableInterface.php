@@ -15,7 +15,6 @@ namespace GreenFedora\Table;
 use GreenFedora\Session\SessionInterface;
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Table\ColumnInterface;
-use GreenFedora\Logger\InternalDebugInterface;
 
 /**
  * Table maker interface.
@@ -23,7 +22,7 @@ use GreenFedora\Logger\InternalDebugInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface TableInterface extends InternalDebugInterface
+interface TableInterface
 {
     /**
      * Check the sorting.

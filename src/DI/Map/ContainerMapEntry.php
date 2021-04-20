@@ -30,6 +30,7 @@ class ContainerMapEntry implements ContainerMapEntryInterface
     const TYPE_CLASS = 1;
     const TYPE_SINGLETON = 2;
     const TYPE_VALUE = 3;
+    const TYPE_FUNCTION = 4;
 
     /**
      * The actual data array.

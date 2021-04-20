@@ -267,11 +267,6 @@ class Container implements ContainerInterface
 	 */
 	protected function possiblyInjectConstructorParameters(ReflectionClass $reflection, ?array $args = null): ?array
 	{
-		//echo "Dealing with class: " . $reflection->getName() . '<br />' .PHP_EOL;
-		//echo "Args passed: " . '<br />' . PHP_EOL;
-		//print_r($args);
-		//echo '<br />' .PHP_EOL;
-
 		$method = $reflection->getConstructor();
 
 		if (null === $method) {
@@ -284,10 +279,8 @@ class Container implements ContainerInterface
 
 		$count = 0;
 		foreach ($parameters as $p) {
-			//echo "Count : " . $count . '<br />' . PHP_EOL;
 			if (is_array($args) and (count($args) > $count) and !is_null($args[$count])) {
 				$newArgs[] = $args[$count];
-				//echo "Using passed argument" . '<br />' . PHP_EOL;
 			} else {
 				$reflectionType = $p->getType();
 				$found = null;
@@ -301,23 +294,18 @@ class Container implements ContainerInterface
 				}
 				if (!is_null($found)) {
 					$newArgs[] = $this->createByType($found);
-					//echo "Using injection" . '<br />' . PHP_EOL;
 				} else if (is_array($args) and (count($args) > $count)) {
 					$newArgs[] = $args[$count];
-					//echo "Using passed argument (2)" . '<br />' . PHP_EOL;
 				} else if ($p->isDefaultValueAvailable()) {
 					$newArgs[] = $p->getDefaultValue();
-					//echo "Using default value" . '<br />' . PHP_EOL;
 				} else {
 					$newArgs[] = null;
-					//echo "Using null" . '<br />' . PHP_EOL;
 				}
 			}
 			$count++;
 		}
 
 		return $newArgs;
-
 	}
 
 	/**

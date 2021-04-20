@@ -274,8 +274,8 @@ class Container implements ContainerInterface
 		$reflection = new ReflectionClass($className);
 
 		// Check constructor arguments.
-		$args = $this->checkConstructorDocComments($reflection, $args);
 		$this->possiblyInjectConstructorParameters($reflection, $args);
+		$args = $this->checkConstructorDocComments($reflection, $args);
 
 		// Create the object.
 		$obj = null;

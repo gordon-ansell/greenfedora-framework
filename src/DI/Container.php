@@ -292,7 +292,7 @@ class Container implements ContainerInterface
 					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
 						$found = $this->findEntryByValue($type);
 					} else {
-						$found = $this->findValueBykey($p->getName);
+						$found = $this->findValueBykey($p->getName());
 					}
 				}
 				if (!is_null($found)) {

@@ -20,7 +20,6 @@ use GreenFedora\Session\SessionInterface;
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Arr\Arr;
 use GreenFedora\Facade\Logger;
-use GreenFedora\DI\Container;
 
 use GreenFedora\Table\Exception\InvalidArgumentException;
 
@@ -105,7 +104,6 @@ class Table implements TableInterface
         $this->name = $name;
         $this->class = $class;
         $this->params = $params;
-        Logger::setContainer(Container::getInstance());
     }
 
     /**

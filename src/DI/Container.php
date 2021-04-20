@@ -66,6 +66,17 @@ class Container implements ContainerInterface
 	}
 
 	/**
+	 * Set the static instance.
+	 * 
+	 * @param 	ContainerInterface	$instance 	Instance to set.
+	 * @return 	void
+	 */
+	public static function setInstance(ContainerInterface $instance)
+	{
+		self::$instance = $instance;
+	}
+
+	/**
 	 * Get the map.
 	 * 
 	 * @return	ContainerMapEntryInterface[] 

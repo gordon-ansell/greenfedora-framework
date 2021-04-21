@@ -88,13 +88,13 @@ class Container implements ContainerInterface
 	}
 
 	/**
-	 * Get a config.
+	 * Get a config value.
 	 * 
 	 * @param 	string|null 	$cfgKey 	Config key or null for all of it.
 	 * @return 	mixed
 	 * @throws 	RuntimeException
 	 */
-	protected function getConfig(string $cfgKey = null)
+	protected function getConfigValue(string $cfgKey = null)
 	{
 		if (!$this->has('config')) {
 			throw new RuntimeException("No config object in dependency injection - can't inject configs.");
@@ -331,8 +331,9 @@ class Container implements ContainerInterface
 					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
 						$found = $this->findEntryByValue($type);
 					} else if (self::CFGSTR == substr($p->getName(), 0, strlen(self::CFGSTR))) {
-						$found = $this->getConfig(substr($p->getName(), strlen(self::CFGSTR)));
+						$found = $this->getConfigValue(substr($p->getName(), strlen(self::CFGSTR)));
 						echo "INJECTED.";
+						print_r($this->getConfigValue(substr($p->getName(), strlen(self::CFGSTR))));
 					} else if (self::INJCHAR == $p->getName()[0]) {
 						$found = $this->findValueByKey($p->getName());
 					}

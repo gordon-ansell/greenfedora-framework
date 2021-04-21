@@ -21,6 +21,7 @@ use GreenFedora\Logger\Writer\FileLogWriter;
 use GreenFedora\Logger\Writer\ConsoleLogWriter;
 use GreenFedora\Logger\LoggerAwareTrait;
 use GreenFedora\Logger\LoggerAwareInterface;
+use GreenFedora\Logger\LoggerInterface;
 
 /**
  * A console application.
@@ -84,6 +85,16 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 			new FileLogWriter($this->get('config')->logger, $formatter),
 			new ConsoleLogWriter($this->get('config')->logger, $formatter));
 		$this->addSingleton('logger', Logger::class, [$this->get('config')->logger, $writers]);	
+	}
+
+	/**
+	 * Get the logger.
+	 * 
+	 * @return 	LoggerInterface
+	 */
+	public function getLogger(): LoggerInterface
+	{
+		return $this->get('logger');
 	}
 
 	/**

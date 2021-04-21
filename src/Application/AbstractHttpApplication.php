@@ -22,6 +22,7 @@ use GreenFedora\Logger\Writer\FileLogWriter;
 use GreenFedora\Logger\Writer\ForcedConsoleLogWriter;
 use GreenFedora\Logger\LoggerAwareTrait;
 use GreenFedora\Logger\LoggerAwareInterface;
+use GreenFedora\Logger\LoggerInterface;
 
 /**
  * An HTTP application.
@@ -88,6 +89,16 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		$this->addSingleton('logger', Logger::class, [$this->get('config')->logger, $writers]);	
 	}
 	
+	/**
+	 * Get the logger.
+	 * 
+	 * @return 	LoggerInterface
+	 */
+	public function getLogger(): LoggerInterface
+	{
+		return $this->get('logger');
+	}
+
 	/**
 	 * Dispatch.
 	 *

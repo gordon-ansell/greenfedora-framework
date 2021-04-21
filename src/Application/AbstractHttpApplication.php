@@ -70,7 +70,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 
 		if ($autoLogger) {
 			$formatter = new StdLogFormatter($this->get('config')->logger);
-			$writers = new FileLogWriter($this->get('config')->logger, $formatter);
+			$writers = [new FileLogWriter($this->get('config')->logger, $formatter)];
 			if ('prod' != $this->mode) {
 				$writers[] = new ForcedConsoleLogWriter($this->get('config')->logger, $formatter);		
 			}

@@ -332,6 +332,7 @@ class Container implements ContainerInterface
 						$found = $this->findEntryByValue($type);
 					} else if (self::CFGSTR == substr($p->getName(), 0, strlen(self::CFGSTR))) {
 						$found = $this->getConfig(substr($p->getName(), strlen(self::CFGSTR)));
+						echo "INJECTED.";
 					} else if (self::INJCHAR == $p->getName()[0]) {
 						$found = $this->findValueByKey($p->getName());
 					}

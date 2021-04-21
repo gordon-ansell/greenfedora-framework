@@ -103,7 +103,7 @@ class Container implements ContainerInterface
 		$cfg = $this->get('config');
 		$data = null;
 
-		if (!$cfg->has($cfgKey)) {
+		if ($cfg->has($cfgKey)) {
 			$data = $cfg->get($cfgKey);
 		}
 
@@ -332,8 +332,9 @@ class Container implements ContainerInterface
 						$found = $this->findEntryByValue($type);
 					} else if (self::CFGSTR == substr($p->getName(), 0, strlen(self::CFGSTR))) {
 						$found = $this->getConfigValue(substr($p->getName(), strlen(self::CFGSTR)));
-						echo "INJECTED.";
+						echo "INJECTED. >";
 						print_r($this->getConfigValue(substr($p->getName(), strlen(self::CFGSTR))));
+						echo "<";
 					} else if (self::INJCHAR == $p->getName()[0]) {
 						$found = $this->findValueByKey($p->getName());
 					}

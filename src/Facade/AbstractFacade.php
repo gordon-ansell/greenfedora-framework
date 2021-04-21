@@ -111,6 +111,19 @@ abstract class AbstractFacade
      * @param   iterable    $args       Arguments for method.
      * @return  mixed
      */
+    public function __call(string $method, iterable $args)
+    {
+        $instance = static::facadeRoot();
+        return $instance->$method(...$args);
+    }
+
+    /**
+     * Static call into class we're facading.
+     * 
+     * @param   string      $method     Method to call.
+     * @param   iterable    $args       Arguments for method.
+     * @return  mixed
+     */
     public static function __callStatic(string $method, iterable $args)
     {
         $instance = static::facadeRoot();

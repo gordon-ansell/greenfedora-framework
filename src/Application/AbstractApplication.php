@@ -15,6 +15,8 @@ namespace GreenFedora\Application;
 use GreenFedora\Application\Input\ApplicationInputInterface;
 use GreenFedora\Application\Output\ApplicationOutputInterface;
 use GreenFedora\DI\Container;
+use GreenFedora\Config\Config;
+use GreenFedora\Locale\Locale;
 
 /**
  * The base for all applications.
@@ -53,22 +55,32 @@ abstract class AbstractApplication extends Container
 	/**
 	 * Constructor.
 	 *
-	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
-	 * @param	ApplicationInputInterface	$input 		Input.
-	 * @param	ApplicationOutputInterface	$output 	Output.
+	 * @param	string						$mode 			The mode we're running in: 'dev', 'test' or 'prod'.
+	 * @param	ApplicationInputInterface	$input 			Input.
+	 * @param	ApplicationOutputInterface	$output 		Output.
+	 * @param 	bool 						$autoConfig		Automatically set up and process configs.
+	 * @param 	bool 						$autoLocale		Automatically set up and process locale.
 	 *
 	 * @return	void
 	 */
 	public function __construct(
 		string $mode = 'prod', 
 		?ApplicationInputInterface $input = null, 
-		?ApplicationOutputInterface $output = null
+		?ApplicationOutputInterface $output = null,
+		bool $autoConfig = true,
+		bool $autoLocale = true
 		)
 	{
 		$this->input = $input ?: $this->container->get('input');
 		$this->output = $output ?: $this->container->get('output');
 		$this->mode = $mode;
 		self::setInstance($this);
+		if ($autoConfig) {
+			$this->setSingletonAndCreate('config', Config::class)->process($this->mode);
+		}
+		if ($autoLocale) {
+			$this->setSingletonAndCreate('locale', Locale::class, [$this->get('config')->locale]);
+		}
 	}
 		
 	/**

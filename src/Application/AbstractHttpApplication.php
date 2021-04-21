@@ -40,19 +40,23 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	/**
 	 * Constructor.
 	 *
-	 * @param	string						$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
-	 * @param	RequestInterface			$input 		Input.
-	 * @param	ResponseInterface			$output 	Output.
+	 * @param	string						$mode 			The mode we're running in: 'dev', 'test' or 'prod'.
+	 * @param	RequestInterface			$input 			Input.
+	 * @param	ResponseInterface			$output 		Output.
+	 * @param 	bool 						$autoConfig		Automatically set up and process configs.
+	 * @param 	bool 						$autoLocale		Automatically set up and process locale.
 	 *
 	 * @return	void
 	 */
 	public function __construct(
 		string $mode = 'prod', 
 		?RequestInterface $input = null, 
-		?ResponseInterface $output = null
+		?ResponseInterface $output = null,
+		bool $autoConfig = true,
+		bool $autoLocale = true
 		)
 	{
-		parent::__construct($mode, $input, $output);
+		parent::__construct($mode, $input, $output, $autoConfig, $autoLocale);
 	}
 	
 	/**

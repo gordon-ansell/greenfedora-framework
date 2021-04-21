@@ -15,7 +15,6 @@ namespace GreenFedora\Application;
 use GreenFedora\Application\AbstractApplication;
 use GreenFedora\Console\CommandLineOptsInterface;
 use GreenFedora\Application\Output\ReturnCodeApplicationOutputInterface;
-use GreenFedora\DI\ContainerInterface;
 
 /**
  * A console application.
@@ -40,21 +39,23 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	/**
 	 * Constructor.
 	 *
-	 * @param 	ContainerInterface						$container	DI container.
 	 * @param	string									$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
 	 * @param	CommandLineOptsInterface				$input 		Input.
 	 * @param	ReturnCodeApplicationOutputInterface	$output 	Output.
+	 * @param 	bool 									$autoConfig	Automatically set up and process configs.
+	 * @param 	bool 									$autoLocale	Automatically set up and process locale.
 	 *
 	 * @return	void
 	 */
 	public function __construct(
-		ContainerInterface $container, 
 		string $mode = 'prod', 
 		?CommandLineOptsInterface $input = null, 
-		?ReturnCodeApplicationOutputInterface $output = null
+		?ReturnCodeApplicationOutputInterface $output = null,
+		bool $autoConfig = true,
+		bool $autoLocale = true
 		)
 	{
-		parent::__construct($container, $mode, $input, $output);
+		parent::__construct($mode, $input, $output, $autoConfig, $autoLocale);
 	}
 
 	/**

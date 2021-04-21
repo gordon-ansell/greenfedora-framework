@@ -19,6 +19,8 @@ use GreenFedora\Logger\Logger;
 use GreenFedora\Logger\Formatter\StdLogFormatter;
 use GreenFedora\Logger\Writer\FileLogWriter;
 use GreenFedora\Logger\Writer\ConsoleLogWriter;
+use GreenFedora\Logger\LoggerAwareTrait;
+use GreenFedora\Logger\LoggerAwareInterface;
 
 /**
  * A console application.
@@ -26,8 +28,10 @@ use GreenFedora\Logger\Writer\ConsoleLogWriter;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractConsoleApplication extends AbstractApplication implements ConsoleApplicationInterface
+abstract class AbstractConsoleApplication extends AbstractApplication implements ConsoleApplicationInterface, LoggerAwareInterface
 {		
+	use LoggerAwareTrait;
+
 	/**
 	 * Input.
 	 * @var CommandLineOptsInterface

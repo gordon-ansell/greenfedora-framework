@@ -19,7 +19,6 @@ use GreenFedora\Html\Html;
 use GreenFedora\Session\SessionInterface;
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Arr\Arr;
-use GreenFedora\Facade\Logger;
 
 use GreenFedora\Table\Exception\InvalidArgumentException;
 
@@ -118,7 +117,6 @@ class Table implements TableInterface
     {
         $sortcol = null;
         $sortdir = null;
-        (new Logger)->trace4("Test");
         if ($request->formSubmitted($this->name)) {
             $sortcol = $request->post('sortcol', null);
             $sortdir = $request->post('sortdir', null);

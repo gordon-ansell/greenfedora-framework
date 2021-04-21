@@ -79,7 +79,7 @@ abstract class AbstractApplication extends Container
 			$this->addSingletonAndCreate('config', Config::class)->process($this->mode);
 		}
 		if ($autoLocale) {
-			$this->addSingletonAndCreate('locale', Locale::class);
+			$this->addSingletonAndCreate('locale', Locale::class, [$this->get('config')->locale]);
 		}
 	}
 		

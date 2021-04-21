@@ -76,10 +76,10 @@ abstract class AbstractApplication extends Container
 		$this->mode = $mode;
 		self::setInstance($this);
 		if ($autoConfig) {
-			$this->setSingletonAndCreate('config', Config::class)->process($this->mode);
+			$this->addSingletonAndCreate('config', Config::class)->process($this->mode);
 		}
 		if ($autoLocale) {
-			$this->setSingletonAndCreate('locale', Locale::class);
+			$this->addSingletonAndCreate('locale', Locale::class);
 		}
 	}
 		

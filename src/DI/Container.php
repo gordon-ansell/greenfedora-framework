@@ -575,4 +575,151 @@ class Container implements ContainerInterface
 		$this->map[$key]->instance = $this->create($this->map[$key]->value, $this->map[$key]->arguments);
 		return $this->map[$key]->instance;
 	}
+
+	/**
+	 * Add something in the map.
+	 * 
+	 * @param 	string 						$key 		Key.
+	 * @param 	ContainerMapEntryInterface	$item 		Item.
+	 * @return 	ContainerInterface
+	 * @throws  RuntimeException
+	 */
+	protected function add(string $key, ContainerMapEntryInterface $item): ContainerInterface
+	{
+		if (array_key_exists($key, $this->map)) {
+			throw new RuntimeException(sprintf("DI map alread has a key names '%s'.", $key));
+		}
+		$this->map[$key] = $item;
+		return $this;
+	}
+
+	/**
+	 * Add a value.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	bool|null 	$injectable 	Is this injectable?
+	 * @return 	ContainerInterface
+	 */
+	public function addValue(string $key, $value, ?bool $injectable = null): ContainerInterface
+	{
+		if (is_null($injectable)) {
+			$injectable = (self::INJCHAR == $key[0]) ? true : false;
+		}
+		return $this->add($key, new ContainerMapEntryValue($key, $value, $injectable));
+	}
+	
+	/**
+	 * Add an injectable value.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @return 	ContainerInterface
+	 */
+	public function addInjectableValue(string $key, $value): ContainerInterface
+	{
+		if (self::INJCHAR != $key[0]) {
+			$key = self::INJCHAR . $key;
+		}
+		return $this->addValue($key, $value, true);
+	}
+
+	/**
+	 * Add a function.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	callable 	$val			Value.
+	 * @param 	array|null	$funcparams		Function parameters.
+	 * @param 	bool|null 	$injectable 	Is this injectable?
+	 * @return 	ContainerInterface
+	 */
+	public function addFunction(string $key, callable $value, ?array $funcparams = null, 
+		?bool $injectable = null): ContainerInterface
+	{
+		if (is_null($injectable)) {
+			$injectable = (self::INJCHAR == $key[0]) ? true : false;
+		}
+		return $this->add($key, new ContainerMapEntryFunction($key, $value, $funcparams, $injectable));
+	}
+
+	/**
+	 * Add an injectable function.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	callable 	$val			Value.
+	 * @param 	array|null	$funcparams		Function parameters.
+	 * @return 	ContainerInterface
+	 */
+	public function addInjectableFunction(string $key, callable $value, ?array $funcparams = null): ContainerInterface
+	{
+		if (self::INJCHAR != $key[0]) {
+			$key = self::INJCHAR . $key;
+		}
+		return $this->addFunction($key, $value, $funcparams, true);
+	}
+
+	/**
+	 * Add a class.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool 		$injectable 	Is this injectable?
+	 * @return 	ContainerInterface
+	 */
+	public function addClass(string $key, $value, $args = null, bool $injectable = true): ContainerInterface
+	{
+		if (!is_array($args) and !is_null($args)) {
+			$args = [$args];
+		}
+		return $this->add($key, new ContainerMapEntryClass($key, $value, $args, $injectable));
+	}
+
+	/**
+	 * Add a class and create it.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool 		$injectable 	Is this injectable?
+	 * @return 	object
+	 */
+	public function addClassAndCreate(string $key, $value, $args = null, bool $injectable = true)
+	{
+		$this->addClass($key, $value, $args, $injectable);
+		return $this->create($this->map[$key]->value, $this->map[$key]->arguments);
+	}
+
+	/**
+	 * Add a singleton.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool 		$injectable 	Is this injectable?
+	 * @return 	ContainerInterface
+	 */
+	public function addSingleton(string $key, $value, $args = null, bool $injectable = true): ContainerInterface
+	{
+		if (!is_array($args) and !is_null($args)) {
+			$args = [$args];
+		}
+		return $this->add($key, new ContainerMapEntrySingleton($key, $value, $args, $injectable));
+	}
+
+	/**
+	 * Add a singleton and create it.
+	 * 
+	 * @param 	string 		$key			Key.
+	 * @param 	mixed 		$val			Value.
+	 * @param 	array|null	$args 			Arguments.
+	 * @param 	bool 		$injectable 	Is this injectable?
+	 * @return 	object
+	 */
+	public function addSingletonAndCreate(string $key, $value, $args = null, bool $injectable = true)
+	{
+		$this->addSingleton($key, $value, $args);
+		$this->map[$key]->instance = $this->create($this->map[$key]->value, $this->map[$key]->arguments);
+		return $this->map[$key]->instance;
+	}
 }

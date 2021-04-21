@@ -105,7 +105,9 @@ abstract class AbstractFacade
     }
 
     /**
-     * Static call into class we're facading.
+     * Instance call into class we're facading.
+     * 
+     * @example (new Logger)->method(params)
      * 
      * @param   string      $method     Method to call.
      * @param   iterable    $args       Arguments for method.
@@ -119,6 +121,10 @@ abstract class AbstractFacade
 
     /**
      * Static call into class we're facading.
+     * 
+     * @example Logger::method(params)
+     * 
+     * May raise E_STRICT warnings.
      * 
      * @param   string      $method     Method to call.
      * @param   iterable    $args       Arguments for method.

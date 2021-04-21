@@ -22,8 +22,6 @@ use GreenFedora\Form\Field\Exception\InvalidArgumentException;
 use GreenFedora\Filter\FilterInterface;
 use GreenFedora\Validator\ValidatorInterface;
 
-use GreenFedora\Logger\InternalDebugTrait;
-
 /**
  * Form field class.
  *
@@ -32,8 +30,6 @@ use GreenFedora\Logger\InternalDebugTrait;
 
 class Field extends Html implements FieldInterface
 {
-    use InternalDebugTrait;
-
     /**
      * Parent form.
      * @var FormInterface

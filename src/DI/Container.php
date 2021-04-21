@@ -15,6 +15,7 @@ namespace GreenFedora\DI;
 use GreenFedora\DI\ContainerInterface;
 use GreenFedora\DI\Exception\InvalidArgumentException;
 use GreenFedora\DI\Exception\OutOfBoundsException;
+use GreenFedora\DI\Exception\RuntimeException;
 
 use GreenFedora\DI\Map\ContainerMapEntry;
 use GreenFedora\DI\Map\ContainerMapEntryClass;
@@ -25,7 +26,6 @@ use GreenFedora\DI\Map\ContainerMapEntryInterface;
 
 use \ReflectionClass;
 use \ReflectionNamedType;
-use \ReflectionType;
 
 /**
  * Dependency injection container.
@@ -39,6 +39,7 @@ class Container implements ContainerInterface
 	 * Injectable prefix.
 	 */
 	const INJCHAR = '_';
+	const CFGSTR = 'config_';
 
     /**
      * The map of things.
@@ -84,6 +85,29 @@ class Container implements ContainerInterface
 	public function getMap(): ?array
 	{
 		return $this->map;
+	}
+
+	/**
+	 * Get a config.
+	 * 
+	 * @param 	string|null 	$cfgKey 	Config key or null for all of it.
+	 * @return 	mixed
+	 * @throws 	RuntimeException
+	 */
+	protected function getConfig(string $cfgKey = null)
+	{
+		if (!$this->has('config')) {
+			throw new RuntimeException("No config object in dependency injection - can't inject configs.");
+		}
+
+		$cfg = $this->get('config');
+		$data = null;
+
+		if (!$cfg->has($cfgKey)) {
+			$data = $cfg->get($cfgKey);
+		}
+
+		return $data;
 	}
 
 	/**
@@ -306,7 +330,9 @@ class Container implements ContainerInterface
 					$type = $reflectionType->getName();
 					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
 						$found = $this->findEntryByValue($type);
-					} else if ('_' == $p->getName()[0]) {
+					} else if (self::CFGSTR == substr($p->getName(), 0, strlen(self::CFGSTR))) {
+						$found = $this->getConfig(substr($p->getName(), strlen(self::CFGSTR)));
+					} else if (self::INJCHAR == $p->getName()[0]) {
 						$found = $this->findValueByKey($p->getName());
 					}
 				}

@@ -330,16 +330,14 @@ class Container implements ContainerInterface
 					$type = $reflectionType->getName();
 					if (!is_null($type) and !$reflectionType->isBuiltIn()) {
 						$found = $this->findEntryByValue($type);
-					} else if (self::CFGSTR == substr($p->getName(), 0, strlen(self::CFGSTR))) {
-						$found = $this->getConfigValue(substr($p->getName(), strlen(self::CFGSTR)));
-						echo "INJECTED. >";
-						print_r($this->getConfigValue(substr($p->getName(), strlen(self::CFGSTR))));
-						echo "<";
 					} else if (self::INJCHAR == $p->getName()[0]) {
 						$found = $this->findValueByKey($p->getName());
 					}
 				}
-				if (!is_null($found)) {
+
+				if (self::CFGSTR == substr($p->getName(), 0, strlen(self::CFGSTR))) {
+					$newArgs[] = $this->getConfigValue(substr($p->getName(), strlen(self::CFGSTR)));
+				} else if (!is_null($found)) {
 					$newArgs[] = $this->createByType($found);
 				} else if (is_array($args) and (count($args) > $count)) {
 					$newArgs[] = $args[$count];

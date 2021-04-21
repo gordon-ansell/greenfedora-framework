@@ -16,6 +16,12 @@ use GreenFedora\Application\AbstractApplication;
 use GreenFedora\Application\HttpApplicationInterface;
 use GreenFedora\Http\RequestInterface;
 use GreenFedora\Http\ResponseInterface;
+use GreenFedora\Logger\Logger;
+use GreenFedora\Logger\Formatter\StdLogFormatter;
+use GreenFedora\Logger\Writer\FileLogWriter;
+use GreenFedora\Logger\Writer\ForcedConsoleLogWriter;
+use GreenFedora\Logger\LoggerAwareTrait;
+use GreenFedora\Logger\LoggerAwareInterface;
 
 /**
  * An HTTP application.
@@ -23,8 +29,10 @@ use GreenFedora\Http\ResponseInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractHttpApplication extends AbstractApplication implements HttpApplicationInterface
+abstract class AbstractHttpApplication extends AbstractApplication implements HttpApplicationInterface, LoggerAwareInterface
 {
+	use LoggerAwareTrait;
+
 	/**
 	 * Input.
 	 * @var RequestInterface
@@ -43,6 +51,7 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 * @param	string						$mode 			The mode we're running in: 'dev', 'test' or 'prod'.
 	 * @param	RequestInterface			$input 			Input.
 	 * @param	ResponseInterface			$output 		Output.
+	 * @param 	bool 						$autoLogger		Automatically set up logger.
 	 * @param 	bool 						$autoConfig		Automatically set up and process configs.
 	 * @param 	bool 						$autoLocale		Automatically set up and process locale.
 	 *
@@ -52,11 +61,21 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		string $mode = 'prod', 
 		?RequestInterface $input = null, 
 		?ResponseInterface $output = null,
+		bool $autoLogger = true,
 		bool $autoConfig = true,
 		bool $autoLocale = true
 		)
 	{
 		parent::__construct($mode, $input, $output, $autoConfig, $autoLocale);
+
+		if ($autoLogger) {
+			$formatter = new StdLogFormatter($this->get('config')->logger);
+			$writers = new FileLogWriter($this->get('config')->logger, $formatter);
+			if ('prod' != $this->mode) {
+				$writers[] = new ForcedConsoleLogWriter($this->get('config')->logger, $formatter);		
+			}
+			$this->addSingleton('logger', Logger::class, [$this->get('config')->logger, $writers]);	
+		}
 	}
 	
 	/**

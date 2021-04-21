@@ -37,6 +37,8 @@ use GreenFedora\Facade\AbstractFacade;
  * @method static trace3($message, array $context = array());
  * @method static trace4($message, array $context = array());
  * 
+ * Call as Logger::method(params) or (new Logger)->method(params) to avoid strict warnings.
+ * Facades should only be used as a temporray measure, for example when debugging something.
  */
 
 class Logger extends AbstractFacade

@@ -69,13 +69,23 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 		parent::__construct($mode, $input, $output, $autoConfig, $autoLocale);
 
 		if ($autoLogger) {
-			$formatter = new StdLogFormatter($this->get('config')->logger);
-			$writers = [new FileLogWriter($this->get('config')->logger, $formatter)];
-			if ('prod' != $this->mode) {
-				$writers[] = new ForcedConsoleLogWriter($this->get('config')->logger, $formatter);		
-			}
-			$this->addSingleton('logger', Logger::class, [$this->get('config')->logger, $writers]);	
+			$this->configureLogger();
 		}
+	}
+
+	/**
+	 * Configure the logger.
+	 * 
+	 * @return 	void
+	 */
+	protected function configureLogger()
+	{
+		$formatter = new StdLogFormatter($this->get('config')->logger);
+		$writers = [new FileLogWriter($this->get('config')->logger, $formatter)];
+		if ('prod' != $this->mode) {
+			$writers[] = new ForcedConsoleLogWriter($this->get('config')->logger, $formatter);		
+		}
+		$this->addSingleton('logger', Logger::class, [$this->get('config')->logger, $writers]);	
 	}
 	
 	/**

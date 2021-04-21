@@ -15,6 +15,10 @@ namespace GreenFedora\Application;
 use GreenFedora\Application\AbstractApplication;
 use GreenFedora\Console\CommandLineOptsInterface;
 use GreenFedora\Application\Output\ReturnCodeApplicationOutputInterface;
+use GreenFedora\Logger\Logger;
+use GreenFedora\Logger\Formatter\StdLogFormatter;
+use GreenFedora\Logger\Writer\FileLogWriter;
+use GreenFedora\Logger\Writer\ConsoleLogWriter;
 
 /**
  * A console application.
@@ -39,11 +43,12 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	/**
 	 * Constructor.
 	 *
-	 * @param	string									$mode 		The mode we're running in: 'dev', 'test' or 'prod'.
-	 * @param	CommandLineOptsInterface				$input 		Input.
-	 * @param	ReturnCodeApplicationOutputInterface	$output 	Output.
-	 * @param 	bool 									$autoConfig	Automatically set up and process configs.
-	 * @param 	bool 									$autoLocale	Automatically set up and process locale.
+	 * @param	string									$mode 			The mode we're running in: 'dev', 'test' or 'prod'.
+	 * @param	CommandLineOptsInterface				$input 			Input.
+	 * @param	ReturnCodeApplicationOutputInterface	$output 		Output.
+	 * @param 	bool 									$autoLogger		Automatically set up logger.
+	 * @param 	bool 									$autoConfig		Automatically set up and process configs.
+	 * @param 	bool 									$autoLocale		Automatically set up and process locale.
 	 *
 	 * @return	void
 	 */
@@ -51,11 +56,30 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 		string $mode = 'prod', 
 		?CommandLineOptsInterface $input = null, 
 		?ReturnCodeApplicationOutputInterface $output = null,
+		bool $autoLogger = true,
 		bool $autoConfig = true,
 		bool $autoLocale = true
 		)
 	{
 		parent::__construct($mode, $input, $output, $autoConfig, $autoLocale);
+
+		if ($autoLogger) {
+			$this->configureLogger();
+		}
+	}
+
+	/**
+	 * Configure the logger.
+	 * 
+	 * @return 	void
+	 */
+	protected function configureLogger()
+	{
+		$formatter = new StdLogFormatter($this->get('config')->logger);
+		$writers = array(
+			new FileLogWriter($this->get('config')->logger, $formatter),
+			new ConsoleLogWriter($this->get('config')->logger, $formatter));
+		$this->addSingleton('logger', Logger::class, [$this->get('config')->logger, $writers]);	
 	}
 
 	/**

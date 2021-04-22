@@ -105,9 +105,7 @@ class HttpRequest extends Request implements HttpRequestInterface
             $protocol = $_SERVER['SERVER_PROTOCOL'];
         }
 
-        $headers = self::extractHeaders($_SERVER);
-        print_r($headers);
-        print_r($_SERVER);
+        //$headers = self::extractHeaders($_SERVER);
 
         $request = new static($protocol, 
             $_GET,
@@ -118,7 +116,7 @@ class HttpRequest extends Request implements HttpRequestInterface
             self::extractHeaders($_SERVER),
             null);
 
-        if (0 === strpos($request->headers->get('CONTENT_TYPE'), 'application/x-www-form-urlencoded')
+        if (0 === strpos($request->headers->get('CONTENT_TYPE', ''), 'application/x-www-form-urlencoded')
             and in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), ['PUT', 'DELETE', 'PATCH'])
         ) {
             parse_str($request->getContent(), $data);

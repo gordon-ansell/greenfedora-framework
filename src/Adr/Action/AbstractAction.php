@@ -12,8 +12,8 @@
 declare(strict_types=1);
 namespace GreenFedora\Adr\Action;
 
-use GreenFedora\Http\RequestInterface;
-use GreenFedora\Http\ResponseInterface;
+use GreenFedora\Http\HttpRequestInterface;
+use GreenFedora\Http\HttpResponseInterface;
 use GreenFedora\DI\ContainerInterface;
 use GreenFedora\DI\ContainerAwareInterface;
 use GreenFedora\DI\ContainerAwareTrait;
@@ -41,15 +41,15 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 
 	/**
 	 * Input.
-	 * @var RequestInterface
+	 * @var HttpRequestInterface
 	 */
-	protected $input = null;
+	protected $request = null;
 
 	/**
 	 * Output.
 	 * @var ResponseInterface
 	 */
-	protected $output = null;
+	protected $response = null;
 
 	/**
 	 * Parameters.
@@ -61,17 +61,17 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	Dependency injection container.
-	 * @param 	RequestInterface			$input 		Input.
-	 * @param 	ResponseInterface			$output 	Output.
+	 * @param 	HttpRequestInterface		$request 	Input.
+	 * @param 	HttpResponseInterface		$response 	Output.
 	 * @param 	array						$params 	Parameters.
 	 * @return	void
 	 */
-	public function __construct(ContainerInterface $container, RequestInterface $input, 
-		ResponseInterface $output, array $params = [])
+	public function __construct(ContainerInterface $container, HttpRequestInterface $request, 
+		HttpResponseInterface $response, array $params = [])
 	{
 		$this->container = $container;
-		$this->input = $input;
-		$this->output = $output;
+		$this->request = $request;
+		$this->response = $response;
 		$this->params = $params;
 	}
 

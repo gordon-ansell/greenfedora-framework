@@ -12,7 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Http;
 
-use GreenFedora\Http\RequestInterface;
+use GreenFedora\Http\HttpRequestInterface;
 use GreenFedora\Arr\ArrInterface;
 
 /**
@@ -44,12 +44,12 @@ class CookieHandler
     /**
      * Constructor.
      * 
-     * @param   RequestInterface    $request    Request.
-     * @param   array               $names      Cookie names and defaults.
-     * @param   string              $prefix     Cookie prefix.
+     * @param   HttpRequestInterface    $request    Request.
+     * @param   array                   $names      Cookie names and defaults.
+     * @param   string                  $prefix     Cookie prefix.
      * @return  void
      */
-    public function __construct(RequestInterface $request, array $names, string $prefix)
+    public function __construct(HttpRequestInterface $request, array $names, string $prefix)
     {
         $this->request = $request;
         $this->names = $names;

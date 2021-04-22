@@ -10,17 +10,16 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Http\Exception;
+namespace GreenFedora\Application;
 
-use GreenFedora\Http\Exception\ExceptionInterface;
-
+use GreenFedora\Application\ResponseInterface;
 
 /**
- * Headers already sent in response.
+ * Base output.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class HeadersSentException extends \LogicException implements ExceptionInterface
-{
+class Response implements ResponseInterface
+{	
 }

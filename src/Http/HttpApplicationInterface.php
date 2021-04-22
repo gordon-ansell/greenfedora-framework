@@ -10,14 +10,16 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Application\Input;
+namespace GreenFedora\Http;
+
+use GreenFedora\Application\ApplicationInterface;
 
 /**
- * Interface for application input.
+ * An HTTP application interface.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ApplicationInputInterface
+interface HttpApplicationInterface extends ApplicationInterface
 {
 }

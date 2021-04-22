@@ -12,7 +12,8 @@
 declare(strict_types=1);
 namespace GreenFedora\Http;
 
-use GreenFedora\Http\RequestInterface;
+use GreenFedora\Application\Request;
+use GreenFedora\Http\HttpRequestInterface;
 use GreenFedora\Arr\Arr;
 use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Uri\Uri;
@@ -26,7 +27,7 @@ use GreenFedora\Http\Exception\InvalidArgumentException;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Request implements RequestInterface
+class HttpRequest extends Request implements HttpRequestInterface
 {
     /**
      * Variable sets.
@@ -256,7 +257,7 @@ class Request implements RequestInterface
      * @param   bool            $flag       Flag to set.
      * @return  RequestInterface
      */
-    public function setDispatched(bool $flag = true) : RequestInterface
+    public function setDispatched(bool $flag = true) : HttpRequestInterface
     {
         $this->isDispatched = $flag;
         return $this;

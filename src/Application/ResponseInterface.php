@@ -10,14 +10,14 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Application\Output;
+namespace GreenFedora\Application;
 
 /**
- * Interface for application output.
+ * Base output interface.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ApplicationOutputInterface
+interface ResponseInterface
 {
 }

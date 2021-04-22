@@ -47,6 +47,14 @@ interface HtmlInterface
 	public function getTag(): string;
 
 	/**
+	 * Set the tag.
+	 * 
+	 * @param 	string 	$tag 	Tag to set.
+	 * @return 	HtmlInterface
+	 */
+	public function setTag(string $tag): HtmlInterface;
+
+	/**
 	 * Set the data.
 	 *
 	 * @param 	mixed 	$data 	Data to set.
@@ -71,6 +79,15 @@ interface HtmlInterface
      */
     public function setParams(array $params): self;
 
+    /**
+     * Append a parameter.
+     * 
+     * @param   string  $name   Name of parameter to set.
+     * @param   mixed   $val    Value to set.
+     * @return  HtmlInterface 
+     */
+    public function appendParam(string $name, $val): self;
+
 	/**
 	 * Get a parameter.
 	 * 
@@ -80,6 +97,30 @@ interface HtmlInterface
 	 * @throws  InvalidArgumentException
 	 */
 	public function getParam(string $name, bool $throw = true);
+
+	/**
+	 * Get all parameters.
+	 * 
+	 * @return 	array
+	 */
+	public function getParams(): array;
+
+	/**
+	 * Remove a parameter.
+	 * 
+	 * @param	string 	$key 	Parameter to remove.
+	 * @return 	HtmlInterface 
+	 */
+	public function removeParam(string $key): self;
+
+	/**
+	 * Remove a parameter item.
+	 * 
+	 * @param	string 	$key 	Parameter to remove from.
+	 * @param 	mixed 	$val 	Value to remove.
+	 * @return 	HtmlInterface 
+	 */
+	public function removeParamItem(string $key, $val): self;
 
 	/**
 	 * Do we have a parameter?

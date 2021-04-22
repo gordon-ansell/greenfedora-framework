@@ -171,6 +171,18 @@ class Html implements HtmlInterface
 	{
 		return $this->tag;
 	}
+
+	/**
+	 * Set the tag.
+	 * 
+	 * @param 	string 	$tag 	Tag to set.
+	 * @return 	HtmlInterface
+	 */
+	public function setTag(string $tag): HtmlInterface
+	{
+		$this->tag = $tag;
+		return $this;
+	}
 	
 	/**
 	 * Set the data.
@@ -211,6 +223,23 @@ class Html implements HtmlInterface
         return $this;
     }
 
+    /**
+     * Append a parameter.
+     * 
+     * @param   string  $name   Name of parameter to set.
+     * @param   mixed   $val    Value to set.
+     * @return  HtmlInterface 
+     */
+    public function appendParam(string $name, $val): HtmlInterface
+    {
+		if (!array_key_exists($name, $this->params)) {
+        	$this->params[$name] = $val;
+		} else {
+			$this->params[$name] .= ' ' . $val;
+		}
+        return $this;
+    }
+
 	/**
 	 * Get a parameter.
 	 * 
@@ -227,6 +256,51 @@ class Html implements HtmlInterface
 			throw new InvalidArgumentException(sprintf("Html statement does not have parameter '%s'", $name));
 		}
 		return null;
+	}
+
+	/**
+	 * Get all parameters.
+	 * 
+	 * @return 	array
+	 */
+	public function getParams(): array
+	{
+		return $this->params;
+	}
+
+	/**
+	 * Remove a parameter.
+	 * 
+	 * @param	string 	$key 	Parameter to remove.
+	 * @return 	HtmlInterface 
+	 */
+	public function removeParam(string $key): HtmlInterface
+	{
+		unset($this->params[$key]);
+		return $this;
+	}
+
+	/**
+	 * Remove a parameter item.
+	 * 
+	 * @param	string 	$key 	Parameter to remove from.
+	 * @param 	mixed 	$val 	Value to remove.
+	 * @return 	HtmlInterface 
+	 */
+	public function removeParamItem(string $key, $val): HtmlInterface
+	{
+		if (!$this->hasParam($key)) {
+			return $this;
+		}
+		$p = explode(' ', $this->getParam($key));
+		$new = [];
+		foreach ($p as $item) {
+			if ($item != $val) {
+				$new[] = $item;
+			}
+		}
+		$this->setParam($key, implode(' ', $new));
+		return $this;
 	}
 
 	/**

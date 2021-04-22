@@ -12,8 +12,6 @@
 declare(strict_types=1);
 namespace GreenFedora\Link;
 
-use GreenFedora\Link\LinkInterface;
-
 use Psr\Link\EvolvableLinkInterface as PsrEvolvableLinkInterface;
 
 /**

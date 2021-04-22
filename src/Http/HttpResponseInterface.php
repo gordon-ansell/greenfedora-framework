@@ -21,7 +21,7 @@ use GreenFedora\Http\Exception\HeadersSentException;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ResponseInterface extends ApplicationOutputInterface
+interface HttpResponseInterface extends ApplicationOutputInterface
 {
     /**
      * Set the status code.

@@ -10,12 +10,12 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Application;
+namespace GreenFedora\Http;
 
 use GreenFedora\Application\AbstractApplication;
-use GreenFedora\Application\HttpApplicationInterface;
-use GreenFedora\Http\RequestInterface;
-use GreenFedora\Http\ResponseInterface;
+use GreenFedora\Http\HttpApplicationInterface;
+use GreenFedora\Http\HttpRequestInterface;
+use GreenFedora\Http\HttpResponseInterface;
 use GreenFedora\Logger\Logger;
 use GreenFedora\Logger\Formatter\StdLogFormatter;
 use GreenFedora\Logger\Writer\FileLogWriter;
@@ -36,22 +36,22 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 
 	/**
 	 * Input.
-	 * @var RequestInterface
+	 * @var HttpRequestInterface
 	 */
-	protected $input = null;
+	protected $request = null;
 
 	/**
 	 * Output.
-	 * @var ResponseInterface
+	 * @var HttpResponseInterface
 	 */
-	protected $output = null;
+	protected $response = null;
 		
 	/**
 	 * Constructor.
 	 *
 	 * @param	string						$mode 			The mode we're running in: 'dev', 'test' or 'prod'.
-	 * @param	RequestInterface			$input 			Input.
-	 * @param	ResponseInterface			$output 		Output.
+	 * @param	HttpRequestInterface		$input 			Input.
+	 * @param	HttpResponseInterface		$output 		Output.
 	 * @param 	bool 						$autoLogger		Automatically set up logger.
 	 * @param 	bool 						$autoConfig		Automatically set up and process configs.
 	 * @param 	bool 						$autoLocale		Automatically set up and process locale.
@@ -60,8 +60,8 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 */
 	public function __construct(
 		string $mode = 'prod', 
-		?RequestInterface $input = null, 
-		?ResponseInterface $output = null,
+		?HttpRequestInterface $input = null, 
+		?HttpResponseInterface $output = null,
 		bool $autoLogger = true,
 		bool $autoConfig = true,
 		bool $autoLocale = true
@@ -107,14 +107,14 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	protected function dispatch()
 	{
 		// Find a match for the route.
-		$matched = $this->get('router')->match($this->input->getRoute());
+		$matched = $this->get('router')->match($this->request->getRoute());
 
 		// Just some debugging.
 		$this->trace4(sprintf("Matched namespaced class is: %s", $matched[0]->getNamespacedClass()));
 
 		// Create the class.
 		$class = $matched[0]->getNamespacedClass();
-		$dispatchable = new $class($this, $this->input, $this->output, $matched[1]);
+		$dispatchable = new $class($this, $this->request, $this->response, $matched[1]);
 
 		// Dispatch the class.
 		$dispatchable->dispatch();

@@ -22,7 +22,6 @@ namespace GreenFedora\Application;
 
 interface ApplicationInterface
 {
-
 	/**
 	 * The main run call.
 	 *

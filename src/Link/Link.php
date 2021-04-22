@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Link;
 
 use GreenFedora\Link\LinkInterface;
+use GreenFedora\Html\Html;
 
 /**
  * Psr-13 complaint link.
@@ -20,40 +21,17 @@ use GreenFedora\Link\LinkInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Link implements LinkInterface
+class Link extends Html implements LinkInterface
 {
-    /**
-     * Href
-     * @var string
-     */
-    protected $href = '';
-    
-    /**
-	 * Rels.
-	 * @var array
-	 */
-	protected $rels = array();
-	
-	/**
-	 * Attribites.
-	 * @var array
-	 */
-	protected $attributes = array();	   
-
     /**
      * Constructor.
      *
-     * @param   string		$href			Href (URL).
-     * @param 	array 		$rels			Rels.
-     * @param 	array		$attributes		Link attributes.
-     *
+     * @param   array   $params     Parameters.
      * @return  void
      */
-    public function __construct(string $href, array $rels = array(), array $attributes = array())
+    public function __construct(array $params = [])
     {
-        $this->href = $href;
-        $this->rels = $rels;
-        $this->attributes = $attributes;
+        parent::__construct('a', $params);
     }
     
     /**
@@ -66,25 +44,10 @@ class Link implements LinkInterface
 	 */
 	public function getHtml(string $content = '', bool $head = false) : string
 	{
-		$ret = $head ? '<link ' : '<a ';
-		$ret .= 'href="' . $this->href . '"';
-		
-		if (count($this->rels)) {
-			$ret .= ' rel="' . implode(' ', array_keys($this->rels)) . '"';	
-		}
-		
-		if (count($this->attributes)) {
-			foreach ($this->attributes as $k => $v) {
-				$ret .= ' ' . $k . '="' . $v . '"';
-			}
-		}
-		
-		if ($head) {
-			$ret .= '/>';	
-		} else {
-			$ret .= '>' . $content . '</a>';
-		}
-		return $ret;
+        if ($head) {
+            $this->setTag('link');
+        }
+        return $this->render($content);
 	}   
 
     /**
@@ -102,7 +65,11 @@ class Link implements LinkInterface
      */
     public function getHref()
     {
-	    return $this->href;
+        if ($this->hasParam('href')) {
+	        return $this->getParam('href');
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -114,7 +81,7 @@ class Link implements LinkInterface
 	 */
 	public function setHref(string $href) : LinkInterface
 	{
-		$this->href = href;
+        $this->setParam('href', $href);
 		return $this;
 	}   
 
@@ -138,7 +105,11 @@ class Link implements LinkInterface
      */
     public function getRels()
     {
-	    return $this->rels;
+        if ($this->hasParam('rel')) {
+	        return implode(' ', $this->getParam('rel'));
+        } else {
+            return [];
+        }
     }
     
     /**
@@ -150,7 +121,7 @@ class Link implements LinkInterface
 	 */
 	public function addRel(string $rel) : LinkInterface
 	{
-		$this->rels[$rel] = true;
+        $this->appendParam('rel', $rel);
 		return $this;
 	}   
 
@@ -163,9 +134,14 @@ class Link implements LinkInterface
 	 */
 	public function removeRel(string $rel) : LinkInterface
 	{
-		if (array_key_exists($rel, $this->rels)) {
-			unset($this->rels[$rel]);
-		}
+        if (!$this->hasParam('rel')) {
+            return $this;
+        }
+
+        $rels = explode(' ', $this->getParam('rel'));
+        unset($rels[$rel]);
+        $this->setParam('rel', implode(' ', $rels));
+
 		return $this;
 	}   
 
@@ -179,7 +155,7 @@ class Link implements LinkInterface
      */
     public function getAttributes()
     {
-	    return $this->attributes;
+	    return $this->getParams();
     }
     
     /**
@@ -191,9 +167,7 @@ class Link implements LinkInterface
 	 */
 	public function setAttributes(array $attribs) : LinkInterface
 	{
-		foreach ($attribs as $k => $v) {
-			$this->setAttribute($k, $v);
-		}
+        $this->setParams($attribs);
 		return $this;
 	}   
 
@@ -207,7 +181,7 @@ class Link implements LinkInterface
 	 */
 	public function setAttribute(string $key, $val) : LinkInterface
 	{
-		$this->attributes[$key] = (string)$val;
+        $this->setParam($key, $val);
 		return $this;
 	}   
 
@@ -220,9 +194,7 @@ class Link implements LinkInterface
 	 */
 	public function removeAttribute(string $key) : LinkInterface
 	{
-		if (array_key_exists($key, $this->attributes)) {
-			unset($this->attributes[$key]);
-		}
+        $this->removeParam($key);
 		return $this;
 	}   
 
@@ -246,7 +218,7 @@ class Link implements LinkInterface
     public function withHref($href)
     {
 	    $ret = clone $this;
-	    $ret->setHref($href);
+	    $ret->setParam('href', $href);
 	    return $ret;
     }
 
@@ -264,7 +236,7 @@ class Link implements LinkInterface
     public function withRel($rel)
     {
 	    $ret = clone $this;
-	    $ret->addRel($rel);
+	    $ret->appendParam('rel', $rel);
 	    return $ret;
     }
 
@@ -282,7 +254,7 @@ class Link implements LinkInterface
     public function withoutRel($rel)
     {
 	    $ret = clone $this;
-	    $ret->removeRel($rel);
+	    $ret->removeParamItem('rel', $rel);
 	    return $ret;
     }
 

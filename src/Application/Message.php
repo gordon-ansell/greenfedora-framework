@@ -12,15 +12,14 @@
 declare(strict_types=1);
 namespace GreenFedora\Application;
 
-use GreenFedora\Application\ApplicationInterface;
-use GreenFedora\Router\RouterInterface;
+use GreenFedora\Application\MessageInterface;
 
 /**
- * An HTTP application interface.
+ * Base message.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface HttpApplicationInterface extends ApplicationInterface
-{
+class Message implements MessageInterface
+{	
 }

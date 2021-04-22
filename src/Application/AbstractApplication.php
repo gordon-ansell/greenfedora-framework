@@ -12,8 +12,8 @@
 declare(strict_types=1);
 namespace GreenFedora\Application;
 
-use GreenFedora\Application\Input\ApplicationInputInterface;
-use GreenFedora\Application\Output\ApplicationOutputInterface;
+use GreenFedora\Application\RequestInterface;
+use GreenFedora\Application\ResponseInterface;
 use GreenFedora\DI\Container;
 use GreenFedora\Config\Config;
 use GreenFedora\Locale\Locale;
@@ -28,15 +28,15 @@ abstract class AbstractApplication extends Container
 {	
 	/**
 	 * Input.
-	 * @var ApplicationInputInterface
+	 * @var RequestInterface
 	 */
-	protected $input = null;
+	protected $request = null;
 
 	/**
 	 * Output.
-	 * @var ApplicationOutputInterface
+	 * @var ResponseInterface
 	 */
-	protected $output = null;
+	protected $response = null;
 
 	/**
 	 * The mode we're running in.
@@ -56,8 +56,8 @@ abstract class AbstractApplication extends Container
 	 * Constructor.
 	 *
 	 * @param	string						$mode 			The mode we're running in: 'dev', 'test' or 'prod'.
-	 * @param	ApplicationInputInterface	$input 			Input.
-	 * @param	ApplicationOutputInterface	$output 		Output.
+	 * @param	RequestInterface			$request 		Input.
+	 * @param	ResponseInterface			$response 		Output.
 	 * @param 	bool 						$autoConfig		Automatically set up and process configs.
 	 * @param 	bool 						$autoLocale		Automatically set up and process locale.
 	 *
@@ -65,16 +65,16 @@ abstract class AbstractApplication extends Container
 	 */
 	public function __construct(
 		string $mode = 'prod', 
-		?ApplicationInputInterface $input = null, 
-		?ApplicationOutputInterface $output = null,
+		?RequestInterface $request = null, 
+		?ResponseInterface $response = null,
 		bool $autoConfig = true,
 		bool $autoLocale = true
 		)
 	{
-		$this->input = $input ?: $this->container->get('input');
-		$this->output = $output ?: $this->container->get('output');
-		$this->mode = $mode;
 		self::setInstance($this);
+		$this->mode = $mode;
+		$this->request = $request ?: $this->get('request');
+		$this->response = $response ?: $this->get('response');
 		if ($autoConfig) {
 			$this->addSingletonAndCreate('config', Config::class)->process($this->mode);
 		}
@@ -114,11 +114,9 @@ abstract class AbstractApplication extends Container
 	 */
 	final public function main()
 	{
-		$this->trace4('Main started.');
 		if ($this->preRun()) {
 			$this->run();
 			$this->postRun();
 		}
-		$this->trace4('Main ended.');
 	}				
 }

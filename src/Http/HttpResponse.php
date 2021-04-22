@@ -12,7 +12,8 @@
 declare(strict_types=1);
 namespace GreenFedora\Http;
 
-use GreenFedora\Http\ResponseInterface;
+use GreenFedora\Application\Response;
+use GreenFedora\Http\HttpResponseInterface;
 use GreenFedora\Arr\Arr;
 
 use GreenFedora\Http\Exception\HeadersSentException;
@@ -23,7 +24,7 @@ use GreenFedora\Http\Exception\HeadersSentException;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Response implements ResponseInterface
+class HttpResponse extends Response implements HttpResponseInterface
 {
     /**
      * Status code.
@@ -148,7 +149,7 @@ class Response implements ResponseInterface
      * @param   int         $code       Code to set.
      * @return  ResponseInterface
      */
-    public function setStatusCode(int $code) : ResponseInterface
+    public function setStatusCode(int $code) : HttpResponseInterface
     {
         $this->statusCode = $code;
         return $this;
@@ -160,7 +161,7 @@ class Response implements ResponseInterface
      * @param   int         $code       Code to set.
      * @return  ResponseInterface
      */
-    public function setConsoleCode(int $code) : ResponseInterface
+    public function setConsoleCode(int $code) : HttpResponseInterface
     {
         $this->consoleCode = $code;
         return $this;
@@ -194,7 +195,7 @@ class Response implements ResponseInterface
      * @param   bool        $replace    Replace existing header?
      * @return  ResponseInterface
      */
-    public function setHeader(string $name, $value, bool $replace = false) : ResponseInterface
+    public function setHeader(string $name, $value, bool $replace = false) : HttpResponseInterface
     {
         if ($replace) {
             $this->headers = new Arr(array($name, $value));
@@ -227,7 +228,7 @@ class Response implements ResponseInterface
      *
      * @return  ResponseInterface
      */
-    public function sendHeaders() : ResponseInterface
+    public function sendHeaders() : HttpResponseInterface
     {
         if (count($this->headers) or (200 != $this->statusCode)) {
             $this->canSendHeaders(true);
@@ -266,7 +267,7 @@ class Response implements ResponseInterface
      * @param   mixed       $body       Body content.
      * @return  ResponseInterface
      */
-    public function setBody($body) : ResponseInterface
+    public function setBody($body) : HttpResponseInterface
     {
         $this->body = $body;
         return $this;
@@ -277,7 +278,7 @@ class Response implements ResponseInterface
      *
      * @return  ResponseInterface
      */
-    public function sendBody() : ResponseInterface
+    public function sendBody() : HttpResponseInterface
     {
         echo $this->body;
         return $this;
@@ -307,7 +308,7 @@ class Response implements ResponseInterface
      * @param   \Exception    $exception      Exception to add.
      * @return  ResponseInterface
      */
-    public function addException(\Exception $exception) : ResponseInterface
+    public function addException(\Exception $exception) : HttpResponseInterface
     {
         $this->exceptions[] = $exception;
         return $this;

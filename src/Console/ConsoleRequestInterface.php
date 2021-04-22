@@ -10,17 +10,19 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Application;
+namespace GreenFedora\Console;
 
-use GreenFedora\Router\RouterInterface;
+use GreenFedora\Console\Exception\OutOfBoundsException;
+use GreenFedora\Application\RequestInterface;
+
 
 /**
- * A console application interface.
+ * Command line options.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ConsoleApplicationInterface
+interface ConsoleRequestInterface extends RequestInterface
 {
 	/**
 	 * See if we have a particular argument.
@@ -40,6 +42,8 @@ interface ConsoleApplicationInterface
 	 * @param 	string 		$name		Argument name.
 	 * @param 	mixed 		$default 	Default if arg not found.
 	 * @return	mixed
+	 *
+	 * @throws 	OutOfBoundsException 	If argument not found and no default.
 	 */
 	public function getArg(string $name, $default = null);
 
@@ -49,5 +53,4 @@ interface ConsoleApplicationInterface
 	 * @return	array
 	 */
 	public function getArgs(): array;
-
 }

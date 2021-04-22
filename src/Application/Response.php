@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Application;
 
 use GreenFedora\Application\ResponseInterface;
-use GreenFedora\Application\Message;
+use GreenFedora\Application\AbstractMessage;
 
 /**
  * Base output.
@@ -21,6 +21,16 @@ use GreenFedora\Application\Message;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Response extends Message implements ResponseInterface
+class Response extends AbstractMessage implements ResponseInterface
 {	
+    /**
+     * Constructor.
+     * 
+     * @param   string|null     $protocol    Protocol.
+     * @return  void 
+     */
+    public function __construct(?string $protocol = null)
+    {
+		parent::__construct($protocol);
+    }
 }

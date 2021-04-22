@@ -64,13 +64,29 @@ class HttpRequest extends Request implements HttpRequestInterface
     /**
      * Constructor.
      *
-     * @param   array   $varSets    Variable sets to load.
+     * @param   string|null     $protocol    Protocol.
      * @return  void
      */
-    public function __construct()
+    public function __construct(?string $protocol = null)
     {
-        parent::__construct();
+        parent::__construct($protocol);
         $this->loadVars();
+    }
+
+    /**
+     * Create one of these from the environment.
+     * 
+     * @param   array           $headers     Headers.    
+     * @return MessageInterface
+     */
+    public static function fromEnvironment(array $headers = array()): HttpRequestInterface
+    {
+        $protocol = 'HTTP/1.1';
+        if (array_key_exists('SERVER_PROTOCOL', $_SERVER)) {
+            $protocol = $_SERVER['SERVER_PROTOCOL'];
+        }
+
+        return new static($protocol, $headers);
     }
 
     /**

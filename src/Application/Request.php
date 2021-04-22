@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Application;
 
 use GreenFedora\Application\RequestInterface;
-use GreenFedora\Application\Message;
+use GreenFedora\Application\AbstractMessage;
 use GreenFedora\Application\Exception\OutOfBoundsException;
 
 /**
@@ -22,7 +22,7 @@ use GreenFedora\Application\Exception\OutOfBoundsException;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Request extends Message implements RequestInterface
+class Request extends AbstractMessage implements RequestInterface
 {	
 	/**
      * Arguments.
@@ -33,10 +33,12 @@ class Request extends Message implements RequestInterface
     /**
      * Constructor.
      * 
+     * @param   string|null     $protocol    Protocol.
      * @return  void 
      */
-    public function __construct()
+    public function __construct(?string $protocol = null)
     {
+		parent::__construct($protocol);
         $this->loadCmdLineArgs();
     }
 

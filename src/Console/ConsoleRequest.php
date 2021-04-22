@@ -41,13 +41,14 @@ class ConsoleRequest extends Request implements ConsoleRequestInterface
      * @param   string      $mode   	Execution mode.
 	 * @param 	string 		$opts 		Options.
 	 * @param 	array 		$longopts 	Long options.
+     * @param   string|null $protocol   Protocol.
 	 * @return	void
 	 */
-	public function __construct(string $mode = 'prod', string $opts = '', array $longOpts = [])
+	public function __construct(string $mode = 'prod', string $opts = '', array $longOpts = [], ?string $protocol = null)
 	{
 		$this->opts = $opts;
 		$this->longOpts = $longOpts;
-		parent::__construct();
+		parent::__construct($protocol);
 		$this->processArgs($mode);
 	}
 

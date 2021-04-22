@@ -21,6 +21,97 @@ namespace GreenFedora\Application;
 interface MessageInterface
 {
     /**
+     * See if we have a header.
+     * 
+     * @param   string  $name   Header name.
+     * @return  bool
+     */
+    public function hasHeader(string $name): bool;
+
+    /**
+     * Get a header.
+     * 
+     * @param   string  $name       Name of header to get.
+     * @return  array
+     */
+    public function getHeader(string $name): array;
+
+    /**
+     * Get all the headers.
+     * 
+     * @return  array
+     */
+    public function getHeaders(): array;
+
+    /**
+     * Get a header line.
+     * 
+     * @param   string  $name       Name of header to get.
+     * @return  string
+     */
+    public function getHeaderLine(string $name): string;
+
+    /**
+     * Set a header.
+     * 
+     * @param   string      $name       Name of header to set.
+     * @param   string[]    $values     Array of values for this header.
+     * @return  MessageInterface 
+     */
+    public function setHeader(string $name, array $values): MessageInterface;
+
+    /**
+     * Remove a header.
+     * 
+     * @param   string      $name       Name of header to set.
+     * @return  MessageInterface 
+     */
+    public function removeHeader(string $name): MessageInterface;
+
+    /**
+     * Add a header line.
+     * 
+     * @param   string      $name       Name of header to set.
+     * @param   string      $value      Value of header line.
+     * @return  MessageInterface 
+     */
+    public function addHeaderLine(string $name, string $value): MessageInterface;
+
+    /**
+     * Create a version of ourself with a new header.
+     * 
+     * @param   string              $name       Name of header to replace.
+     * @param   array|string        $values     Values for the header.
+     * @return  MessageInterface
+     */
+    public function withHeader(string $name, $values): MessageInterface;
+
+    /**
+     * Create a version of ourself with a new header line added to a header.
+     * 
+     * @param   string              $name       Name of header to replace.
+     * @param   array|string        $values     Values for the header.
+     * @return  MessageInterface
+     */
+    public function withAddedHeader(string $name, $values): MessageInterface;
+
+    /**
+     * Create a version of ourself without a specific header.
+     * 
+     * @param   string              $name       Name of header to remove.
+     * @return  MessageInterface
+     */
+    public function withoutHeader(string $name): MessageInterface;
+
+    /**
+     * Set the protocol.
+     * 
+     * @param   string           $protocol   Protocol.
+     * @return  MessageInterface
+     */
+    public function setProtocol(string $protocol): MessageInterface;
+
+    /**
      * Get the protocol version.
      * 
      * @return  string
@@ -30,8 +121,8 @@ interface MessageInterface
     /**
      * Create a clone with a new protocol version.
      * 
-     * @param   string  $version    New version.
+     * @param   string  $newVersion    New version.
      * @return  MessageInterface
      */
-    public function withProtocolVersion(string $version): MessageInterface;
+    public function withProtocolVersion(string $newVersion): MessageInterface;
 }

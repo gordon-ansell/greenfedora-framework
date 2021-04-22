@@ -54,16 +54,6 @@ interface HttpResponseInterface extends ResponseInterface
     public function getConsoleCode() : int;
 
     /**
-     * Set a header.
-     *
-     * @param   string      $name       Header name.
-     * @param   mixed       $value      Header value.
-     * @param   bool        $replace    Replace existing header?
-     * @return  self
-     */
-    public function setHeader(string $name, $value, bool $replace = false) : self;
-
-    /**
      * See if we can send headers.
      *
      * @param   bool    $throw      Throw exception if sent?

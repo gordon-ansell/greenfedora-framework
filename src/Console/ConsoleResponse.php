@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Console;
 
 use GreenFedora\Console\ConsoleResponseInterface;
+use GreenFedora\Application\Response;
 
 /**
  * Return code output.
@@ -20,8 +21,9 @@ use GreenFedora\Console\ConsoleResponseInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class ConsoleResponse implements ConsoleResponseInterface
+class ConsoleResponse extends Response implements ConsoleResponseInterface
 {
+
 	/**
 	 * Output code.
 	 * @var int
@@ -31,14 +33,15 @@ class ConsoleResponse implements ConsoleResponseInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param 	int 	$output 		The return code output.
-	 *
-	 * @return 	void
+	 * @param 	int 		$output 	The return code output.
+     * @param   string|null $protocol   Protocol.
+	 * @return	void
 	 */
-	public function __construct(int $output = 0)
+	public function __construct(int $output = 0, ?string $protocol = null)
 	{
-		$this->output = $output;	
-	}	
+		parent::__construct($protocol);
+		$this->output = $output;
+	}
 	
 	/**
 	 * Get the output.

@@ -48,7 +48,7 @@ class HttpResponse extends Response implements HttpResponseInterface
      * Headers.
      * @var Arr
      */
-    protected $headers      =   null;
+    protected $header       =   null;
 
     /**
      * Exceptions.
@@ -134,12 +134,14 @@ class HttpResponse extends Response implements HttpResponseInterface
     /**
      * Constructor.
      *
-     * @param   bool    $renderExceptions   Should we?
+     * @param   bool            $renderExceptions   Should we?
+     * @param   string|null     $protocol           Protocol.
      * @return  void
      */
-    public function __construct(bool $renderExceptions = false)
+    public function __construct(bool $renderExceptions = false, ?string $protocol = null)
     {
-        $this->headers = new Arr();
+        parent::__construct($protocol);
+        $this->header = new Arr();
         $this->renderExceptions = $renderExceptions;
     }
 
@@ -188,24 +190,6 @@ class HttpResponse extends Response implements HttpResponseInterface
     }
 
     /**
-     * Set a header.
-     *
-     * @param   string      $name       Header name.
-     * @param   mixed       $value      Header value.
-     * @param   bool        $replace    Replace existing header?
-     * @return  ResponseInterface
-     */
-    public function setHeader(string $name, $value, bool $replace = false) : HttpResponseInterface
-    {
-        if ($replace) {
-            $this->headers = new Arr(array($name, $value));
-        } else {
-            $this->headers->set($name, $value);
-        }
-        return $this;
-    }
-
-    /**
      * See if we can send headers.
      *
      * @param   bool    $throw      Throw exception if sent?
@@ -230,14 +214,14 @@ class HttpResponse extends Response implements HttpResponseInterface
      */
     public function sendHeaders() : HttpResponseInterface
     {
-        if (count($this->headers) or (200 != $this->statusCode)) {
+        if (count($this->header) or (200 != $this->statusCode)) {
             $this->canSendHeaders(true);
         } else if (200 == $this->statusCode) {
             return $this;
         }
 
         $codeSent = false;
-        foreach ($this->headers as $name => $value) {
+        foreach ($this->getHeaders() as $name => $value) {
             if (!$codeSent) {
                 if (is_array($value)) {
                     header($name . ': ' . $value[0], true, $this->statusCode);
@@ -255,7 +239,7 @@ class HttpResponse extends Response implements HttpResponseInterface
         }
 
         if (!$codeSent) {
-            header('HTTP/1.1 ' . $this->statusCode);
+            header($this->protocol . ' ' . $this->statusCode);
         }
 
         return $this;

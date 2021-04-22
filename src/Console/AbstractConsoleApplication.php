@@ -141,7 +141,7 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	 */
 	protected function run()
 	{
-		$this->response->setOutput(0);
+		$this->response->setContent(0);
 	}
 
 }

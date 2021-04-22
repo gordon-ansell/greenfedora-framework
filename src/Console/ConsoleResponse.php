@@ -20,7 +20,7 @@ use GreenFedora\Console\ConsoleResponseInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class ReturnCodeApplicationOutput implements ConsoleResponseInterface
+class ConsoleResponse implements ConsoleResponseInterface
 {
 	/**
 	 * Output code.

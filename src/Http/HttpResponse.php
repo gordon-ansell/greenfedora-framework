@@ -33,12 +33,6 @@ class HttpResponse extends Response implements HttpResponseInterface
     protected $statusCode   =   200;
 
     /**
-     * Content.
-     * @var string
-     */
-    protected $content      =   '';
-
-    /**
      * Exceptions.
      * @var \Exception[]
      */
@@ -132,8 +126,7 @@ class HttpResponse extends Response implements HttpResponseInterface
     public function __construct(?string $content = '', array $headers = array(), int $statusCode = 200, 
         ?string $protocol = null, bool $renderExceptions = true)
     {
-        parent::__construct($headers, $protocol);
-        $this->content = $content;
+        parent::__construct($content, $headers, $protocol);
         $this->statusCode = $statusCode;
         $this->renderExceptions = $renderExceptions;
     }
@@ -232,18 +225,6 @@ class HttpResponse extends Response implements HttpResponseInterface
             header($this->protocol . ' ' . $this->statusCode);
         }
 
-        return $this;
-    }
-
-    /**
-     * Set the body.
-     *
-     * @param   string       $content       Body content.
-     * @return  ResponseInterface
-     */
-    public function setContent(?string $content) : HttpResponseInterface
-    {
-        $this->content = $content;
         return $this;
     }
 

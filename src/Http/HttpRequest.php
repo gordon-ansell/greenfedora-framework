@@ -56,12 +56,6 @@ class HttpRequest extends Request implements HttpRequestInterface
     //protected $env         =   null;
 
     /**
-     * Request content.
-     * @var string|resource|null
-     */
-    protected $content = null;
-
-    /**
      * Is dispatched?
      * @var bool
      */
@@ -84,14 +78,13 @@ class HttpRequest extends Request implements HttpRequestInterface
         iterable $cookies = array(), iterable $files = array(), iterable $server = array(), 
         iterable $headers = array(), $content = null, ?string $protocol = null)
     {
-        parent::__construct($headers, $protocol);
+        parent::__construct($content, $headers, $protocol);
 
         $this->get = new Arr($get);
         $this->post = new Arr($post);
         $this->cookies = new Arr($cookies);
         $this->files = new Arr($files);
         $this->server = new Arr($server);
-        $this->content = $content;
     }
 
     /**
@@ -120,7 +113,7 @@ class HttpRequest extends Request implements HttpRequestInterface
         if (0 === strpos($request->headers->get('CONTENT_TYPE', ''), 'application/x-www-form-urlencoded')
             and in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), ['PUT', 'DELETE', 'PATCH'])
         ) {
-            parse_str($request->getContent(), $data);
+            parse_str($request->constructContent(), $data);
             $request->request = new Arr($data);
         }
 
@@ -213,7 +206,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      *
      * @return string|resource The request body content or a resource to read the body stream
      */
-    public function getContent(bool $asResource = false)
+    public function constructContent(bool $asResource = false)
     {
         $currentContentIsResource = is_resource($this->content);
 

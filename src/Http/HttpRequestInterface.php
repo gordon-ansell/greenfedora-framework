@@ -32,7 +32,7 @@ interface HttpRequestInterface extends RequestInterface
      *
      * @return string|resource The request body content or a resource to read the body stream
      */
-    public function getContent(bool $asResource = false);
+    public function constructContent(bool $asResource = false);
 
     /**
      * Get the request URI.

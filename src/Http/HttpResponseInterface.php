@@ -55,14 +55,6 @@ interface HttpResponseInterface extends ResponseInterface
     public function sendHeaders() : self;
 
     /**
-     * Set the body.
-     *
-     * @param   string       $content       Body content.
-     * @return  self
-     */
-    public function setContent(?string $content) : self;
-
-    /**
      * Send the body.
      *
      * @return  self

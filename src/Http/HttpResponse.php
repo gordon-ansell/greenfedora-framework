@@ -138,11 +138,28 @@ class HttpResponse extends Response implements HttpResponseInterface
      * @param   string|null     $protocol           Protocol.
      * @return  void
      */
-    public function __construct(bool $renderExceptions = false, ?string $protocol = null)
+    public function __construct(bool $renderExceptions = true, ?string $protocol = null, array $headers = array())
     {
         parent::__construct($protocol);
         $this->header = new Arr();
         $this->renderExceptions = $renderExceptions;
+    }
+
+    /**
+     * Create one of these from the environment.
+     * 
+     * @param   bool            $renderExcaptions   Should we?
+     * @param   array           $headers            Headers.    
+     * @return MessageInterface
+     */
+    public static function fromEnvironment(bool $renderExceptions = true, array $headers = array()): HttpRequestInterface
+    {
+        $protocol = 'HTTP/1.1';
+        if (array_key_exists('SERVER_PROTOCOL', $_SERVER)) {
+            $protocol = $_SERVER['SERVER_PROTOCOL'];
+        }
+
+        return new static($renderExceptions, $protocol, $headers);
     }
 
     /**

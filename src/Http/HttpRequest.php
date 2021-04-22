@@ -48,12 +48,18 @@ class HttpRequest extends Request implements HttpRequestInterface
     protected $get         =   null;
     protected $post        =   null;
     protected $request     =   null;
-    protected $env         =   null;
     protected $server      =   null;
     protected $cookie      =   null;
-    protected $session     =   null;
     protected $files       =   null;
-    protected $header      =   null;
+
+    //protected $session     =   null;
+    //protected $env         =   null;
+
+    /**
+     * Request content.
+     * @var string|resource|null
+     */
+    protected $content = null;
 
     /**
      * Is dispatched?
@@ -64,19 +70,32 @@ class HttpRequest extends Request implements HttpRequestInterface
     /**
      * Constructor.
      *
-     * @param   string|null     $protocol    Protocol.
+     * @param   string|null             $protocol       Protocol.
+     * @param   iterable                $get            GET.
+     * @param   iterable                $post           POST.
+     * @param   iterable                $cookies        COOKIES.
+     * @param   iterable                $files          FILES.
+     * @param   iterable                $server         SERVER.
+     * @param   iterable                $headers        Headers
+     * @param   string|resource|null    $content        Request content.
      * @return  void
      */
-    public function __construct(?string $protocol = null)
+    public function __construct(?string $protocol = null, iterable $get = array(), iterable $post = array(),
+        iterable $cookies = array(), iterable $files = array(), iterable $server = array(), 
+        iterable $headers = array(), $content = null)
     {
-        parent::__construct($protocol);
-        $this->loadVars();
+        parent::__construct($protocol, $headers);
+        $this->get = new Arr($get);
+        $this->post = new Arr($post);
+        $this->cookies = new Arr($cookies);
+        $this->files = new Arr($files);
+        $this->server = new Arr($server);
+        $this->content = $content;
     }
 
     /**
      * Create one of these from the environment.
      * 
-     * @param   array           $headers     Headers.    
      * @return MessageInterface
      */
     public static function fromEnvironment(array $headers = array()): HttpRequestInterface
@@ -86,28 +105,64 @@ class HttpRequest extends Request implements HttpRequestInterface
             $protocol = $_SERVER['SERVER_PROTOCOL'];
         }
 
-        return new static($protocol, $headers);
+        $request = new static($protocol, 
+            $_GET,
+            $_POST,
+            $_COOKIE,
+            $_FILES,
+            $_SERVER,
+            apache_request_headers(),
+            null);
+
+        if (0 === strpos($request->headers->get('CONTENT_TYPE'), 'application/x-www-form-urlencoded')
+            and in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), ['PUT', 'DELETE', 'PATCH'])
+        ) {
+            parse_str($request->getContent(), $data);
+            $request->request = new Arr($data);
+        }
+
+        return $request;
     }
 
     /**
-     * Load the variables.
+     * Returns the request body content.
      *
-     * @return  void
+     * @param bool $asResource If true, a resource will be returned
+     *
+     * @return string|resource The request body content or a resource to read the body stream
      */
-    protected function loadVars()
+    public function getContent(bool $asResource = false)
     {
-        foreach ($this->varSets as $set) {
-            $super = '_' . strtoupper($set);
-            if ('header' == $set) {
-                $this->$set = new Arr(apache_request_headers());
-            } else {
-                if (isset($GLOBALS[$super])) {
-                    $this->$set = new Arr($GLOBALS[$super]);
-                } else {
-                    $this->$set = new Arr();;
-                }
+        $currentContentIsResource = is_resource($this->content);
+
+        if (true === $asResource) {
+            if ($currentContentIsResource) {
+                rewind($this->content);
+                return $this->content;
             }
+
+            // Content passed in parameter (test)
+            if (is_string($this->content)) {
+                $resource = fopen('php://temp', 'r+');
+                fwrite($resource, $this->content);
+                rewind($resource);
+                return $resource;
+            }
+
+            $this->content = false;
+            return fopen('php://input', 'r');
         }
+
+        if ($currentContentIsResource) {
+            rewind($this->content);
+            return stream_get_contents($this->content);
+        }
+
+        if (null === $this->content or false === $this->content) {
+            $this->content = file_get_contents('php://input');
+        }
+
+        return $this->content;
     }
     	
     /**
@@ -156,7 +211,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function getMethod() : string
     {
-        return $this->server('REQUEST_METHOD');
+        return $this->server->get('REQUEST_METHOD');
     }
 
     /**
@@ -167,53 +222,6 @@ class HttpRequest extends Request implements HttpRequestInterface
     public function isPost() : bool
     {
         return 'POST' == $this->getMethod();
-    }
-
-    /**
-     * Get a variable (or whole set).
-     *
-     * @param   string          $type       Set to get.
-     * @param   string|null     $key        Key to get or null for all.
-     * @param   mixed           $default    Default to return uf not found.
-     * @return  mixed
-     * @throws  InvalidArgumentException
-     */
-    public function getVar(string $type, ?string $key = null, $default = null)
-    {
-        if (!in_array($type, $this->varSets)) {
-            throw new InvalidArgumentException(sprintf("We do not have variables of type '%s'", $type));
-        }
-
-        if (null === $this->server) {
-            $this->loadVars();
-        }
-        
-        if (null === $key) {
-            return $this->$type;
-        } else {
-            return $this->$type->get($key, $default);
-        }
-    }
-
-    /**
-     * See if we have a variable (or whole set).
-     *
-     * @param   string          $type       Set to get.
-     * @param   string          $key        Key to get.
-     * @return  bool
-     * @throws  InvalidArgumentException
-     */
-    public function hasVar(string $type, string $key) : bool
-    {
-        if (!in_array($type, $this->varSets)) {
-            throw new InvalidArgumentException(sprintf("We do not have variables of type '%s'", $type));
-        }
-
-        if (null === $this->server) {
-            $this->loadVars();
-        }
-        
-        return $this->$type->has($key);
     }
 
     /**
@@ -247,7 +255,12 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function get(?string $key = null, $default = null)
     {
-        return $this->getVar('get', $key, $default);
+        if (is_null($key)) {
+            return $this->get;
+        } else if ($this->get->has($key)) {
+            return $this->get->get($key);
+        }
+        return $default;
     }
 
     /**
@@ -259,7 +272,12 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function post(?string $key = null, $default = null)
     {
-        return $this->getVar('post', $key, $default);
+        if (is_null($key)) {
+            return $this->post;
+        } else if ($this->post->has($key)) {
+            return $this->post->get($key);
+        }
+        return $default;
     }
 
     /**
@@ -270,7 +288,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function hasPost(string $key) : bool
     {
-        return $this->hasVar('post', $key);
+        return $this->post->has($key);
     }
 
     /**
@@ -281,7 +299,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function formSubmitted(string $form): bool
     {
-        return ($this->isPost() and $this->post('form-submitted', null) == $form);
+        return ($this->isPost() and $this->post('form-submitted') == $form);
     }
 
     /**
@@ -293,7 +311,12 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function request(?string $key = null, $default = null)
     {
-        return $this->getVar('request', $key, $default);
+        if (is_null($key)) {
+            return $this->request;
+        } else if ($this->request->has($key)) {
+            return $this->request->get($key);
+        }
+        return $default;
     }
 
     /**
@@ -303,10 +326,17 @@ class HttpRequest extends Request implements HttpRequestInterface
      * @param   mixed           $default    Default if not found.
      * @return  mixed
      */
+    /*
     public function env(?string $key = null, $default = null)
     {
-        return $this->getVar('env', $key, $default);
+        if (is_null($key)) {
+            return $this->env;
+        } else if ($this->env->has($key)) {
+            return $this->env->get($key);
+        }
+        return $default;
     }
+    */
 
     /**
      * Get server variable(s).
@@ -317,7 +347,12 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function server(?string $key = null, $default = null)
     {
-        return $this->getVar('server', $key, $default);
+        if (is_null($key)) {
+            return $this->server;
+        } else if ($this->server->has($key)) {
+            return $this->server->get($key);
+        }
+        return $default;
     }
 
     /**
@@ -329,7 +364,12 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function cookie(?string $key = null, $default = null)
     {
-        return $this->getVar('cookie', $key, $default);
+        if (is_null($key)) {
+            return $this->cookie;
+        } else if ($this->cookie->has($key)) {
+            return $this->cookie->get($key);
+        }
+        return $default;
     }
 
     /**
@@ -339,10 +379,17 @@ class HttpRequest extends Request implements HttpRequestInterface
      * @param   mixed           $default    Default if not found.
      * @return  mixed
      */
+    /*
     public function session(?string $key = null, $default = null)
     {
-        return $this->getVar('session', $key, $default);
+        if (is_null($key)) {
+            return $this->session;
+        } else if ($this->session->has($key)) {
+            return $this->session->get($key);
+        }
+        return $default;
     }
+    */
 
     /**
      * Get files variable(s).
@@ -353,19 +400,12 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function files(?string $key = null, $default = null)
     {
-        return $this->getVar('files', $key, $default);
-    }
-
-    /**
-     * Get header variable(s).
-     *
-     * @param   string          $key        Key to get.
-     * @param   mixed           $default    Default if not found.
-     * @return  mixed
-     */
-    public function header(?string $key = null, $default = null)
-    {
-        return $this->getVar('header', $key, $default);
+        if (is_null($key)) {
+            return $this->files;
+        } else if ($this->files->has($key)) {
+            return $this->files->get($key);
+        }
+        return $default;
     }
 
 }

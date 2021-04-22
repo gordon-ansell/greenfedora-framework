@@ -34,11 +34,12 @@ class Request extends AbstractMessage implements RequestInterface
      * Constructor.
      * 
      * @param   string|null     $protocol    Protocol.
+     * @param   iterable        $headers     Headers.    
      * @return  void 
      */
-    public function __construct(?string $protocol = null)
+    public function __construct(?string $protocol = null, iterable $headers = array())
     {
-		parent::__construct($protocol);
+		parent::__construct($protocol, $headers);
         $this->loadCmdLineArgs();
     }
 

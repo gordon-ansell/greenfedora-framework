@@ -49,6 +49,27 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
+     * Return the headers or get an individual header.
+     * 
+     * @param   string|null      $key       Key of header to get.
+     * @param   mixed            $default   If header not there.
+     * @return  mixed
+     */
+    public function header(?string $key = null, $default = null)
+    {
+        if (is_null($key)) {
+            return $this->headers;
+        } else if ($this->headers->has($key)) {
+            return $this->headers->get($key);
+        }
+        return $default;
+    }
+
+    // =============================================
+    // PSR
+    // =============================================
+
+    /**
      * See if we have a header.
      * 
      * @param   string  $name   Header name.

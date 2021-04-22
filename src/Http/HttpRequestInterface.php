@@ -61,27 +61,6 @@ interface HttpRequestInterface extends RequestInterface
     public function isPost() : bool;
 
     /**
-     * Get a variable (or whole set).
-     *
-     * @param   string          $type       Set to get.
-     * @param   string|null     $key        Key to get or null for all.
-     * @param   mixed           $default    Default to return uf not found.
-     * @return  mixed
-     * @throws  InvalidArgumentException
-     */
-    public function getVar(string $type, ?string $key = null, $default = null);
-
-    /**
-     * See if we have a variable (or whole set).
-     *
-     * @param   string          $type       Set to get.
-     * @param   string          $key        Key to get.
-     * @return  bool
-     * @throws  InvalidArgumentException
-     */
-    public function hasVar(string $type, string $key) : bool;
-
-    /**
      * Set the request as dispatched.
      *
      * @param   bool            $flag       Flag to set.
@@ -146,7 +125,7 @@ interface HttpRequestInterface extends RequestInterface
      * @param   mixed           $default    Default if not found.
      * @return  mixed
      */
-    public function env(?string $key = null, $default = null);
+    //public function env(?string $key = null, $default = null);
 
     /**
      * Get server variable(s).
@@ -173,7 +152,7 @@ interface HttpRequestInterface extends RequestInterface
      * @param   mixed           $default    Default if not found.
      * @return  mixed
      */
-    public function session(?string $key = null, $default = null);
+    //public function session(?string $key = null, $default = null);
 
     /**
      * Get files variable(s).
@@ -191,7 +170,7 @@ interface HttpRequestInterface extends RequestInterface
      * @param   mixed           $default    Default if not found.
      * @return  mixed
      */
-    public function header(?string $key = null, $default = null);
+    //public function header(?string $key = null, $default = null);
 
 }
 

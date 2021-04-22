@@ -39,7 +39,7 @@ class File extends \SplFileObject implements FileInterface
 	 *
 	 * @return	void
 	 */
-	public function __construct(string $fileName, string $openMode = 'r', bool $useIncludePath = false, resource $context = null)
+	public function __construct(string $fileName, string $openMode = 'r', bool $useIncludePath = false, $context = null)
 	{
 		parent::__construct($fileName, $openMode, $useIncludePath, $context);
 		$this->setFileClass(File::class);

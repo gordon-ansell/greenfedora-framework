@@ -12,7 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Console;
 
-use GreenFedora\Router\RouterInterface;
+use GreenFedora\Application\ApplicationInterface;
 
 /**
  * A console application interface.
@@ -20,7 +20,7 @@ use GreenFedora\Router\RouterInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ConsoleApplicationInterface
+interface ConsoleApplicationInterface extends ApplicationInterface
 {
 	/**
 	 * See if we have a particular argument.

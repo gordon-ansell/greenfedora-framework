@@ -17,7 +17,7 @@ use GreenFedora\Table\ColumnInterface;
 use GreenFedora\Table\Column;
 use GreenFedora\Html\Html;
 use GreenFedora\Session\SessionInterface;
-use GreenFedora\Http\RequestInterface;
+use GreenFedora\Http\HttpRequestInterface;
 use GreenFedora\Arr\Arr;
 
 use GreenFedora\Table\Exception\InvalidArgumentException;
@@ -109,11 +109,11 @@ class Table implements TableInterface
     /**
      * Check the sorting.
      * 
-     * @param   RequestInterface    $request    Request object.
-     * @param   SessionInterface    $session    Session object.
+     * @param   HttpRequestInterface    $request    Request object.
+     * @param   SessionInterface        $session    Session object.
      * @return  TableInterface
      */
-    public function checkSort(RequestInterface $request, ?SessionInterface $session): TableInterface
+    public function checkSort(HttpRequestInterface $request, ?SessionInterface $session): TableInterface
     {
         $sortcol = null;
         $sortdir = null;

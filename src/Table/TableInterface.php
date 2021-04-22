@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Table;
 
 use GreenFedora\Session\SessionInterface;
-use GreenFedora\Http\RequestInterface;
+use GreenFedora\Http\HttpRequestInterface;
 use GreenFedora\Table\ColumnInterface;
 
 /**
@@ -27,11 +27,11 @@ interface TableInterface
     /**
      * Check the sorting.
      * 
-     * @param   RequestInterface    $request    Request object.
-     * @param   SessionInterface    $session    Session object.
+     * @param   HttpRequestInterface    $request    Request object.
+     * @param   SessionInterface        $session    Session object.
      * @return  TableInterface
      */
-    public function checkSort(RequestInterface $request, ?SessionInterface $session): TableInterface;
+    public function checkSort(HttpRequestInterface $request, ?SessionInterface $session): TableInterface;
 
     /**
      * Get the name.

@@ -58,6 +58,7 @@ class ConsoleRequest extends Request implements ConsoleRequestInterface
 	 */
 	protected function loadCmdLineArgs()
 	{
+		print_r($this->longOpts);
 		$this->args = getopt($this->opts, $this->longOpts);	
 		print_r($this->args);
 	}

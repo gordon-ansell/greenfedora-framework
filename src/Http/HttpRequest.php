@@ -30,10 +30,11 @@ use GreenFedora\Http\Exception\InvalidArgumentException;
 class HttpRequest extends Request implements HttpRequestInterface
 {
     /**
-     * Variable sets.
+     * Variable sets to load.
+     * @var array
      */
-    const VAR_SETS = array('get', 'post', 'request', 'env', 'server', 'cookie', 'session', 'files', 'header');
-
+    protected $varSets = array('get', 'post', 'request', 'env', 'server', 'cookie', 'session', 'files', 'header');
+     
     /**
      * Request URI.
      * @var Uri|null
@@ -63,6 +64,7 @@ class HttpRequest extends Request implements HttpRequestInterface
     /**
      * Constructor.
      *
+     * @param   array   $varSets    Variable sets to load.
      * @return  void
      */
     public function __construct()
@@ -78,7 +80,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     protected function loadVars()
     {
-        foreach (self::VAR_SETS as $set) {
+        foreach ($this->varSets as $set) {
             $super = '_' . strtoupper($set);
             if ('header' == $set) {
                 $this->$set = new Arr(apache_request_headers());
@@ -162,7 +164,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function getVar(string $type, ?string $key = null, $default = null)
     {
-        if (!in_array($type, self::VAR_SETS)) {
+        if (!in_array($type, $this->varSets)) {
             throw new InvalidArgumentException(sprintf("We do not have variables of type '%s'", $type));
         }
 
@@ -187,7 +189,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function hasVar(string $type, string $key) : bool
     {
-        if (!in_array($type, self::VAR_SETS)) {
+        if (!in_array($type, $this->varSets)) {
             throw new InvalidArgumentException(sprintf("We do not have variables of type '%s'", $type));
         }
 

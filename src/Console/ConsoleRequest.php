@@ -60,6 +60,7 @@ class ConsoleRequest extends Request implements ConsoleRequestInterface
 	{
 		echo "HERE";
 		$this->args = getopt($this->opts, $this->longOpts);	
+		print_r($this->opts);
 		print_r($this->args);
 	}
 

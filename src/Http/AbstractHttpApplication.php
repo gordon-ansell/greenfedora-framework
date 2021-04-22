@@ -106,13 +106,13 @@ abstract class AbstractHttpApplication extends AbstractApplication implements Ht
 	 */
 	protected function dispatch()
 	{
-		// Find a match for the route.
-		$matched = $this->get('router')->match($this->request->getRoute());
-
-		// Just some debugging.
-		$this->trace4(sprintf("Matched namespaced class is: %s", $matched[0]->getNamespacedClass()));
-
 		try {
+			// Find a match for the route.
+			$matched = $this->get('router')->match($this->request->getRoute());
+
+			// Just some debugging.
+			$this->trace4(sprintf("Matched namespaced class is: %s", $matched[0]->getNamespacedClass()));
+
 			// Create the class.
 			$class = $matched[0]->getNamespacedClass();
 			$dispatchable = new $class($this, $this->request, $this->response, $matched[1]);

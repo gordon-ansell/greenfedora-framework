@@ -98,7 +98,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      * 
      * @return MessageInterface
      */
-    public static function fromEnvironment(array $headers = array()): HttpRequestInterface
+    public static function fromGlobals(array $headers = array()): HttpRequestInterface
     {
         $protocol = 'HTTP/1.1';
         if (array_key_exists('SERVER_PROTOCOL', $_SERVER)) {

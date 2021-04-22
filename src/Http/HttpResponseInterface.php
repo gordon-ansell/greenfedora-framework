@@ -57,17 +57,17 @@ interface HttpResponseInterface extends ResponseInterface
     /**
      * Set the body.
      *
-     * @param   mixed       $body       Body content.
+     * @param   string       $content       Body content.
      * @return  self
      */
-    public function setBody($body) : self;
+    public function setContent(?string $content) : self;
 
     /**
      * Send the body.
      *
      * @return  self
      */
-    public function sendBody() : self;
+    public function sendContent() : self;
 
     /**
      * Send the request.

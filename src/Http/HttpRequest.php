@@ -70,7 +70,6 @@ class HttpRequest extends Request implements HttpRequestInterface
     /**
      * Constructor.
      *
-     * @param   string|null             $protocol       Protocol.
      * @param   iterable                $get            GET.
      * @param   iterable                $post           POST.
      * @param   iterable                $cookies        COOKIES.
@@ -78,13 +77,15 @@ class HttpRequest extends Request implements HttpRequestInterface
      * @param   iterable                $server         SERVER.
      * @param   iterable                $headers        Headers
      * @param   string|resource|null    $content        Request content.
+     * @param   string|null             $protocol       Protocol.
      * @return  void
      */
-    public function __construct(?string $protocol = null, iterable $get = array(), iterable $post = array(),
+    public function __construct(iterable $get = array(), iterable $post = array(),
         iterable $cookies = array(), iterable $files = array(), iterable $server = array(), 
-        iterable $headers = array(), $content = null)
+        iterable $headers = array(), $content = null, ?string $protocol = null)
     {
-        parent::__construct($protocol, $headers);
+        parent::__construct($headers, $protocol);
+
         $this->get = new Arr($get);
         $this->post = new Arr($post);
         $this->cookies = new Arr($cookies);
@@ -105,14 +106,16 @@ class HttpRequest extends Request implements HttpRequestInterface
             $protocol = $_SERVER['SERVER_PROTOCOL'];
         }
 
-        $request = new static($protocol, 
+        $request = new static( 
             $_GET,
             $_POST,
             $_COOKIE,
             $_FILES,
             $_SERVER,
             self::extractHeaders($_SERVER),
-            null);
+            null,
+            $protocol
+        );
 
         if (0 === strpos($request->headers->get('CONTENT_TYPE', ''), 'application/x-www-form-urlencoded')
             and in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), ['PUT', 'DELETE', 'PATCH'])
@@ -400,25 +403,6 @@ class HttpRequest extends Request implements HttpRequestInterface
     }
 
     /**
-     * Get env variable(s).
-     *
-     * @param   string          $key        Key to get.
-     * @param   mixed           $default    Default if not found.
-     * @return  mixed
-     */
-    /*
-    public function env(?string $key = null, $default = null)
-    {
-        if (is_null($key)) {
-            return $this->env;
-        } else if ($this->env->has($key)) {
-            return $this->env->get($key);
-        }
-        return $default;
-    }
-    */
-
-    /**
      * Get server variable(s).
      *
      * @param   string          $key        Key to get.
@@ -451,25 +435,6 @@ class HttpRequest extends Request implements HttpRequestInterface
         }
         return $default;
     }
-
-    /**
-     * Get session variable(s).
-     *
-     * @param   string          $key        Key to get.
-     * @param   mixed           $default    Default if not found.
-     * @return  mixed
-     */
-    /*
-    public function session(?string $key = null, $default = null)
-    {
-        if (is_null($key)) {
-            return $this->session;
-        } else if ($this->session->has($key)) {
-            return $this->session->get($key);
-        }
-        return $default;
-    }
-    */
 
     /**
      * Get files variable(s).

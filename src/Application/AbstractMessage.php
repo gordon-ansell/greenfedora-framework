@@ -38,14 +38,14 @@ abstract class AbstractMessage implements MessageInterface
     /**
      * Constructor.
      * 
-     * @param   string|null     $protocol    Protocol.
      * @param   iterable        $headers     Headers.    
+     * @param   string|null     $protocol    Protocol.
      * @return  void 
      */
-    public function __construct(?string $protocol = null, iterable $headers = array())
+    public function __construct(iterable $headers = array(), ?string $protocol = null)
     {
-        $this->protocol = $protocol;
         $this->headers = new Arr($headers);
+        $this->protocol = $protocol;
     }
 
     /**

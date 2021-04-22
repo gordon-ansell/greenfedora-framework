@@ -33,10 +33,10 @@ class HttpResponse extends Response implements HttpResponseInterface
     protected $statusCode   =   200;
 
     /**
-     * Body.
-     * @var mixed
+     * Content.
+     * @var string
      */
-    protected $body         =   null;
+    protected $content      =   '';
 
     /**
      * Exceptions.
@@ -122,15 +122,18 @@ class HttpResponse extends Response implements HttpResponseInterface
     /**
      * Constructor.
      *
+     * @param   string          $content            Content.
+     * @param   array           $headers            Headers.
+     * @param   int             $statusCode         Status code.
      * @param   bool            $renderExceptions   Should we?
      * @param   string|null     $protocol           Protocol.
-     * @param   int             $statusCode         Status code.
      * @return  void
      */
-    public function __construct(bool $renderExceptions = true, ?string $protocol = null, int $statusCode = 200,
-        array $headers = array())
+    public function __construct(?string $content = '', array $headers = array(), int $statusCode = 200, 
+        ?string $protocol = null, bool $renderExceptions = true)
     {
-        parent::__construct($protocol, $headers);
+        parent::__construct($headers, $protocol);
+        $this->content = $content;
         $this->statusCode = $statusCode;
         $this->renderExceptions = $renderExceptions;
     }
@@ -138,18 +141,20 @@ class HttpResponse extends Response implements HttpResponseInterface
     /**
      * Create one of these from the environment.
      * 
-     * @param   bool            $renderExcaptions   Should we?
+     * @param   string          $content            Content.
      * @param   array           $headers            Headers.    
+     * @param   bool            $renderExcaptions   Should we?
      * @return MessageInterface
      */
-    public static function fromEnvironment(bool $renderExceptions = true, array $headers = array()): HttpResponseInterface
+    public static function fromEnvironment(?string $content = '', array $headers = array(), 
+        bool $renderExceptions = true): HttpResponseInterface
     {
         $protocol = 'HTTP/1.1';
         if (array_key_exists('SERVER_PROTOCOL', $_SERVER)) {
             $protocol = $_SERVER['SERVER_PROTOCOL'];
         }
 
-        return new static($renderExceptions, $protocol, 200, $headers);
+        return new static($content, $headers, 200, $protocol, $renderExceptions);
     }
 
     /**
@@ -233,23 +238,23 @@ class HttpResponse extends Response implements HttpResponseInterface
     /**
      * Set the body.
      *
-     * @param   mixed       $body       Body content.
+     * @param   string       $content       Body content.
      * @return  ResponseInterface
      */
-    public function setBody($body) : HttpResponseInterface
+    public function setContent(?string $content) : HttpResponseInterface
     {
-        $this->body = $body;
+        $this->content = $content;
         return $this;
     }
 
     /**
-     * Send the body.
+     * Send the content.
      *
      * @return  ResponseInterface
      */
-    public function sendBody() : HttpResponseInterface
+    public function sendContent() : HttpResponseInterface
     {
-        echo $this->body;
+        echo $this->content;
         return $this;
     }
 
@@ -268,7 +273,7 @@ class HttpResponse extends Response implements HttpResponseInterface
             }
         }
 
-        $this->sendBody();
+        $this->sendContent();
     }
 
     /**

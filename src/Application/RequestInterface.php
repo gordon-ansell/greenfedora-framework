@@ -12,13 +12,15 @@
 declare(strict_types=1);
 namespace GreenFedora\Application;
 
+use GreenFedora\Application\MessageInterface;
+
 /**
  * Base request interface.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface RequestInterface
+interface RequestInterface extends MessageInterface
 {
 	/**
 	 * Get the command line arguments.

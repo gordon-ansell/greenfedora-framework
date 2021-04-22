@@ -12,12 +12,14 @@
 declare(strict_types=1);
 namespace GreenFedora\Application;
 
+use GreenFedora\Application\MessageInterface;
+
 /**
  * Base output interface.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ResponseInterface
+interface ResponseInterface extends MessageInterface
 {
 }

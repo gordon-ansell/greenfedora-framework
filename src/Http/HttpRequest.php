@@ -59,6 +59,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     public function __construct()
     {
+        parent::__construct();
         $this->loadVars();
     }
 

@@ -58,6 +58,7 @@ class ConsoleRequest extends Request implements ConsoleRequestInterface
 	 */
 	protected function loadCmdLineArgs()
 	{
+		echo "HERE";
 		$this->args = getopt($this->opts, $this->longOpts);	
 	}
 

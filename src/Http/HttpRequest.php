@@ -53,18 +53,6 @@ class HttpRequest extends Request implements HttpRequestInterface
     protected $isDispatched    =   false;
     
     /**
-	 * Command line arguments.
-	 * @var Arr
-	 */
-	protected $cmdLineArgs = null;
-
-    /**
-	 * Command line switches.
-	 * @var Arr
-	 */
-	protected $cmdLineSwitches = null;
-
-    /**
      * Constructor.
      *
      * @return  void
@@ -94,57 +82,8 @@ class HttpRequest extends Request implements HttpRequestInterface
                 }
             }
         }
-        
-        $this->loadCmdLineArgs();
     }
-    
-    /**
-	 * Load command line arguments.
-	 *
-	 * @return 	void
-	 */
-	protected function loadCmdLineArgs()
-	{
-		$this->cmdLineArgs = new Arr();
-		$this->cmdLineSwitches = new Arr();
-		
-        if (array_key_exists('argv', $_SERVER) and count($_SERVER['argv'])) {
-            foreach ($_SERVER['argv'] as $arg) {
-                if (strpos($arg, '=') != false) {
-                    $parts = explode("=", $arg);
-                    $key = trim($parts[0]);
-                    $this->cmdLineArgs->set($key, trim($parts[1]));
-                } else if ('--' == substr($arg, 0, 2)) {
-                    $switch = substr($arg, 2);
-                    $this->cmdLineSwitches->set($switch, true);
-                } else if ('-' == substr($arg, 0, 1)) {
-                    $switch = substr($arg, 1);
-                    $this->cmdLineSwitches->set($switch, true);
-                }
-            }
-        }
-	}
-	
-	/**
-	 * Get the command line arguments.
-	 *
-	 * @return	ArrInterface
-	 */
-	public function getCommandLineArgs(): ArrInterface
-	{
-		return $this->cmdLineArgs;
-	}
-
-	/**
-	 * Get the command line switches.
-	 *
-	 * @return	ArrInterface
-	 */
-	public function getCommandLineSwitches(): ArrInterface
-	{
-		return $this->cmdLineSwitches;
-	}
-
+    	
     /**
      * Get the request URI.
      *

@@ -23,34 +23,5 @@ use GreenFedora\Application\RequestInterface;
  */
 
 interface ConsoleRequestInterface extends RequestInterface
-{
-	/**
-	 * See if we have a particular argument.
-	 *
-	 * @param 	string 		$name 		Argument name.
-	 *
-	 * @return 	bool
-	 */
-	public function hasArg(string $name) : bool;
-	
-	/**
-	 * Get an argument.
-	 *
-	 * For arguments that are just present but without a value (switches) we return true.
-	 * Otherwise we return the value.
-	 *
-	 * @param 	string 		$name		Argument name.
-	 * @param 	mixed 		$default 	Default if arg not found.
-	 * @return	mixed
-	 *
-	 * @throws 	OutOfBoundsException 	If argument not found and no default.
-	 */
-	public function getArg(string $name, $default = null);
-
-	/**
-	 * Get all arguments.
-	 * 
-	 * @return	array
-	 */
-	public function getArgs(): array;
+{	
 }

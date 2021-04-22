@@ -12,7 +12,6 @@
 declare(strict_types=1);
 namespace GreenFedora\Http;
 
-use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Uri\UriInterface;
 use GreenFedora\Application\RequestInterface;
 
@@ -26,21 +25,6 @@ use GreenFedora\Http\Exception\InvalidArgumentException;
 
 interface HttpRequestInterface extends RequestInterface
 {
-	
-	/**
-	 * Get the command line arguments.
-	 *
-	 * @return	ArrInterface
-	 */
-	public function getCommandLineArgs(): ArrInterface;
-
-	/**
-	 * Get the command line switches.
-	 *
-	 * @return	ArrInterface
-	 */
-	public function getCommandLineSwitches(): ArrInterface;
-
     /**
      * Get the request URI.
      *

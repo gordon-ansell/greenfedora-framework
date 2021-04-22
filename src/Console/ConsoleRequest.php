@@ -48,7 +48,7 @@ class ConsoleRequest extends Request implements ConsoleRequestInterface
 	{
 		$this->opts = $opts;
 		$this->longOpts = $longOpts;
-		parent::__construct($protocol);
+		parent::__construct('', [], $protocol);
 		$this->processArgs($mode);
 	}
 

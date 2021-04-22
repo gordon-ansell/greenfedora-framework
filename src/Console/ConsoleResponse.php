@@ -23,45 +23,15 @@ use GreenFedora\Application\Response;
 
 class ConsoleResponse extends Response implements ConsoleResponseInterface
 {
-
-	/**
-	 * Output code.
-	 * @var int
-	 */
-	protected $output = 0;
-		
 	/**
 	 * Constructor.
 	 *
-	 * @param 	int 		$output 	The return code output.
+	 * @param 	mixed 		$content 	The return code output.
      * @param   string|null $protocol   Protocol.
 	 * @return	void
 	 */
-	public function __construct(int $output = 0, ?string $protocol = null)
+	public function __construct($content = 0, ?string $protocol = null)
 	{
-		parent::__construct($protocol);
-		$this->output = $output;
-	}
-	
-	/**
-	 * Get the output.
-	 *
-	 * @return 	mixed
-	 */
-	public function getOutput()
-	{
-		return $this->output;
-	}
-	
-	/**
-	 * Set the output.
-	 *
-	 * @param 	mixed 	$output		Whatever it may be.
-	 *
-	 * @return 	void
-	 */
-	public function setOutput($output)
-	{
-		$this->output = $output;
+		parent::__construct($content, [], $protocol);
 	}
 }

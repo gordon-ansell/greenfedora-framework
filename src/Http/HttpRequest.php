@@ -70,7 +70,7 @@ class HttpRequest extends Request implements HttpRequestInterface
      * @param   iterable                $files          FILES.
      * @param   iterable                $server         SERVER.
      * @param   iterable                $headers        Headers
-     * @param   string|resource|null    $content        Request content.
+     * @param   mixed                   $content        Request content.
      * @param   string|null             $protocol       Protocol.
      * @return  void
      */

@@ -37,19 +37,19 @@ abstract class AbstractMessage implements MessageInterface
 
     /**
      * Content.
-     * @var string
+     * @var mixed
      */
     protected $content = '';
 
     /**
      * Constructor.
      * 
-     * @param   string          $content     Content.
+     * @param   mixed           $content     Content.
      * @param   iterable        $headers     Headers.    
      * @param   string|null     $protocol    Protocol.
      * @return  void 
      */
-    public function __construct(?string $content= '', iterable $headers = array(), ?string $protocol = null)
+    public function __construct($content= '', iterable $headers = array(), ?string $protocol = null)
     {
         $this->content = $content;
         $this->headers = new Arr($headers);
@@ -76,13 +76,23 @@ abstract class AbstractMessage implements MessageInterface
     /**
      * Set the body.
      *
-     * @param   string       $content       Body content.
+     * @param   mixed       $content       Body content.
      * @return  ResponseInterface
      */
-    public function setContent(?string $content) : MessageInterface
+    public function setContent($content) : MessageInterface
     {
         $this->content = $content;
         return $this;
+    }
+
+    /**
+     * Get the content.
+     * 
+     * @return  mixed 
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 
     // =============================================

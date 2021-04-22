@@ -116,14 +116,14 @@ class HttpResponse extends Response implements HttpResponseInterface
     /**
      * Constructor.
      *
-     * @param   string          $content            Content.
+     * @param   mixed           $content            Content.
      * @param   array           $headers            Headers.
      * @param   int             $statusCode         Status code.
      * @param   bool            $renderExceptions   Should we?
      * @param   string|null     $protocol           Protocol.
      * @return  void
      */
-    public function __construct(?string $content = '', array $headers = array(), int $statusCode = 200, 
+    public function __construct($content = '', array $headers = array(), int $statusCode = 200, 
         ?string $protocol = null, bool $renderExceptions = true)
     {
         parent::__construct($content, $headers, $protocol);
@@ -134,12 +134,12 @@ class HttpResponse extends Response implements HttpResponseInterface
     /**
      * Create one of these from the environment.
      * 
-     * @param   string          $content            Content.
+     * @param   mixed            $content            Content.
      * @param   array           $headers            Headers.    
      * @param   bool            $renderExcaptions   Should we?
      * @return MessageInterface
      */
-    public static function fromEnvironment(?string $content = '', array $headers = array(), 
+    public static function fromEnvironment($content = '', array $headers = array(), 
         bool $renderExceptions = true): HttpResponseInterface
     {
         $protocol = 'HTTP/1.1';

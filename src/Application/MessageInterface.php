@@ -32,10 +32,17 @@ interface MessageInterface
     /**
      * Set the body.
      *
-     * @param   string       $content       Body content.
+     * @param   mixed       $content       Body content.
      * @return  ResponseInterface
      */
-    public function setContent(?string $content) : MessageInterface;
+    public function setContent($content) : MessageInterface;
+
+    /**
+     * Get the content.
+     * 
+     * @return  mixed
+     */
+    public function getContent();
 
     /**
      * See if we have a header.

@@ -22,19 +22,4 @@ use GreenFedora\Application\ResponseInterface;
 
 interface ConsoleResponseInterface extends ResponseInterface
 {	
-	/**
-	 * Get the output.
-	 *
-	 * @return 	mixed
-	 */
-	public function getOutput();
-	
-	/**
-	 * Set the output.
-	 *
-	 * @param 	mixed 	$output		Whatever it may be.
-	 *
-	 * @return 	void
-	 */
-	public function setOutput($output);
 }

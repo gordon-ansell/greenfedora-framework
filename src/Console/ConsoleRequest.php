@@ -48,7 +48,6 @@ class ConsoleRequest extends Request implements ConsoleRequestInterface
 		parent::__construct();
 		$this->opts = $opts;
 		$this->longOpts = $longOpts;
-		print_r($this->longOpts);
 		$this->processArgs($mode);
 	}
 
@@ -59,10 +58,7 @@ class ConsoleRequest extends Request implements ConsoleRequestInterface
 	 */
 	protected function loadCmdLineArgs()
 	{
-		echo "HERE";
 		$this->args = getopt($this->opts, $this->longOpts);	
-		print_r($this->opts);
-		print_r($this->longOpts);
 		print_r($this->args);
 	}
 

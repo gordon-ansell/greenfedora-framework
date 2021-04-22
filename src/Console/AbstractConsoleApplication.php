@@ -106,7 +106,7 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	 */
 	public function hasArg(string $name) : bool
 	{
-		return $this->input->hasArg($name);
+		return $this->request->hasArg($name);
 	}	
 	
 	/**
@@ -121,7 +121,7 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	 */
 	public function getArg(string $name, $default = null)
 	{
-		return $this->input->getArg($name, $default);
+		return $this->request->getArg($name, $default);
 	}	
 
 	/**
@@ -131,7 +131,7 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	 */
 	public function getArgs(): array
 	{
-		return $this->input->getArgs();
+		return $this->request->getArgs();
 	}	
 
 	/**
@@ -141,7 +141,7 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	 */
 	protected function run()
 	{
-		$this->output->setOutput(0);
+		$this->response->setOutput(0);
 	}
 
 }

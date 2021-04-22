@@ -79,15 +79,14 @@ class HttpRequest extends Request implements HttpRequestInterface
     protected function loadVars()
     {
         foreach (self::VAR_SETS as $set) {
-            $this->$set = new Arr();
             $super = '_' . strtoupper($set);
             if ('header' == $set) {
-                $this->$set->set($set, apache_request_headers());
+                $this->$set = new Arr(apache_request_headers());
             } else {
                 if (isset($GLOBALS[$super])) {
-                    $this->$set->set($set, $GLOBALS[$super]);
+                    $this->$set = new Arr($GLOBALS[$super]);
                 } else {
-                    $this->$set->set($set, array());
+                    $this->$set = new Arr();;
                 }
             }
         }

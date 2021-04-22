@@ -13,8 +13,8 @@ declare(strict_types=1);
 namespace GreenFedora\Console;
 
 use GreenFedora\Application\AbstractApplication;
-use GreenFedora\Console\CommandLineOptsInterface;
-use GreenFedora\Application\Output\ReturnCodeApplicationOutputInterface;
+use GreenFedora\Console\ConsoleRequestInterface;
+use GreenFedora\Console\ConsoleResponseInterface;
 use GreenFedora\Logger\Logger;
 use GreenFedora\Logger\Formatter\StdLogFormatter;
 use GreenFedora\Logger\Writer\FileLogWriter;
@@ -35,22 +35,22 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 
 	/**
 	 * Input.
-	 * @var CommandLineOptsInterface
+	 * @var ConsoleRequestInterface
 	 */
-	protected $input = null;
+	protected $request = null;
 
 	/**
 	 * Output.
-	 * @var ReturnCodeApplicationOutputInterface
+	 * @var ConsoleResponseInterface
 	 */
-	protected $output = null;
+	protected $response = null;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param	string									$mode 			The mode we're running in: 'dev', 'test' or 'prod'.
-	 * @param	CommandLineOptsInterface				$input 			Input.
-	 * @param	ReturnCodeApplicationOutputInterface	$output 		Output.
+	 * @param	ConsoleRequestInterface				    $request 		Input.
+	 * @param	ConsoleResponseInterface	            $response 		Output.
 	 * @param 	bool 									$autoLogger		Automatically set up logger.
 	 * @param 	bool 									$autoConfig		Automatically set up and process configs.
 	 * @param 	bool 									$autoLocale		Automatically set up and process locale.
@@ -59,14 +59,14 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	 */
 	public function __construct(
 		string $mode = 'prod', 
-		?CommandLineOptsInterface $input = null, 
-		?ReturnCodeApplicationOutputInterface $output = null,
+		?ConsoleRequestInterface $request = null, 
+		?ConsoleResponseInterface $response = null,
 		bool $autoLogger = true,
 		bool $autoConfig = true,
 		bool $autoLocale = true
 		)
 	{
-		parent::__construct($mode, $input, $output, $autoConfig, $autoLocale);
+		parent::__construct($mode, $request, $response, $autoConfig, $autoLocale);
 
 		if ($autoLogger) {
 			$this->configureLogger();

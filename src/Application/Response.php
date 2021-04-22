@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Application;
 
 use GreenFedora\Application\ResponseInterface;
+use GreenFedora\Application\Message;
 
 /**
  * Base output.
@@ -20,6 +21,6 @@ use GreenFedora\Application\ResponseInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Response implements ResponseInterface
+class Response extends Message implements ResponseInterface
 {	
 }

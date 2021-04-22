@@ -14,7 +14,7 @@ namespace GreenFedora\Console;
 
 use GreenFedora\Console\Exception\OutOfBoundsException;
 use GreenFedora\Console\ConsoleRequestInterface;
-
+use GreenFedora\Application\Request;
 
 /**
  * Command line options.
@@ -22,7 +22,7 @@ use GreenFedora\Console\ConsoleRequestInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class ConsoleRequest implements ConsoleRequestInterface
+class ConsoleRequest extends Request implements ConsoleRequestInterface
 {
 	/**
 	 * Options.

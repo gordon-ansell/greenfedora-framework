@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Form;
 
 use GreenFedora\Session\SessionInterface;
-use GreenFedora\Http\RequestInterface;
+use GreenFedora\Http\HttpRequestInterface;
 use GreenFedora\Arr\ArrInterface;
 use GreenFedora\Form\FormPersistHandlerInterface;
 
@@ -37,7 +37,7 @@ class FormPersistHandler implements FormPersistHandlerInterface
 
     /**
      * Request.
-     * @var RequestInterface
+     * @var HttpRequestInterface
      */
     protected $request = null;
 
@@ -56,13 +56,13 @@ class FormPersistHandler implements FormPersistHandlerInterface
     /**
      * Constructor.
      * 
-     * @param   SessionInterface    $session    Session handler.
-     * @param   RequestInterface    $request    Request.
-     * @param   array               $names      Cookie names and defaults.
-     * @param   string              $prefix     Cookie prefix.
+     * @param   SessionInterface        $session    Session handler.
+     * @param   HttpRequestInterface    $request    Request.
+     * @param   array                   $names      Cookie names and defaults.
+     * @param   string                  $prefix     Cookie prefix.
      * @return  void
      */
-    public function __construct(SessionInterface $session, RequestInterface $request, array $names, string $prefix)
+    public function __construct(SessionInterface $session, HttpRequestInterface $request, array $names, string $prefix)
     {
         $this->session = $session;
         $this->request = $request;

@@ -20,4 +20,18 @@ namespace GreenFedora\Application;
 
 interface MessageInterface
 {
+    /**
+     * Get the protocol version.
+     * 
+     * @return  string
+     */
+    public function getProtocolVersion(): string;
+
+    /**
+     * Create a clone with a new protocol version.
+     * 
+     * @param   string  $version    New version.
+     * @return  MessageInterface
+     */
+    public function withProtocolVersion(string $version): MessageInterface;
 }

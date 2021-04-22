@@ -42,9 +42,17 @@ class HttpRequest extends Request implements HttpRequestInterface
 
     /**
      * Variables.
-     * @var Arr|null
+     * @var ArrInterface|null
      */
-    protected $vars         =   null;
+    protected $get         =   null;
+    protected $post        =   null;
+    protected $request     =   null;
+    protected $env         =   null;
+    protected $server      =   null;
+    protected $cookie      =   null;
+    protected $session     =   null;
+    protected $files       =   null;
+    protected $header      =   null;
 
     /**
      * Is dispatched?
@@ -70,16 +78,16 @@ class HttpRequest extends Request implements HttpRequestInterface
      */
     protected function loadVars()
     {
-        $this->vars = new Arr();
         foreach (self::VAR_SETS as $set) {
+            $this->$set = new Arr();
             $super = '_' . strtoupper($set);
             if ('header' == $set) {
-                $this->vars->set($set, apache_request_headers());
+                $this->$set->set($set, apache_request_headers());
             } else {
                 if (isset($GLOBALS[$super])) {
-                    $this->vars->set($set, $GLOBALS[$super]);
+                    $this->$set->set($set, $GLOBALS[$super]);
                 } else {
-                    $this->vars->set($set, array());
+                    $this->$set->set($set, array());
                 }
             }
         }
@@ -159,14 +167,14 @@ class HttpRequest extends Request implements HttpRequestInterface
             throw new InvalidArgumentException(sprintf("We do not have variables of type '%s'", $type));
         }
 
-        if (null === $this->vars) {
+        if (null === $this->server) {
             $this->loadVars();
         }
         
         if (null === $key) {
-            return $this->vars->get($type);
+            return $this->$type;
         } else {
-            return $this->vars->get($type)->get($key, $default);
+            return $this->$type->get($key, $default);
         }
     }
 
@@ -184,11 +192,11 @@ class HttpRequest extends Request implements HttpRequestInterface
             throw new InvalidArgumentException(sprintf("We do not have variables of type '%s'", $type));
         }
 
-        if (null === $this->vars) {
+        if (null === $this->server) {
             $this->loadVars();
         }
         
-        return $this->vars->get($type)->has($key);
+        return $this->$type->has($key);
     }
 
     /**

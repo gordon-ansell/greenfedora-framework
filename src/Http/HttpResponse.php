@@ -33,22 +33,10 @@ class HttpResponse extends Response implements HttpResponseInterface
     protected $statusCode   =   200;
 
     /**
-     * Console return.
-     * @var int
-     */
-    protected $consoleCode  =   0;
-
-    /**
      * Body.
      * @var mixed
      */
     protected $body         =   null;
-
-    /**
-     * Headers.
-     * @var Arr
-     */
-    protected $header       =   null;
 
     /**
      * Exceptions.
@@ -136,12 +124,14 @@ class HttpResponse extends Response implements HttpResponseInterface
      *
      * @param   bool            $renderExceptions   Should we?
      * @param   string|null     $protocol           Protocol.
+     * @param   int             $statusCode         Status code.
      * @return  void
      */
-    public function __construct(bool $renderExceptions = true, ?string $protocol = null, array $headers = array())
+    public function __construct(bool $renderExceptions = true, ?string $protocol = null, int $statusCode = 200,
+        array $headers = array())
     {
-        parent::__construct($protocol);
-        $this->header = new Arr();
+        parent::__construct($protocol, $headers);
+        $this->statusCode = $statusCode;
         $this->renderExceptions = $renderExceptions;
     }
 
@@ -152,14 +142,14 @@ class HttpResponse extends Response implements HttpResponseInterface
      * @param   array           $headers            Headers.    
      * @return MessageInterface
      */
-    public static function fromEnvironment(bool $renderExceptions = true, array $headers = array()): HttpRequestInterface
+    public static function fromEnvironment(bool $renderExceptions = true, array $headers = array()): HttpResponseInterface
     {
         $protocol = 'HTTP/1.1';
         if (array_key_exists('SERVER_PROTOCOL', $_SERVER)) {
             $protocol = $_SERVER['SERVER_PROTOCOL'];
         }
 
-        return new static($renderExceptions, $protocol, $headers);
+        return new static($renderExceptions, $protocol, 200, $headers);
     }
 
     /**
@@ -175,18 +165,6 @@ class HttpResponse extends Response implements HttpResponseInterface
     }
 
     /**
-     * Set the console code.
-     *
-     * @param   int         $code       Code to set.
-     * @return  ResponseInterface
-     */
-    public function setConsoleCode(int $code) : HttpResponseInterface
-    {
-        $this->consoleCode = $code;
-        return $this;
-    }
-
-    /**
      * Get the status code.
      *
      * @return int
@@ -194,16 +172,6 @@ class HttpResponse extends Response implements HttpResponseInterface
     public function getStatusCode() : int
     {
         return $this->statusCode;
-    }
-
-    /**
-     * Get the console code.
-     *
-     * @return int
-     */
-    public function getConsoleCode() : int
-    {
-        return $this->consoleCode;
     }
 
     /**

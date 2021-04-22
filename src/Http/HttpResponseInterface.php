@@ -32,26 +32,11 @@ interface HttpResponseInterface extends ResponseInterface
     public function setStatusCode(int $code) : self;
 
     /**
-     * Set the console code.
-     *
-     * @param   int         $code       Code to set.
-     * @return  self
-     */
-    public function setConsoleCode(int $code) : self;
-
-    /**
      * Get the status code.
      *
      * @return int
      */
     public function getStatusCode() : int;
-
-    /**
-     * Get the console code.
-     *
-     * @return int
-     */
-    public function getConsoleCode() : int;
 
     /**
      * See if we can send headers.

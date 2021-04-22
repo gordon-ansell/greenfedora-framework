@@ -26,6 +26,15 @@ use GreenFedora\Http\Exception\InvalidArgumentException;
 interface HttpRequestInterface extends RequestInterface
 {
     /**
+     * Returns the request body content.
+     *
+     * @param bool $asResource If true, a resource will be returned
+     *
+     * @return string|resource The request body content or a resource to read the body stream
+     */
+    public function getContent(bool $asResource = false);
+
+    /**
      * Get the request URI.
      *
      * @return  UriInterface
@@ -119,15 +128,6 @@ interface HttpRequestInterface extends RequestInterface
     public function request(?string $key = null, $default = null);
 
     /**
-     * Get env variable(s).
-     *
-     * @param   string          $key        Key to get.
-     * @param   mixed           $default    Default if not found.
-     * @return  mixed
-     */
-    //public function env(?string $key = null, $default = null);
-
-    /**
      * Get server variable(s).
      *
      * @param   string          $key        Key to get.
@@ -146,15 +146,6 @@ interface HttpRequestInterface extends RequestInterface
     public function cookie(?string $key = null, $default = null);
 
     /**
-     * Get session variable(s).
-     *
-     * @param   string          $key        Key to get.
-     * @param   mixed           $default    Default if not found.
-     * @return  mixed
-     */
-    //public function session(?string $key = null, $default = null);
-
-    /**
      * Get files variable(s).
      *
      * @param   string          $key        Key to get.
@@ -162,15 +153,6 @@ interface HttpRequestInterface extends RequestInterface
      * @return  mixed
      */
     public function files(?string $key = null, $default = null);
-
-    /**
-     * Get header variable(s).
-     *
-     * @param   string          $key        Key to get.
-     * @param   mixed           $default    Default if not found.
-     * @return  mixed
-     */
-    //public function header(?string $key = null, $default = null);
 
 }
 

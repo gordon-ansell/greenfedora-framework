@@ -105,8 +105,6 @@ class HttpRequest extends Request implements HttpRequestInterface
             $protocol = $_SERVER['SERVER_PROTOCOL'];
         }
 
-        //$headers = self::extractHeaders($_SERVER);
-
         $request = new static($protocol, 
             $_GET,
             $_POST,

@@ -47,7 +47,6 @@ class Request extends Message implements RequestInterface
 	 */
 	protected function loadCmdLineArgs()
 	{
-		echo("HEREBASE");
         if (array_key_exists('argv', $_SERVER) and count($_SERVER['argv'])) {
             $this->args = $_SERVER['argv'];
         }

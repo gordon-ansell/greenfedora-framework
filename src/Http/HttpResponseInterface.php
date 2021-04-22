@@ -12,7 +12,7 @@
 declare(strict_types=1);
 namespace GreenFedora\Http;
 
-use GreenFedora\Application\Output\ApplicationOutputInterface;
+use GreenFedora\Application\ResponseInterface;
 use GreenFedora\Http\Exception\HeadersSentException;
 
 /**
@@ -21,7 +21,7 @@ use GreenFedora\Http\Exception\HeadersSentException;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface HttpResponseInterface extends ApplicationOutputInterface
+interface HttpResponseInterface extends ResponseInterface
 {
     /**
      * Set the status code.

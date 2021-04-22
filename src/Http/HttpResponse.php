@@ -199,7 +199,7 @@ class HttpResponse extends Response implements HttpResponseInterface
      */
     public function sendHeaders() : HttpResponseInterface
     {
-        if (count($this->header) or (200 != $this->statusCode)) {
+        if (count($this->headers) or (200 != $this->statusCode)) {
             $this->canSendHeaders(true);
         } else if (200 == $this->statusCode) {
             return $this;

@@ -78,8 +78,7 @@ class Route implements RouteInterface
      */
     public function match(?string $raw = null) : bool
     {
-        /*
-        $result = $this->routeMatcher->match($this->pattern);
+        $result = $this->routeMatcher->match($this->pattern, $raw);
         if (!$result) {
             return false;
         }
@@ -89,7 +88,7 @@ class Route implements RouteInterface
         }
 
         return true;
-        */
+        /*
         if (preg_match('#' . $this->pattern . '#', $raw, $matches)) {
             if (array_key_exists('params', $matches)) {
                 $this->parameters = explode('/', trim($matches['params'], '/'));
@@ -97,6 +96,7 @@ class Route implements RouteInterface
             return true;
         }        
         return false;
+        */
     }
 
     /**

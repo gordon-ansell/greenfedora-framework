@@ -10,21 +10,22 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Http;
-
-use GreenFedora\Router\AbstractRouteMatcher;
-
-use GreenFedora\Http\Exception\InvalidArgumentException;
-use GreenFedora\Router\RouteMatcherInterface;
+namespace GreenFedora\Router;
 
 /**
- * HTTP route matcher.
+ * Abstract route matcher.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class HttpRouteMatcher extends AbstractRouteMatcher implements RouteMatcherInterface
+abstract class AbstractRouteMatcher implements RouteMatcherInterface
 {
+    /**
+     * Parameters.
+     * @var array
+     */
+    protected $parameters = [];
+
     /**
      * See if the route matches.
      * 
@@ -33,16 +34,26 @@ class HttpRouteMatcher extends AbstractRouteMatcher implements RouteMatcherInter
      * @return  bool                     True if it matches, else false.  
      * @throws  InvalidArgumentException         
      */
-    public function match(string $pattern, ?string $raw = null) : bool
+    abstract public function match(string $pattern, ?string $raw = null) : bool;
+
+    /**
+     * See if we have parameters.
+     * 
+     * @return  bool
+     */
+    public function hasParameters(): bool
     {
-        $this->parameters = [];
-        if (preg_match('#' . $pattern . '#', $raw, $matches)) {
-            if (array_key_exists('params', $matches)) {
-                $this->parameters = explode('/', trim($matches['params'], '/'));
-            }
-            return true;
-        }        
-        return false;
+        return (count($this->parameters) > 0);
+    }
+
+    /**
+     * Get the parameters.
+     * 
+     * @return  array
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
     }
 }
 

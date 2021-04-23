@@ -88,15 +88,6 @@ class Route implements RouteInterface
         }
 
         return true;
-        /*
-        if (preg_match('#' . $this->pattern . '#', $raw, $matches)) {
-            if (array_key_exists('params', $matches)) {
-                $this->parameters = explode('/', trim($matches['params'], '/'));
-            }
-            return true;
-        }        
-        return false;
-        */
     }
 
     /**

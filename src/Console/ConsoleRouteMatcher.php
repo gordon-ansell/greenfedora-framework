@@ -10,20 +10,20 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Http;
+namespace GreenFedora\Console;
 
 use GreenFedora\Router\AbstractRouteMatcher;
 
-use GreenFedora\Http\Exception\InvalidArgumentException;
+use GreenFedora\Console\Exception\InvalidArgumentException;
 use GreenFedora\Router\RouteMatcherInterface;
 
 /**
- * HTTP route matcher.
+ * Console route matcher.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class HttpRouteMatcher extends AbstractRouteMatcher implements RouteMatcherInterface
+class ConsoleRouteMatcher extends AbstractRouteMatcher implements RouteMatcherInterface
 {
     /**
      * See if the route matches.
@@ -36,12 +36,12 @@ class HttpRouteMatcher extends AbstractRouteMatcher implements RouteMatcherInter
     public function match(string $pattern, ?string $raw = null) : bool
     {
         $this->parameters = [];
-        if (preg_match('#' . $pattern . '#', $raw, $matches)) {
-            if (array_key_exists('params', $matches)) {
-                $this->parameters = explode('/', trim($matches['params'], '/'));
-            }
+		$sp = explode('|', $pattern);
+		$go = getopt($sp[0], explode(',', $sp[1]));
+        if (array_key_exists($sp[2], $go)) {
+            $this->parameters = $go;
             return true;
-        }        
+        }
         return false;
     }
 }

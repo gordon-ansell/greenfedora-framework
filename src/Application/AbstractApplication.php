@@ -133,6 +133,28 @@ abstract class AbstractApplication extends Container
 	protected function postRun() {}
 
 	/**
+	 * Dispatch.
+	 *
+	 * @return 	void
+	 */
+	protected function dispatch()
+	{
+		try {
+			// Find a match for the route.
+			$matched = $this->get('router')->match($this->request->getRoute());
+
+			// Create the class.
+			$class = $matched[0]->getNamespacedClass();
+			$dispatchable = new $class($this, $this->request, $this->response, $matched[1]);
+
+			// Dispatch the class.
+			$dispatchable->dispatch();
+		} catch (\Exception $e) {
+			$this->response->addException($e);
+		}
+	}
+
+	/**
 	 * The main run call.
 	 *
 	 * @return 	void

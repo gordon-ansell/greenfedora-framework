@@ -15,6 +15,7 @@ namespace GreenFedora\Application;
 use GreenFedora\Application\RequestInterface;
 use GreenFedora\Application\AbstractMessage;
 use GreenFedora\Application\Exception\OutOfBoundsException;
+use GreenFedora\Arr\Arr;
 
 /**
  * Base request.
@@ -42,7 +43,7 @@ class Request extends AbstractMessage implements RequestInterface
     {
 		parent::__construct($content, $headers, $protocol);
         $this->loadCmdLineArgs();
-		print_r($_SERVER['argv']);
+		print_r($_SERVER);
     }
 
     /**

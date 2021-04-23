@@ -50,7 +50,7 @@ class Request extends AbstractMessage implements RequestInterface
 		$sp = explode('|', $test);
 
 		$go = getopt($sp[0], explode(',', $sp[1]));
-		print_r($go);
+		//print_r($go);
     }
 
     /**

@@ -42,7 +42,7 @@ class Request extends AbstractMessage implements RequestInterface
     {
 		parent::__construct($content, $headers, $protocol);
         $this->loadCmdLineArgs();
-		print_r($this->args);
+		print_r($_SERVER['argv']);
     }
 
     /**

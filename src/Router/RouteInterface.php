@@ -23,11 +23,11 @@ interface RouteInterface
     /**
      * See if the route matches.
      * 
-     * @param   string  $raw        Pattern to match.
-     * @return  bool                True if it matches, else false.  
+     * @param   string|null  $raw        Pattern to match.
+     * @return  bool                     True if it matches, else false.  
      * @throws  InvalidArgumentException         
      */
-    public function match(string $raw) : bool;
+    public function match(?string $raw = null) : bool;
 
     /**
      * Return the pattern.

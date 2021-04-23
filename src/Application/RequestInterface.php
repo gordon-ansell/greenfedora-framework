@@ -22,6 +22,13 @@ use GreenFedora\Application\MessageInterface;
 
 interface RequestInterface extends MessageInterface
 {
+    /**
+     * Get the route info.
+     *
+     * @return  string|null
+     */
+    public function getRoute() : ?string;
+
 	/**
 	 * Get the command line arguments.
 	 *

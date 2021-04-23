@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Router;
 
 use GreenFedora\Router\RouterInterface;
+use GreenFedora\Router\RouteMatcherInterface;
 use GreenFedora\Router\Route;
 use GreenFedora\Arr\Arr;
 use GreenFedora\Arr\ArrInterface;
@@ -52,16 +53,24 @@ class Router implements RouterInterface, LoggerAwareInterface
     protected $routes = [];
 
     /**
+     * Route matcher class instance.
+     * @var RouteMatcherInterface
+     */
+    protected $routeMatcher = null;
+
+    /**
      * Constructor.
      * 
      * @param   ArrInterface            $routeSpec      Route specifications.
+     * @param   RouteMatcherInterface   $routeMatcher   Route matcher class.
      * @param   LoggerInterface|null    $logger         Logger.
      * @return  void
      */
-    public function __construct(ArrInterface $routeSpec, ?LoggerInterface $logger = null)
+    public function __construct(ArrInterface $routeSpec, RouteMatcherInterface $routeMatcher, ?LoggerInterface $logger = null)
     {
         $this->logger = $logger;
         $this->routeSpec = $routeSpec;
+        $this->routeMatcher = $routeMatcher;
         $this->loadRoutes($this->routeSpec->routes);
     }
 
@@ -84,7 +93,7 @@ class Router implements RouterInterface, LoggerAwareInterface
     protected function loadRoutes($routes)
     {
         foreach($routes as $pattern => $target) {
-            $this->routes[$pattern] = new Route($pattern, $target);
+            $this->routes[$pattern] = new Route($pattern, $target, $this->routeMatcher);
         }
         $this->trace4(sprintf('Loaded %s routes.', sizeof($this->routes)));
     }

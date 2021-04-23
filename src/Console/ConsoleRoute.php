@@ -64,18 +64,18 @@ class ConsoleRoute implements ConsoleRouteInterface
     /**
      * See if the route matches.
      * 
-     * @param   array   $args       Arguments with pattern to match.
+     * @param   mixed   $raw        Pattern to match.
      * @return  bool                True if it matches, else false.  
      * @throws  InvalidArgumentException         
      */
     public function match($raw) : bool
     {
-        if (preg_match('#' . $this->pattern . '#', $raw, $matches)) {
-            if (array_key_exists('params', $matches)) {
-                $this->parameters = explode('/', trim($matches['params'], '/'));
-            }
+		$sp = explode('|', $this->pattern);
+		$go = getopt($sp[0], explode(',', $sp[1]));
+        if (array_key_exists($sp[2], $go)) {
+            $this->parameters = $go;
             return true;
-        }        
+        }
         return false;
     }
 

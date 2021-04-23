@@ -42,13 +42,6 @@ interface HttpRequestInterface extends RequestInterface
     public function getRequestUri() : UriInterface;
 
     /**
-     * Get the route info.
-     *
-     * @return  string
-     */
-    public function getRoute() : string;
-
-    /**
      * Get the base URI.
      *
      * @return  string

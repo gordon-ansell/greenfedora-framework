@@ -67,22 +67,5 @@ interface HttpResponseInterface extends ResponseInterface
      * @return void
      */
     public function send();
-
-    /**
-     * Add an exception to the response.
-     *
-     * @param   \Exception    $exception      Exception to add.
-     * @return  self
-     */
-    public function addException(\Exception $exception) : self;
-
-    /**
-     * Do we have exceptions?
-     *
-     * @return bool
-     */
-    public function hasExceptions() : bool;
-
-
 }
 

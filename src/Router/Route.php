@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\Router;
 
 use GreenFedora\Router\RouteInterface;
+use GreenFedora\Router\RouteMatcherInterface;
 
 use GreenFedora\Router\Exception\InvalidArgumentException;
 
@@ -49,27 +50,46 @@ class Route implements RouteInterface
     protected $parameters = [];
 
     /**
+     * Route matcher.
+     * @var RouteMatcherInterface
+     */
+
+    /**
      * Constructor.
      * 
-     * @param   string   $pattern      Route pattern.
-     * @param   string   $target       Route target.
+     * @param   string                  $pattern        Route pattern.
+     * @param   string                  $target         Route target.
+     * @param   RouteMatcherInterface   $routeMatcher   Route matcher.
      * @return  void
      */
-    public function __construct(string $pattern, string $target)
+    public function __construct(string $pattern, string $target, RouteMatcherInterface $routeMatcher)
     {
         $this->pattern = $pattern;
         $this->target = $target;
+        $this->routeMatcher = $routeMatcher;
     }
 
     /**
      * See if the route matches.
      * 
-     * @param   string  $raw        Pattern to match.
-     * @return  bool                True if it matches, else false.  
+     * @param   string|null  $raw        Pattern to match.
+     * @return  bool                     True if it matches, else false.  
      * @throws  InvalidArgumentException         
      */
-    public function match(string $raw) : bool
+    public function match(?string $raw = null) : bool
     {
+        $result = $this->routeMatcher->match($this->pattern);
+        if (!$result) {
+            return false;
+        }
+
+        if ($this->routeMatcher->hasParameters()) {
+            $this->parameters = $this->routeMatcher->getParameters();
+        }
+
+        return true;
+
+        /*
         if (preg_match('#' . $this->pattern . '#', $raw, $matches)) {
             if (array_key_exists('params', $matches)) {
                 $this->parameters = explode('/', trim($matches['params'], '/'));
@@ -77,6 +97,7 @@ class Route implements RouteInterface
             return true;
         }        
         return false;
+        */
     }
 
     /**

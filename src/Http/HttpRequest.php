@@ -259,9 +259,9 @@ class HttpRequest extends Request implements HttpRequestInterface
     /**
      * Get the route info.
      *
-     * @return  string
+     * @return  string|null
      */
-    public function getRoute() : string
+    public function getRoute() : ?string
     {
         return isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '/';
     }

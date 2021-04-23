@@ -33,12 +33,6 @@ class HttpResponse extends Response implements HttpResponseInterface
     protected $statusCode   =   200;
 
     /**
-     * Exceptions.
-     * @var \Exception[]
-     */
-    protected $exceptions   =   array();
-
-    /**
      * Render exceptions?
      * @var bool
      */
@@ -255,28 +249,6 @@ class HttpResponse extends Response implements HttpResponseInterface
         }
 
         $this->sendContent();
-    }
-
-    /**
-     * Add an exception to the response.
-     *
-     * @param   \Exception    $exception      Exception to add.
-     * @return  ResponseInterface
-     */
-    public function addException(\Exception $exception) : HttpResponseInterface
-    {
-        $this->exceptions[] = $exception;
-        return $this;
-    }
-
-    /**
-     * Do we have exceptions?
-     *
-     * @return bool
-     */
-    public function hasExceptions() : bool
-    {
-        return (count($this->exceptions) > 0);
     }
 
     /**

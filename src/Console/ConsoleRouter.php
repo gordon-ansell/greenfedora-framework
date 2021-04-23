@@ -94,7 +94,7 @@ class ConsoleRouter implements ConsoleRouterInterface, LoggerAwareInterface
      * @param   string  $pattern    Route pattern to match.
      * @return  array               Matched route object and parameters.
      */
-    public function match(string $pattern): ?array
+    public function match(?string $pattern = null): ?array
     {
         $matched = null;
 

@@ -24,6 +24,12 @@ use GreenFedora\Application\AbstractMessage;
 class Response extends AbstractMessage implements ResponseInterface
 {	
     /**
+     * Exceptions.
+     * @var \Exception[]
+     */
+    protected $exceptions   =   array();
+
+    /**
      * Constructor.
      * 
 	   * @param 	mixed 			    $content 	   Content.
@@ -33,6 +39,28 @@ class Response extends AbstractMessage implements ResponseInterface
      */
     public function __construct($content = '', iterable $headers = array(), ?string $protocol = null)
     {
-		parent::__construct($content, $headers, $protocol);
+		    parent::__construct($content, $headers, $protocol);
+    }
+
+    /**
+     * Add an exception to the response.
+     *
+     * @param   \Exception    $exception      Exception to add.
+     * @return  ResponseInterface
+     */
+    public function addException(\Exception $exception) : ResponseInterface
+    {
+        $this->exceptions[] = $exception;
+        return $this;
+    }
+
+    /**
+     * Do we have exceptions?
+     *
+     * @return bool
+     */
+    public function hasExceptions() : bool
+    {
+        return (count($this->exceptions) > 0);
     }
 }

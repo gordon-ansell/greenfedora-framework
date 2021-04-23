@@ -45,7 +45,7 @@ class Request extends AbstractMessage implements RequestInterface
         $this->loadCmdLineArgs();
 		print_r($_SERVER['argv']);
 
-		$test = "rd:|lookup:";
+		$test = "r|lookup:|lookup";
 
 		$sp = explode('|', $test);
 
@@ -64,6 +64,16 @@ class Request extends AbstractMessage implements RequestInterface
             $this->args = $_SERVER['argv'];
         }
 	}
+
+    /**
+     * Get the route info.
+     *
+     * @return  string|null
+     */
+    public function getRoute() : ?string
+    {
+        return isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '/';
+    }
 
 	/**
 	 * Get an argument.

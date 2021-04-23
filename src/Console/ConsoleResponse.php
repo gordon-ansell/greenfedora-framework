@@ -26,12 +26,13 @@ class ConsoleResponse extends Response implements ConsoleResponseInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param 	mixed 		$content 	The return code output.
-     * @param   string|null $protocol   Protocol.
+	 * @param 	mixed 		$content 			The return code output.
+     * @param   string|null $protocol   		Protocol.
+	 * @param 	bool 		$renderExceptions	Should we?
 	 * @return	void
 	 */
-	public function __construct($content = 0, ?string $protocol = null)
+	public function __construct($content = 0, ?string $protocol = null, bool $renderExceptions = true)
 	{
-		parent::__construct($content, [], $protocol);
+		parent::__construct($content, [], $protocol, $renderExceptions);
 	}
 }

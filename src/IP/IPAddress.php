@@ -242,7 +242,7 @@ class IPAddress implements IPAddressInterface
     * @param    string $cidr        An IPv4 formatted CIDR block. Block is aligned during execution.
     * @return   string              CIDR block.
     */
-    static public function IPisWithinCIDR(string $ipinput, string $cidr) : string
+    static public function IPisWithinCIDR(string $ipinput, string $cidr)
     {
         $cidr = explode('/',$cidr);
         $cidr = self::alignedCIDR($cidr[0],self::CIDRtoMask((int)$cidr[1]));

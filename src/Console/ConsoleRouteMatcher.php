@@ -36,9 +36,7 @@ class ConsoleRouteMatcher extends AbstractRouteMatcher implements RouteMatcherIn
     public function match(string $pattern, ?string $raw = null) : bool
     {
         $this->parameters = [];
-        echo "Pattern: " . $pattern . PHP_EOL;
 		$sp = explode('|', $pattern);
-        print_r($sp);
 		$go = getopt($sp[0], explode(',', $sp[1]));
         if (array_key_exists($sp[2], $go)) {
             $this->parameters = $go;

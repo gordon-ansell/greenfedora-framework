@@ -23,6 +23,15 @@ namespace GreenFedora\Application;
 interface ApplicationInterface
 {
 	/**
+	 * Get an environment variable.
+	 * 
+	 * @param 	string|null 	$key 		Key to get.
+	 * @param 	mixed 			$default	Default if not found.
+	 * @return 	mixed
+	 */
+	public function env(?string $key = null, $default = null);
+
+	/**
 	 * The main run call.
 	 *
 	 * @return 	void

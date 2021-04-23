@@ -17,6 +17,7 @@ use GreenFedora\Application\ResponseInterface;
 use GreenFedora\DI\Container;
 use GreenFedora\Config\Config;
 use GreenFedora\Locale\Locale;
+use GreenFedora\Arr\Arr;
 
 /**
  * The base for all applications.
@@ -51,6 +52,12 @@ abstract class AbstractApplication extends Container
 	 * @var string|null
 	 */
 	protected $newLogLevel = null;	
+
+	/**
+	 * PHP environment variables.
+	 * @var ArrInterface
+	 */
+	protected $env = null;
 		
 	/**
 	 * Constructor.
@@ -73,14 +80,32 @@ abstract class AbstractApplication extends Container
 	{
 		self::setInstance($this);
 		$this->mode = $mode;
-		$this->request = $request ?: $this->get('request');
-		$this->response = $response ?: $this->get('response');
+		$this->request = $request;
+		$this->response = $response;
+		$this->env = new Arr($_ENV);
 		if ($autoConfig) {
 			$this->addSingletonAndCreate('config', Config::class)->process($this->mode);
 		}
 		if ($autoLocale) {
 			$this->addSingletonAndCreate('locale', Locale::class, [$this->get('config')->locale]);
 		}
+	}
+
+	/**
+	 * Get an environment variable.
+	 * 
+	 * @param 	string|null 	$key 		Key to get.
+	 * @param 	mixed 			$default	Default if not found.
+	 * @return 	mixed
+	 */
+	public function env(?string $key = null, $default = null)
+	{
+        if (is_null($key)) {
+            return $this->env;
+        } else if ($this->env->has($key)) {
+            return $this->env->get($key);
+        }
+        return $default;
 	}
 		
 	/**

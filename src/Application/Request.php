@@ -43,8 +43,13 @@ class Request extends AbstractMessage implements RequestInterface
     {
 		parent::__construct($content, $headers, $protocol);
         $this->loadCmdLineArgs();
-		print_r($_SERVER);
-		print_r($_ENV);
+
+		$test = "r|lookup:";
+
+		$sp = explode('|', $test);
+
+		$go = getopt($sp[0], explode(',', $sp[1]));
+		print_r($go)
     }
 
     /**

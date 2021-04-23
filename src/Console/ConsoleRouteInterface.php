@@ -23,11 +23,11 @@ interface ConsoleRouteInterface
     /**
      * See if the route matches.
      * 
-     * @param   string  $raw        Pattern to match.
+     * @param   mixed   $raw        Pattern to match.
      * @return  bool                True if it matches, else false.  
      * @throws  InvalidArgumentException         
      */
-    public function match(string $raw) : bool;
+    public function match($raw) : bool;
 
     /**
      * Return the pattern.

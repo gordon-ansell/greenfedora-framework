@@ -64,19 +64,6 @@ class ConsoleRouter implements ConsoleRouterInterface, LoggerAwareInterface
         $this->loadRoutes($this->routeSpec->routes);
     }
 
-    /**
-     * Process the args.
-     * 
-     * @return  void
-     */
-    protected function processArgs()
-    {
-        $final = array();
-        foreach ($this->args as $arg) {
-            
-        }
-    }
-
 	/**
 	 * Get the logger.
 	 *
@@ -96,7 +83,7 @@ class ConsoleRouter implements ConsoleRouterInterface, LoggerAwareInterface
     protected function loadRoutes($routes)
     {
         foreach($routes as $pattern => $target) {
-            $this->routes[$pattern] = new Route($pattern, $target);
+            $this->routes[$pattern] = new ConsoleRoute($pattern, $target, $this->args);
         }
         $this->trace4(sprintf('Loaded %s routes.', sizeof($this->routes)));
     }

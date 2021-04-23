@@ -45,12 +45,12 @@ class Request extends AbstractMessage implements RequestInterface
         $this->loadCmdLineArgs();
 		print_r($_SERVER['argv']);
 
-		$test = "r:|lookup:";
+		$test = "rd:|lookup:";
 
 		$sp = explode('|', $test);
 
 		$go = getopt($sp[0], explode(',', $sp[1]));
-		//print_r($go);
+		print_r($go);
     }
 
     /**

@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace GreenFedora\TextBuffer;
 
 /**
- * Output formatter interface.
+ * Formatter interface.
  */
-interface TextBufferOutputFormatterInterface
+interface TextBufferFormatterInterface
 {
     /**
      * Format a bunch of items.

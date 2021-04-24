@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace GreenFedora\TextBuffer;
 
 use GreenFedora\TextBuffer\TextBufferInterface;
-use GreenFedora\TextBuffer\TextBufferOutputFormatterInterface;
+use GreenFedora\TextBuffer\TextBufferFormatterInterface;
 
 /**
  * Simple text buffer class,
@@ -41,20 +41,30 @@ class TextBuffer implements TextBufferInterface
     protected $eol = PHP_EOL;
 
     /**
-     * Formatter.
-     * @var TextBufferOutputFormatterInterface
+     * Output formatter.
+     * @var TextBufferFormatterInterface
      */
-    protected $formatter = null;
+    protected $outputFormatter = null;
+
+    /**
+     * Input formatter.
+     * @var TextBufferFormatterInterface
+     */
+    protected $inputFormatter = null;
 
     /**
      * Constructor.
      * 
-     * @param   mixed   $data   Input data.
+     * @param   mixed                           $data               Input data.
+     * @param   TextBufferFormatterInterface    $outputFormatter    Formatter.
+     * @param   TextBufferFormatterInterface    $inputFormatter     Formatter.
      * @return  void
      */
-    public function __construct($data = null, TextBufferOutputFormatterInterface $formatter = null)
+    public function __construct($data = null, TextBufferFormatterInterface $outputFormatter = null, 
+        TextBufferFormatterInterface $inputFormatter = null)
     {
-        $this->formatter = $formatter;
+        $this->outputFormatter = $outputFormatter;
+        $this->inputFormatter = $inputFormatter;
         if (!is_null($data)) {
             if (is_iterable($data)) {
                 $this->load($data);
@@ -72,7 +82,13 @@ class TextBuffer implements TextBufferInterface
      */
     public function load(iterable $data): TextBufferInterface
     {
-        foreach ($data as $line) {
+        $tmp = null;
+        if (!is_null($this->inputFormatter)) {
+            $tmp = $this->inputFormatter->format($data);
+        } else {
+            $tmp = $data;
+        }
+        foreach ($tmp as $line) {
             $this->writeln($data);
         }
         return $this;
@@ -151,8 +167,8 @@ class TextBuffer implements TextBufferInterface
     protected function bufferToString(): string
     {
         $this->end();
-        if (!is_null($this->formatter)) {
-            $tmp = $this->formatter->format($this->buffer);
+        if (!is_null($this->outputFormatter)) {
+            $tmp = $this->outputFormatter->format($this->buffer);
             return implode($this->eol, $tmp);
         } else {
             return implode($this->eol, $this->buffer);

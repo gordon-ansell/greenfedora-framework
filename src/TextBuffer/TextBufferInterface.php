@@ -59,7 +59,7 @@ interface TextBufferInterface
      * 
      * @return  TextBufferInterface
      */
-    public function blank(): TextBufferInterface;
+    public function blank(int $num = 1): TextBufferInterface;
 
     /**
      * End the current line.

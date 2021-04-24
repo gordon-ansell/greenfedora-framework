@@ -138,12 +138,15 @@ class TextBuffer implements TextBufferInterface
     /**
      * Write ablank line.
      * 
+     * @param   int     $num    Number of blanks.
      * @return  TextBufferInterface
      */
-    public function blank(): TextBufferInterface
+    public function blank(int $num = 1): TextBufferInterface
     {
         $this->end();
-        $this->end(true);
+        for ($i = 0; $i < $num; $i++) {
+            $this->end(true);
+        }
         return $this;
     }
 

@@ -20,6 +20,7 @@ use GreenFedora\DI\ContainerAwareTrait;
 use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerAwareTrait;
 use GreenFedora\Logger\LoggerInterface;
+use GreenFedora\Payload\Payload;
 
 
 /**
@@ -58,6 +59,12 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 	protected $params = [];
 
 	/**
+	 * Payload.
+	 * @var PayLoadInterface
+	 */
+	protected $payload = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	Dependency injection container.
@@ -73,6 +80,7 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 		$this->request = $request;
 		$this->response = $response;
 		$this->params = $params;
+		$this->payload = new Payload();
 	}
 
 	/**

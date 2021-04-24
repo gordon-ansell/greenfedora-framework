@@ -12,7 +12,8 @@
         "php": "^7.0",
         "psr/container": "^2.0",
         "psr/link": "^1.0",
-        "psr/log": "~1.0"
+        "psr/log": "~1.0",
+        "symfony/yaml": "*"
     },
     "minimum-stability": "dev",
 	"autoload": {

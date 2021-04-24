@@ -16,6 +16,8 @@ use GreenFedora\FileSystem\File;
 use GreenFedora\FileSystem\Yaml\YamlFileInterface;
 use GreenFedora\FileSystem\Yaml\Exception\RuntimeException;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * YAML file object.
  *
@@ -56,8 +58,8 @@ class YamlFile extends File implements YamlFileInterface
 	protected function read()
 	{
 		try {
-			$raw = spyc_load_file($this->getPathname());
-		} catch (Exception $ex) {
+			$raw = Yaml::parseFile($this->getPathname());
+		} catch (\Exception $ex) {
 			throw new RuntimeException(sprintf("Cannot read yaml data from file '%s': %s", $this->getPathname(), $ex->getMessage()));
 		}
 		
@@ -68,6 +70,22 @@ class YamlFile extends File implements YamlFileInterface
 		
 		$this->yamlData = $raw;			
 	}		
+
+	/**
+	 * Write the YAML data out.
+	 * 
+	 * @param 	array 	$yamlArr 	YAML array to write.
+	 * @return 	void
+	 */
+	public function write(array $yamlArr)
+	{
+		try {
+			$raw = Yaml::dump($yamlArr);
+			file_put_contents($this->getPathname(), $raw);
+		} catch (\Exception $ex) {
+			throw new RuntimeException(sprintf("Cannot write yaml data to file '%s': %s", $this->getPathname(), $ex->getMessage()));
+		}
+	}
 
 	/**
 	 * Get the YAML data.

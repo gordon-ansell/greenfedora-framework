@@ -16,6 +16,9 @@ use GreenFedora\FileSystem\Yaml\YamlFile;
 use GreenFedora\FileSystem\Yaml\FileHasYamlInterface;
 use GreenFedora\FileSystem\Yaml\Exception\RuntimeException;
 
+use Symfony\Component\Yaml\Yaml;
+
+
 /**
  * For a file that has YAML but isn't entirely YAML.
  *
@@ -96,8 +99,8 @@ class FileHasYaml extends YamlFile implements FileHasYamlInterface
 		
 		// Now process the YAML.
 		try {
-			$raw = spyc_load($yamlData);
-		} catch (Exception $ex) {
+			$raw = Yaml::parse($yamlData);
+		} catch (\Exception $ex) {
 			throw new RuntimeException(sprintf("Cannot read YAML data from file '%s': %s", $this->getPathname(), $ex->getMessage()));
 		}
 		if (false === $raw) {

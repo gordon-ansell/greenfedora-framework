@@ -83,6 +83,8 @@ class TextBuffer implements TextBufferInterface
      */
     public function load(iterable $data, ?TextBufferFormatterInterface $formatter = null): TextBufferInterface
     {
+        $this->end();
+
         $tmp = null;
         if (!is_null($formatter)) {
             $tmp = $formatter->format($data);
@@ -90,7 +92,7 @@ class TextBuffer implements TextBufferInterface
             $tmp = $data;
         }
         foreach ($tmp as $line) {
-            $this->writeln($data);
+            $this->writeln($line);
         }
         return $this;
     }

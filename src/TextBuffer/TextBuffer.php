@@ -67,7 +67,7 @@ class TextBuffer implements TextBufferInterface
         $this->inputFormatter = $inputFormatter;
         if (!is_null($data)) {
             if (is_iterable($data)) {
-                $this->load($data);
+                $this->load($data, $this->inputFormatter);
             } else {
                 $this->write($data);
             }
@@ -77,14 +77,15 @@ class TextBuffer implements TextBufferInterface
     /**
      * Load data.
      * 
-     * @param   iterable    $data   Data to load.
+     * @param   iterable                        $data       Data to load.
+     * @param   TextBufferFormatterInterface    $formatter  Formatter.
      * @return  TextBufferInterface
      */
-    public function load(iterable $data): TextBufferInterface
+    public function load(iterable $data, ?TextBufferFormatterInterface $formatter = null): TextBufferInterface
     {
         $tmp = null;
-        if (!is_null($this->inputFormatter)) {
-            $tmp = $this->inputFormatter->format($data);
+        if (!is_null($formatter)) {
+            $tmp = $formatter->format($data);
         } else {
             $tmp = $data;
         }

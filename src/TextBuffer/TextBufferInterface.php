@@ -12,6 +12,8 @@
 declare(strict_types=1);
 namespace GreenFedora\TextBuffer;
 
+use GreenFedora\TextBuffer\TextBufferFormatterInterface;
+
 /**
  * Simple text buffer interface,
  *
@@ -22,10 +24,11 @@ interface TextBufferInterface
     /**
      * Load data.
      * 
-     * @param   iterable    $data   Data to load.
+     * @param   iterable                        $data       Data to load.
+     * @param   TextBufferFormatterInterface    $formatter  Formatter.
      * @return  TextBufferInterface
      */
-    public function load(iterable $data): TextBufferInterface;
+    public function load(iterable $data, ?TextBufferFormatterInterface $formatter = null): TextBufferInterface;
 
     /**
      * Write to the current line.

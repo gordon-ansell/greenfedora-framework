@@ -21,6 +21,7 @@ use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerAwareTrait;
 use GreenFedora\Logger\LoggerInterface;
 use GreenFedora\Payload\Payload;
+use GreenFedora\Payload\PayloadInterface;
 
 
 /**
@@ -60,7 +61,7 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 
 	/**
 	 * Payload.
-	 * @var PayLoadInterface
+	 * @var PayloadInterface
 	 */
 	protected $payload = null;
 

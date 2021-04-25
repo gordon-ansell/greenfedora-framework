@@ -15,6 +15,7 @@ namespace GreenFedora\Http\Adr;
 use GreenFedora\Application\Adr\AbstractResponder;
 
 use GreenFedora\Http\HttpRequestInterface;
+use GreenFedora\Application\Adr\ResponderInterface;
 use GreenFedora\Http\HttpResponseInterface;
 use GreenFedora\DI\ContainerInterface;
 use GreenFedora\Payload\PayloadInterface;
@@ -25,7 +26,7 @@ use GreenFedora\Payload\PayloadInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractHttpResponder extends AbstractResponder
+abstract class AbstractHttpResponder extends AbstractResponder implements ResponderInterface
 {	
 	/**
 	 * Output.

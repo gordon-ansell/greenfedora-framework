@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace GreenFedora\Http;
 
 use GreenFedora\Application\ResponseInterface;
-use GreenFedora\Http\Exception\HeadersSentException;
 
 /**
  * HTTP response interface.

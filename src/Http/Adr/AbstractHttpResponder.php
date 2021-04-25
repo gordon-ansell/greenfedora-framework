@@ -54,11 +54,4 @@ abstract class AbstractHttpResponder extends AbstractResponder implements HttpRe
 	{
         parent::__construct($container, $request, $response, $payload);
 	}
-
-	/**
-	 * Dispatcher.
-	 * 
-	 * @return 	HttpResponseInterface
-	 */
-	abstract public function dispatch(): HttpResponseInterface;
 }

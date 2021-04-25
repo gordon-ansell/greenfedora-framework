@@ -24,10 +24,4 @@ use GreenFedora\Http\HttpResponseInterface;
 
 interface HttpResponderInterface extends ResponderInterface
 {
-    /**
-     * Dispatcher.
-     *
-     * @return HttpResponseInterface
-     */
-	public function dispatch(): HttpResponseInterface;	
 }

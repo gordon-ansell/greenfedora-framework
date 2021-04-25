@@ -10,16 +10,15 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Adr\Responder;
-
+namespace GreenFedora\Application\Adr;
 
 /**
- * The base interface for all responders.
+ * The base action interface.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface ResponderInterface
+interface ActionInterface 
 {
     /**
      * Dispatcher.

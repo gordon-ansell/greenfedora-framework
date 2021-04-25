@@ -10,39 +10,29 @@
  */
 
 declare(strict_types=1);
-namespace GreenFedora\Adr\Action;
+namespace GreenFedora\Application\Adr;
 
 use GreenFedora\Application\RequestInterface;
 use GreenFedora\Application\ResponseInterface;
 use GreenFedora\DI\ContainerInterface;
 use GreenFedora\DI\ContainerAwareInterface;
 use GreenFedora\DI\ContainerAwareTrait;
-use GreenFedora\Logger\LoggerAwareInterface;
-use GreenFedora\Logger\LoggerAwareTrait;
-use GreenFedora\Logger\LoggerInterface;
 use GreenFedora\Payload\Payload;
 use GreenFedora\Payload\PayloadInterface;
 
 
 /**
- * The base for all actions.
+ * The base for all responders.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInterface 
+abstract class AbstractResponder implements ContainerAwareInterface
 {
 	use ContainerAwareTrait;
-	use LoggerAwareTrait;
-
+	
 	/**
-	 * Container.
-	 * @var ContainerInterface
-	 */
-	protected $container = null;
-
-	/**
-	 * Input.
+	 * Output.
 	 * @var RequestInterface
 	 */
 	protected $request = null;
@@ -54,13 +44,7 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 	protected $response = null;
 
 	/**
-	 * Parameters.
-	 * @var array
-	 */
-	protected $params = [];
-
-	/**
-	 * Payload.
+	 * Responder data.
 	 * @var PayloadInterface
 	 */
 	protected $payload = null;
@@ -71,32 +55,47 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 	 * @param 	ContainerInterface			$container	Dependency injection container.
 	 * @param 	RequestInterface			$request 	Input.
 	 * @param 	ResponseInterface			$response 	Output.
-	 * @param 	array						$params 	Parameters.
+	 * @param 	PayloadInterface 			$payload 	Payload of data.
 	 * @return	void
 	 */
 	public function __construct(ContainerInterface $container, RequestInterface $request, 
-		ResponseInterface $response, array $params = [])
+		ResponseInterface $response, PayloadInterface $payload = null)
 	{
 		$this->container = $container;
 		$this->request = $request;
 		$this->response = $response;
-		$this->params = $params;
-		$this->payload = new Payload();
+		if (null == $payload) {
+			$this->payload = new Payload();
+		} else {
+			$this->payload = $payload;
+		}
+		$this->addDefaultdata();
 	}
 
 	/**
-	 * Get the logger.
-	 *
-	 * @return	LoggerInterface
+	 * Add some default data.
+	 * 
+	 * @return 	void
 	 */
-	public function getLogger() : LoggerInterface
+	protected function addDefaultData()
 	{
-		return $this->get('logger');
-	}			
+		$cfg = $this->get('config');
+
+		if (!$cfg->has('locations') or !$cfg->get('locations')->has('webroot')) {
+			$this->payload->set('webroot', '/');
+		} else {
+			$this->payload->set('webroot', $cfg->get('locations')->get('webroot'));
+		}
+
+		if (!$cfg->has('locations') or !$cfg->get('locations')->has('assets')) {
+			$this->payload->set('assets', '/');
+		} else {
+			$this->payload->set('assets', $cfg->get('locations')->get('assets'));
+		}
+	}
 
 	/**
 	 * Dispatcher.
 	 */
 	abstract public function dispatch();
-	
 }

@@ -259,6 +259,28 @@ class Session implements SessionInterface
     }
 
     /**
+     * Get all the session keys unprefixed.
+     * 
+     * @param   string          $pref       Prefix.
+     * @return  array
+     */
+    public function getAllUnprefixed(string $pref = ''): array
+    {
+        $ret = [];
+        foreach ($_SESSION as $key => $val) {
+            if ('' != $pref) {
+                if (substr($key, 0, strlen($pref)) == $pref) {
+                    $k = substr($key, strlen($pref));
+                    $ret[$k] = $this->get($key);
+                }
+            } else {
+                $ret[$key] = $this->get($key);
+            }
+        }
+        return $ret;
+    }
+
+    /**
      * See if we have a session variable.
      *
      * @param   string          $key        Key to check.

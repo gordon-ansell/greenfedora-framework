@@ -94,6 +94,14 @@ interface SessionInterface
     public function get(string $key, $def = null, bool $clearFlash = true);
 
     /**
+     * Get all the session keys unprefixed.
+     * 
+     * @param   string          $pref       Prefix.
+     * @return  array
+     */
+    public function getAllUnprefixed(string $pref = ''): array;
+    
+    /**
      * See if we have a session variable.
      *
      * @param   string          $key        Key to check.

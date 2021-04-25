@@ -22,4 +22,28 @@ use GreenFedora\Arr\ArrInterface;
 
 interface PayloadInterface extends ArrInterface
 {
+    /**
+     * Get the payload status.
+     * 
+     * @return  mixed  
+     */
+    public function getStatus();
+
+    /**
+     * Set the payload status.
+     * 
+     * @param   mixed  $status     Status to set.
+     * @return  void
+     */
+    public function setStatus($status);
+
+    /**
+     * Set some values from an array.
+     * 
+     * @param   array           $source     Source array.
+     * @param   array|null      $defaults   Defaults array.
+     * @param   iterable|null   $keysFrom   Keys to set.
+     * @return  PayloadInterface
+     */
+    public function setFrom(array $source, ?array $defaults = null, ?iterable $keysFrom = null): PayloadInterface;
 }

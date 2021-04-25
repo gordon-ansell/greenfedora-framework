@@ -54,4 +54,10 @@ abstract class AbstractHttpResponder extends AbstractResponder
         parent::__construct($container, $request, $response, $payload);
 	}
 
+	/**
+	 * Dispatcher.
+	 * 
+	 * @return 	HttpResponseInterface
+	 */
+	abstract public function dispatch(): HttpResponseInterface;
 }

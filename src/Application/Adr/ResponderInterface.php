@@ -12,6 +12,8 @@
 declare(strict_types=1);
 namespace GreenFedora\Application\Adr;
 
+use GreenFedora\Application\ResponseInterface;
+
 
 /**
  * The base interface for all responders.
@@ -24,7 +26,7 @@ interface ResponderInterface
     /**
      * Dispatcher.
      *
-     * @return void
+     * @return ResponseInterface
      */
-	public function dispatch();	
+	public function dispatch(): ResponseInterface;	
 }

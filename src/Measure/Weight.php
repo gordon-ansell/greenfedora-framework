@@ -89,4 +89,15 @@ class Weight
     {
         return $this->asUnits('lb');
     }
+
+    /**
+     * Get a field.
+     * 
+     * @param   string  $field  Field to get.
+     * @return  mixed
+     */
+    public function __get($field)
+    {
+        return $this->$field;
+    }
 }

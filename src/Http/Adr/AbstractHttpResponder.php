@@ -58,7 +58,7 @@ abstract class AbstractHttpResponder extends AbstractResponder implements HttpRe
 	/**
 	 * Dispatcher.
 	 * 
-	 * @return 	HttpesponseInterface
+	 * @return 	HttpResponseInterface
 	 */
 	abstract public function dispatch(): HttpResponseInterface;
 }

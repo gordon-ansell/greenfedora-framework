@@ -94,7 +94,7 @@ interface PayloadInterface
      * @param   iterable    $data   Data to set.
      * @return  void
      */
-    public function setData(iterable $data);
+    public function setData($data);
 
     /**
      * Has. Passes on to the data.

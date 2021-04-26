@@ -146,7 +146,7 @@ class Payload implements PayloadInterface
      * @param   iterable    $data   Data to set.
      * @return  void
      */
-    public function setData(iterable $data)
+    public function setData($data)
     {
         $this->data = new Arr($data);
     }

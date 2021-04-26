@@ -72,4 +72,20 @@ abstract class AbstractConsoleCommand extends AbstractAction implements ConsoleC
 		return static::$help;
 	}
 
+	/**
+	 * Do the auto help.
+	 * 
+	 * @param 	array 	$classes 	Classes to process.
+	 * @return 	array
+	 */
+	public function autoHelp(array $classes): array
+	{
+		$ret = [];
+		foreach ($classes as $c) {
+			$tmp = $c::getHelp();
+			$ret[$tmp['name']] = $tmp['description'];
+		}
+		return $ret;
+	}
+
 }

@@ -22,4 +22,11 @@ use GreenFedora\Application\Adr\ActionInterface;
 
 interface ConsoleCommandInterface extends ActionInterface 
 {
+	/**
+	 * Do the auto help.
+	 * 
+	 * @param 	array 	$classes 	Classes to process.
+	 * @return 	array
+	 */
+	public function autoHelp(array $classes): array;
 }

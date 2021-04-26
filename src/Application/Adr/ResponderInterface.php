@@ -24,9 +24,9 @@ use GreenFedora\Application\ResponseInterface;
 interface ResponderInterface
 {
     /**
-     * Dispatcher.
+     * Respond.
      *
      * @return ResponseInterface
      */
-	public function dispatch(): ResponseInterface;	
+	public function respond(): ResponseInterface;	
 }

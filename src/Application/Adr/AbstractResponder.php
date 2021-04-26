@@ -99,5 +99,5 @@ abstract class AbstractResponder implements ContainerAwareInterface
 	 * 
 	 * @return 	ResponseInterface
 	 */
-	abstract public function dispatch(): ResponseInterface;
+	abstract public function respond(): ResponseInterface;
 }

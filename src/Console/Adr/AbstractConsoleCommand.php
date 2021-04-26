@@ -99,7 +99,7 @@ abstract class AbstractConsoleCommand extends AbstractAction implements ConsoleC
 	 * @param 	array 					$classes 	Classes to process.
 	 * @param 	TextBufferInterface 	$tb			Buffer to write to.
 	 * @param 	int 					$pad 		Padding between key and item.
-	 * @return 	array
+	 * @return 	TextBufferInterface
 	 */
 	public function autoHelpPrint(array $classes, TextBufferInterface &$tb, int $pad = 30): TextBufferInterface
 	{

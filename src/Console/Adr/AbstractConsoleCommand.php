@@ -17,6 +17,7 @@ use GreenFedora\Console\ConsoleRequestInterface;
 use GreenFedora\Console\ConsoleResponseInterface;
 use GreenFedora\Console\Adr\ConsoleCommandInterface;
 use GreenFedora\DI\ContainerInterface;
+use GreenFedora\TextBuffer\TextBufferInterface;
 
 /**
  * The base for console actions.
@@ -92,4 +93,28 @@ abstract class AbstractConsoleCommand extends AbstractAction implements ConsoleC
 		return $ret;
 	}
 
+	/**
+	 * Print the auto help.
+	 * 
+	 * @param 	array 					$classes 	Classes to process.
+	 * @param 	TextBufferInterface 	$tb			Buffer to write to.
+	 * @param 	int 					$pad 		Padding between key and item.
+	 * @return 	array
+	 */
+	public function autoHelpPrint(array $classes, TextBufferInterface &$tb, int $pad = 30): TextBufferInterface
+	{
+		foreach($this->autoHelp($classes) as $k => $v) {
+			if (is_array($v)) {
+				$tb->writeln(str_pad($k, $pad) . $v[0]);
+				$tb->blank();
+				foreach($v[1] as $detailk => $detailv) {
+					$tb->writeln(str_pad(' ', 4)  . str_pad($detailk, $pad - 4) . $detailv);
+				}
+				$tb->blank();
+			} else {
+				$tb->writeln(str_pad($k, $pad) . $v);
+			}
+		}
+		return $tb;
+	}
 }

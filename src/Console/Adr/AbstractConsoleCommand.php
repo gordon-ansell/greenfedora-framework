@@ -23,7 +23,7 @@ use GreenFedora\DI\ContainerInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractConsoleAction extends AbstractAction 
+abstract class AbstractConsoleCommand extends AbstractAction 
 {
 	/**
 	 * Input.

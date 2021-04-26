@@ -39,6 +39,15 @@ abstract class AbstractConsoleCommand extends AbstractAction implements ConsoleC
 	protected $response = null;
 
 	/**
+	 * Help.
+	 * @var array
+	 */
+	protected static $help = [
+		'name' => '',
+		'description' => '',
+	];
+
+	/**
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	Dependency injection container.
@@ -51,6 +60,16 @@ abstract class AbstractConsoleCommand extends AbstractAction implements ConsoleC
 		ConsoleResponseInterface $response, array $params = [])
 	{
         parent::__construct($container, $request, $response, $params);
+	}
+
+	/**
+	 * Get the help.
+	 * 
+	 * @return 	array
+	 */
+	public static function getHelp(): array
+	{
+		return static::$help;
 	}
 
 }

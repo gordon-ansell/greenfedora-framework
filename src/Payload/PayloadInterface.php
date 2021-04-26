@@ -30,12 +30,28 @@ interface PayloadInterface extends ArrInterface
     public function getStatus();
 
     /**
+     * Get the payload status info.
+     * 
+     * @return  mixed  
+     */
+    public function getStatusInfo();
+
+    /**
      * Set the payload status.
      * 
-     * @param   mixed  $status     Status to set.
+     * @param   mixed  $status      Status to set.
+     * @param   mixed  $statusInfo  Additional status info.
      * @return  void
      */
-    public function setStatus($status);
+    public function setStatus($status, $statusInfo = null);
+
+    /**
+     * Set the payload status info.
+     * 
+     * @param   mixed  $statusInfo  Additional status info.
+     * @return  void
+     */
+    public function setStatusInfo($statusInfo = null);
 
     /**
      * Set some values from an array.

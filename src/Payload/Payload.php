@@ -30,6 +30,12 @@ class Payload extends Arr implements PayloadInterface
     protected $_payloadStatus = null;
 
     /**
+     * Payload status info.
+     * @var mixed
+     */
+    protected $_payloadStatusInfo = null;
+
+    /**
      * Get the payload status.
      * 
      * @return  mixed  
@@ -40,14 +46,37 @@ class Payload extends Arr implements PayloadInterface
     }
 
     /**
+     * Get the payload status info.
+     * 
+     * @return  mixed  
+     */
+    public function getStatusInfo()
+    {
+        return $this->_payloadStatusInfo;
+    }
+
+    /**
      * Set the payload status.
      * 
-     * @param   mixed  $status     Status to set.
+     * @param   mixed  $status      Status to set.
+     * @param   mixed  $statusInfo  Additional status info.
      * @return  void
      */
-    public function setStatus($status)
+    public function setStatus($status, $statusInfo = null)
     {
         $this->_payloadStatus = $status;
+        $this->_payloadStatusInfo = $statusInfo;
+    }
+
+    /**
+     * Set the payload status info.
+     * 
+     * @param   mixed  $statusInfo  Additional status info.
+     * @return  void
+     */
+    public function setStatusInfo($statusInfo = null)
+    {
+        $this->_payloadStatusInfo = $statusInfo;
     }
 
     /**

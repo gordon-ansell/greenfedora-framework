@@ -22,6 +22,7 @@ use GreenFedora\Logger\Writer\ConsoleLogWriter;
 use GreenFedora\Logger\LoggerAwareTrait;
 use GreenFedora\Logger\LoggerAwareInterface;
 use GreenFedora\Logger\LoggerInterface;
+use GreenFedora\Application\ResponseInterface;
 
 /**
  * A console application.
@@ -133,15 +134,5 @@ abstract class AbstractConsoleApplication extends AbstractApplication implements
 	{
 		return $this->request->getArgs();
 	}	
-
-	/**
-	 * Run.
-	 *
-	 * @return 	void
-	 */
-	protected function run()
-	{
-		$this->response->setContent(0);
-	}
 
 }

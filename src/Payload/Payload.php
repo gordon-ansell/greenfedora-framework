@@ -90,9 +90,13 @@ class Payload implements PayloadInterface
      * @param   string  $form   Form name.
      * @return  bool
      */
-    public function isFormSubmitted(string $name): bool
+    public function isFormSubmitted(?string $name = null): bool
     {
-        return (self::FORM_SUBMITTED == $this->getStatus() and $this->getStatusInfo() == $name);
+        if (is_null($name)) {
+            return (self::FORM_SUBMITTED == $this->getStatus());
+        } else {
+            return (self::FORM_SUBMITTED == $this->getStatus() and $this->getStatusInfo() == $name);
+        }
     }
 
     /**

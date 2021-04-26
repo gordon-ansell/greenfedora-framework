@@ -55,7 +55,7 @@ interface PayloadInterface
      * @param   string  $form   Form name.
      * @return  bool
      */
-    public function isFormSubmitted(string $name): bool;
+    public function isFormSubmitted(?string $name = null): bool;
 
     /**
      * Set the payload status.

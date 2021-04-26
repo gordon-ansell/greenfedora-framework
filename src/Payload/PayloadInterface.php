@@ -23,6 +23,11 @@ use GreenFedora\Arr\ArrInterface;
 interface PayloadInterface extends ArrInterface
 {
     /**
+     * Some default statuses.
+     */
+    const FORM_SUBMITTED = "FORM_SUBMITTED";
+
+    /**
      * Get the payload status.
      * 
      * @return  mixed  
@@ -35,6 +40,14 @@ interface PayloadInterface extends ArrInterface
      * @return  mixed  
      */
     public function getStatusInfo();
+
+    /**
+     * Set the form submitted.
+     * 
+     * @param   string  $form   Form name.
+     * @return  void
+     */
+    public function setFormSubmitted(string $name);
 
     /**
      * Set the payload status.

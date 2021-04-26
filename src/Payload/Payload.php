@@ -56,6 +56,17 @@ class Payload extends Arr implements PayloadInterface
     }
 
     /**
+     * Set the form submitted.
+     * 
+     * @param   string  $form   Form name.
+     * @return  void
+     */
+    public function setFormSubmitted(string $name)
+    {
+        $this->setStatus(self::FORM_SUBMITTED, $name);
+    }
+
+    /**
      * Set the payload status.
      * 
      * @param   mixed  $status      Status to set.

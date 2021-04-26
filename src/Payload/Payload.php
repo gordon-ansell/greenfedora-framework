@@ -67,6 +67,17 @@ class Payload extends Arr implements PayloadInterface
     }
 
     /**
+     * Check if a form submitted.
+     * 
+     * @param   string  $form   Form name.
+     * @return  bool
+     */
+    public function isFormSubmitted(string $name): bool
+    {
+        return (self::FORM_SUBMITTED == $this->getStatus() and $this->getStatusInfo() == $name);
+    }
+
+    /**
      * Set the payload status.
      * 
      * @param   mixed  $status      Status to set.
@@ -77,6 +88,17 @@ class Payload extends Arr implements PayloadInterface
     {
         $this->_payloadStatus = $status;
         $this->_payloadStatusInfo = $statusInfo;
+    }
+
+    /**
+     * Set the payload status to null.
+     * 
+     * @return  void
+     */
+    public function setStatusNull()
+    {
+        $this->_payloadStatus = null;
+        $this->_payloadStatusInfo = null;
     }
 
     /**

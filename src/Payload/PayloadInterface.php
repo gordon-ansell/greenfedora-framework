@@ -50,6 +50,14 @@ interface PayloadInterface extends ArrInterface
     public function setFormSubmitted(string $name);
 
     /**
+     * Check if a form submitted.
+     * 
+     * @param   string  $form   Form name.
+     * @return  bool
+     */
+    public function isFormSubmitted(string $name): bool;
+
+    /**
      * Set the payload status.
      * 
      * @param   mixed  $status      Status to set.
@@ -57,6 +65,13 @@ interface PayloadInterface extends ArrInterface
      * @return  void
      */
     public function setStatus($status, $statusInfo = null);
+
+    /**
+     * Set the payload status to null.
+     * 
+     * @return  void
+     */
+    public function setStatusNull();
 
     /**
      * Set the payload status info.

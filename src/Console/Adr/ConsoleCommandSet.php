@@ -16,6 +16,8 @@ use GreenFedora\DI\ContainerAwareTrait;
 use GreenFedora\DI\ContainerAwareInterface;
 use GreenFedora\DI\ContainerInterface;
 use GreenFedora\Console\Adr\ConsoleCommandSetInterface;
+use GreenFedora\Console\ConsoleRequestInterface;
+use GreenFedora\Console\ConsoleResponseInterface;
 
 /**
  * The base for console actions.
@@ -27,6 +29,18 @@ class ConsoleCommandSet implements ContainerAwareInterface, ConsoleCommandSetInt
 {
     use ContainerAwareTrait;
 
+	/**
+	 * Input.
+	 * @var ConsoleRequestInterface
+	 */
+	protected $request = null;
+
+	/**
+	 * Output.
+	 * @var ConsoleResponseInterface
+	 */
+	protected $response = null;
+
     /**
      * Commands.
      * @var array
@@ -37,12 +51,17 @@ class ConsoleCommandSet implements ContainerAwareInterface, ConsoleCommandSetInt
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	Dependency injection container.
+	 * @param 	ConsoleRequestInterface		$request 	Input.
+	 * @param 	ConsoleResponseInterface	$response 	Output.
 	 * @param 	array		                $commands 	Array of commands.
 	 * @return	void
 	 */
-	public function __construct(ContainerInterface $container, ?array $commands = null) 
+	public function __construct(ContainerInterface $container, ConsoleRequestInterface $request, 
+        ConsoleResponseInterface $response, ?array $commands = null) 
 	{
         $this->container = $container;
+        $this->request = $request;
+        $this->response = $response;
 	}
 
     /**
@@ -55,6 +74,8 @@ class ConsoleCommandSet implements ContainerAwareInterface, ConsoleCommandSetInt
     public function addCommand(string $name, string $class): ConsoleCommandSetInterface
     {
         $this->commands[$name] = $class;
+        $this->getContainer()->setSingletonAndCreate('command_' . $name, $class, 
+            [$this->container, $this->request, $this->response]);
         return $this;
     }
 

@@ -89,6 +89,14 @@ interface PayloadInterface
     public function getData(): ArrInterface;
 
     /**
+     * Set the data.
+     * 
+     * @param   iterable    $data   Data to set.
+     * @return  void
+     */
+    public function setData(iterable $data);
+
+    /**
      * Has. Passes on to the data.
      * 
      * @param   string  $key        Key to check.

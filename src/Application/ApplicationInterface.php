@@ -12,6 +12,8 @@
 declare(strict_types=1);
 namespace GreenFedora\Application;
 
+use GreenFedora\Application\ResponseInterface;
+
 /**
  * Application interface.
  *
@@ -34,8 +36,8 @@ interface ApplicationInterface
 	/**
 	 * The main run call.
 	 *
-	 * @return 	void
+	 * @return 	ResponseInterface
 	 */
-	public function main();
+	public function main(): ResponseInterface;
 
 }

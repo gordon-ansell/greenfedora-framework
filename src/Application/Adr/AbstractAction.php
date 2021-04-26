@@ -96,7 +96,9 @@ abstract class AbstractAction implements ContainerAwareInterface, LoggerAwareInt
 
 	/**
 	 * Dispatcher.
+	 * 
+	 * @return 	ResponseInterface
 	 */
-	abstract public function dispatch();
+	abstract public function dispatch(): ResponseInterface;
 	
 }

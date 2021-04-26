@@ -121,23 +121,26 @@ abstract class AbstractApplication extends Container
 	/**
 	 * Abstract run.
 	 *
-	 * @return 	void
+	 * @return 	ResponseInterface
 	 */
-	abstract protected function run();
+	protected function run(): ResponseInterface
+	{
+		return $this->dispatch();
+	}
 	
 	/**
 	 * Post-run.
 	 *
 	 * @return 	void
 	 */
-	protected function postRun() {}
+	protected function postRun(ResponseInterface $response) {}
 
 	/**
 	 * Dispatch.
 	 *
-	 * @return 	void
+	 * @return 	ResponseInterface
 	 */
-	protected function dispatch()
+	protected function dispatch(): ResponseInterface
 	{
 		try {
 			// Find a match for the route.
@@ -148,10 +151,12 @@ abstract class AbstractApplication extends Container
 			$dispatchable = new $class($this, $this->request, $this->response, $matched[1]);
 
 			// Dispatch the class.
-			$dispatchable->dispatch();
+			$response = $dispatchable->dispatch();
 		} catch (\Exception $e) {
 			$this->response->addException($e);
 		}
+
+		return $response;
 	}
 
 	/**
@@ -159,11 +164,13 @@ abstract class AbstractApplication extends Container
 	 *
 	 * @return 	void
 	 */
-	final public function main()
+	final public function main(): ResponseInterface
 	{
+		$response = null;
 		if ($this->preRun()) {
-			$this->run();
-			$this->postRun();
+			$response = $this->run();
+			$this->postRun($response);
 		}
+		return $response;
 	}				
 }

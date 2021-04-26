@@ -15,6 +15,7 @@ namespace GreenFedora\Console\Adr;
 use GreenFedora\Application\Adr\AbstractAction;
 use GreenFedora\Console\ConsoleRequestInterface;
 use GreenFedora\Console\ConsoleResponseInterface;
+use GreenFedora\Console\Adr\ConsoleCommandInterface;
 use GreenFedora\DI\ContainerInterface;
 
 /**
@@ -23,7 +24,7 @@ use GreenFedora\DI\ContainerInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-abstract class AbstractConsoleCommand extends AbstractAction 
+abstract class AbstractConsoleCommand extends AbstractAction implements ConsoleCommandInterface
 {
 	/**
 	 * Input.
@@ -38,6 +39,15 @@ abstract class AbstractConsoleCommand extends AbstractAction
 	protected $response = null;
 
 	/**
+	 * Help.
+	 * @var array
+	 */
+	protected $help = [
+		'name'			=>	'',
+		'description'	=>	'',
+	];
+
+	/**
 	 * Constructor.
 	 *
 	 * @param 	ContainerInterface			$container	Dependency injection container.
@@ -50,6 +60,40 @@ abstract class AbstractConsoleCommand extends AbstractAction
 		ConsoleResponseInterface $response, array $params = [])
 	{
         parent::__construct($container, $request, $response, $params);
+		$this->init();
 	}
 
+	/**
+	 * Initialise stuff.
+	 * 
+	 * @return void
+	 */
+	protected function init()
+	{
+
+	}
+
+	/**
+	 * Set the help name.
+	 * 
+	 * @param 	string 	$name 	Name to set.
+	 * @return 	ConsoleCommandInterface
+	 */
+	public function setName(string $name): ConsoleCommandInterface
+	{
+		$this->help['name'] = $name;
+		return $this;
+	}
+
+	/**
+	 * Set the help description.
+	 * 
+	 * @param 	string 	$desc 	Description to set.
+	 * @return 	ConsoleCommandInterface
+	 */
+	public function setDescription(string $desc): ConsoleCommandInterface
+	{
+		$this->help['description'] = $desc;
+		return $this;
+	}
 }

@@ -22,19 +22,4 @@ use GreenFedora\Application\Adr\ActionInterface;
 
 interface ConsoleCommandInterface extends ActionInterface 
 {
-	/**
-	 * Set the help name.
-	 * 
-	 * @param 	string 	$name 	Name to set.
-	 * @return 	ConsoleCommandInterface
-	 */
-	public function setName(string $name): ConsoleCommandInterface;
-
-	/**
-	 * Set the help description.
-	 * 
-	 * @param 	string 	$desc 	Description to set.
-	 * @return 	ConsoleCommandInterface
-	 */
-	public function setDescription(string $desc): ConsoleCommandInterface;
 }

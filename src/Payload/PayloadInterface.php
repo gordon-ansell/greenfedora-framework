@@ -20,7 +20,7 @@ use GreenFedora\Arr\ArrInterface;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-interface PayloadInterface extends ArrInterface
+interface PayloadInterface
 {
     /**
      * Some default statuses.
@@ -80,6 +80,39 @@ interface PayloadInterface extends ArrInterface
      * @return  void
      */
     public function setStatusInfo($statusInfo = null);
+
+    /**
+     * Get all the data.
+     * 
+     * @return  ArrInterface
+     */
+    public function getData(): ArrInterface;
+
+    /**
+     * Has. Passes on to the data.
+     * 
+     * @param   string  $key        Key to check.
+     * @return  bool
+     */
+    public function has(string $key): bool;
+
+    /**
+     * Get. Passes on to the data.
+     * 
+     * @param   string  $key        Key to get.
+     * @param   mixed   $default    Default to get.
+     * @return  mixed
+     */
+    public function get(string $key, $default = null);
+
+    /**
+     * Set. Passes on to the data.
+     * 
+     * @param   string  $key        Key to get.
+     * @param   mixed   $value      Value to set.
+     * @return  mixed
+     */
+    public function set(string $key, $value);
 
     /**
      * Set some values from an array.

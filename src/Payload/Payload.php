@@ -14,6 +14,7 @@ namespace GreenFedora\Payload;
 
 use GreenFedora\Payload\PayloadInterface;
 use GreenFedora\Arr\Arr;
+use GreenFedora\Arr\ArrInterface;
 
 /**
  * Payload of data.
@@ -21,19 +22,36 @@ use GreenFedora\Arr\Arr;
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class Payload extends Arr implements PayloadInterface
+class Payload implements PayloadInterface
 {
     /**
      * Payload status.
      * @var mixed
      */
-    protected $_payloadStatus = null;
+    protected $payloadStatus = null;
 
     /**
      * Payload status info.
      * @var mixed
      */
-    protected $_payloadStatusInfo = null;
+    protected $payloadStatusInfo = null;
+
+    /**
+     * Payload data.
+     * @var ArrInterface
+     */
+    protected $data = null;
+
+    /**
+     * Constructor.
+     * 
+     * @param   iterable    $data   Input data.
+     * @return  void
+     */
+    public function __construct(iterable $data = [])
+    {
+        $this->data = new Arr($data);
+    }
 
     /**
      * Get the payload status.
@@ -42,7 +60,7 @@ class Payload extends Arr implements PayloadInterface
      */
     public function getStatus()
     {
-        return $this->_payloadStatus;
+        return $this->payloadStatus;
     }
 
     /**
@@ -52,7 +70,7 @@ class Payload extends Arr implements PayloadInterface
      */
     public function getStatusInfo()
     {
-        return $this->_payloadStatusInfo;
+        return $this->payloadStatusInfo;
     }
 
     /**
@@ -86,8 +104,8 @@ class Payload extends Arr implements PayloadInterface
      */
     public function setStatus($status, $statusInfo = null)
     {
-        $this->_payloadStatus = $status;
-        $this->_payloadStatusInfo = $statusInfo;
+        $this->payloadStatus = $status;
+        $this->payloadStatusInfo = $statusInfo;
     }
 
     /**
@@ -97,8 +115,8 @@ class Payload extends Arr implements PayloadInterface
      */
     public function setStatusNull()
     {
-        $this->_payloadStatus = null;
-        $this->_payloadStatusInfo = null;
+        $this->payloadStatus = null;
+        $this->payloadStatusInfo = null;
     }
 
     /**
@@ -109,7 +127,75 @@ class Payload extends Arr implements PayloadInterface
      */
     public function setStatusInfo($statusInfo = null)
     {
-        $this->_payloadStatusInfo = $statusInfo;
+        $this->payloadStatusInfo = $statusInfo;
+    }
+
+    /**
+     * Get all the data.
+     * 
+     * @return  ArrInterface
+     */
+    public function getData(): ArrInterface
+    {
+        return $this->data;
+    }
+
+    /**
+     * Has. Passes on to the data.
+     * 
+     * @param   string  $key        Key to check.
+     * @return  bool
+     */
+    public function has(string $key): bool
+    {
+        return $this->data->has($key);
+    }
+
+    /**
+     * Get. Passes on to the data.
+     * 
+     * @param   string  $key        Key to get.
+     * @param   mixed   $default    Default to get.
+     * @return  mixed
+     */
+    public function get(string $key, $default = null)
+    {
+        return $this->data->get($key, $default);
+    }
+
+    /**
+     * Set. Passes on to the data.
+     * 
+     * @param   string  $key        Key to get.
+     * @param   mixed   $value      Value to set.
+     * @return  mixed
+     */
+    public function set(string $key, $value)
+    {
+        return $this->data->set($key, $value);
+    }
+
+    /**
+     * Magic getter.
+     * 
+     * @param   string  $key        Key to get.
+     * @return  mixed
+     */
+    public function __get(string $key)
+    {
+        return $this->get($key, null);
+    }
+
+    /**
+     * Magic setter.
+     * 
+     * @param   string  $key        Key to get.
+     * @param   mixed   $value      Value to set.
+     * @return  mixed
+     */
+    public function __set(string $key, $value)
+    {
+        return $this->set($key, $value);
     }
 
     /**
@@ -137,7 +223,7 @@ class Payload extends Arr implements PayloadInterface
             } else if (array_key_exists($key, $defaults)) {
                 $val = $defaults[$key];
             }
-            $this->set($key, $val);
+            $this->data->set($key, $val);
         }
         return $this;
     }

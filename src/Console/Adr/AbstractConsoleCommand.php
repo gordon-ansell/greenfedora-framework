@@ -83,7 +83,11 @@ abstract class AbstractConsoleCommand extends AbstractAction implements ConsoleC
 		$ret = [];
 		foreach ($classes as $c) {
 			$tmp = $c::getHelp();
-			$ret[$tmp['name']] = $tmp['description'];
+			if (array_key_exists('detail', $tmp)) {
+				$ret[$tmp['name']] = [$tmp['description'], $tmp['detail']];
+			} else {
+				$ret[$tmp['name']] = $tmp['description'];
+			}
 		}
 		return $ret;
 	}

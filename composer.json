@@ -15,13 +15,17 @@
         "psr/log": "~1.0",
         "symfony/yaml": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
     "minimum-stability": "dev",
 	"autoload": {
 		"psr-4": {
 			"GreenFedora\\": "src" 
 		},
         "exclude-from-classmap": [
-            "**/Test/"
+            "**/Test/",
+            "**/tests/"
         ]
 	}
 }

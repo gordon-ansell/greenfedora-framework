@@ -16,11 +16,11 @@ use GreenFedora\Uri\Exception\ExceptionInterface;
 
 
 /**
- * Invalid argument.
+ * Runtime.
  *
  * @author Gordon Ansell <contact@gordonansell.com>
  */
 
-class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
+class RuntimeException extends \RuntimeException implements ExceptionInterface
 {
 }
